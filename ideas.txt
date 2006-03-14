@@ -102,7 +102,7 @@ No sirve tal como queda. Las uniones entre los vagones deben ser FERREAS, nunca 
 Hay que pensar otra manera que dependa exclusivamente de los enlaces y la dirección. Nada de posiciones.
 Un Triterator debe poder recorrer un tren sin tener en cuenta nada de posiciones.
 Realmente bastaría con comprobar en cada paso que NO ESTA VOLVIENDO ATRAS. Basta con dejar guardado el paso anterior y punto.
-Intentemoslo.
+Intentémoslo.
 
 5 de Marzo de 2006
 Sobre la potencia de los motores
