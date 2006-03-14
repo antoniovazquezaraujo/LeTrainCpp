@@ -1,0 +1,123 @@
+27 de Febrero de 2006
+
+TODO por orden de prioridad:
+- Movimiento de trenes
+- Diferenciar el finder 
+- Diferenciar el vehículo seleccionado
+- Diferenciar el cruce seleccionado
+- Datos en pantalla sobre el elemento seleccionado
+- Remolque y empuje controlando la masa total
+- Gasto de combustible según carga, distancia y velocidad
+
+- Salvar y cargar la simulación
+- Programar trenes para que hagan tareas automáticamente
+- Que los vagones se puedan cargar y descargar
+- Detención de la simulación
+- Organizar los colores
+- Que los ficheros de guardado sean editables
+- Eliminar la basura railandcross
+- Que se pueda seleccionar también el anterior en las listas
+- Ayuda en pantalla
+- Varias páginas de mapa
+- Crear más tests
+- Pasarlo a plan9
+-------------------------------------------------------------------------------
+
+Motores, impulso y velocidad
+----------------------------
+No existe el número de turnos de espera para moverse de un vehículo.
+Simplemente si el impulso que tiene es suficiente para moverse en este turno entonces se mueve, si no entonces ha de esperar al siguiente turno para que su motor le genere más. Cada vez que se mueve consume la cantidad proporcional a la masa que arrastra.
+Si le sobra impulso lo conserva para después. Así, un objeto empujado a gran velocidad continuará su marcha hasta que gaste todo el impulso que se le ha transferido.
+El impulso acumulado actua como un motor, cuando tiene mayor potencia puede proporcionar empuje suficiente muy rápido y conseguir mover el vehículo a gran velocidad, es decir, en cada turno. Si lleva mucho impulso acumulado, podrá consumirse en cada turno, si es poco, se consumirá más lentamente.
+Un motor tiene dos características: el empuje máximo que es capaz de producir y la velocidad a la que lo está produciendo, es decir, lo acelerado que está.
+
+Enganches y empujes
+-------------------
+Tenemos dos listas principales en el simulador: una de todos los vehículos y otra solo con las locomotoras
+Primero hemos de mover las locomotoras y todo lo que las mismas remolcan o empujan.
+A cada vehículo que movemos en este turno lo dejamos marcado como "servido".
+Luego nos repasamos la lista de todos los vehículos y solo atendemos a los que no están marcados.
+Esto se puede optimizar, pero de momento sirve así.
+Se necesita algo así porque puede haber vagones que vayan solos después de haberlos empujado una locomotora que ha frenado. Esos seguirán hasta que terminen todo su impulso o choquen con algo.
+Un objeto solo se mueve si tiene suficiente impulso para mover su masa, y a su vez, solo se mueve si los objetos que está remolcando se van a mover, así que haremos del siguiente modo:
+La locomotora pregunta cuánta masa total tiene delante, es decir, cuántos vehiculos tiene delante que estén contiguos y cuanto pesan entre todos, o cuanta resistencia oponen al movimiento, en el caso de finales de via. Si la locomotora tiene suficiente energía para superar esto entonces decide que tirará de su remolque. 
+
+Entonces pasamos a la segunda fase: le preguntamos a los objetos remolcados su masa total. Los vagones enganchados se recorren sumando la masa de todos y se contesta a la locomotora. Si todavía la locomotora tiene energía suficiente para mover todo, es decir, los posibles obstáculos y los posibles remolcados, entonces decide que SE MOVERA.
+
+Entonces pasamos a la tercera fase: pasamos el impulso total a la cadena de vagones enganchados y cada uno de ellos consume la parte proporcional a su masa con respecto a la masa total del tren. Hacemos lo mismo con los elementos obstáculos y si hemos calculado bien el empuje restante será positivo o cero.
+
+La cuarta fase consiste en el movimiento decidido: tomamos cada vehículo de los que intervinieron y lo movemos por la vía en la dirección en que vá la locomotora.
+
+Resumen simplificado para un tren sin obstáculos:
+
+1- La locomotora pregunta a sus vagones cuál es la masa total
+2- Si el empuje es suficiente, se lo pasa en cadena para que cada uno consuma su parte proporcional
+3- Si nos sobra empuje nos moveremos. Desde la máquina hasta el último, se mueven una posición por la via
+
+Herramientas necesarias:
+Recorrer la vía. Para eso está el walker. Es un vehículo virtual que usamos para movernos por la vía y manejar los vehículos reales. 
+Necesitamos que las locomotoras reciban impulsos de unos motores.
+
+Sobre los enganches 
+-------------------
+El sistema de enganche que usaremos debe cambiarse ligeramente: vamos a copiar de LEGO. Serán enganches macho y hembra, es decir, el 0 y el 1, de forma que el 0 siempre se enganche con el 1 y al contrario. 
+Podemos imaginar que los vehículos giran libremente en la via, y que siempre elegiremos el enganche que sirva con el que tenemos libre.
+Puede ocurrir que el enganche que necesitamos ya esté enganchado hacia el otro lado. En ese caso cambiamos todos los enganches al revés de como están y punto.
+Cuando se engancha un vehículo A con uno B por el enganche 0 de A el enganche 1 de B queda tambien enganchado al enganche 0 de A, para poder tirar del tren en el otro sentido.
+De este modo tan simple se puede enganchar un tren con una locomotora al principio y otra al final, sin problemas, pues siempre se darán la vuelta los enganches para quedar en el sentido del último que lo haya pedido.
+
+Sobre las direcciones de arrastre
+---------------------------------
+Arrastrar un vehículo consiste en tres pasos:
+	1. Ponerlo en el mismo sentido en la vía que la locomotora
+	2. Aplicarle el impulso proporcional al total del tren
+	3. Si el impulso basta, moverlo, es decir, forward.
+El primer paso tiene cierta complicación, dado que la locomotora puede estar en una zona de la vía que mira hacia el norte y los vagones en otra que mira al este. Para poner a todos en la dirección correcta crearemos un walker que se recorrerá la vía desde la locomotora hasta el último vagón, poniéndoles como dirección la dirección de salida de cada rail visitado invertida por el propio raíl. Tenemos una función que lo hace: r_invertdir(). No invierte la dirección sin más, sino que ofrece la otra salida del raíl. Así, en plena curva no nos sacará fuera, sino que nos dara la dirección contraria a la que llevamos pero dentro de la curva.
+En resumen, el proceso de aplicar la dirección de la locomotora a todo el tren consiste en:
+	-Crear un walker
+	-Ponerlo en el rail de la locomotora
+	-Asignarle la dirección de la misma
+	-Darle la vuelta
+	-Para cada vagón enganchado
+		-Avanzar el walker
+		-Darle la vuelta
+		-Ponerle al vagón la dirección del walker
+		-Volver a poner el walker mirando hacia el fin del tren
+
+Sobre el avance y el retroceso
+------------------------------
+No está claro el sistema de retroceso empleado. Desde el commander simplemente invertimos la dirección del vehículo y seguimos avanzando, ahora en sentido contrario. Pero qué pasa cuando una locomotora con vagones enganchados decide dar marcha atrás? Necesitamos crear el mismo proceso para empujes que para arrastres, con la diferencia de que puede que los vagones no estén enganchados, tienen que moverse igual.
+El problema, cuando no están enganchados es que es el propio walker que va recorriendo las vias el que tiene que obtener el vehículo que hay en cada rail, pues el rail no tiene constancia de ningún vehículo. Para ello, ha de preguntarle a la lista de vehículos, recorriéndola para buscar si hay alguno que esté en esa posición. No es muy eficiente, pero servirá de momento.
+Como esto se hace en el simulador podemos preguntar desde ahí a la lista de vehículos.
+
+Más sobre los enganches
+-----------------------
+No resulta operativo tener enganches macho y hembra. Debido a que tenemos walkers que se recorren la via con total flexibilidad debería ser mejor tener un solo tipo de enganches. 
+Para recorrer un tren desde un extremo basta con coger el enganche al que no estamos unidos, es decir, se puede hacer incluso una función que te de el enganche correcto. Los dos son del mismo tipo, no hay por que conectarse siempre en el 0. Se mira cuál de los dos esta libre y se conecta a ese.
+Para enganchar un vagón, usaremos el walker, que será el que decida en qué sentido quiere el usuario enganchar. Una vez que sabemos el sentido, tomamos el vehículo que tenemos hacia ese lado y lo enganchamos o lo desenganchamos.
+Para recorrer un tren necesitamos una función que dados un vehículo y su enganchado te devuelva el enganchado del enganchado que no es el primero. Simple y rápido.
+Se engancharan en doble sentido, como hasta ahora.
+
+No sirve tal como queda. Las uniones entre los vagones deben ser FERREAS, nunca mejor dicho. No puedo confiar en buscar el elemento que está contiguo a mí porque cuando nos movemos puede que ya no esté, tengo que dirigirme a el sin dudarlo por medio del enlace.
+Hay que pensar otra manera que dependa exclusivamente de los enlaces y la dirección. Nada de posiciones.
+Un Triterator debe poder recorrer un tren sin tener en cuenta nada de posiciones.
+Realmente bastaría con comprobar en cada paso que NO ESTA VOLVIENDO ATRAS. Basta con dejar guardado el paso anterior y punto.
+Intentemoslo.
+
+5 de Marzo de 2006
+Sobre la potencia de los motores
+--------------------------------
+Cuando decimos que aceleramos en una unidad lo que queremos decir es que la potencia que el motor suministra al vehículo en cada turno se incrementa en una unidad. Es decir, que el motor está generando más potencia por turno. El motor tiene una potencia máxima, es decir, que puede generar pongamos de 0 a 10 puntos de potencia en cada turno. Se supone que una locomotora puede tener suficiente potencia como para mover un tren de una docena de vagones a alta velocidad. Si la locomotora va sola, sin carga se movera más rapido aun, asi que ha de haber un maximo. Cuando se aumenta potencia el movimiento la consume, proporcional al peso. Tanto los vagones como la locomotora, se mueven si tienen energia, sea de su motor, o de un empuje o arrastre.
+Los frenos consumen energia como si fueran peso.
+Cuando se choca, simplemente aumenta la masa total a mover, esto es automatico.
+
+Vehiculo:
+	int imp: energía acumulada. El motor la incrementa, el movimiento y los frenos la consumen 
+	int power: potencia que suministra el motor cada turno (de 0 a 100)
+	
+11 de Marzo de 2006
+Sobre los movimientos y las masas
+---------------------------------
+Cuando necesitamos mover un grupo de elementos enganchados, es decir un tren, tenemos que tener en cuenta que solo se moverán todos si el impulso que se ha distribuido entre ellos les ha dado energía suficiente a todos y cada uno de ellos.
+Si esto es así, damos el impulso por consumido y procedemos al movimiento. Nunca, en ningun caso, podemos mover un tren por partes, ya que se rompería, es decir, si la locomotora se mueve es porque todos los vagones se moverán en ese turno indefectiblemente. Si alguno de ellos no se va a mover entonces no puede moverse ninguno.
+Hay que prestar atención a la propia locomotora, pués es uno más del grupo, solamente que recibe un impulso dependiente de su potencia y lo reparte entre sí mismo y los demás.
