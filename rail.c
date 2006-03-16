@@ -126,10 +126,12 @@ void x_setdir(Cross cross, int index){
 void x_nextdir(Cross cross){
 	cross->out++;
 	cross->out %= 3;
+	/*
 	while(cross->outs[cross->out] == NO_DIR){ 
 		cross->out++;
 		cross->out %= 3;
 	}
+	*/
 	x_setdir(cross, cross->out);
 }
 void x_updaterail(Cross cross){

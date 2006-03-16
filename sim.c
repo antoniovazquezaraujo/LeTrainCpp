@@ -137,7 +137,7 @@ int s_decbrakes(Sim s){
 	v_setbrakes(s->vehicle, brakes);
 	return brakes;
 }
-int s_invimp(Sim s){
+int s_reverse(Sim s){
 	v_reverse(s->vehicle);
 	return 0;
 }
@@ -236,12 +236,9 @@ void s_movetrains(Sim sim){
 void s_cycle(Sim s){
 	while(running){
 		s_doactions(s);
-		//s_movevehicles(s);
+		s_movetrains(s);
 		s_draw(s);
 	}
-}
-void s_moveall(Sim s){
-
 }
 void s_doactions(Sim s){
 	int key = g_getkey();
@@ -250,7 +247,6 @@ void s_doactions(Sim s){
 	}
 }
 void s_draw(Sim s){
-	s_movetrains(s);
 	s_clearrails(s);
 	s_drawrails(s);
 	s_drawcrosses(s);
@@ -265,7 +261,7 @@ void s_drawhelp(Sim sim){
 	mvprintw(43,0,"                                                                                                              " ); 
 	switch(sim->commander->mode){
 	case DRIVERS_MODE:	
-		mvprintw(43,0,"j(prev loco) k(next loco) h(inc imp) l(dec imp) b(inc brk) B(dec brk)" ); 
+		mvprintw(43,0,"j(prev loco) k(next loco) space(rev) h(inc imp) l(dec imp) b(inc brk) B(dec brk)" ); 
 		break;
 	case TRAINS_MODE:	
 		mvprintw(43,0,"j(go) space(rev) k(move) 1(link) 0(unlink) .(crosspoint) a(add wagon) A(add loco) x(del)"); 
@@ -287,19 +283,37 @@ void s_drawstatus(Sim sim){
 	if(v == NULL){
 		return;
 	}
+	char aspect = v->aspect;
 	int dir = v->dir;
-	Vehicle l0 = v->links[0];
-	Vehicle l1 = v->links[1]; 
+
+	char links[6];
+	if(v->links[0]){
+		links[0] = v->links[0]->aspect;
+		links[1] = '<';
+	}else{
+		links[0] = ' ';
+		links[1] = ' ';
+	}
+	links[2] = v->aspect;
+	if(v->links[1]){
+		links[3] = '>';
+		links[4] = v->links[1]->aspect;
+	}else{
+		links[3] = ' ';
+		links[4] = ' ';
+	}
+	links[5] = '\0';
+	
 	int imp = v->imp;
 	int power= v->power;
 	int brk = v->brakes;
-	Rail r = v->rail;
+	char railaspect = v->rail->aspect;
 	int row = v->pos.row;
 	int col = v->pos.col;
 
 	mvprintw(39,0,"Actual mode:%s                           ", mode ); 
 	mvprintw(40,0,"                                                                                       "); 
-	mvprintw(40,0,"V:%d dir:%d, lnk0:%d, lnk1:%d, pow: %d imp:%d, brk:%d rail:%d, row:%d, col:%d", v,dir,l0,l1,power, imp,brk, r,row,col); 
+	mvprintw(40,0,"V:%c dir:%d, links: %s, pow: %d imp:%d, brk:%d rail:%c, row:%d, col:%d", aspect,dir,links,power,imp,brk,railaspect,row,col); 
 }
 void s_drawfinder(Sim s){
 	if(s->commander->finder == NULL){

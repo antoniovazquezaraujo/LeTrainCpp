@@ -47,25 +47,6 @@ Sim sim;
     31 \          /  
     32  .--------. 
 */    
-void test_charmap() {
-	/*
-      01234567890123456789
-	 0\ /  \|    |/  \|/
-	 1 +    +    +    + 
-	 2 |    |    |    | 
-	 */
-	Vehicle w = v_new(WAGON);
-	Rail cross = m_rail(sim->railmap,1,1); 
-	Rail out_NW = m_rail(sim->railmap,0,0); 
-	Rail in_S = m_rail(sim->railmap,2,1); 
-	v_gotorail(w, in_S);
-	v_setdir(w, N);
-	v_forward(w);
-	fail_unless(w->rail == cross);
-	v_forward(w);
-	fail_unless(w->rail == out_NW);
-	v_free(w);
-}
 
 void test_rail() {
 	Rail r1= r_new(STOP_RAIL,          1, 1);
@@ -154,11 +135,12 @@ void test_list() {
 	fail_unless(l_get(l, 1) == data[1]); 
 	fail_unless(l_get(l, 0) == data[2]); 
 
-	l_del(l, data[2]);
-	fail_unless(!l_contains(l, data[2]));
 
 	l_del(l, data[1]);
 	fail_unless(!l_contains(l, data[1]));
+
+	l_del(l, data[2]);
+	fail_unless(!l_contains(l, data[2]));
 
 	l_del(l, data[0]);
 	fail_unless(!l_contains(l, data[0]));
@@ -662,7 +644,6 @@ void cleanup (void) {
 	s_free(sim);
 }
 void (*tests[])() = {
-	test_charmap,
  	test_rail,
 	test_list,
 	test_railmap,

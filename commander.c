@@ -29,7 +29,7 @@ modo DRIVERS
 	.          : decelerar
 	b          : incrementar frenos
 	B          : decrementar frenos 
-	r          : reverse motor
+	space      : reverse motor
 
 modo POINTS: 
 	hjkl       : seleccionar cruces en la página actual
@@ -52,7 +52,7 @@ todos
 	d          : modo DRIVERS
 	p          : modo POINTS
 	t          : modo TRAINS
-	Esc        : salir (save y/n) salva la posición de todos los vehíulos
+	Esc        : salir (save y/n) salva la posición de todos los vehículos
 */
 
 void c_key(Commander com, char key){
@@ -120,6 +120,9 @@ void c_key(Commander com, char key){
 				break;
 			case 'B':
 				s_decbrakes(com->sim);
+				break;
+			case ' ':
+				s_reverse(com->sim);
 				break;
 			}
 			break;
@@ -191,14 +194,10 @@ void c_key(Commander com, char key){
 				actual = com->finder->rail->vehicle;
 				if(actual != NULL){
 					com->sim->vehicle = actual;
-					//v_setdir(actual, com->finder->dir);
-					//v_movelinked(actual, com->finder->dir);
-					//v_movepushed(actual, r_dir(com->finder->rail, com->finder->dir));
 					v_distpushed(actual, 1000, 40, com->finder->dir);
 					v_movepushed(actual, com->finder->dir);
 					v_distlinked(actual, 1000, 40, com->finder->dir);
 					v_movelinked(actual, r_invertdir(com->finder->rail, com->finder->dir));
-					//v_forward(actual);
 				}
 				f_forward(com->finder);
 				break;
@@ -232,12 +231,14 @@ void c_key(Commander com, char key){
 				break;
 			case 'a':
 				newvehicle = s_addwagon(com->sim);
-				v_setdir(newvehicle, com->finder->dir);
+				com->sim->vehicle = newvehicle;
+				v_setdir(newvehicle, NO_DIR);
 				v_gotorail(newvehicle, com->finder->rail);
 				break;
 			case 'A':
 				newvehicle= s_addloco(com->sim);
-				v_setdir(newvehicle, com->finder->dir);
+				com->sim->vehicle = newvehicle;
+				v_setdir(newvehicle, NO_DIR);
 				v_gotorail(newvehicle, com->finder->rail);
 				break;
 			case 'x':

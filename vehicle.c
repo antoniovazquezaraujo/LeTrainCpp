@@ -135,7 +135,10 @@ int v_gotorail(Vehicle v, Rail r){
 	}else{
 		inputDir = r_validdir(r);
 	}
+	lg("gotorail",1,"v->dir antes :%d con inputDir: %d",v->dir, inputDir);
 	v->dir = r_dir(r, inputDir);
+	lg("gotorail",1,"v->dir despues:%d",v->dir);
+	assert (v->dir != NO_DIR);
 	v->pos.row = r->pos.row;
 	v->pos.col = r->pos.col;
 	v->rail = r;
@@ -150,24 +153,6 @@ Vehicle v_atdir(Vehicle v, int dir){
 	f_free(f);
 	return found; 
 }
-/*
-
-void v_forwardtrain(Vehicle v){
-	int consum=0;
-	int antidir=r_dir(v->rail, v->dir);
-	int totalmass = v_pushedmass(v, v->dir) + v_linkedmass(v, antidir);
-	if(v->imp >= totalmass){
-		consum += v_distlinked(v, v->imp, totalmass, antidir);
-		consum += v_distpushed(v, v->imp, totalmass, v->dir);
-		if(v_movepushed(v, v->dir)){
-			if(v_movelinked(v, antidir)){
-
-			}
-		}
-	}else{
-	}
-}
-*/
 int v_pushedcanmove(Vehicle v, int dir){
 	int ret=1;
 	Finder finder = f_new(v);
@@ -186,7 +171,7 @@ int v_pushedcanmove(Vehicle v, int dir){
 	f_reverse(finder);
 	f_forward(finder);
 	next = finder->rail->vehicle;
-	while(next != v){ //move all yast to BEFORE v !
+	while(next != NULL && next != v){ //move all yast to BEFORE v !
 		if(! v_canmove(next)){
 			ret = 0;
 			break;
@@ -279,9 +264,7 @@ int v_distlinked(Vehicle v, int imp, int totalmass, int dir){
 	while(t_hasnext(t)){
 		next = t_next(t);
 		cons= (imp * v_mass(next) ) / totalmass;
-			lg("v_distlinked",1,"Antes: %c:%d", next->aspect, next->imp);
 		next->imp += (int)cons;
-			lg("v_distlinked",1,"                                Después %c,%d", next->aspect, next->imp);
 		f_forward(finder);
 		totcons+=cons;
 	}
@@ -289,6 +272,7 @@ int v_distlinked(Vehicle v, int imp, int totalmass, int dir){
 	return totcons;
 }
 int v_movelinked(Vehicle v, int dir){
+	v_orientlinked(v, dir);
 	int ret = 1;
 	Vehicle next = NULL;
 	Triterator t = t_new(v, dir);
@@ -298,13 +282,26 @@ int v_movelinked(Vehicle v, int dir){
 			ret = 0;
 			break;
 		}else{
-			lg("v_movelinked",1,"Antes: %c:%d", next->aspect, next->imp);
 			v_consum(next);
-			lg("v_movelinked",1,"                                Después %c,%d", next->aspect, next->imp);
 		}
 	}
 	t_free(t);
 	return ret;
+}
+void v_orientlinked(Vehicle v, int dir){
+	Vehicle next = NULL;
+	Finder finder = f_new(v);
+	f_reverse(finder);
+	Triterator t = t_new(v, dir);
+	while(t_hasnext(t)){
+		next = t_next(t);
+		f_reverse(finder);
+		v_setdir(next, finder->dir);
+		f_reverse(finder);
+		f_forward(finder);
+	}
+	t_free(t);
+	f_free(finder);
 }
 int v_distpushed(Vehicle v, int imp, int totalmass, int dir){
 	int totcons=0;

@@ -25,7 +25,7 @@
 #define DEF_WAGON_BG 0 
 #define DEF_WAGON_FG 3 
 #define DEF_LOCOMOTIVE_BG 0 
-#define DEF_LOCOMOTIVE_FG 4 
+#define DEF_LOCOMOTIVE_FG 7 
 #define DEF_RAIL_BG 0 
 #define DEF_RAIL_FG 4  
 #define DEF_CROSS_FG 6 
@@ -208,6 +208,7 @@ int        v_linkedmass(Vehicle v, int dir);
 int        v_pushedmass(Vehicle v, int dir);
 int        v_distlinked(Vehicle v, int imp, int totalmass, int dir);
 int        v_movelinked(Vehicle v, int dir);
+void       v_orientlinked(Vehicle v, int dir);
 int        v_distpushed(Vehicle v, int imp, int totalmass, int dir);
 int        v_movepushed(Vehicle v, int dir);
 //Triterator. Train iterator
@@ -264,7 +265,7 @@ void       s_incpower(Sim s);
 void       s_decpower(Sim s);
 int        s_incbrakes(Sim s);
 int        s_decbrakes(Sim s);
-int        s_invimp(Sim s);
+int        s_reverse(Sim s);
 int        s_link(Sim s);
 int        s_unlink(Sim s);
 void       s_del(Sim s); 

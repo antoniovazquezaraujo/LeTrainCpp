@@ -91,26 +91,25 @@ static Linkedlist l_l_add(Linkedlist list, Listdata data){
 	return node;
 }
 static Linkedlist l_l_del(Linkedlist list, Listdata data){
-	Linkedlist deleted = NULL;
+	Linkedlist start = list;
 	if(list->data == data){
-		deleted = list;
-		list = list->next;
-		free(deleted);
-		return list;
+		start = list->next;
+		free(list);
 	}else{
 		while(list != NULL){
 			if(list->next != NULL){
 				if(list->next->data == data){
-					deleted = list->next;
+					Linkedlist deleted = list->next;
 					list->next = list->next->next;
 					free(deleted);
+					break;
 				}else{
 					list = list->next;
 				}
 			}
 		}
 	}
-	return list;
+	return start;
 }
 static int l_l_contains(Linkedlist list, Listdata data){
 	while(list != NULL){

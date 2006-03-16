@@ -22,6 +22,7 @@ static struct railandcross newcross(Charmap charmap, int row, int col);
 static Rail newstop(Charmap charmap, int row, int col);
 static int crossouts (int directions[3][3], int outs[3], int keyDir);
 static void connect(Railmap railmap);
+static void setcrosses(List crosses);
 
 static Charmap newcharmap(void);
 static void freecharmap(Charmap charmap);
@@ -112,10 +113,19 @@ int m_load(Railmap railmap, char * filename){
 		}
 	}
 	connect(railmap);
+	setcrosses(railmap->crosses);
 	freecharmap(charmap);
 	return row;
 }
-
+static void setcrosses(List crosses){
+	Cross next;
+	Iterator i = i_new(crosses);
+	while(i_hasnext(i)){
+		next = (Cross)i_next(i);
+		x_nextdir(next);
+	}
+	i_free(i);
+}
 static int lookaround (Charmap charmap, int row, int col, int directions[3][3]){
 	int fromRow = 0, toRow = 0;
 	int fromCol = 0, toCol = 0;

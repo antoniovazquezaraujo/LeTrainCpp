@@ -14,6 +14,8 @@ Finder f_new(Vehicle v){
 	if(v != NULL){
 		f->rail = v->rail;
 		f->dir = v->dir;
+		f->pos.row= v->pos.row;
+		f->pos.col= v->pos.col;
 	}else{
 		f->rail = NULL;
 		f->dir = NO_DIR;
