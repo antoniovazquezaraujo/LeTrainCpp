@@ -4,8 +4,10 @@
   -------------------------------------
 */
 #include "letrain.h"
+static int serialnumber=0;
 Vehicle v_new(int type){
 	Vehicle v = malloc(sizeof(struct vehicle));
+	v->id = v_newid();
 	v->rail = NULL;
 	v->type= type;
 	v->pos.row=0;
@@ -17,10 +19,7 @@ Vehicle v_new(int type){
 		v->bg = DEF_LOCOMOTIVE_BG;
 		break;
 	case WAGON:	
-		//v->aspect = 'W';
-		v->aspect = 'W';
 		v->aspect =  'a'+ (char)(26.0 * rand()/(RAND_MAX)); 
-		//v->fg = DEF_WAGON_FG;
 		v->fg =  (int)(8.0 * rand()/(RAND_MAX)); 
 		v->bg = DEF_WAGON_BG;
 		break;
@@ -30,12 +29,14 @@ Vehicle v_new(int type){
 	v->imp = 0;
 	v->power = 0;
 	v->brakes = 0;
-	v->reversed = 0;
-	v->mass= 10; // Change this!!!!
+	v->mass= 10; 
 	v->links[0] = NULL;	
 	v->links[1] = NULL;	
 	return v;
-
+}
+int v_newid(){
+	extern int serialnumber;
+	return ++serialnumber;
 }
 void v_free(Vehicle v){
 	free(v);
@@ -135,9 +136,7 @@ int v_gotorail(Vehicle v, Rail r){
 	}else{
 		inputDir = r_validdir(r);
 	}
-	lg("gotorail",1,"v->dir antes :%d con inputDir: %d",v->dir, inputDir);
 	v->dir = r_dir(r, inputDir);
-	lg("gotorail",1,"v->dir despues:%d",v->dir);
 	assert (v->dir != NO_DIR);
 	v->pos.row = r->pos.row;
 	v->pos.col = r->pos.col;

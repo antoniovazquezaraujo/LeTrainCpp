@@ -4,9 +4,6 @@
   -------------------------------------
 */
 #include "letrain.h"
-struct charmap{
-	char data[CHAR_MAP_ROWS][CHAR_MAP_COLS];
-};
 
 
 // TODO
@@ -24,14 +21,23 @@ static int crossouts (int directions[3][3], int outs[3], int keyDir);
 static void connect(Railmap railmap);
 static void setcrosses(List crosses);
 
-static Charmap newcharmap(void);
-static void freecharmap(Charmap charmap);
-static char charmapdata(Charmap charmap, int row, int col);
 /*
 static void setcharmapdata(Charmap charmap, int row, int col, char c);
 */
-static int loadcharmap(Charmap charmap, char * fileName);
 
+Railmap m_new(Charmap charmap){
+	int n, m;
+	Railmap railmap = malloc(sizeof(struct railmap));
+	for(n = 0; n<RAIL_MAP_ROWS; n++){
+		for(m = 0; m<RAIL_MAP_COLS; m++){
+			railmap->rails[n][m] = NULL;
+		}
+	}
+	railmap->crosses = l_new();
+	m_load(railmap, charmap);
+	return railmap;
+}
+/*
 Railmap m_new(){
 	int n, m;
 	Railmap railmap = malloc(sizeof(struct railmap));
@@ -43,6 +49,7 @@ Railmap m_new(){
 	railmap->crosses = l_new();
 	return railmap;
 }
+*/
 void m_free(Railmap railmap){
 	int n, m;
 	for(n = 0; n<RAIL_MAP_ROWS; n++){
@@ -69,6 +76,52 @@ void m_addcross(Railmap railmap, Cross cross){
 List m_crosslist(Railmap railmap){
 	return railmap->crosses;
 }
+int m_load(Railmap railmap, Charmap charmap){
+
+	struct railandcross rp;
+	Rail rail = NULL;
+	int row=0, col=0;
+	char c;
+	for(row = 0; row < RAIL_MAP_ROWS; row++){
+		for(col = 0; col < RAIL_MAP_COLS; col++){
+			c = h_char(charmap, row,col);
+			switch(c){
+			case '|':	                         
+				rail = r_new( VERTICAL_RAIL, row, col);
+				break;                           
+			case '-':	                         
+				rail = r_new ( HORIZONTAL_RAIL, row, col);
+				break;                           
+			case '\\':	                         
+				rail = r_new ( DOWN_DIAGONAL_RAIL, row, col);
+				break;                           
+			case '/':	                         
+				rail = r_new ( UP_DIAGONAL_RAIL, row, col);
+				break;
+			case ':':	
+				rail = newstop( charmap, row, col);
+				break;                           
+			case '.':	
+				rail = newcurve( charmap, row, col);
+				break;
+			case '+':
+				rp = newcross(charmap, row, col);
+				rail = rp.rail;
+				m_addcross(railmap, rp.cross);
+				break;
+			default:
+				rail = NULL;
+			}
+			if(rail != NULL){
+				m_setrail(railmap, row, col, rail);
+			}
+		}
+	}
+	connect(railmap);
+	setcrosses(railmap->crosses);
+	return row;
+}
+/*
 int m_load(Railmap railmap, char * filename){
 	Charmap charmap = newcharmap();
 	loadcharmap(charmap, filename);
@@ -117,6 +170,7 @@ int m_load(Railmap railmap, char * filename){
 	freecharmap(charmap);
 	return row;
 }
+*/
 static void setcrosses(List crosses){
 	Cross next;
 	Iterator i = i_new(crosses);
@@ -171,7 +225,7 @@ static int lookaround (Charmap charmap, int row, int col, int directions[3][3]){
 	}
 	for(r = fromRow; r <=toRow; r++){
 		for(c = fromCol; c <= toCol; c++){
-			if(charmapdata(charmap, row+r, col+c) == railChars[1+r][1+c] ){
+			if(h_char(charmap,row+r,col+c) == railChars[1+r][1+c] ){
 				directions[1+r][1+c] = posibleDirections[1+r][1+c];
 				numFoundDirections++;
 			}
@@ -387,39 +441,8 @@ static void connect(Railmap railmap){
 	}
 }
 
-Charmap newcharmap(){
-	int n, m;
-	Charmap charmap = malloc(sizeof(struct charmap));
-	for(n = 0; n<CHAR_MAP_ROWS; n++){
-		for(m = 0; m<CHAR_MAP_COLS; m++){
-			charmap->data[n][m] = '\0';
-		}
-	}
-	return charmap;
-}
-void freecharmap(Charmap charmap){
-	free(charmap);
-}
-char charmapdata(Charmap charmap, int row, int col){
-	return charmap->data[row][col];
-}
 /*
 void setcharmapdata(Charmap charmap, int row, int col, char c){
 	charmap->data[row][col] = c;
 }
 */
-int loadcharmap(Charmap charmap, char * fileName){ 
-	int numRow= 0; 
-	int numCol= 0; 
-	char *line = malloc(CHAR_MAP_COLS); 
-	FILE *fp = fopen(fileName,"r"); 
-	assert( fp != NULL);
-	while(fgets(line, CHAR_MAP_COLS, fp) != NULL){
-		for(numCol = 0; line[numCol] != '\n'; numCol++){
-			charmap->data[numRow][numCol] = line[numCol];
-		}
-		numRow++;
-	}
-	free(line);
-	return numRow;
-}

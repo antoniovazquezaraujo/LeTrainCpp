@@ -1,6 +1,6 @@
 CC= gcc
 CFLAGS= -c -g3 -Wall
-OBJS= commander.o sim.o vehicle.o graphics.o list.o rail.o railmap.o finder.o logging.o 
+OBJS= commander.o sim.o vehicle.o graphics.o list.o rail.o railmap.o finder.o logging.o persist.o charmap.o
 
 all:test letrain 
 

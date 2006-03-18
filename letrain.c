@@ -30,14 +30,23 @@
 #include "graphics.h"
 #include "logging.h"
 int main (void) {
+	FILE *mapfile; 
+	FILE *gamefile; 
 	startlog("letrain.log");
 	g_init();
 	Sim sim = s_new();
-	s_loadmap(sim,"groundmap.txt");
-	s_loadgame(sim,"game1.txt");
+	mapfile = fopen("groundmap.txt","r"); 
+	loadmap(sim, mapfile);
+	gamefile = fopen("game1.txt","r"); 
+	loadgame(sim,gamefile);
+	fclose(gamefile);
+	s_setup(sim);
 	s_start(sim);
-	g_reset();
+	gamefile = fopen("game1.txt","w"); 
+	savegame(sim, gamefile);
+	fclose(gamefile);
 	s_free(sim);
+	g_reset();
 	stoplog();
 	return 0;
 }

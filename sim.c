@@ -10,7 +10,7 @@
 static int running = 0;
 Sim s_new(){
 	Sim s = malloc(sizeof(struct sim));
-	s->railmap = m_new();
+	s->railmap = NULL;
 	s->vehicle=NULL;
 	s->cross = NULL;
 	s->rail = NULL;
@@ -21,8 +21,7 @@ Sim s_new(){
 	s->i_crosses = NULL;
 	s->maprow = 0;
 	s->mapcol=0;
-	s->commander = c_new();
-	c_setsim(s->commander, s);
+	s->commander = c_new();;
 	return s;
 }
 void s_free(Sim s){
@@ -44,61 +43,10 @@ void s_free(Sim s){
 	m_free(s->railmap);
 	free(s);
 }
-int s_loadmap(Sim s, char * filename){
-	int n = m_load(s->railmap, filename);
-	s->i_crosses = i_new(s->railmap->crosses);
-	return n;
-}
-int s_loadgame(Sim s, char * filename){
-	/*
-
-	Rail ra=NULL;
-	struct point p = {6,2};
-	assert(p.row == 6 && p.col == 2);
-	s_addwagon(s);
-	s_addwagon(s);
-	s_addloco(s);
-	s_addloco(s);
-	Vehicle next = s_selvehicle(s, 0);
-	assert(next != NULL);
-	v_setdir(next, N);
-	ra = m_rail(s->railmap, p.row, p.col); 
-	assert(ra != NULL);
-	v_gotorail(next, ra);
-
-	p.row++;
-	assert(p.row == 7 && p.col == 2);
-	next = s_selvehicle(s, 1);
-	assert(next != NULL);
-	v_setdir(next, N);
-	ra = m_rail(s->railmap, p.row, p.col); 
-	assert (ra != NULL);
-	v_gotorail(next, ra);
-
-	p.row++;
-	assert(p.row == 8 && p.col == 2);
-	next = s_selvehicle(s, 2);
-	assert(next != NULL);
-	v_setdir(next, N);
-	ra = m_rail(s->railmap, p.row, p.col); 
-	assert(ra != NULL);
-	v_gotorail(next, ra);
-
-	p.row++;
-	assert(p.row == 9 && p.col == 2);
-	next = s_selvehicle(s, 3);
-	assert(next != NULL);
-	v_setdir(next, N);
-	ra = m_rail(s->railmap, p.row, p.col); 
-	assert(ra != NULL);
-	v_gotorail(next, ra);
-	*/
-
-	s_nextcross(s);
-
-	s_selmapcol(s, 0);
-	s_selmaprow(s, 0);
-	return 0;
+void s_setup(Sim s){
+	s->i_locomotives = i_new(s->locomotives);
+	s->i_vehicles = i_new(s->vehicles);
+	c_setsim(s->commander, s);
 }
 int s_save(Sim s){
 	return 0;
@@ -109,6 +57,44 @@ void s_start(Sim s){
 }
 void s_stop(Sim s){
 	running = 0;
+}
+Vehicle s_vehiclebyid(Sim s, int id){
+	Vehicle next = NULL;
+	Vehicle ret = NULL;
+	Iterator i = i_new(s->vehicles);
+	while(i_hasnext(i)){
+		next = i_next(i);
+		if(next->id == id){
+			ret = next;
+			break;
+		}
+	}
+	i_free(i);
+	return ret;
+}
+void s_linkvehicles(Sim s){
+	Vehicle next = NULL;
+
+	//provisional
+	if(s->vehicles == NULL)return;
+
+	Iterator i = i_new(s->vehicles);
+	while(i_hasnext(i)){
+		next = i_next(i);
+		if(next->link0id > 0){
+			next->links[0] = s_vehiclebyid(s, next->link0id);
+		}else {
+			next->links[0] = NULL;
+		}
+		if(next->link1id > 0){
+			next->links[1] = s_vehiclebyid(s, next->link1id);
+		}else {
+			next->links[1] = NULL;
+		}
+
+	}
+	i_free(i);
+
 }
 Vehicle s_selvehicle(Sim s, int vehicleIndex){
 	s->vehicle = l_get(s->vehicles, vehicleIndex);
@@ -145,6 +131,14 @@ void s_del(Sim s){
 	l_del(s->vehicles, s->vehicle);
 	//Seleccionar el siguiente aqui
 	return ;
+} 
+void s_addvehicle(Sim s, Vehicle v){
+	l_add(s->vehicles, v);
+	if(v->type == LOCOMOTIVE){
+		l_add(s->locomotives, v);
+	}
+	v->rail = s->railmap->rails[v->pos.row][v->pos.col];
+	v->rail->vehicle = v;
 } 
 Vehicle s_addloco(Sim s){
 	Vehicle v = v_new(LOCOMOTIVE);

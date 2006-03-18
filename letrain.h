@@ -130,6 +130,17 @@ Rail       x_rail(Cross cp);
 int        d_invert(int dir);
 
 /*
+ Charmap
+ Plano en ASCII 
+*/
+struct charmap{
+	char data[CHAR_MAP_ROWS][CHAR_MAP_COLS];
+};
+Charmap h_new(void);
+char h_char(Charmap map, int row, int col); 
+void h_setchar(Charmap map, int row, int col, char c); 
+
+/*
  Railmap
  Plano x, y de railes
 */
@@ -137,13 +148,13 @@ struct railmap{
 	Rail rails[RAIL_MAP_ROWS][RAIL_MAP_COLS];
 	List crosses;
 };
-Railmap    m_new();
+Railmap    m_new(Charmap charmap);
 void       m_free(Railmap rm);
 Rail       m_rail(Railmap rm, int row, int col);
 void       m_setrail(Railmap rm, int row, int col, Rail r);
 void       m_addcross(Railmap rm, Cross cp);
 List       m_crosslist(Railmap rm);
-int        m_load(Railmap rm, char * filename);
+int        m_load(Railmap railmap, Charmap charmap);
 /*
  Finder 
  Cursor to select rails and vehicles 
@@ -167,6 +178,7 @@ void       f_reverse(Finder f);
  Objeto que viaja a una velocidad con un impulso, frenos, etc.
 */
 struct vehicle{
+	int id;
 	int type;
 	int dir;
 	Rail rail;
@@ -177,11 +189,13 @@ struct vehicle{
 	int imp;
 	int power;
 	int brakes;
-	int reversed;
 	int mass;
 	Vehicle links[2];
+	int link0id;
+	int link1id;
 };
 Vehicle    v_new(int type);
+int        v_newid();
 void       v_free(Vehicle v);
 Point      v_pos(Vehicle v);
 void       v_setpos(Vehicle v, Point pos);
@@ -251,12 +265,15 @@ struct sim{
 	Iterator i_crosses;
 };
 Sim        s_new();
+void       s_setup(Sim s);
 void       s_free(Sim s);
 int        s_loadmap(Sim s, char * filaname);
 int        s_loadgame(Sim s, char * filaname);
 int        s_save(Sim s);
 void       s_start(Sim s);
 void       s_stop(Sim s);
+Vehicle    s_vehiclebyid(Sim s, int id);
+void       s_linkvehicles(Sim s);
 Vehicle    s_selvehicle(Sim s, int vehicleindex);
 Vehicle    s_vehicle(Sim s); //selected vehicle
 
@@ -271,6 +288,7 @@ int        s_unlink(Sim s);
 void       s_del(Sim s); 
 
 // adding vehicles
+void       s_addvehicle(Sim s, Vehicle v);
 Vehicle    s_addloco(Sim s);
 Vehicle    s_addwagon(Sim s);
 
@@ -307,3 +325,10 @@ void       s_drawvehicles(Sim s);
 void       s_drawrails(Sim s);
 void       s_drawcrosses(Sim s);
 void       s_clearrails(Sim s);
+/*
+ Persist 
+ Persistence manager 
+*/
+int loadmap(Sim s, FILE * mapfile); 
+void loadgame(Sim s, FILE *gamefile);	
+void savegame(Sim s, FILE *gamefile);
