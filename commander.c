@@ -65,26 +65,26 @@ void c_key(Commander com, char key){
 	switch(key){
 	case 'H':
 		col = s_mapcol(com->sim);
-		if(col > 0){
-			s_selmapcol(com->sim, --col);
+		if(col >=com->sim->mapcols/3){
+			s_selmapcol(com->sim, col - com->sim->mapcols/3);
 		}
 		break;
 	case 'J':
 		row = s_maprow(com->sim);
-		if(row < MAX_PAGE_ROWS){
-			s_selmaprow(com->sim,++row);
+		if(row <= com->sim->maprows){
+			s_selmaprow(com->sim,row+ com->sim->maprows/3);
 		}
 		break;
 	case 'K':
 		row = s_maprow(com->sim);
-		if(row > 0){
-			s_selmaprow(com->sim,--row);
+		if(row >= com->sim->maprows/3){
+			s_selmaprow(com->sim,row - com->sim->maprows/3);
 		}
 		break;
 	case 'L':
 		col = s_mapcol(com->sim);
-		if(col < MAX_PAGE_COLS){
-			s_selmapcol(com->sim, ++col);
+		if(col <= com->sim->mapcols){
+			s_selmapcol(com->sim, col + com->sim->mapcols/3);
 		}
 		break;
 	case 'd':

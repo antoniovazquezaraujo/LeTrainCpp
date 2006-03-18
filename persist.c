@@ -33,9 +33,14 @@ int loadmap(Sim s, FILE * mapfile){
 	Charmap charmap = h_new();
 	int numRow= 0; 
 	int numCol= 0; 
+	int maxcols = 0;
 	char *line = malloc(CHAR_MAP_COLS); 
 	assert( mapfile!= NULL);
 	while(fgets(line, CHAR_MAP_COLS, mapfile) != NULL){
+		maxcols = strlen(line);
+		if(numCol > maxcols) {
+			maxcols = numCol;
+		}
 		for(numCol = 0; line[numCol] != '\n'; numCol++){
 			h_setchar(charmap,numRow,numCol, line[numCol]);
 		}
@@ -45,6 +50,8 @@ int loadmap(Sim s, FILE * mapfile){
 	s->railmap = m_new(charmap);
 	free(charmap);
 	s->i_crosses = i_new(s->railmap->crosses);
+	s->maprows = numRow;
+	s->mapcols=  maxcols;
 	return numRow;
 }
 void loadgame(Sim s, FILE * gamefile){	

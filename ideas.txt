@@ -121,3 +121,73 @@ Sobre los movimientos y las masas
 Cuando necesitamos mover un grupo de elementos enganchados, es decir un tren, tenemos que tener en cuenta que solo se moverán todos si el impulso que se ha distribuido entre ellos les ha dado energía suficiente a todos y cada uno de ellos.
 Si esto es así, damos el impulso por consumido y procedemos al movimiento. Nunca, en ningun caso, podemos mover un tren por partes, ya que se rompería, es decir, si la locomotora se mueve es porque todos los vagones se moverán en ese turno indefectiblemente. Si alguno de ellos no se va a mover entonces no puede moverse ninguno.
 Hay que prestar atención a la propia locomotora, pués es uno más del grupo, solamente que recibe un impulso dependiente de su potencia y lo reparte entre sí mismo y los demás.
+
+18 de Marzo de 2006.
+Sobre el interfaz gráfico 
+----------------------------------
+Indicador de dirección de un vehiculo:
+
+            /  \
+           x    y   m    g-
+                     \
+
+Muestra el aspecto del vehículo y a la vez su dirección.   
+
+Indicador de enganches de un vehículo:
+	[a<b>c] [a<b ] [ b ] [ b>c]
+Nos estamos guiando por el aspecto de los vehículos, pero podríamos crear un tren con todos los vagones iguales, que solo se diferencian por su id. Quizá mejor mostrar los enganches por id, o de ambas formas:
+	[3<5>14] [4<3 ] [ 8 ] [ 42>29]
+
+Indicador de potencia de una locomotora:
+=10%
+==========100%
+
+Indicador de frenos:
+=10%
+==========100%
+
+Datos que se necesitan saber de un vehículo:
+	id
+	aspecto
+	dirección 
+	enganches
+	impulso
+	power si es una locomotora
+	frenos
+	posicion
+	peso
+	carga que arrastra si es una locomotora
+	carga que empuja si es una locomotora
+	velocidad ???
+
+Una forma simple es crear dos ventanas, una para el juego y otra para los datos. Puede estar a la derecha, en vertical, por ejemplo:
+
+.----------------------------------------------.--------------------.
+|                                              |       \ | /        |
+|                                              | j  5< -022- >25    |
+|    .-------------------.                     |       / | \        |
+|   /                     \                    |--------------------|
+|  .                       \                   |Pow  | =====50%     |
+|  |                        \                  |Brk  | ==20%        |
+|  |                         .                 |Imp  | 430          |
+|  |                         |                 |Speed| 70           |
+|  |            letrain      |                 |Pos  | 23,4         |
+|  |                         |                 |Mass | 100          |
+|  |                         |                 |Push | 230          |
+|  |                         |                 |Pull | 40           |
+|  .                         .                 |--------------------|
+|   \                       /                  |MODE |  Driver      |
+|    .-----Labcdef---------.                   |--------------------|  
+|                                              |p    | Points mode  |
+|                                              |t    | Trains mode  |
+|                                              |d    | Driver mode  |
+|                                              |--------------------|
+|                                              |h    | Inc impulse  |
+|                                              |l    | Dec impulse  |
+|                                              |j    | Next loco    |
+|                                              |k    | Prev loco    |
+|                                              |...  |              |
+|                                              |     |              |
+.----------------------------------------------.--------------------.
+
+Necesitamos hacer mapas de varias páginas.

@@ -4,6 +4,14 @@
   -------------------------------------
 */
 #include "graphics.h"
+
+static struct visor{
+	int row;
+	int col;
+	int rows;
+	int cols;
+}visor;
+
 void g_init(){
 	int n=0, m=0;
 	(void) initscr();      /* initialize the curses library */
@@ -20,19 +28,6 @@ void g_init(){
 			}
 		}
 	}
-	// Separar esto de aqui.
-	/* 
-	for(n = 0; n<MAX_COLS; n++){
-		mvaddch(START_ROW-1,n+START_COL,'-');
-	}
-	for(n = 0; n<MAX_COLS; n++){
-		mvaddch(START_ROW+MAX_ROWS,n+START_COL,'-');
-	}
-	for(m = 0;m<MAX_ROWS; m++){
-		mvaddch(START_ROW+m,START_COL-1,'|');
-		mvaddch(START_ROW+m,START_COL+ MAX_COLS,'|');
-	}
-	*/
 }
 void g_reset(){
     endwin();
@@ -53,4 +48,42 @@ void g_putc(int row, int col, char c, int fgColor, int bgColor){
 }
 void g_repaint(){
 	refresh();
+}
+void g_vputc(int row, int col, char c, int fgColor, int bgColor){
+	int vrow, vcol;
+	vrow = row - visor.row;
+	vcol = col - visor.col;
+	if(vrow >= 0 && vrow < visor.rows){
+		if(vcol >= 0 && vcol < visor.cols){
+			g_putc(vrow, vcol, c, fgColor, bgColor);
+		}
+	}
+}
+void g_vset(int row, int col, int rows, int cols){
+	visor.row = row;
+	visor.col = col;
+	visor.rows = rows;
+	visor.cols = cols;
+	g_repaint();
+}
+void g_drawstatus(){
+
+}
+void g_drawhelp(){
+
+}
+void g_drawfinder(int row, int col, char aspect, int bg, int fg){
+	g_vputc(row, col, aspect,fg,bg); 
+}
+void g_drawvehicle(int row, int col, char aspect, int bg, int fg, int selected){
+	g_vputc(row, col, aspect,selected?bg:fg, selected?fg:bg); 
+}
+void g_drawcross(int row, int col, char aspect, int fg, int bg, int selected){
+	g_vputc(row, col, aspect,selected?bg:fg, selected?fg:bg); 
+}
+void g_drawrail(int row, int col, char aspect, int fg, int bg){
+	g_vputc(row, col, aspect, fg, bg); 
+}
+void g_clearrail(int row, int col, char aspect, int fg, int bg){
+	g_vputc(row, col, ' ', fg, bg); 
 }

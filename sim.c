@@ -4,10 +4,10 @@
   -------------------------------------
 */
 
-
 #include "letrain.h"
 #include "graphics.h"
 static int running = 0;
+static int visormoved = 0;
 Sim s_new(){
 	Sim s = malloc(sizeof(struct sim));
 	s->railmap = NULL;
@@ -21,6 +21,8 @@ Sim s_new(){
 	s->i_crosses = NULL;
 	s->maprow = 0;
 	s->mapcol=0;
+	s->maprows = LINES;
+	s->mapcols=  COLS;
 	s->commander = c_new();;
 	return s;
 }
@@ -170,14 +172,23 @@ Rail s_rail(Sim s){
 void s_selrail(Sim s, Rail r){
 	return;
 }
+void s_updatevisor(Sim s){
+	if(visormoved){
+		g_vset(s->maprow, s->mapcol, s->maprows, s->mapcols);
+		visormoved = 0;
+	}
+}
+
 void s_selmaprow(Sim s, int row){
 	s->maprow = row;
+	visormoved=1;	
 }
 int s_maprow(Sim s){
 	return s->maprow;
 }
 void s_selmapcol(Sim s, int col){
 	s->mapcol = col;
+	visormoved=1;	
 }
 int s_mapcol(Sim s){
 	return s->mapcol;
@@ -242,6 +253,7 @@ void s_doactions(Sim s){
 }
 void s_draw(Sim s){
 	s_clearrails(s);
+	s_updatevisor(s);
 	s_drawrails(s);
 	s_drawcrosses(s);
 	s_drawvehicles(s);
@@ -251,6 +263,8 @@ void s_draw(Sim s){
 	g_repaint();
 }
 void s_drawhelp(Sim sim){
+	g_drawhelp();
+	/*
 	mvprintw(42,0,"[d:DRIVERS] [p:CROSSPOINTS] [t:TRAINS] [q:QUIT]" ); 
 	mvprintw(43,0,"                                                                                                              " ); 
 	switch(sim->commander->mode){
@@ -264,9 +278,12 @@ void s_drawhelp(Sim sim){
 		mvprintw(43,0,"j(prev cross) k(next_cross) .(change direction)"); 
 		break;
 	}
+	*/
 
 }
 void s_drawstatus(Sim sim){
+	g_drawstatus(sim->vehicle);
+	/*
 	char * modes[] = {
 		"DRIVERS", 
 		"CROSSPOINTS",
@@ -308,6 +325,7 @@ void s_drawstatus(Sim sim){
 	mvprintw(39,0,"Actual mode:%s                           ", mode ); 
 	mvprintw(40,0,"                                                                                       "); 
 	mvprintw(40,0,"V:%c dir:%d, links: %s, pow: %d imp:%d, brk:%d rail:%c, row:%d, col:%d", aspect,dir,links,power,imp,brk,railaspect,row,col); 
+	*/
 }
 void s_drawfinder(Sim s){
 	if(s->commander->finder == NULL){
@@ -318,44 +336,38 @@ void s_drawfinder(Sim s){
 	}
 	Rail r = s->commander->finder->rail;
 	if(r->vehicle != NULL){
-		g_putc(
-			(r->vehicle->pos.row)+START_ROW, 
-			(r->vehicle->pos.col)+START_COL, 
+		g_drawfinder(
+			r->pos.row, 
+			r->pos.col, 
 			r->vehicle->aspect,
-			DEF_FINDER_FG,
-			DEF_FINDER_BG	
-		);
+			r->vehicle->fg,
+			r->vehicle->bg);
 	}else{
-		g_putc(
-			(r->pos.row)+START_ROW, 
-			(r->pos.col)+START_COL, 
+		g_drawfinder(
+			r->pos.row, 
+			r->pos.col, 
 			r->aspect,
 			DEF_FINDER_FG,
-			DEF_FINDER_BG	
-		);
+			DEF_FINDER_BG);
 	}
 }
 void s_drawvehicles(Sim s){
+	int selected;
 	Iterator i = i_new(s->vehicles);
 	while(i_hasnext(i)){
 		Vehicle next = (Vehicle)i_next(i);
 		if(next == s_vehicle(s)){
-			g_putc(
-				(next->pos.row)+START_ROW, 
-				(next->pos.col)+START_COL, 
-				next->aspect,
-				next->bg,
-				next->fg
-			);
-		}else{
-			g_putc(
-				(next->pos.row)+START_ROW, 
-				(next->pos.col)+START_COL, 
-				next->aspect,
-				next->fg,
-				next->bg
-			);
+			selected = 1;
+		} else{
+			selected = 0;
 		}
+		g_drawvehicle(
+			next->pos.row, 
+			next->pos.col, 
+			next->aspect,
+			next->bg,
+			next->fg,
+			selected);
 	}
 	assert(i != NULL);
 	i_free(i);
@@ -368,18 +380,18 @@ void s_drawrails(Sim s){
 		for(m = 0; m<RAIL_MAP_COLS; m++){
 			r = s->railmap->rails[n][m];
 			if(r != NULL){
-				g_putc(
-					(r->pos.row)+START_ROW, 
-					(r->pos.col)+START_COL, 
+				g_drawrail(
+					r->pos.row, 
+					r->pos.col, 
 					r->aspect,
 					DEF_RAIL_FG,
-					DEF_RAIL_BG 
-				);
+					DEF_RAIL_BG);	
 			}
 		}
 	}
 }
 void s_drawcrosses(Sim s){
+	int selected;
 	Rail r = NULL;
 	Cross next = NULL;
 	Iterator i = i_new(s->railmap->crosses);
@@ -387,22 +399,17 @@ void s_drawcrosses(Sim s){
 		next = (Cross)i_next(i);
 		r = next->rail;
 		if(next == s->cross){
-			g_putc(
-				(r->pos.row)+START_ROW, 
-				(r->pos.col)+START_COL, 
-				r->aspect,
-				DEF_CROSS_BG,
-				DEF_CROSS_FG 
-			);
-		}else{
-			g_putc(
-				(r->pos.row)+START_ROW, 
-				(r->pos.col)+START_COL, 
-				r->aspect,
-				DEF_CROSS_FG,
-				DEF_CROSS_BG 
-			);
+			selected = 1;
+		} else{
+			selected = 0;
 		}
+		g_drawcross(
+			next->rail->pos.row, 
+			next->rail->pos.col, 
+			next->rail->aspect,
+			DEF_CROSS_FG,
+			DEF_CROSS_BG,
+			selected);
 	}
 	i_free(i);
 }
@@ -415,13 +422,12 @@ void s_clearrails(Sim s){
 		for(m = 0; m<RAIL_MAP_COLS; m++){
 			r = s->railmap->rails[n][m];
 			if(r != NULL){
-				g_putc(
-					(r->pos.row)+START_ROW, 
-					(r->pos.col)+START_COL, 
-					' ',
-					DEF_RAIL_BG,
-					DEF_RAIL_FG
-				);
+				g_clearrail(
+					r->pos.row, 
+					r->pos.col, 
+					r->aspect, 
+					DEF_RAIL_FG,
+					DEF_RAIL_BG);
 			}
 		}
 	}

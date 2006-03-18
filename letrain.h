@@ -11,16 +11,14 @@
 #include "list.h"
 #include "logging.h"
 
-#define CHAR_MAP_ROWS 100 
-#define CHAR_MAP_COLS 100 
+#define CHAR_MAP_ROWS 500 
+#define CHAR_MAP_COLS 500 
 #define MAX_PAGE_ROWS 40
 #define MAX_PAGE_COLS 40
-#define MAX_ROWS 80
-#define MAX_COLS 80
 #define START_ROW 10
 #define START_COL 10
-#define RAIL_MAP_ROWS 100 
-#define RAIL_MAP_COLS 100 
+#define RAIL_MAP_ROWS 500 
+#define RAIL_MAP_COLS 500 
 
 #define DEF_WAGON_BG 0 
 #define DEF_WAGON_FG 3 
@@ -257,6 +255,8 @@ struct sim{
 	Cross cross;
 	int maprow;
 	int mapcol;
+	int maprows;
+	int mapcols;
 	Rail rail;
 	List locomotives;
 	Iterator i_locomotives;
