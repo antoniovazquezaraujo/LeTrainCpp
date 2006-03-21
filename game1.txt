@@ -1,68 +1,8 @@
-wagon
- id 11
- dir W
- aspect a
- fg 1
- bg 0
- row 49
- col 10
- imp 0
- power 0
- brakes 0
- mass 10
- link0id 0
- link1id 0
-
-wagon
- id 10
- dir W
- aspect d
- fg 4
- bg 0
- row 49
- col 11
- imp 0
- power 0
- brakes 0
- mass 10
- link0id 0
- link1id 0
-
-wagon
- id 9
- dir W
- aspect q
- fg 5
- bg 0
- row 49
- col 12
- imp 0
- power 0
- brakes 0
- mass 10
- link0id 0
- link1id 0
-
-wagon
+locomotive
  id 8
  dir W
- aspect y
+ aspect L
  fg 7
- bg 0
- row 49
- col 13
- imp 0
- power 0
- brakes 0
- mass 10
- link0id 0
- link1id 0
-
-wagon
- id 7
- dir W
- aspect j
- fg 4
  bg 0
  row 49
  col 14
@@ -73,76 +13,31 @@ wagon
  link0id 0
  link1id 0
 
-wagon
- id 6
+locomotive
+ id 7
  dir W
- aspect m
- fg 5
+ aspect L
+ fg 7
  bg 0
  row 49
- col 15
- imp 0
- power 0
+ col 39
+ imp 6
+ power 6
  brakes 0
  mass 10
  link0id 0
  link1id 0
 
-wagon
- id 1
+locomotive
+ id 6
  dir W
- aspect v
- fg 3
+ aspect L
+ fg 7
  bg 0
  row 12
- col 72
- imp 0
- power 0
- brakes 0
- mass 10
- link0id 0
- link1id 0
-
-wagon
- id 2
- dir W
- aspect u
- fg 6
- bg 0
- row 12
- col 71
- imp 0
- power 0
- brakes 0
- mass 10
- link0id 0
- link1id 0
-
-wagon
- id 3
- dir W
- aspect x
- fg 1
- bg 0
- row 12
- col 70
- imp 0
- power 0
- brakes 0
- mass 10
- link0id 0
- link1id 0
-
-wagon
- id 4
- dir W
- aspect i
- fg 6
- bg 0
- row 12
- col 69
- imp 0
- power 0
+ col 78
+ imp 1658
+ power 1658
  brakes 0
  mass 10
  link0id 0
@@ -150,14 +45,74 @@ wagon
 
 wagon
  id 5
- dir E
+ dir N
  aspect h
  fg 4
  bg 0
- row 12
- col 68
- imp 0
- power 0
+ row 17
+ col 201
+ imp 1617
+ power 1617
+ brakes 0
+ mass 10
+ link0id 0
+ link1id 0
+
+wagon
+ id 4
+ dir N
+ aspect i
+ fg 6
+ bg 0
+ row 16
+ col 201
+ imp 1617
+ power 1617
+ brakes 0
+ mass 10
+ link0id 0
+ link1id 0
+
+wagon
+ id 3
+ dir N
+ aspect x
+ fg 1
+ bg 0
+ row 15
+ col 201
+ imp 1617
+ power 1617
+ brakes 0
+ mass 10
+ link0id 0
+ link1id 0
+
+wagon
+ id 2
+ dir N
+ aspect u
+ fg 6
+ bg 0
+ row 14
+ col 201
+ imp 1617
+ power 1617
+ brakes 0
+ mass 10
+ link0id 0
+ link1id 0
+
+wagon
+ id 1
+ dir N
+ aspect v
+ fg 3
+ bg 0
+ row 13
+ col 201
+ imp 1617
+ power 1617
  brakes 0
  mass 10
  link0id 0

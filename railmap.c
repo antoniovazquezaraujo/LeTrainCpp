@@ -107,6 +107,7 @@ int m_load(Railmap railmap, Charmap charmap){
 			case '+':
 				rp = newcross(charmap, row, col);
 				rail = rp.rail;
+				lg("m_load",1,"cross: in: %d, outs: %d %d %d", rp.cross->in, rp.cross->outs[0], rp.cross->outs[1], rp.cross->outs[2]);
 				m_addcross(railmap, rp.cross);
 				break;
 			default:

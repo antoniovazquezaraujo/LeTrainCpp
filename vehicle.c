@@ -268,6 +268,7 @@ int v_distlinked(Vehicle v, int imp, int totalmass, int dir){
 		totcons+=cons;
 	}
 	t_free(t);
+	f_free(finder);
 	return totcons;
 }
 int v_movelinked(Vehicle v, int dir){

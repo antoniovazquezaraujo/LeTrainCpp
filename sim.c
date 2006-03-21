@@ -8,6 +8,7 @@
 #include "graphics.h"
 static int running = 0;
 static int visormoved = 0;
+
 Sim s_new(){
 	Sim s = malloc(sizeof(struct sim));
 	s->railmap = NULL;
@@ -49,6 +50,10 @@ void s_setup(Sim s){
 	s->i_locomotives = i_new(s->locomotives);
 	s->i_vehicles = i_new(s->vehicles);
 	c_setsim(s->commander, s);
+	s_linkvehicles(s);
+	s_nextcross(s);
+	s_selmapcol(s, 0);
+	s_selmaprow(s, 0);
 }
 int s_save(Sim s){
 	return 0;
@@ -163,8 +168,13 @@ Vehicle s_nextloco(Sim s){
 	return s->vehicle;
 }
 Vehicle s_prevloco(Sim s){
-	// We need a double linked list!
-	return NULL;
+	if(!i_hasprev(s->i_locomotives)){
+		i_toend(s->i_locomotives, s->locomotives);
+	}
+	if(i_hasprev(s->i_locomotives)){
+		s->vehicle = (Vehicle) i_prev(s->i_locomotives);
+	}
+	return s->vehicle;
 }
 Rail s_rail(Sim s){
 	return NULL;
@@ -206,8 +216,13 @@ Cross s_nextcross(Sim s){
 	return s->cross;
 }
 Cross s_prevcross(Sim s){
-	//We need a double linked list!
-	return NULL;
+	if(!i_hasprev(s->i_crosses)){
+		i_toend(s->i_crosses, s->railmap->crosses);
+	}
+	if(i_hasprev(s->i_crosses)){
+		s->cross= (Cross) i_prev(s->i_crosses);
+	}
+	return s->cross;
 }
 Cross s_cross(Sim s){
 	return s->cross;
@@ -347,8 +362,8 @@ void s_drawfinder(Sim s){
 			r->pos.row, 
 			r->pos.col, 
 			r->aspect,
-			DEF_FINDER_FG,
-			DEF_FINDER_BG);
+			DEF_FINDER_BG,
+			DEF_FINDER_FG);
 	}
 }
 void s_drawvehicles(Sim s){

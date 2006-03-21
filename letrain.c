@@ -37,9 +37,10 @@ int main (void) {
 	Sim sim = s_new();
 	mapfile = fopen("groundmap.txt","r"); 
 	loadmap(sim, mapfile);
-	gamefile = fopen("game1.txt","r"); 
-	loadgame(sim,gamefile);
-	fclose(gamefile);
+	if( (gamefile = fopen("game1.txt","r")) != NULL){ 
+		loadgame(sim,gamefile);
+		fclose(gamefile);
+	}
 	s_setup(sim);
 	s_start(sim);
 	gamefile = fopen("game1.txt","w"); 

@@ -6,7 +6,7 @@ typedef struct v_data * V_data;
 struct v_data{
 	int id;
 	int type;
-	char * dir;
+	char dir[7];
 	char aspect;
 	int fg;
 	int bg;
@@ -22,12 +22,14 @@ struct v_data{
 
 static int strtodir(char *c);
 static char * dirtostr(int dir);
-static V_data v_dataread(FILE *file, int type);
+static void v_dataread(V_data data, FILE *file, int type);
 static void v_datawrite(V_data data, FILE *file);
 static Vehicle v_datatovehicle(V_data data);
-static V_data v_vehicletodata(Vehicle v);
+static void v_vehicletodata(Vehicle v, V_data data);
 static char * dirtostr(int dir);
 static int strtodir(char *c);
+static V_data newdata();
+static void freedata(V_data data);
 
 int loadmap(Sim s, FILE * mapfile){ 
 	Charmap charmap = h_new();
@@ -55,48 +57,48 @@ int loadmap(Sim s, FILE * mapfile){
 	return numRow;
 }
 void loadgame(Sim s, FILE * gamefile){	
-	V_data data = NULL;
+	V_data data = newdata();
 	Vehicle v = NULL;
 	int n=0;
 	char section[40];
-	while(1){
-		n = fscanf(gamefile, "%s",section);
-		if(n == EOF){
-			break;
-		}
-		if(!strcmp(section, "locomotive")){
-			data = v_dataread(gamefile, LOCOMOTIVE);
-			v = v_datatovehicle(data);
-			s_addvehicle(s, v);
-		}else if(!strcmp(section, "wagon")){
-			data = v_dataread(gamefile, WAGON);
-			v = v_datatovehicle(data);
-			s_addvehicle(s, v);
-		}else{
-			printf("error\n");
+	if(gamefile != NULL){
+		while(1){
+			n = fscanf(gamefile, "%s",section);
+			if(n == EOF){
+				break;
+			}
+			if(!strcmp(section, "locomotive")){
+				v_dataread(data, gamefile, LOCOMOTIVE);
+				v = v_datatovehicle(data);
+				s_addvehicle(s, v);
+			}else if(!strcmp(section, "wagon")){
+				v_dataread(data, gamefile, WAGON);
+				v = v_datatovehicle(data);
+				s_addvehicle(s, v);
+			}else{
+				printf("error\n");
+			}
 		}
 	}
-	s_linkvehicles(s);
-	s_nextcross(s);
-	s_selmapcol(s, 0);
-	s_selmaprow(s, 0);
+	freedata(data);
 }
 void savegame(Sim s, FILE * gamefile){
-	V_data data = NULL;
+	V_data data = newdata();
 	Vehicle v = NULL;
 	Iterator i = i_new(s->vehicles);
 	while(i_hasnext(i)){
 		v = i_next(i);
-		data = v_vehicletodata(v);
+		v_vehicletodata(v, data);
 		v_datawrite(data, gamefile);
 	}
 	i_free(i);
+	freedata(data);
 }
 
-V_data v_dataread(FILE *file, int type){
+static void v_dataread(V_data data, FILE *file, int type){
 	char dummy[20];
 	int id;
-	char dir[3];
+	char dir[7]; 
 	char aspect;
 	int fg;
 	int bg;
@@ -137,10 +139,9 @@ V_data v_dataread(FILE *file, int type){
 			dummy, 
 			&link1id); 
 
-	V_data data = malloc(sizeof(struct v_data));
 	data->id = id;
 	data->type = type;
-	data->dir = dir;
+	strcpy(data->dir,dir);
 	data->aspect = aspect;
 	data->fg = fg;
 	data->bg = bg;
@@ -152,9 +153,8 @@ V_data v_dataread(FILE *file, int type){
 	data->mass = mass;
 	data->link0id = link0id;
 	data->link1id = link1id;
-	return data;
 }
-void v_datawrite(V_data data, FILE *file){
+static void v_datawrite(V_data data, FILE *file){
 	fprintf(file, "%s\n id %d\n dir %s\n aspect %c\n fg %d\n bg %d\n row %d\n col %d\n imp %d\n power %d\n brakes %d\n mass %d\n link0id %d\n link1id %d\n\n",
 	data->type==LOCOMOTIVE?"locomotive":"wagon",
 	data->id,
@@ -172,7 +172,7 @@ void v_datawrite(V_data data, FILE *file){
 	data->link1id);
 }
 
-Vehicle v_datatovehicle(V_data data){
+static Vehicle v_datatovehicle(V_data data){
 	Vehicle v = v_new(data->type);
 	v->id = data->id;
 	v->dir = strtodir(data->dir);
@@ -189,11 +189,10 @@ Vehicle v_datatovehicle(V_data data){
 	v->link1id = data->link1id;
 	return v;
 }
-V_data v_vehicletodata(Vehicle v){
-	V_data data = malloc(sizeof(struct v_data));
+static void v_vehicletodata(Vehicle v, V_data data){
 	data->id = v->id;
 	data->type = v->type;
-	data->dir = dirtostr(v->dir);
+	strcpy(data->dir, dirtostr(v->dir));
 	data->aspect = v->aspect;
 	data->fg = v->fg;
 	data->bg = v->bg;
@@ -205,51 +204,83 @@ V_data v_vehicletodata(Vehicle v){
 	data->mass = v->mass;
 	data->link0id = v->links[0]!= NULL?v->links[0]->id:0;
 	data->link1id = v->links[1]!= NULL?v->links[1]->id:0;
-	return data;
 }
 
-char * dirtostr(int dir){
-	char * ret = NULL;
-	switch(dir){
-	case E:
-		ret = "E";
-		break;
-	case NE:
-		ret = "NE";
-		break;
-	case N:
-		ret = "N";
-		break;
-	case NW:
-		ret = "NW";
-		break;
-	case W:
-		ret = "W";
-		break;
-	case SW:
-		ret = "SW";
-		break;
-	case S:
-		ret = "S";
-		break;
-	case SE:
-		ret = "SE";
-		break;
-	default:
-		ret = "NO_DIR";
+static char * dirtostr(int dir){
+	char *dirnames[] = {"E","NE","N","NW","W","SW","S","SE","NO_DIR"};
+	char * ret = malloc(7);
+	if(dir != NO_DIR){
+		strcpy(ret, dirnames[dir]);
+	}else{
+		strcpy(ret, dirnames[8]);
 	}
 	return ret;
+	/*
+	char * strdir= NULL;
+	char * ret = malloc(7);
+	switch(dir){
+	case E:
+		strdir = "E";
+		break;
+	case NE:
+		strdir = "NE";
+		break;
+	case N:
+		strdir = "N";
+		break;
+	case NW:
+		strdir = "NW";
+		break;
+	case W:
+		strdir = "W";
+		break;
+	case SW:
+		strdir = "SW";
+		break;
+	case S:
+		strdir = "S";
+		break;
+	case SE:
+		strdir = "SE";
+		break;
+	default:
+		strdir = "NO_DIR";
+	}
+	strcpy(ret, strdir);
+	return ret;
+	*/
 }
-int strtodir(char *c){
+static int strtodir(char *c){
 	int ret = 0;
-	if(!strcmp(c,"E")) ret = 0;
-	else if(!strcmp(c,"NE")) ret = 1;
-	else if(!strcmp(c,"N")) ret = 2;
-	else if(!strcmp(c,"NW")) ret = 3;
-	else if(!strcmp(c,"W")) ret = 4;
-	else if(!strcmp(c,"SW")) ret = 5;
-	else if(!strcmp(c,"S")) ret = 6;
-	else if(!strcmp(c,"SE")) ret = 7;
+	if(     !strcmp(c,"E" )) ret = E;
+	else if(!strcmp(c,"NE")) ret = NE;
+	else if(!strcmp(c,"N" )) ret = N;
+	else if(!strcmp(c,"NW")) ret = NW;
+	else if(!strcmp(c,"W" )) ret = W;
+	else if(!strcmp(c,"SW")) ret = SW;
+	else if(!strcmp(c,"S" )) ret = S;
+	else if(!strcmp(c,"SE")) ret = SE;
 	else ret = NO_DIR;
 	return ret;
+}
+static V_data newdata(){
+	V_data data = malloc(sizeof(struct v_data));
+	data->id = 0 ;
+	data->type = WAGON;
+	strcpy(data->dir,"NO_DIR");
+	data->aspect= '\0';
+	data->fg = 0;
+	data->bg = 0;
+	data->row = 0;
+	data->col = 0;
+	data->imp = 0;
+	data->power = 0;
+	data->brakes = 0;
+	data->mass = 0;
+	data->link0id = 0;
+	data->link1id = 0;
+	return data;
+}
+static void freedata(V_data data){
+	free(data);
 }
