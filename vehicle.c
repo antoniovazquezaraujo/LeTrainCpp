@@ -20,7 +20,8 @@ Vehicle v_new(int type){
 		break;
 	case WAGON:	
 		v->aspect =  'a'+ (char)(26.0 * rand()/(RAND_MAX)); 
-		v->fg =  (int)(8.0 * rand()/(RAND_MAX)); 
+		//v->fg =  (int)(8.0 * rand()/(RAND_MAX)); 
+		v->fg = DEF_WAGON_FG; 
 		v->bg = DEF_WAGON_BG;
 		break;
 	}
@@ -32,6 +33,7 @@ Vehicle v_new(int type){
 	v->mass= 10; 
 	v->links[0] = NULL;	
 	v->links[1] = NULL;	
+	v->moved = 0;
 	return v;
 }
 int v_newid(){
@@ -183,10 +185,10 @@ int v_pushedcanmove(Vehicle v, int dir){
 
 }
 int v_canmove(Vehicle v){
-	if(v->imp >= v->mass){
+	//if(v->imp >= v->mass){
+	if(v->imp >= (v->mass+v->brakes)){
 		Rail r = r_link(v->rail, v->dir);
 		if( r == NULL){
-			lg("v_canmove",1,"no se mueve %c en dir: %d, en %d, %d", v->aspect, v->dir,v->pos.row, v->pos.col);
 			return 0;
 		}
 	}else{
@@ -235,7 +237,8 @@ int v_linkedmass(Vehicle v, int dir){
 	Triterator t = t_new(v, dir);
 	while(t_hasnext(t)){
 		next = t_next(t);
-		totalmass += v_mass(next);
+		//totalmass += v_mass(next);
+		totalmass += v_mass(next)+ v_brakes(next);
 	}
 	t_free(t);
 	return totalmass;
@@ -247,12 +250,27 @@ int v_pushedmass(Vehicle v, int dir){
 	f_forward(finder);
 	next = finder->rail->vehicle;
 	while(next != NULL){
-		totalmass += v_mass(next);
+		//totalmass += v_mass(next);
+		totalmass += v_mass(next)+v_brakes(next);
 		f_forward(finder);
 		next = finder->rail->vehicle;
 	}
 	f_free(finder);
 	return totalmass;
+}
+int v_braketrain(Vehicle v){
+	int totcons=0;
+	Vehicle next = NULL;
+	Finder finder = f_new(v);
+	Triterator t = t_new(v, v->dir);
+	while(t_hasnext(t)){
+		next = t_next(t);
+		next->brakes = v->brakes; 
+		f_forward(finder);
+	}
+	t_free(t);
+	f_free(finder);
+	return totcons;
 }
 int v_distlinked(Vehicle v, int imp, int totalmass, int dir){
 	int totcons=0;
@@ -262,7 +280,9 @@ int v_distlinked(Vehicle v, int imp, int totalmass, int dir){
 	Triterator t = t_new(v, dir);
 	while(t_hasnext(t)){
 		next = t_next(t);
-		cons= (imp * v_mass(next) ) / totalmass;
+		//cons= (imp * v_mass(next) ) / totalmass;
+		cons= (imp * (v_mass(next) +v_brakes(next))) / totalmass;
+		lg("distlinked",1,"masa de v:%d , impulso:%d, masa total:%d, proporcion:%d", next->mass, imp, totalmass, cons);
 		next->imp += (int)cons;
 		f_forward(finder);
 		totcons+=cons;
@@ -283,6 +303,7 @@ int v_movelinked(Vehicle v, int dir){
 			break;
 		}else{
 			v_consum(next);
+			next->moved = 1;
 		}
 	}
 	t_free(t);
@@ -311,7 +332,8 @@ int v_distpushed(Vehicle v, int imp, int totalmass, int dir){
 	f_forward(finder);
 	next = finder->rail->vehicle;
 	while(next != NULL){
-		cons= (imp * v_mass(next) ) / totalmass;
+		//cons= (imp * v_mass(next) ) / totalmass;
+		cons= (imp * v_mass(next+ v_brakes(next)) ) / totalmass;
 		next->imp += cons;
 		totcons+=cons;
 		v_setdir(next, finder->dir);
@@ -349,6 +371,7 @@ int v_movepushed(Vehicle v, int dir){
 			break;
 		}else{
 			v_consum(v);
+			v->moved = 1;
 		}
 		f_forward(finder);
 		next = finder->rail->vehicle;

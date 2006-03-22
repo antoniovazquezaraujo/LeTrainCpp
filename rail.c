@@ -78,11 +78,9 @@ int r_dir(Rail rail, int dir){
 	//assert(dir >=0);
 	//assert(dir <8);
 	if(dir < 0) {
-		lg("r_dir",1,"dir < 0");	
 		return NO_DIR;
 	}
 	if(dir >=8 ){
-		lg("r_dir",1,"dir > 8");	
 		return NO_DIR;
 	}
 	return rail->dirs[dir];

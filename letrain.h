@@ -191,6 +191,7 @@ struct vehicle{
 	Vehicle links[2];
 	int link0id;
 	int link1id;
+	int moved;
 };
 Vehicle    v_new(int type);
 int        v_newid();
@@ -218,6 +219,7 @@ void       v_setdir(Vehicle v, int dir);
 int        v_dir(Vehicle v);
 int        v_linkedmass(Vehicle v, int dir);
 int        v_pushedmass(Vehicle v, int dir);
+int        v_braketrain(Vehicle v);
 int        v_distlinked(Vehicle v, int imp, int totalmass, int dir);
 int        v_movelinked(Vehicle v, int dir);
 void       v_orientlinked(Vehicle v, int dir);
@@ -257,6 +259,10 @@ struct sim{
 	int mapcol;
 	int maprows;
 	int mapcols;
+	int statusrow;
+	int statuscol;
+	int statusrows;
+	int statuscols;
 	Rail rail;
 	List locomotives;
 	Iterator i_locomotives;

@@ -9,7 +9,7 @@ Commander c_new(){
 	Commander com = malloc(sizeof(struct commander));
 	com->sim = NULL;
 	com->finder = f_new(NULL);
-	com->mode = DRIVERS_MODE;
+	com->mode = TRAINS_MODE;
 	return com;
 }
 void c_free(Commander com){
@@ -164,17 +164,6 @@ void c_key(Commander com, char key){
 					}
 				}
 				break;
-				/*
-			case 'f':
-				actual = com->finder->rail->vehicle;
-				if(actual != NULL){
-					com->sim->vehicle = actual;
-					v_forwardtrain(actual);
-				}
-				f_forward(com->finder);
-				break;
-				break;
-				*/
 			case 'j':
 				f_forward(com->finder);
 				actual = com->finder->rail->vehicle;
@@ -194,9 +183,10 @@ void c_key(Commander com, char key){
 				actual = com->finder->rail->vehicle;
 				if(actual != NULL){
 					com->sim->vehicle = actual;
-					v_distpushed(actual, 1000, 40, com->finder->dir);
+					v_setdir(actual, com->finder->dir);
+					v_distpushed(actual, actual->mass, actual->mass, com->finder->dir);
 					v_movepushed(actual, com->finder->dir);
-					v_distlinked(actual, 1000, 40, com->finder->dir);
+					v_distlinked(actual, actual->mass, actual->mass, com->finder->dir);
 					v_movelinked(actual, r_invertdir(com->finder->rail, com->finder->dir));
 				}
 				f_forward(com->finder);

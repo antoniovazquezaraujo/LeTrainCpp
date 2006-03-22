@@ -3,14 +3,16 @@
   Curses interface
   -------------------------------------
 */
+#include <string.h>
 #include "graphics.h"
+#include "logging.h"
 
 static struct visor{
 	int row;
 	int col;
 	int rows;
 	int cols;
-}visor;
+}visor, status;
 
 void g_init(){
 	int n=0, m=0;
@@ -46,6 +48,13 @@ void g_putc(int row, int col, char c, int fgColor, int bgColor){
 	attroff(WA_BOLD);
 	attroff(COLOR_PAIR(fgColor*8 + bgColor));
 }
+void g_putstr(int row, int col, char *str, int fgColor, int bgColor){
+	attron(COLOR_PAIR(fgColor*8 + bgColor));
+	attron(WA_BOLD);
+	mvaddstr(row,col,str);
+	attroff(WA_BOLD);
+	attroff(COLOR_PAIR(fgColor*8 + bgColor));
+}
 void g_repaint(){
 	refresh();
 }
@@ -59,6 +68,16 @@ void g_vputc(int row, int col, char c, int fgColor, int bgColor){
 		}
 	}
 }
+void g_sputstr(int row, int col, char *str, int fgColor, int bgColor){
+	int srow, scol;
+	if(row >= 0 && row < status.rows){
+		if(col >= 0 && col < status.cols){
+			srow = row + status.row;
+			scol = col + status.col;
+			g_putstr(srow, scol, str, fgColor, bgColor);
+		}
+	}
+}
 void g_vset(int row, int col, int rows, int cols){
 	visor.row = row;
 	visor.col = col;
@@ -66,11 +85,122 @@ void g_vset(int row, int col, int rows, int cols){
 	visor.cols = cols;
 	g_repaint();
 }
-void g_drawstatus(){
-
+void g_sset(int row, int col, int rows, int cols){
+	status.row = row;
+	status.col = col;
+	status.rows = rows;
+	status.cols = cols;
+	g_repaint();
 }
-void g_drawhelp(){
+void g_drawvehiclestatus(int id, int row, int col, int dir, int imp, int power, int brakes, int link0id, int link1id, char aspect){
+	int statusfg= 7;
+	int statusbg = 0;
+	char data[status.cols];
+	int line = 0;
+	int r;
+	for(r = 0; r<status.cols-6;r++){
+		data[r] = ' ';
+	}
+	data[r] = '\0';
+	for(r= 0; r< 10; r++){
+		g_sputstr(r,5, data, statusfg, statusbg); 
+	}
 
+	sprintf(data, "Id: %d", id);
+	g_sputstr(line++,5, data, statusfg, statusbg); 
+	sprintf(data, "Row: %d", row);
+	g_sputstr(line++,5, data, statusfg, statusbg); 
+	sprintf(data, "Col: %d", col);
+	g_sputstr(line++,5, data, statusfg, statusbg); 
+	sprintf(data, "Dir: %d", dir);
+	g_sputstr(line++,5, data, statusfg, statusbg); 
+	sprintf(data, "Imp: %d", imp);
+	g_sputstr(line++,5, data, statusfg, statusbg); 
+	sprintf(data, "Power: %d", power);
+	g_sputstr(line++,5, data, statusfg, statusbg); 
+	sprintf(data, "Brakes: %d", brakes);
+	g_sputstr(line++,5, data, statusfg, statusbg); 
+	sprintf(data, "Link 0: %d", link0id);
+	g_sputstr(line++,5, data, statusfg, statusbg); 
+	sprintf(data, "Link 1: %d", link1id);
+	g_sputstr(line++,5, data, statusfg, statusbg); 
+	sprintf(data, "Aspect: %c", aspect);
+	g_sputstr(line++,5, data, statusfg, statusbg); 
+}
+void g_drawhelp(int mode){
+	// quitar esto de aqui!
+	enum{
+		DRIVERS_MODE, 
+		POINTS_MODE,
+		TRAINS_MODE
+	};
+	int line = 11;
+	int helpfg= 2;
+	int helpbg = 0;
+	char data[status.cols];
+	int r;
+	for(r = 0; r<status.cols-6;r++){
+		data[r] = ' ';
+	}
+	data[r] = '\0';
+
+	for(r = 11; r < 24; r++){
+		g_sputstr(r,5, data, helpfg, helpbg); 
+	}
+	sprintf(data, "[d:driver]");
+	g_sputstr(line++,5, data, helpfg, helpbg); 
+	sprintf(data, "[p:crosspoints]");
+	g_sputstr(line++,5, data, helpfg, helpbg); 
+	sprintf(data, "[t:trains]");
+	g_sputstr(line++,5, data, helpfg, helpbg); 
+	sprintf(data, "[HJKL:map scroll]");
+	g_sputstr(line++,5, data, helpfg, helpbg); 
+	switch(mode){
+		case DRIVERS_MODE:
+			sprintf(data, "[j:prev loco]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			sprintf(data, "[k:next loco]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			sprintf(data, "[space:reverse]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			sprintf(data, "[h:inc impulse]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			sprintf(data, "[l:dec impulse]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			sprintf(data, "[b:inc brakes]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			sprintf(data, "[B:dec brakes]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			break;
+		case TRAINS_MODE:	
+			sprintf(data, "[j:go]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			sprintf(data, "[space:reverse]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			sprintf(data, "[k:move]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			sprintf(data, "[1:link]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			sprintf(data, "[0:unlink]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			sprintf(data, "[.:change crosspoint]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			sprintf(data, "[a:add wagon]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			sprintf(data, "[A:add loco]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			sprintf(data, "[x:del vehicle]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			break;
+		case POINTS_MODE:	
+			sprintf(data, "[j:prev cross]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			sprintf(data, "[k:next cross]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			sprintf(data, "[.:change direction]");
+			g_sputstr(line++,5, data, helpfg, helpbg); 
+			break;
+	}
 }
 void g_drawfinder(int row, int col, char aspect, int bg, int fg){
 	g_vputc(row, col, aspect,fg,bg); 

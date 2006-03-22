@@ -163,15 +163,15 @@ Datos que se necesitan saber de un vehículo:
 Una forma simple es crear dos ventanas, una para el juego y otra para los datos. Puede estar a la derecha, en vertical, por ejemplo:
 
 .----------------------------------------------.--------------------.
-|                                              |       \ | /        |
-|                                              | j  5< -022- >25    |
-|    .-------------------.                     |       / | \        |
+|                                              |                |  .|
+|                                              | j [42 < 4 > 5] | / |
+|    .-------------------.                     |                |   |
 |   /                     \                    |--------------------|
 |  .                       \                   |Pow  | =====50%     |
 |  |                        \                  |Brk  | ==20%        |
 |  |                         .                 |Imp  | 430          |
 |  |                         |                 |Speed| 70           |
-|  |            letrain      |                 |Pos  | 23,4         |
+|  |            letrain      |                 |Pos  | Row:23 Col:44|
 |  |                         |                 |Mass | 100          |
 |  |                         |                 |Push | 230          |
 |  |                         |                 |Pull | 40           |
@@ -190,4 +190,23 @@ Una forma simple es crear dos ventanas, una para el juego y otra para los datos.
 |                                              |     |              |
 .----------------------------------------------.--------------------.
 
-Necesitamos hacer mapas de varias páginas.
+22 de Marzo.
+Nueva lista de objetivos
+------------------------
+- Controlar los frenos
+- Seguir moviendo los vagones con impulso
+- Salvar tambien el estado de los cruces
+- Datos en pantalla sobre el elemento seleccionado
+- Gasto de combustible según carga, distancia y velocidad
+- Ampliar los cruces para que puedan ser oblicuos
+- Crear cruces simples, que no cambian de aguja
+- Agregar edición de vias
+
+- Programar trenes para que hagan tareas automáticamente
+- Que los vagones se puedan cargar y descargar
+- Detención de la simulación
+- Organizar los colores
+- Eliminar la basura railandcross
+- Ayuda en pantalla
+- Crear más tests
+- Pasarlo a plan9

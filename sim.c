@@ -23,7 +23,11 @@ Sim s_new(){
 	s->maprow = 0;
 	s->mapcol=0;
 	s->maprows = LINES;
-	s->mapcols=  COLS;
+	s->mapcols=  COLS - (COLS/4);
+	s->statusrow = 0;
+	s->statuscol= COLS -(COLS/4);
+	s->statusrows = LINES;
+	s->statuscols=  COLS/4;
 	s->commander = c_new();;
 	return s;
 }
@@ -54,6 +58,7 @@ void s_setup(Sim s){
 	s_nextcross(s);
 	s_selmapcol(s, 0);
 	s_selmaprow(s, 0);
+	g_sset(s->statusrow, s->statuscol, s->statusrows, s->statuscols);
 }
 int s_save(Sim s){
 	return 0;
@@ -111,7 +116,7 @@ Vehicle s_vehicle(Sim s){
 	return s->vehicle;
 }
 void s_incpower(Sim s){
-	s->vehicle->power++;
+	if(s->vehicle) s->vehicle->power++;
 }
 void s_decpower(Sim s){
 	if(s->vehicle->power >0){
@@ -122,16 +127,18 @@ int s_incbrakes(Sim s){
 	int brakes = v_brakes(s->vehicle);
 	brakes++;
 	v_setbrakes(s->vehicle, brakes);
+	v_braketrain(s->vehicle);
 	return brakes;
 }
 int s_decbrakes(Sim s){
 	int brakes = v_brakes(s->vehicle);
 	if(brakes > 0) brakes--;
 	v_setbrakes(s->vehicle, brakes);
+	v_braketrain(s->vehicle);
 	return brakes;
 }
 int s_reverse(Sim s){
-	v_reverse(s->vehicle);
+	if(s->vehicle) v_reverse(s->vehicle);
 	return 0;
 }
 void s_del(Sim s){
@@ -160,7 +167,7 @@ Vehicle s_addwagon(Sim s){
 }
 Vehicle s_nextloco(Sim s){
 	if(!i_hasnext(s->i_locomotives)){
-		i_reset(s->i_locomotives, s->locomotives);
+		i_reset(s->i_locomotives);
 	}
 	if(i_hasnext(s->i_locomotives)){
 		s->vehicle = (Vehicle) i_next(s->i_locomotives);
@@ -169,7 +176,7 @@ Vehicle s_nextloco(Sim s){
 }
 Vehicle s_prevloco(Sim s){
 	if(!i_hasprev(s->i_locomotives)){
-		i_toend(s->i_locomotives, s->locomotives);
+		i_toend(s->i_locomotives);
 	}
 	if(i_hasprev(s->i_locomotives)){
 		s->vehicle = (Vehicle) i_prev(s->i_locomotives);
@@ -208,7 +215,7 @@ void s_selcross(Sim s, Cross cp){
 }
 Cross s_nextcross(Sim s){
 	if(!i_hasnext(s->i_crosses)){
-		i_reset(s->i_crosses, s->railmap->crosses);
+		i_reset(s->i_crosses);
 	}
 	if(i_hasnext(s->i_crosses)){
 		s->cross= (Cross) i_next(s->i_crosses);
@@ -217,7 +224,7 @@ Cross s_nextcross(Sim s){
 }
 Cross s_prevcross(Sim s){
 	if(!i_hasprev(s->i_crosses)){
-		i_toend(s->i_crosses, s->railmap->crosses);
+		i_toend(s->i_crosses);
 	}
 	if(i_hasprev(s->i_crosses)){
 		s->cross= (Cross) i_prev(s->i_crosses);
@@ -232,11 +239,18 @@ void s_chgselcross(Sim s){
 } 
 void s_movetrains(Sim sim){
 	Vehicle next = NULL;
+	Iterator i;
 	int antidir= 0;
 	int totalmass= 0;
 	int totalimp = 0;
 	int consum = 0;
-	Iterator i = i_new(sim->locomotives);
+	i = i_new(sim->vehicles);
+	while(i_hasnext(i)){
+		next = (Vehicle)i_next(i);
+		next->moved = 0;
+	}
+	i_free(i);
+	i = i_new(sim->locomotives);
 	while(i_hasnext(i)){
 		consum = 0;
 		next = (Vehicle)i_next(i);
@@ -251,7 +265,22 @@ void s_movetrains(Sim sim){
 		}	
 	}
 	i_free(i);
-
+	i = i_new(sim->vehicles);
+	while(i_hasnext(i)){
+		next = (Vehicle)i_next(i);
+		if(next->moved == 0){
+			antidir=r_dir(next->rail, next->dir);
+			totalimp = 0;
+			totalmass = v_pushedmass(next, next->dir) + v_linkedmass(next, antidir);
+			v_distlinked(next, totalimp, totalmass, antidir);
+			v_distpushed(next, totalimp, totalmass, next->dir);
+			if(v_pushedcanmove(next, next->dir) && v_linkedcanmove(next, antidir)){
+				v_movepushed(next, next->dir);
+				v_movelinked(next, antidir);
+			}	
+			next->moved = 1;
+		}
+	}
 }
 void s_cycle(Sim s){
 	while(running){
@@ -278,69 +307,19 @@ void s_draw(Sim s){
 	g_repaint();
 }
 void s_drawhelp(Sim sim){
-	g_drawhelp();
-	/*
-	mvprintw(42,0,"[d:DRIVERS] [p:CROSSPOINTS] [t:TRAINS] [q:QUIT]" ); 
-	mvprintw(43,0,"                                                                                                              " ); 
-	switch(sim->commander->mode){
-	case DRIVERS_MODE:	
-		mvprintw(43,0,"j(prev loco) k(next loco) space(rev) h(inc imp) l(dec imp) b(inc brk) B(dec brk)" ); 
-		break;
-	case TRAINS_MODE:	
-		mvprintw(43,0,"j(go) space(rev) k(move) 1(link) 0(unlink) .(crosspoint) a(add wagon) A(add loco) x(del)"); 
-		break;
-	case POINTS_MODE:	
-		mvprintw(43,0,"j(prev cross) k(next_cross) .(change direction)"); 
-		break;
-	}
-	*/
+	g_drawhelp(sim->commander->mode);
 
 }
 void s_drawstatus(Sim sim){
-	g_drawstatus(sim->vehicle);
-	/*
-	char * modes[] = {
-		"DRIVERS", 
-		"CROSSPOINTS",
-		"TRAINS"
-	};
-	char * mode = modes[sim->commander->mode];
-	Vehicle v = sim->vehicle;
-	if(v == NULL){
-		return;
-	}
-	char aspect = v->aspect;
-	int dir = v->dir;
-
-	char links[6];
-	if(v->links[0]){
-		links[0] = v->links[0]->aspect;
-		links[1] = '<';
-	}else{
-		links[0] = ' ';
-		links[1] = ' ';
-	}
-	links[2] = v->aspect;
-	if(v->links[1]){
-		links[3] = '>';
-		links[4] = v->links[1]->aspect;
-	}else{
-		links[3] = ' ';
-		links[4] = ' ';
-	}
-	links[5] = '\0';
+	Vehicle v;
+	int link0id, link1id;
+	v = sim->vehicle;
 	
-	int imp = v->imp;
-	int power= v->power;
-	int brk = v->brakes;
-	char railaspect = v->rail->aspect;
-	int row = v->pos.row;
-	int col = v->pos.col;
-
-	mvprintw(39,0,"Actual mode:%s                           ", mode ); 
-	mvprintw(40,0,"                                                                                       "); 
-	mvprintw(40,0,"V:%c dir:%d, links: %s, pow: %d imp:%d, brk:%d rail:%c, row:%d, col:%d", aspect,dir,links,power,imp,brk,railaspect,row,col); 
-	*/
+	if(v != NULL){
+		link0id= v->links[0]?v->links[0]->id:0;
+		link1id= v->links[1]?v->links[1]->id:0;
+		g_drawvehiclestatus(v->id, v->pos.row, v->pos.col, v->dir, v->imp, v->power, v->brakes, link0id, link1id, v->aspect);
+	}
 }
 void s_drawfinder(Sim s){
 	if(s->commander->finder == NULL){
