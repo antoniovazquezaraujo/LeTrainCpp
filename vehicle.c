@@ -139,7 +139,7 @@ int v_gotorail(Vehicle v, Rail r){
 		inputDir = r_validdir(r);
 	}
 	v->dir = r_dir(r, inputDir);
-	assert (v->dir != NO_DIR);
+	//assert (v->dir != NO_DIR);
 	v->pos.row = r->pos.row;
 	v->pos.col = r->pos.col;
 	v->rail = r;
@@ -252,8 +252,11 @@ int v_pushedmass(Vehicle v, int dir){
 	while(next != NULL){
 		//totalmass += v_mass(next);
 		totalmass += v_mass(next)+v_brakes(next);
-		f_forward(finder);
-		next = finder->rail->vehicle;
+		if( f_forward(finder)){
+			next = finder->rail->vehicle;
+		}else{
+			next = NULL;
+		}
 	}
 	f_free(finder);
 	return totalmass;
@@ -354,15 +357,15 @@ int v_movepushed(Vehicle v, int dir){
 	while(next != NULL){
 		next->dir = finder->dir;
 		if(f_forward(finder)){
-			assert(finder->dir != NO_DIR);
+			//assert(finder->dir != NO_DIR);
 			next = finder->rail->vehicle;
 		}else{
 			next = NULL;
 		}
 	}
-	assert(finder->dir != NO_DIR);
+	//assert(finder->dir != NO_DIR);
 	f_reverse(finder);
-	assert(finder->dir != NO_DIR);
+	//assert(finder->dir != NO_DIR);
 	f_forward(finder);
 	next = finder->rail->vehicle;
 	while(next != v){ //move all yast to BEFORE v !

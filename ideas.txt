@@ -210,3 +210,16 @@ Nueva lista de objetivos
 - Ayuda en pantalla
 - Crear más tests
 - Pasarlo a plan9
+
+31 de Marzo.
+Replanteamiento de prioridades
+------------------------------
+El interfaz ya está más o menos usable, así que vamos a aprovechar para dar una limpieza general a todo para que funcione mejor, sea mas claro y se pueda ampliar mas facilmente, pero sin caer en la tentación de siempre, de ampliar sobre bases erroneas y luego nos vemos abrumados por la complejidad. Vamos a intentar simplificar lo que hay sin agregar nada, y hacer que funcione bien. Entonces, correcciones necesarias:
+
+-Eliminar impulsos negativos
+-Manejar powers mas discretas, podría ser de 0 a 10 tranquilamente
+-Buscar un modo de detectar los choques, desenganches y descarrilamientos
+-Gasto de combustible según carga, distancia y velocidad
+
+Con esto, de momento bastaría para empezar con los nuevos objetivos.
+Vamos allá.

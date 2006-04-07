@@ -16,9 +16,9 @@ Sim s_new(){
 	s->cross = NULL;
 	s->rail = NULL;
 	s->locomotives = l_new();
-	s->i_locomotives = i_new(s->locomotives);
+	//s->i_locomotives = i_new(s->locomotives);
 	s->vehicles = l_new();
-	s->i_vehicles = i_new(s->vehicles);
+	//s->i_vehicles = i_new(s->vehicles);
 	s->i_crosses = NULL;
 	s->maprow = 0;
 	s->mapcol=0;
@@ -47,7 +47,7 @@ void s_free(Sim s){
 	assert(s->i_crosses!= NULL);
 	i_free(s->i_crosses);
 	c_free(s->commander);
-	m_free(s->railmap);
+	rm_free(s->railmap);
 	free(s);
 }
 void s_setup(Sim s){

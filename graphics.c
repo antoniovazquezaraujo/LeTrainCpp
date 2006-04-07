@@ -134,7 +134,7 @@ void g_drawhelp(int mode){
 		POINTS_MODE,
 		TRAINS_MODE
 	};
-	int line = 11;
+	int line = 12;
 	int helpfg= 2;
 	int helpbg = 0;
 	char data[status.cols];
@@ -144,60 +144,74 @@ void g_drawhelp(int mode){
 	}
 	data[r] = '\0';
 
-	for(r = 11; r < 24; r++){
+	for(r = 12; r < 27; r++){
 		g_sputstr(r,5, data, helpfg, helpbg); 
 	}
-	sprintf(data, "[d:driver]");
+	switch(mode){
+	case DRIVERS_MODE:
+		sprintf(data, "Mode: %s", "DRIVERS");
+		break;
+	case POINTS_MODE:
+		sprintf(data, "Mode: %s", "POINTS");
+		break;
+	case TRAINS_MODE:
+		sprintf(data, "Mode: %s", "TRAINS");
+		break;
+	}
 	g_sputstr(line++,5, data, helpfg, helpbg); 
-	sprintf(data, "[p:crosspoints]");
+	sprintf(data, "d: driver");
 	g_sputstr(line++,5, data, helpfg, helpbg); 
-	sprintf(data, "[t:trains]");
+	sprintf(data, "p: crosspoints");
 	g_sputstr(line++,5, data, helpfg, helpbg); 
-	sprintf(data, "[HJKL:map scroll]");
+	sprintf(data, "t: trains");
+	g_sputstr(line++,5, data, helpfg, helpbg); 
+	sprintf(data, "HJKL:map scroll");
+	g_sputstr(line++,5, data, helpfg, helpbg); 
+	sprintf(data, "-------------------");
 	g_sputstr(line++,5, data, helpfg, helpbg); 
 	switch(mode){
 		case DRIVERS_MODE:
-			sprintf(data, "[j:prev loco]");
+			sprintf(data, "j: prev loco");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
-			sprintf(data, "[k:next loco]");
+			sprintf(data, "k: next loco");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
-			sprintf(data, "[space:reverse]");
+			sprintf(data, "space: reverse");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
-			sprintf(data, "[h:inc impulse]");
+			sprintf(data, "h: inc impulse");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
-			sprintf(data, "[l:dec impulse]");
+			sprintf(data, "l: dec impulse");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
-			sprintf(data, "[b:inc brakes]");
+			sprintf(data, "b: inc brakes");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
-			sprintf(data, "[B:dec brakes]");
+			sprintf(data, "B: dec brakes");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
 			break;
 		case TRAINS_MODE:	
-			sprintf(data, "[j:go]");
+			sprintf(data, "j: go");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
-			sprintf(data, "[space:reverse]");
+			sprintf(data, "space: reverse");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
-			sprintf(data, "[k:move]");
+			sprintf(data, "k: move");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
-			sprintf(data, "[1:link]");
+			sprintf(data, "1: link");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
-			sprintf(data, "[0:unlink]");
+			sprintf(data, "0: unlink");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
-			sprintf(data, "[.:change crosspoint]");
+			sprintf(data, ".: change crosspoint");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
-			sprintf(data, "[a:add wagon]");
+			sprintf(data, "a: add wagon");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
-			sprintf(data, "[A:add loco]");
+			sprintf(data, "A: add loco");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
-			sprintf(data, "[x:del vehicle]");
+			sprintf(data, "x: del vehicle");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
 			break;
 		case POINTS_MODE:	
-			sprintf(data, "[j:prev cross]");
+			sprintf(data, "j: prev cross");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
-			sprintf(data, "[k:next cross]");
+			sprintf(data, "k: next cross");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
-			sprintf(data, "[.:change direction]");
+			sprintf(data, ".: change direction");
 			g_sputstr(line++,5, data, helpfg, helpbg); 
 			break;
 	}

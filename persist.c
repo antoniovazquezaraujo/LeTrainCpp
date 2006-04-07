@@ -49,7 +49,7 @@ int loadmap(Sim s, FILE * mapfile){
 		numRow++;
 	}
 	free(line);
-	s->railmap = m_new(charmap);
+	s->railmap = rm_new(charmap);
 	free(charmap);
 	s->i_crosses = i_new(s->railmap->crosses);
 	s->maprows = numRow;

@@ -29,7 +29,7 @@
 #define DEF_CROSS_FG 6 
 #define DEF_CROSS_BG 0 
 #define DEF_FINDER_FG 0 
-#define DEF_FINDER_BG 7 
+#define DEF_FINDER_BG 5 
 
 typedef struct vehicle    *Vehicle;
 typedef struct finder     *Finder;
@@ -146,13 +146,13 @@ struct railmap{
 	Rail rails[RAIL_MAP_ROWS][RAIL_MAP_COLS];
 	List crosses;
 };
-Railmap    m_new(Charmap charmap);
-void       m_free(Railmap rm);
-Rail       m_rail(Railmap rm, int row, int col);
-void       m_setrail(Railmap rm, int row, int col, Rail r);
-void       m_addcross(Railmap rm, Cross cp);
-List       m_crosslist(Railmap rm);
-int        m_load(Railmap railmap, Charmap charmap);
+Railmap    rm_new(Charmap charmap);
+void       rm_free(Railmap rm);
+Rail       rm_rail(Railmap rm, int row, int col);
+void       rm_setrail(Railmap rm, int row, int col, Rail r);
+void       rm_addcross(Railmap rm, Cross cp);
+List       rm_crosslist(Railmap rm);
+int        rm_load(Railmap railmap, Charmap charmap);
 /*
  Finder 
  Cursor to select rails and vehicles 

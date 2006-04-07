@@ -23,26 +23,31 @@ struct iterator{
 
 List l_new(){
 	List ret = malloc(sizeof(struct list));
+
 	Linkedlist start= malloc(sizeof(struct listNode));
 	start->data = NULL;
 	Linkedlist end  = malloc(sizeof(struct listNode));
 	end->data = NULL;
+
 	ret->start = start;
 	ret->end = end;
+
 	start->next = end;
-	start->prev = NULL;
-	end->next = NULL;
+	start->prev = start;
+
+	end->next = end;
 	end->prev = start;
 	return ret;
 }
 void l_free(List list){
 	Linkedlist next= list->start;
 	Linkedlist actual = next; 
-	while(next!= NULL){
+	while(next!= list->end){
 		next = next->next;
 		free(actual);
 		actual = next;
 	}
+	free(next);
 	free(list);
 }
 void l_add(List list, Listdata data){
@@ -65,11 +70,23 @@ void l_append(List l, Listdata data){
 	node->prev->next= node;
 }
 void l_del(List list, Listdata data){
-	Linkedlist node;
+	Linkedlist node = list->start;
+	while(node != list->end){
+		node = node->next;
+		if(node->data == data){
+			node->prev->next = node->next;
+			node->next->prev = node->prev;
+			free(node);
+			return;
+		}
+	}
+}
+/*
+	Listdata next;
 	Iterator i = i_new(list);
 	while(i_hasnext(i)){
-		node = (Linkedlist)i_next(i);
-		if(node->data == data){
+		next= (Listdata)i_next(i);
+		if(next == data){
 			node->prev->next = node->next;
 			node->next->prev = node->prev;
 			free(node);
@@ -79,12 +96,13 @@ void l_del(List list, Listdata data){
 	}
 	i_free(i);
 }
+*/
 int l_contains(List list, Listdata data){
-	Linkedlist node;
+	Listdata next;
 	Iterator i = i_new(list);
 	while(i_hasnext(i)){
-		node = (Linkedlist)i_next(i);
-		if(node->data == data){
+		next= (Listdata)i_next(i);
+		if(next == data){
 			i_free(i);
 			return 1;
 		}

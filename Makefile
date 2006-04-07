@@ -2,7 +2,7 @@ CC= gcc
 CFLAGS= -c -g3 -Wall
 OBJS= commander.o sim.o vehicle.o graphics.o list.o rail.o railmap.o finder.o logging.o persist.o charmap.o
 
-all:test letrain 
+all:letrain 
 
 test : libletrain.a letrain_test.c 
 	$(CC) -ggdb -Wall letrain_test.c test.c -o letrain_test -L. -lletrain -lncurses 

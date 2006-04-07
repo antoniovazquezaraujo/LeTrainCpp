@@ -220,16 +220,20 @@ void c_key(Commander com, char key){
 				}
 				break;
 			case 'a':
-				newvehicle = s_addwagon(com->sim);
-				com->sim->vehicle = newvehicle;
-				v_setdir(newvehicle, NO_DIR);
-				v_gotorail(newvehicle, com->finder->rail);
+				if(com->finder->rail->vehicle == NULL){
+					newvehicle = s_addwagon(com->sim);
+					com->sim->vehicle = newvehicle;
+					v_setdir(newvehicle, NO_DIR);
+					v_gotorail(newvehicle, com->finder->rail);
+				}
 				break;
 			case 'A':
-				newvehicle= s_addloco(com->sim);
-				com->sim->vehicle = newvehicle;
-				v_setdir(newvehicle, NO_DIR);
-				v_gotorail(newvehicle, com->finder->rail);
+				if(com->finder->rail->vehicle == NULL){
+					newvehicle= s_addloco(com->sim);
+					com->sim->vehicle = newvehicle;
+					v_setdir(newvehicle, NO_DIR);
+					v_gotorail(newvehicle, com->finder->rail);
+				}
 				break;
 			case 'x':
 				if(com->finder->rail->vehicle != NULL){

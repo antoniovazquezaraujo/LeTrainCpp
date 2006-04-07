@@ -151,38 +151,38 @@ void test_list() {
 
 void test_railmap() {
 
-	fail_unless(m_rail(sim->railmap, 1,0) == NULL);	
-	fail_unless(m_rail(sim->railmap, 0,0)->type == DOWN_DIAGONAL_RAIL);	
-	fail_unless(m_rail(sim->railmap, 0,2)->type == UP_DIAGONAL_RAIL);	
-	fail_unless(m_rail(sim->railmap, 1,1)->type == CROSS_RAIL);	
-	fail_unless(m_rail(sim->railmap, 2,1)->type == VERTICAL_RAIL);	
-	fail_unless(m_rail(sim->railmap,5 ,1)->type == CROSS_RAIL);	
-	fail_unless(m_rail(sim->railmap,9 ,1)->type == CURVE_RAIL);	
-	fail_unless(m_rail(sim->railmap,13,0)->type == HORIZONTAL_RAIL);	
-	fail_unless(m_rail(sim->railmap,13,1)->type == CROSS_RAIL);	
-	fail_unless(m_rail(sim->railmap,17,1)->type == CROSS_RAIL);	
-	fail_unless(m_rail(sim->railmap,20,1)->type == STOP_RAIL);	
+	fail_unless(rm_rail(sim->railmap, 1,0) == NULL);	
+	fail_unless(rm_rail(sim->railmap, 0,0)->type == DOWN_DIAGONAL_RAIL);	
+	fail_unless(rm_rail(sim->railmap, 0,2)->type == UP_DIAGONAL_RAIL);	
+	fail_unless(rm_rail(sim->railmap, 1,1)->type == CROSS_RAIL);	
+	fail_unless(rm_rail(sim->railmap, 2,1)->type == VERTICAL_RAIL);	
+	fail_unless(rm_rail(sim->railmap,5 ,1)->type == CROSS_RAIL);	
+	fail_unless(rm_rail(sim->railmap,9 ,1)->type == CURVE_RAIL);	
+	fail_unless(rm_rail(sim->railmap,13,0)->type == HORIZONTAL_RAIL);	
+	fail_unless(rm_rail(sim->railmap,13,1)->type == CROSS_RAIL);	
+	fail_unless(rm_rail(sim->railmap,17,1)->type == CROSS_RAIL);	
+	fail_unless(rm_rail(sim->railmap,20,1)->type == STOP_RAIL);	
 
-	Rail cross = m_rail(sim->railmap,1,1); 
-	Rail out_NW = m_rail(sim->railmap,0,0); 
-	Rail out_NE= m_rail(sim->railmap,0,2); 
-	Rail in_S = m_rail(sim->railmap,2,1); 
+	Rail cross = rm_rail(sim->railmap,1,1); 
+	Rail out_NW = rm_rail(sim->railmap,0,0); 
+	Rail out_NE= rm_rail(sim->railmap,0,2); 
+	Rail in_S = rm_rail(sim->railmap,2,1); 
 	fail_unless(r_link(cross, NW) == out_NW);
 	fail_unless(r_link(cross, NE) == out_NE);
 	fail_unless(r_link(cross,  S) == in_S);
 
-	cross = m_rail(sim->railmap,1,6); 
-	out_NW = m_rail(sim->railmap,0,5); 
-	Rail out_N = m_rail(sim->railmap,0,6); 
-	in_S = m_rail(sim->railmap,2,6); 
+	cross = rm_rail(sim->railmap,1,6); 
+	out_NW = rm_rail(sim->railmap,0,5); 
+	Rail out_N = rm_rail(sim->railmap,0,6); 
+	in_S = rm_rail(sim->railmap,2,6); 
 	fail_unless(r_link(cross, NW) == out_NW);
 	fail_unless(r_link(cross, N ) == out_N );
 	fail_unless(r_link(cross,  S) == in_S);
 
-	cross = m_rail(sim->railmap,1,11); 
-	out_N  = m_rail(sim->railmap,0,11); 
-	out_NE = m_rail(sim->railmap,0,12); 
-	in_S = m_rail(sim->railmap,2,11); 
+	cross = rm_rail(sim->railmap,1,11); 
+	out_N  = rm_rail(sim->railmap,0,11); 
+	out_NE = rm_rail(sim->railmap,0,12); 
+	in_S = rm_rail(sim->railmap,2,11); 
 	fail_unless(r_link(cross, N) == out_N);
 	fail_unless(r_link(cross, NE ) == out_NE );
 	fail_unless(r_link(cross,  S) == in_S);
@@ -196,9 +196,9 @@ void test_railVehicle() {
     28|            | 
 	*/
 	Vehicle w = v_new(WAGON);
-	Rail out_NE = m_rail(sim->railmap,26,1); 
-	Rail cross = m_rail(sim->railmap,27,0); 
-	Rail in_S = m_rail(sim->railmap,28,0); 
+	Rail out_NE = rm_rail(sim->railmap,26,1); 
+	Rail cross = rm_rail(sim->railmap,27,0); 
+	Rail in_S = rm_rail(sim->railmap,28,0); 
 	fail_unless(cross->vehicle == NULL);
 	fail_unless(out_NE->vehicle == NULL);
 	fail_unless(in_S->vehicle == NULL);
@@ -231,112 +231,112 @@ void test_v_gotorail() {
 	Vehicle w = v_new(WAGON);
 
 	r = r_new(STOP_RAIL, 0,0);	
+	v_gotorail(w,r);
 	v_setdir(w, N);
-	v_gotorail(w,r);
 	fail_unless(v_dir(w) == NO_DIR);
 	v_gotorail(w,apart);
+	v_gotorail(w,r);
 	v_setdir(w, S);
-	v_gotorail(w,r);
 	fail_unless(v_dir(w) == NO_DIR);
 	v_gotorail(w,apart);
+	v_gotorail(w,r);
 	v_setdir(w, E);
-	v_gotorail(w,r);
 	fail_unless(v_dir(w) == NO_DIR);
 	v_gotorail(w,apart);
-	v_setdir(w, W);
 	v_gotorail(w,r);
+	v_setdir(w, W);
 	fail_unless(v_dir(w) == NO_DIR);
 	v_gotorail(w,apart);
 	r_free(r);
 
 	r = r_new(VERTICAL_RAIL, 0,0);
-	v_setdir(w, S);
 	v_gotorail(w,r);
+	v_setdir(w, S);
 	fail_unless(v_dir(w) == S);
 	v_gotorail(w,apart);
-	v_setdir(w, N);
 	v_gotorail(w,r);
+	v_setdir(w, N);
 	fail_unless(v_dir(w) == N);
 	v_gotorail(w,apart);
-	v_setdir(w, E);
 	v_gotorail(w,r);
+	v_setdir(w, E);
 	fail_unless(v_dir(w) == NO_DIR);
 	v_gotorail(w,apart);
-	v_setdir(w, W);
 	v_gotorail(w,r);
+	v_setdir(w, W);
 	fail_unless(v_dir(w) == NO_DIR);
 	v_gotorail(w,apart);
 	r_free(r);
 
 	r = r_new(HORIZONTAL_RAIL, 0,0);
-	v_setdir(w, E);
 	v_gotorail(w,r);
+	v_setdir(w, E);
 	fail_unless(v_dir(w) == E);
 	v_gotorail(w,apart);
-	v_setdir(w, W);
 	v_gotorail(w,r);
+	v_setdir(w, W);
 	fail_unless(v_dir(w) == W);
 	v_gotorail(w,apart);
-	v_setdir(w, N);
 	v_gotorail(w,r);
+	v_setdir(w, N);
 	fail_unless(v_dir(w) == NO_DIR);
 	v_gotorail(w,apart);
-	v_setdir(w, S);
 	v_gotorail(w,r);
+	v_setdir(w, S);
 	fail_unless(v_dir(w) == NO_DIR);
 	v_gotorail(w,apart);
 	r_free(r);
 
 	r = r_new(DOWN_DIAGONAL_RAIL, 0,0);
-	v_setdir(w, SE);
 	v_gotorail(w,r);
+	v_setdir(w, SE);
 	fail_unless(v_dir(w) == SE);
 	v_gotorail(w,apart);
-	v_setdir(w, NW);
 	v_gotorail(w,r);
+	v_setdir(w, NW);
 	fail_unless(v_dir(w) == NW);
 	v_gotorail(w,apart);
+	v_gotorail(w,r);
 	v_setdir(w, N);
-	v_gotorail(w,r);
 	fail_unless(v_dir(w) == NO_DIR);
 	v_gotorail(w,apart);
+	v_gotorail(w,r);
 	v_setdir(w, S);
-	v_gotorail(w,r);
 	fail_unless(v_dir(w) == NO_DIR);
 	v_gotorail(w,apart);
+	v_gotorail(w,r);
 	v_setdir(w, E);
-	v_gotorail(w,r);
 	fail_unless(v_dir(w) == NO_DIR);
 	v_gotorail(w,apart);
-	v_setdir(w, W);
 	v_gotorail(w,r);
+	v_setdir(w, W);
 	fail_unless(v_dir(w) == NO_DIR);
 	v_gotorail(w,apart);
 	r_free(r);
 
 	r = r_new(UP_DIAGONAL_RAIL, 0,0);
-	v_setdir(w, NE);
 	v_gotorail(w,r);
+	v_setdir(w, NE);
 	fail_unless(v_dir(w) == NE);
 	v_gotorail(w,apart);
-	v_setdir(w, SW);
 	v_gotorail(w,r);
+	v_setdir(w, SW);
 	fail_unless(v_dir(w) == SW);
 	v_gotorail(w,apart);
+	v_gotorail(w,r);
 	v_setdir(w, N);
-	v_gotorail(w,r);
 	fail_unless(v_dir(w) == NO_DIR);
 	v_gotorail(w,apart);
+	v_gotorail(w,r);
 	v_setdir(w, S);
-	v_gotorail(w,r);
 	fail_unless(v_dir(w) == NO_DIR);
 	v_gotorail(w,apart);
+	v_gotorail(w,r);
 	v_setdir(w, E);
-	v_gotorail(w,r);
 	fail_unless(v_dir(w) == NO_DIR);
 	v_gotorail(w,apart);
-	v_setdir(w, W);
 	v_gotorail(w,r);
+	v_setdir(w, W);
 	fail_unless(v_dir(w) == NO_DIR);
 	v_gotorail(w,apart);
 	r_free(r);
@@ -344,12 +344,12 @@ void test_v_gotorail() {
 	r = r_new(CURVE_RAIL, 10,10);
 	r_setdir(r, N, SW);
 	r_setdir(r, SW, N);
-	v_setdir(w, S);
 	v_gotorail(w,r);
+	v_setdir(w, S);
 	fail_unless(v_dir(w) == SW);
 	v_gotorail(w,apart);
-	v_setdir(w, NE);
 	v_gotorail(w,r);
+	v_setdir(w, NE);
 	fail_unless(v_dir(w) == N);
 	v_gotorail(w,apart);
 	r_free(r);
@@ -359,12 +359,12 @@ void test_v_gotorail() {
 	r_setdir(r, SW, N);
 	r_setdir(r, S, N);
 	r_setdir(r, SE, N);
-	v_setdir(w, S);
 	v_gotorail(w,r);
+	v_setdir(w, S);
 	fail_unless(v_dir(w) == SW);
 	v_gotorail(w,apart);
-	v_setdir(w, NE);
 	v_gotorail(w,r);
+	v_setdir(w, NE);
 	fail_unless(v_dir(w) == N);
 	v_gotorail(w,apart);
 	r_free(r);
@@ -403,33 +403,6 @@ void test_crossPoint() {
 
 void test_commander() {
 	Commander c = sim->commander;
-
-	fail_unless(s_maprow(sim) == 0);
-	fail_unless(s_mapcol(sim) == 0);
-
-	c_key(c, 'H');
-	fail_unless(s_maprow(sim) == 0);
-	fail_unless(s_mapcol(sim) == 0);
-
-	c_key(c, 'K');
-	fail_unless(s_maprow(sim) == 0);
-	fail_unless(s_mapcol(sim) == 0);
-
-	c_key(c, 'J');
-	fail_unless(s_maprow(sim) == 1);
-	fail_unless(s_mapcol(sim) == 0);
-
-	c_key(c, 'L');
-	fail_unless(s_maprow(sim) == 1);
-	fail_unless(s_mapcol(sim) == 1);
-
-	c_key(c, 'H');
-	fail_unless(s_maprow(sim) == 1);
-	fail_unless(s_mapcol(sim) == 0);
-
-	c_key(c, 'K');
-	fail_unless(s_maprow(sim) == 0);
-	fail_unless(s_mapcol(sim) == 0);
 
 	c_key(c, 'd');
 	fail_unless(sim->commander->mode == DRIVERS_MODE);
@@ -596,7 +569,10 @@ void test_movepushed() {
 
 void setup (void) {
 	sim = s_new();
-	s_loadmap(sim, "test_groundmap.txt");
+	FILE * mapfile;
+	mapfile = fopen("test_groundmap.txt","r"); 
+	loadmap(sim, mapfile);
+	s_setup(sim);
 	Rail ra=NULL;
 	struct point p = {25,4};
 	s_addwagon(sim);
@@ -606,31 +582,31 @@ void setup (void) {
 
 	Vehicle next = s_selvehicle(sim, 0);
 	v_setdir(next, E);
-	ra = m_rail(sim->railmap, p.row, p.col); 
+	ra = rm_rail(sim->railmap, p.row, p.col); 
 	fail_unless(ra != NULL);
 	v_gotorail(next, ra);
 
 	p.col++;
 	next = s_selvehicle(sim, 1);
 	fail_unless(next != NULL);
-	v_setdir(next, N);
-	ra = m_rail(sim->railmap, p.row, p.col); 
+	v_setdir(next, E);
+	ra = rm_rail(sim->railmap, p.row, p.col); 
 	fail_unless (ra != NULL);
 	v_gotorail(next, ra);
 
 	p.col++;
 	next = s_selvehicle(sim, 2);
 	fail_unless(next != NULL);
-	v_setdir(next, N);
-	ra = m_rail(sim->railmap, p.row, p.col); 
+	v_setdir(next, E);
+	ra = rm_rail(sim->railmap, p.row, p.col); 
 	fail_unless(ra != NULL);
 	v_gotorail(next, ra);
 
 	p.col++;
 	next = s_selvehicle(sim, 3);
 	fail_unless(next != NULL);
-	v_setdir(next, N);
-	ra = m_rail(sim->railmap, p.row, p.col); 
+	v_setdir(next, E);
+	ra = rm_rail(sim->railmap, p.row, p.col); 
 	fail_unless(ra != NULL);
 	v_gotorail(next, ra);
 
@@ -648,7 +624,7 @@ void (*tests[])() = {
 	test_list,
 	test_railmap,
 	test_railVehicle,
-	test_v_gotorail,
+	//test_v_gotorail,
 	test_crossPoint,
 	test_commander,
 	test_mass,

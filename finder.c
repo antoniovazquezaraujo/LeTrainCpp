@@ -47,7 +47,7 @@ int f_forward(Finder f){
 	return ret;
 }
 void f_reverse(Finder f){
-	assert(f->dir != NO_DIR);
+	//assert(f->dir != NO_DIR);
 	f->dir = r_invertdir(f->rail, f->dir);
 	//f->dir = d_invert(f->dir);
 }

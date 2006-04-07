@@ -21,11 +21,8 @@ static int crossouts (int directions[3][3], int outs[3], int keyDir);
 static void connect(Railmap railmap);
 static void setcrosses(List crosses);
 
-/*
-static void setcharmapdata(Charmap charmap, int row, int col, char c);
-*/
 
-Railmap m_new(Charmap charmap){
+Railmap rm_new(Charmap charmap){
 	int n, m;
 	Railmap railmap = malloc(sizeof(struct railmap));
 	for(n = 0; n<RAIL_MAP_ROWS; n++){
@@ -34,23 +31,10 @@ Railmap m_new(Charmap charmap){
 		}
 	}
 	railmap->crosses = l_new();
-	m_load(railmap, charmap);
+	rm_load(railmap, charmap);
 	return railmap;
 }
-/*
-Railmap m_new(){
-	int n, m;
-	Railmap railmap = malloc(sizeof(struct railmap));
-	for(n = 0; n<RAIL_MAP_ROWS; n++){
-		for(m = 0; m<RAIL_MAP_COLS; m++){
-			railmap->rails[n][m] = NULL;
-		}
-	}
-	railmap->crosses = l_new();
-	return railmap;
-}
-*/
-void m_free(Railmap railmap){
+void rm_free(Railmap railmap){
 	int n, m;
 	for(n = 0; n<RAIL_MAP_ROWS; n++){
 		for(m = 0; m<RAIL_MAP_COLS; m++){
@@ -60,23 +44,23 @@ void m_free(Railmap railmap){
 	l_free(railmap->crosses);
 	free(railmap);
 }
-Rail m_rail(Railmap railmap, int row, int col){
+Rail rm_rail(Railmap railmap, int row, int col){
 	assert(row < RAIL_MAP_ROWS);
 	assert(col < RAIL_MAP_COLS);
 	return railmap->rails[row][col];
 }
-void m_setrail(Railmap railmap, int row, int col, Rail rail){
+void rm_setrail(Railmap railmap, int row, int col, Rail rail){
 	assert(row < RAIL_MAP_ROWS);
 	assert(col < RAIL_MAP_COLS);
 	railmap->rails[row][col] = rail;
 }
-void m_addcross(Railmap railmap, Cross cross){
+void rm_addcross(Railmap railmap, Cross cross){
 	l_add(railmap->crosses, cross);
 }
-List m_crosslist(Railmap railmap){
+List rm_crosslist(Railmap railmap){
 	return railmap->crosses;
 }
-int m_load(Railmap railmap, Charmap charmap){
+int rm_load(Railmap railmap, Charmap charmap){
 
 	struct railandcross rp;
 	Rail rail = NULL;
@@ -107,13 +91,13 @@ int m_load(Railmap railmap, Charmap charmap){
 			case '+':
 				rp = newcross(charmap, row, col);
 				rail = rp.rail;
-				m_addcross(railmap, rp.cross);
+				rm_addcross(railmap, rp.cross);
 				break;
 			default:
 				rail = NULL;
 			}
 			if(rail != NULL){
-				m_setrail(railmap, row, col, rail);
+				rm_setrail(railmap, row, col, rail);
 			}
 		}
 	}
@@ -121,56 +105,6 @@ int m_load(Railmap railmap, Charmap charmap){
 	setcrosses(railmap->crosses);
 	return row;
 }
-/*
-int m_load(Railmap railmap, char * filename){
-	Charmap charmap = newcharmap();
-	loadcharmap(charmap, filename);
-
-	struct railandcross rp;
-	Rail rail = NULL;
-	int row=0, col=0;
-	char c;
-	for(row = 0; row < RAIL_MAP_ROWS; row++){
-		for(col = 0; col < RAIL_MAP_COLS; col++){
-			c = charmapdata(charmap, row, col);
-			switch(c){
-			case '|':	                         
-				rail = r_new( VERTICAL_RAIL, row, col);
-				break;                           
-			case '-':	                         
-				rail = r_new ( HORIZONTAL_RAIL, row, col);
-				break;                           
-			case '\\':	                         
-				rail = r_new ( DOWN_DIAGONAL_RAIL, row, col);
-				break;                           
-			case '/':	                         
-				rail = r_new ( UP_DIAGONAL_RAIL, row, col);
-				break;
-			case ':':	
-				rail = newstop( charmap, row, col);
-				break;                           
-			case '.':	
-				rail = newcurve( charmap, row, col);
-				break;
-			case '+':
-				rp = newcross(charmap, row, col);
-				rail = rp.rail;
-				m_addcross(railmap, rp.cross);
-				break;
-			default:
-				rail = NULL;
-			}
-			if(rail != NULL){
-				m_setrail(railmap, row, col, rail);
-			}
-		}
-	}
-	connect(railmap);
-	setcrosses(railmap->crosses);
-	freecharmap(charmap);
-	return row;
-}
-*/
 static void setcrosses(List crosses){
 	Cross next;
 	Iterator i = i_new(crosses);
@@ -225,6 +159,7 @@ static int lookaround (Charmap charmap, int row, int col, int directions[3][3]){
 	}
 	for(r = fromRow; r <=toRow; r++){
 		for(c = fromCol; c <= toCol; c++){
+	//		if(1+r == 1 && 1+c == 1) continue; // step over center NO_DIR
 			if(h_char(charmap,row+r,col+c) == railChars[1+r][1+c] ){
 				directions[1+r][1+c] = posibleDirections[1+r][1+c];
 				numFoundDirections++;
@@ -258,7 +193,7 @@ static Rail newstop(Charmap charmap, int row, int col){
 	}
 
 	if(direction != NO_DIR){
-		r_setdir(ret, direction, NO_DIR);
+		r_setdir(ret, direction, direction);
 		r_setdir(ret, d_invert(direction), direction);
 	}
 	return ret; 
@@ -418,7 +353,7 @@ static void connect(Railmap railmap){
 	struct point p = {0,0};
 	for(row = 0; row < RAIL_MAP_ROWS; row++){
 		for(col = 0; col < RAIL_MAP_COLS; col++){
-			rail = m_rail(railmap, row, col);
+			rail = rm_rail(railmap, row, col);
 			if(rail == NULL){
 				continue;
 			}
@@ -432,7 +367,7 @@ static void connect(Railmap railmap){
 				p_move(&p, dir);
 				assert(p.row < RAIL_MAP_ROWS);
 				assert(p.col < RAIL_MAP_COLS);
-				Rail linked = m_rail(railmap, p.row, p.col );
+				Rail linked = rm_rail(railmap, p.row, p.col );
 				if(linked != NULL){
 					r_setlink(rail, dir, linked);
 				}
@@ -441,8 +376,3 @@ static void connect(Railmap railmap){
 	}
 }
 
-/*
-void setcharmapdata(Charmap charmap, int row, int col, char c){
-	charmap->data[row][col] = c;
-}
-*/
