@@ -1,15 +1,15 @@
 /*===========================================================================*/
 /*
- *  			  ----------------------------------------
- *  			  .    .--- --.-- .---.     .     .  
- *  			  |    |      |   |   |    / \    | .\   |
- *  			  |    |---   |   .---.   /   \   | | \  |
- *  			  |    |      |   |  \   .-----.  | |  \ |
- *  			  .--- .---   .   |   \ /       \ | |   \.
- *  			  ----------------------------------------
+ *                  ----------------------------------------
+ *                          ___ ____  ____  ____         
+ *                   /    /      /   /__ / /   /  / /\    /
+ *                  /    /__    /   / \   /___/  / /  \  /
+ *                 /___ /___   /   /   \ /   /  / /    \/
+ *
+ *               ------------------------------------------
  *                     The Letter Train Simulator	
  *                Copyright (C) 2006 Antonio Vazquez Araujo 
-                    antoniovazquezaraujo[at]gmail[dot]com
+ *                  antoniovazquezaraujo[at]gmail[dot]com
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of the GNU General Public License as published by the Free
