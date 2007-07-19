@@ -190,7 +190,7 @@ Una forma simple es crear dos ventanas, una para el juego y otra para los datos.
 |                                              |     |              |
 .----------------------------------------------.--------------------.
 
-22 de Marzo.
+22 de Marzo de 2006.
 Nueva lista de objetivos
 ------------------------
 - Controlar los frenos
@@ -211,7 +211,7 @@ Nueva lista de objetivos
 - Crear más tests
 - Pasarlo a plan9
 
-31 de Marzo.
+31 de Marzo de 2006.
 Replanteamiento de prioridades
 ------------------------------
 El interfaz ya está más o menos usable, así que vamos a aprovechar para dar una limpieza general a todo para que funcione mejor, sea mas claro y se pueda ampliar mas facilmente, pero sin caer en la tentación de siempre, de ampliar sobre bases erroneas y luego nos vemos abrumados por la complejidad. Vamos a intentar simplificar lo que hay sin agregar nada, y hacer que funcione bien. Entonces, correcciones necesarias:
@@ -223,3 +223,30 @@ El interfaz ya está más o menos usable, así que vamos a aprovechar para dar una 
 
 Con esto, de momento bastaría para empezar con los nuevos objetivos.
 Vamos allá.
+
+9 de Octubre de 2006
+Pasado a C++. Funciona bien. Mucho más claro y limpio. Funciona también lo de los turnos, y la conservación del impulso. Ahora también se detectan los choques de trenes, aunque de una forma un poco burda, por un cambio de sentido a una velocidad excesiva. Mejorar esto.
+
+10 de Octubre de 2006.
+Nuevo replanteamiento
+---------------------
+Nuevo resumen de prioridades:
+- Buscar un modo de detectar los choques, desenganches y descarrilamientos
+- Agregar posibilidad de cargar y descargar los vagones
+- Gasto de combustible según carga, distancia y velocidad
+- Eliminar la basura railandcross
+- Crear cruces simples, que no cambian de aguja
+- Agregar edición de vias dentro del propio juego. Un finder puede construir vías.
+- Salvar tambien el estado de los cruces
+- Interfaz un poco más visual, más colores, barras de progreso, menus, alertas...
+- Agregar más datos de cada tren, masa total, velocidad, distancia recorrida, etc...
+- Crear mapas bonitos
+- Poder agregar a los mapas dibujos y cosas que no se traten como vías
+- Ocultar el finder cuando no se usa
+- Crear varios finders de servicio, uno por tren?
+- Que el finder sea intermitente, incluso varios distintos
+- Que se pueda detener la simulación para hacer maniobras con los finders
+- Que se puedan crear vías virtuales, por las que salgan trenes y al rato vuelvan a entrar
+- Que se puedan crear túneles, por las que los trenes pasan y no se ven, a no ser en modo maniobras
+- Que los finders ofrezcan también información sobre los vagones.
+- Organizar los vagones por tipo? p: pasajeros, a: animales, c: cemento, g: gas...

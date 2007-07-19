@@ -1,3 +1,5 @@
+#ifndef test_h
+#define test_h
 #include <stdarg.h>
 #include <stdio.h>
 
@@ -21,3 +23,4 @@ void setup(void);
 void cleanup(void);
 void _fail_if(int expr, char *file, int line);
 void _fail_unless (int result, const char *file, int line, const char *expr, ...);
+#endif
