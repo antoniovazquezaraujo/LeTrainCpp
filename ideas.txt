@@ -3,139 +3,139 @@
 TODO por orden de prioridad:
 - Movimiento de trenes
 - Diferenciar el finder 
-- Diferenciar el vehÌculo seleccionado
+- Diferenciar el veh√≠culo seleccionado
 - Diferenciar el cruce seleccionado
 - Datos en pantalla sobre el elemento seleccionado
 - Remolque y empuje controlando la masa total
-- Gasto de combustible seg˙n carga, distancia y velocidad
+- Gasto de combustible seg√∫n carga, distancia y velocidad
 
-- Salvar y cargar la simulaciÛn
-- Programar trenes para que hagan tareas autom·ticamente
+- Salvar y cargar la simulaci√≥n
+- Programar trenes para que hagan tareas autom√°ticamente
 - Que los vagones se puedan cargar y descargar
-- DetenciÛn de la simulaciÛn
+- Detenci√≥n de la simulaci√≥n
 - Organizar los colores
 - Que los ficheros de guardado sean editables
 - Eliminar la basura railandcross
-- Que se pueda seleccionar tambiÈn el anterior en las listas
+- Que se pueda seleccionar tambi√©n el anterior en las listas
 - Ayuda en pantalla
-- Varias p·ginas de mapa
-- Crear m·s tests
+- Varias p√°ginas de mapa
+- Crear m√°s tests
 - Pasarlo a plan9
 -------------------------------------------------------------------------------
 
 Motores, impulso y velocidad
 ----------------------------
-No existe el n˙mero de turnos de espera para moverse de un vehÌculo.
-Simplemente si el impulso que tiene es suficiente para moverse en este turno entonces se mueve, si no entonces ha de esperar al siguiente turno para que su motor le genere m·s. Cada vez que se mueve consume la cantidad proporcional a la masa que arrastra.
-Si le sobra impulso lo conserva para despuÈs. AsÌ, un objeto empujado a gran velocidad continuar· su marcha hasta que gaste todo el impulso que se le ha transferido.
-El impulso acumulado actua como un motor, cuando tiene mayor potencia puede proporcionar empuje suficiente muy r·pido y conseguir mover el vehÌculo a gran velocidad, es decir, en cada turno. Si lleva mucho impulso acumulado, podr· consumirse en cada turno, si es poco, se consumir· m·s lentamente.
-Un motor tiene dos caracterÌsticas: el empuje m·ximo que es capaz de producir y la velocidad a la que lo est· produciendo, es decir, lo acelerado que est·.
+No existe el n√∫mero de turnos de espera para moverse de un veh√≠culo.
+Simplemente si el impulso que tiene es suficiente para moverse en este turno entonces se mueve, si no entonces ha de esperar al siguiente turno para que su motor le genere m√°s. Cada vez que se mueve consume la cantidad proporcional a la masa que arrastra.
+Si le sobra impulso lo conserva para despu√©s. As√≠, un objeto empujado a gran velocidad continuar√° su marcha hasta que gaste todo el impulso que se le ha transferido.
+El impulso acumulado actua como un motor, cuando tiene mayor potencia puede proporcionar empuje suficiente muy r√°pido y conseguir mover el veh√≠culo a gran velocidad, es decir, en cada turno. Si lleva mucho impulso acumulado, podr√° consumirse en cada turno, si es poco, se consumir√° m√°s lentamente.
+Un motor tiene dos caracter√≠sticas: el empuje m√°ximo que es capaz de producir y la velocidad a la que lo est√° produciendo, es decir, lo acelerado que est√°.
 
 Enganches y empujes
 -------------------
-Tenemos dos listas principales en el simulador: una de todos los vehÌculos y otra solo con las locomotoras
+Tenemos dos listas principales en el simulador: una de todos los veh√≠culos y otra solo con las locomotoras
 Primero hemos de mover las locomotoras y todo lo que las mismas remolcan o empujan.
-A cada vehÌculo que movemos en este turno lo dejamos marcado como "servido".
-Luego nos repasamos la lista de todos los vehÌculos y solo atendemos a los que no est·n marcados.
-Esto se puede optimizar, pero de momento sirve asÌ.
-Se necesita algo asÌ porque puede haber vagones que vayan solos despuÈs de haberlos empujado una locomotora que ha frenado. Esos seguir·n hasta que terminen todo su impulso o choquen con algo.
-Un objeto solo se mueve si tiene suficiente impulso para mover su masa, y a su vez, solo se mueve si los objetos que est· remolcando se van a mover, asÌ que haremos del siguiente modo:
-La locomotora pregunta cu·nta masa total tiene delante, es decir, cu·ntos vehiculos tiene delante que estÈn contiguos y cuanto pesan entre todos, o cuanta resistencia oponen al movimiento, en el caso de finales de via. Si la locomotora tiene suficiente energÌa para superar esto entonces decide que tirar· de su remolque. 
+A cada veh√≠culo que movemos en este turno lo dejamos marcado como "servido".
+Luego nos repasamos la lista de todos los veh√≠culos y solo atendemos a los que no est√°n marcados.
+Esto se puede optimizar, pero de momento sirve as√≠.
+Se necesita algo as√≠ porque puede haber vagones que vayan solos despu√©s de haberlos empujado una locomotora que ha frenado. Esos seguir√°n hasta que terminen todo su impulso o choquen con algo.
+Un objeto solo se mueve si tiene suficiente impulso para mover su masa, y a su vez, solo se mueve si los objetos que est√° remolcando se van a mover, as√≠ que haremos del siguiente modo:
+La locomotora pregunta cu√°nta masa total tiene delante, es decir, cu√°ntos vehiculos tiene delante que est√©n contiguos y cuanto pesan entre todos, o cuanta resistencia oponen al movimiento, en el caso de finales de via. Si la locomotora tiene suficiente energ√≠a para superar esto entonces decide que tirar√° de su remolque. 
 
-Entonces pasamos a la segunda fase: le preguntamos a los objetos remolcados su masa total. Los vagones enganchados se recorren sumando la masa de todos y se contesta a la locomotora. Si todavÌa la locomotora tiene energÌa suficiente para mover todo, es decir, los posibles obst·culos y los posibles remolcados, entonces decide que SE MOVERA.
+Entonces pasamos a la segunda fase: le preguntamos a los objetos remolcados su masa total. Los vagones enganchados se recorren sumando la masa de todos y se contesta a la locomotora. Si todav√≠a la locomotora tiene energ√≠a suficiente para mover todo, es decir, los posibles obst√°culos y los posibles remolcados, entonces decide que SE MOVERA.
 
-Entonces pasamos a la tercera fase: pasamos el impulso total a la cadena de vagones enganchados y cada uno de ellos consume la parte proporcional a su masa con respecto a la masa total del tren. Hacemos lo mismo con los elementos obst·culos y si hemos calculado bien el empuje restante ser· positivo o cero.
+Entonces pasamos a la tercera fase: pasamos el impulso total a la cadena de vagones enganchados y cada uno de ellos consume la parte proporcional a su masa con respecto a la masa total del tren. Hacemos lo mismo con los elementos obst√°culos y si hemos calculado bien el empuje restante ser√° positivo o cero.
 
-La cuarta fase consiste en el movimiento decidido: tomamos cada vehÌculo de los que intervinieron y lo movemos por la vÌa en la direcciÛn en que v· la locomotora.
+La cuarta fase consiste en el movimiento decidido: tomamos cada veh√≠culo de los que intervinieron y lo movemos por la v√≠a en la direcci√≥n en que v√° la locomotora.
 
-Resumen simplificado para un tren sin obst·culos:
+Resumen simplificado para un tren sin obst√°culos:
 
-1- La locomotora pregunta a sus vagones cu·l es la masa total
+1- La locomotora pregunta a sus vagones cu√°l es la masa total
 2- Si el empuje es suficiente, se lo pasa en cadena para que cada uno consuma su parte proporcional
-3- Si nos sobra empuje nos moveremos. Desde la m·quina hasta el ˙ltimo, se mueven una posiciÛn por la via
+3- Si nos sobra empuje nos moveremos. Desde la m√°quina hasta el √∫ltimo, se mueven una posici√≥n por la via
 
 Herramientas necesarias:
-Recorrer la vÌa. Para eso est· el walker. Es un vehÌculo virtual que usamos para movernos por la vÌa y manejar los vehÌculos reales. 
+Recorrer la v√≠a. Para eso est√° el walker. Es un veh√≠culo virtual que usamos para movernos por la v√≠a y manejar los veh√≠culos reales. 
 Necesitamos que las locomotoras reciban impulsos de unos motores.
 
 Sobre los enganches 
 -------------------
-El sistema de enganche que usaremos debe cambiarse ligeramente: vamos a copiar de LEGO. Ser·n enganches macho y hembra, es decir, el 0 y el 1, de forma que el 0 siempre se enganche con el 1 y al contrario. 
-Podemos imaginar que los vehÌculos giran libremente en la via, y que siempre elegiremos el enganche que sirva con el que tenemos libre.
-Puede ocurrir que el enganche que necesitamos ya estÈ enganchado hacia el otro lado. En ese caso cambiamos todos los enganches al revÈs de como est·n y punto.
-Cuando se engancha un vehÌculo A con uno B por el enganche 0 de A el enganche 1 de B queda tambien enganchado al enganche 0 de A, para poder tirar del tren en el otro sentido.
-De este modo tan simple se puede enganchar un tren con una locomotora al principio y otra al final, sin problemas, pues siempre se dar·n la vuelta los enganches para quedar en el sentido del ˙ltimo que lo haya pedido.
+El sistema de enganche que usaremos debe cambiarse ligeramente: vamos a copiar de LEGO. Ser√°n enganches macho y hembra, es decir, el 0 y el 1, de forma que el 0 siempre se enganche con el 1 y al contrario. 
+Podemos imaginar que los veh√≠culos giran libremente en la via, y que siempre elegiremos el enganche que sirva con el que tenemos libre.
+Puede ocurrir que el enganche que necesitamos ya est√© enganchado hacia el otro lado. En ese caso cambiamos todos los enganches al rev√©s de como est√°n y punto.
+Cuando se engancha un veh√≠culo A con uno B por el enganche 0 de A el enganche 1 de B queda tambien enganchado al enganche 0 de A, para poder tirar del tren en el otro sentido.
+De este modo tan simple se puede enganchar un tren con una locomotora al principio y otra al final, sin problemas, pues siempre se dar√°n la vuelta los enganches para quedar en el sentido del √∫ltimo que lo haya pedido.
 
 Sobre las direcciones de arrastre
 ---------------------------------
-Arrastrar un vehÌculo consiste en tres pasos:
-	1. Ponerlo en el mismo sentido en la vÌa que la locomotora
+Arrastrar un veh√≠culo consiste en tres pasos:
+	1. Ponerlo en el mismo sentido en la v√≠a que la locomotora
 	2. Aplicarle el impulso proporcional al total del tren
 	3. Si el impulso basta, moverlo, es decir, forward.
-El primer paso tiene cierta complicaciÛn, dado que la locomotora puede estar en una zona de la vÌa que mira hacia el norte y los vagones en otra que mira al este. Para poner a todos en la direcciÛn correcta crearemos un walker que se recorrer· la vÌa desde la locomotora hasta el ˙ltimo vagÛn, poniÈndoles como direcciÛn la direcciÛn de salida de cada rail visitado invertida por el propio raÌl. Tenemos una funciÛn que lo hace: r_invertdir(). No invierte la direcciÛn sin m·s, sino que ofrece la otra salida del raÌl. AsÌ, en plena curva no nos sacar· fuera, sino que nos dara la direcciÛn contraria a la que llevamos pero dentro de la curva.
-En resumen, el proceso de aplicar la direcciÛn de la locomotora a todo el tren consiste en:
+El primer paso tiene cierta complicaci√≥n, dado que la locomotora puede estar en una zona de la v√≠a que mira hacia el norte y los vagones en otra que mira al este. Para poner a todos en la direcci√≥n correcta crearemos un walker que se recorrer√° la v√≠a desde la locomotora hasta el √∫ltimo vag√≥n, poni√©ndoles como direcci√≥n la direcci√≥n de salida de cada rail visitado invertida por el propio ra√≠l. Tenemos una funci√≥n que lo hace: r_invertdir(). No invierte la direcci√≥n sin m√°s, sino que ofrece la otra salida del ra√≠l. As√≠, en plena curva no nos sacar√° fuera, sino que nos dara la direcci√≥n contraria a la que llevamos pero dentro de la curva.
+En resumen, el proceso de aplicar la direcci√≥n de la locomotora a todo el tren consiste en:
 	-Crear un walker
 	-Ponerlo en el rail de la locomotora
-	-Asignarle la direcciÛn de la misma
+	-Asignarle la direcci√≥n de la misma
 	-Darle la vuelta
-	-Para cada vagÛn enganchado
+	-Para cada vag√≥n enganchado
 		-Avanzar el walker
 		-Darle la vuelta
-		-Ponerle al vagÛn la direcciÛn del walker
+		-Ponerle al vag√≥n la direcci√≥n del walker
 		-Volver a poner el walker mirando hacia el fin del tren
 
 Sobre el avance y el retroceso
 ------------------------------
-No est· claro el sistema de retroceso empleado. Desde el commander simplemente invertimos la direcciÛn del vehÌculo y seguimos avanzando, ahora en sentido contrario. Pero quÈ pasa cuando una locomotora con vagones enganchados decide dar marcha atr·s? Necesitamos crear el mismo proceso para empujes que para arrastres, con la diferencia de que puede que los vagones no estÈn enganchados, tienen que moverse igual.
-El problema, cuando no est·n enganchados es que es el propio walker que va recorriendo las vias el que tiene que obtener el vehÌculo que hay en cada rail, pues el rail no tiene constancia de ning˙n vehÌculo. Para ello, ha de preguntarle a la lista de vehÌculos, recorriÈndola para buscar si hay alguno que estÈ en esa posiciÛn. No es muy eficiente, pero servir· de momento.
-Como esto se hace en el simulador podemos preguntar desde ahÌ a la lista de vehÌculos.
+No est√° claro el sistema de retroceso empleado. Desde el commander simplemente invertimos la direcci√≥n del veh√≠culo y seguimos avanzando, ahora en sentido contrario. Pero qu√© pasa cuando una locomotora con vagones enganchados decide dar marcha atr√°s? Necesitamos crear el mismo proceso para empujes que para arrastres, con la diferencia de que puede que los vagones no est√©n enganchados, tienen que moverse igual.
+El problema, cuando no est√°n enganchados es que es el propio walker que va recorriendo las vias el que tiene que obtener el veh√≠culo que hay en cada rail, pues el rail no tiene constancia de ning√∫n veh√≠culo. Para ello, ha de preguntarle a la lista de veh√≠culos, recorri√©ndola para buscar si hay alguno que est√© en esa posici√≥n. No es muy eficiente, pero servir√° de momento.
+Como esto se hace en el simulador podemos preguntar desde ah√≠ a la lista de veh√≠culos.
 
-M·s sobre los enganches
+M√°s sobre los enganches
 -----------------------
-No resulta operativo tener enganches macho y hembra. Debido a que tenemos walkers que se recorren la via con total flexibilidad deberÌa ser mejor tener un solo tipo de enganches. 
-Para recorrer un tren desde un extremo basta con coger el enganche al que no estamos unidos, es decir, se puede hacer incluso una funciÛn que te de el enganche correcto. Los dos son del mismo tipo, no hay por que conectarse siempre en el 0. Se mira cu·l de los dos esta libre y se conecta a ese.
-Para enganchar un vagÛn, usaremos el walker, que ser· el que decida en quÈ sentido quiere el usuario enganchar. Una vez que sabemos el sentido, tomamos el vehÌculo que tenemos hacia ese lado y lo enganchamos o lo desenganchamos.
-Para recorrer un tren necesitamos una funciÛn que dados un vehÌculo y su enganchado te devuelva el enganchado del enganchado que no es el primero. Simple y r·pido.
+No resulta operativo tener enganches macho y hembra. Debido a que tenemos walkers que se recorren la via con total flexibilidad deber√≠a ser mejor tener un solo tipo de enganches. 
+Para recorrer un tren desde un extremo basta con coger el enganche al que no estamos unidos, es decir, se puede hacer incluso una funci√≥n que te de el enganche correcto. Los dos son del mismo tipo, no hay por que conectarse siempre en el 0. Se mira cu√°l de los dos esta libre y se conecta a ese.
+Para enganchar un vag√≥n, usaremos el walker, que ser√° el que decida en qu√© sentido quiere el usuario enganchar. Una vez que sabemos el sentido, tomamos el veh√≠culo que tenemos hacia ese lado y lo enganchamos o lo desenganchamos.
+Para recorrer un tren necesitamos una funci√≥n que dados un veh√≠culo y su enganchado te devuelva el enganchado del enganchado que no es el primero. Simple y r√°pido.
 Se engancharan en doble sentido, como hasta ahora.
 
-No sirve tal como queda. Las uniones entre los vagones deben ser FERREAS, nunca mejor dicho. No puedo confiar en buscar el elemento que est· contiguo a mÌ porque cuando nos movemos puede que ya no estÈ, tengo que dirigirme a el sin dudarlo por medio del enlace.
-Hay que pensar otra manera que dependa exclusivamente de los enlaces y la direcciÛn. Nada de posiciones.
+No sirve tal como queda. Las uniones entre los vagones deben ser FERREAS, nunca mejor dicho. No puedo confiar en buscar el elemento que est√° contiguo a m√≠ porque cuando nos movemos puede que ya no est√©, tengo que dirigirme a el sin dudarlo por medio del enlace.
+Hay que pensar otra manera que dependa exclusivamente de los enlaces y la direcci√≥n. Nada de posiciones.
 Un Triterator debe poder recorrer un tren sin tener en cuenta nada de posiciones.
-Realmente bastarÌa con comprobar en cada paso que NO ESTA VOLVIENDO ATRAS. Basta con dejar guardado el paso anterior y punto.
-IntentÈmoslo.
+Realmente bastar√≠a con comprobar en cada paso que NO ESTA VOLVIENDO ATRAS. Basta con dejar guardado el paso anterior y punto.
+Intent√©moslo.
 
 5 de Marzo de 2006
 Sobre la potencia de los motores
 --------------------------------
-Cuando decimos que aceleramos en una unidad lo que queremos decir es que la potencia que el motor suministra al vehÌculo en cada turno se incrementa en una unidad. Es decir, que el motor est· generando m·s potencia por turno. El motor tiene una potencia m·xima, es decir, que puede generar pongamos de 0 a 10 puntos de potencia en cada turno. Se supone que una locomotora puede tener suficiente potencia como para mover un tren de una docena de vagones a alta velocidad. Si la locomotora va sola, sin carga se movera m·s rapido aun, asi que ha de haber un maximo. Cuando se aumenta potencia el movimiento la consume, proporcional al peso. Tanto los vagones como la locomotora, se mueven si tienen energia, sea de su motor, o de un empuje o arrastre.
+Cuando decimos que aceleramos en una unidad lo que queremos decir es que la potencia que el motor suministra al veh√≠culo en cada turno se incrementa en una unidad. Es decir, que el motor est√° generando m√°s potencia por turno. El motor tiene una potencia m√°xima, es decir, que puede generar pongamos de 0 a 10 puntos de potencia en cada turno. Se supone que una locomotora puede tener suficiente potencia como para mover un tren de una docena de vagones a alta velocidad. Si la locomotora va sola, sin carga se movera m√°s rapido aun, asi que ha de haber un maximo. Cuando se aumenta potencia el movimiento la consume, proporcional al peso. Tanto los vagones como la locomotora, se mueven si tienen energia, sea de su motor, o de un empuje o arrastre.
 Los frenos consumen energia como si fueran peso.
 Cuando se choca, simplemente aumenta la masa total a mover, esto es automatico.
 
 Vehiculo:
-	int imp: energÌa acumulada. El motor la incrementa, el movimiento y los frenos la consumen 
+	int imp: energ√≠a acumulada. El motor la incrementa, el movimiento y los frenos la consumen 
 	int power: potencia que suministra el motor cada turno (de 0 a 100)
 	
 11 de Marzo de 2006
 Sobre los movimientos y las masas
 ---------------------------------
-Cuando necesitamos mover un grupo de elementos enganchados, es decir un tren, tenemos que tener en cuenta que solo se mover·n todos si el impulso que se ha distribuido entre ellos les ha dado energÌa suficiente a todos y cada uno de ellos.
-Si esto es asÌ, damos el impulso por consumido y procedemos al movimiento. Nunca, en ningun caso, podemos mover un tren por partes, ya que se romperÌa, es decir, si la locomotora se mueve es porque todos los vagones se mover·n en ese turno indefectiblemente. Si alguno de ellos no se va a mover entonces no puede moverse ninguno.
-Hay que prestar atenciÛn a la propia locomotora, puÈs es uno m·s del grupo, solamente que recibe un impulso dependiente de su potencia y lo reparte entre sÌ mismo y los dem·s.
+Cuando necesitamos mover un grupo de elementos enganchados, es decir un tren, tenemos que tener en cuenta que solo se mover√°n todos si el impulso que se ha distribuido entre ellos les ha dado energ√≠a suficiente a todos y cada uno de ellos.
+Si esto es as√≠, damos el impulso por consumido y procedemos al movimiento. Nunca, en ningun caso, podemos mover un tren por partes, ya que se romper√≠a, es decir, si la locomotora se mueve es porque todos los vagones se mover√°n en ese turno indefectiblemente. Si alguno de ellos no se va a mover entonces no puede moverse ninguno.
+Hay que prestar atenci√≥n a la propia locomotora, pu√©s es uno m√°s del grupo, solamente que recibe un impulso dependiente de su potencia y lo reparte entre s√≠ mismo y los dem√°s.
 
 18 de Marzo de 2006.
-Sobre el interfaz gr·fico 
+Sobre el interfaz gr√°fico 
 ----------------------------------
-Indicador de direcciÛn de un vehiculo:
+Indicador de direcci√≥n de un vehiculo:
 
             /  \
            x    y   m    g-
                      \
 
-Muestra el aspecto del vehÌculo y a la vez su direcciÛn.   
+Muestra el aspecto del veh√≠culo y a la vez su direcci√≥n.   
 
-Indicador de enganches de un vehÌculo:
+Indicador de enganches de un veh√≠culo:
 	[a<b>c] [a<b ] [ b ] [ b>c]
-Nos estamos guiando por el aspecto de los vehÌculos, pero podrÌamos crear un tren con todos los vagones iguales, que solo se diferencian por su id. Quiz· mejor mostrar los enganches por id, o de ambas formas:
+Nos estamos guiando por el aspecto de los veh√≠culos, pero podr√≠amos crear un tren con todos los vagones iguales, que solo se diferencian por su id. Quiz√° mejor mostrar los enganches por id, o de ambas formas:
 	[3<5>14] [4<3 ] [ 8 ] [ 42>29]
 
 Indicador de potencia de una locomotora:
@@ -146,10 +146,10 @@ Indicador de frenos:
 =10%
 ==========100%
 
-Datos que se necesitan saber de un vehÌculo:
+Datos que se necesitan saber de un veh√≠culo:
 	id
 	aspecto
-	direcciÛn 
+	direcci√≥n 
 	enganches
 	impulso
 	power si es una locomotora
@@ -197,35 +197,35 @@ Nueva lista de objetivos
 - Seguir moviendo los vagones con impulso
 - Salvar tambien el estado de los cruces
 - Datos en pantalla sobre el elemento seleccionado
-- Gasto de combustible seg˙n carga, distancia y velocidad
+- Gasto de combustible seg√∫n carga, distancia y velocidad
 - Ampliar los cruces para que puedan ser oblicuos
 - Crear cruces simples, que no cambian de aguja
-- Agregar ediciÛn de vias
+- Agregar edici√≥n de vias
 
-- Programar trenes para que hagan tareas autom·ticamente
+- Programar trenes para que hagan tareas autom√°ticamente
 - Que los vagones se puedan cargar y descargar
-- DetenciÛn de la simulaciÛn
+- Detenci√≥n de la simulaci√≥n
 - Organizar los colores
 - Eliminar la basura railandcross
 - Ayuda en pantalla
-- Crear m·s tests
+- Crear m√°s tests
 - Pasarlo a plan9
 
 31 de Marzo de 2006.
 Replanteamiento de prioridades
 ------------------------------
-El interfaz ya est· m·s o menos usable, asÌ que vamos a aprovechar para dar una limpieza general a todo para que funcione mejor, sea mas claro y se pueda ampliar mas facilmente, pero sin caer en la tentaciÛn de siempre, de ampliar sobre bases erroneas y luego nos vemos abrumados por la complejidad. Vamos a intentar simplificar lo que hay sin agregar nada, y hacer que funcione bien. Entonces, correcciones necesarias:
+El interfaz ya est√° m√°s o menos usable, as√≠ que vamos a aprovechar para dar una limpieza general a todo para que funcione mejor, sea mas claro y se pueda ampliar mas facilmente, pero sin caer en la tentaci√≥n de siempre, de ampliar sobre bases erroneas y luego nos vemos abrumados por la complejidad. Vamos a intentar simplificar lo que hay sin agregar nada, y hacer que funcione bien. Entonces, correcciones necesarias:
 
 -Eliminar impulsos negativos
--Manejar powers mas discretas, podrÌa ser de 0 a 10 tranquilamente
+-Manejar powers mas discretas, podr√≠a ser de 0 a 10 tranquilamente
 -Buscar un modo de detectar los choques, desenganches y descarrilamientos
--Gasto de combustible seg˙n carga, distancia y velocidad
+-Gasto de combustible seg√∫n carga, distancia y velocidad
 
-Con esto, de momento bastarÌa para empezar con los nuevos objetivos.
-Vamos all·.
+Con esto, de momento bastar√≠a para empezar con los nuevos objetivos.
+Vamos all√°.
 
 9 de Octubre de 2006
-Pasado a C++. Funciona bien. Mucho m·s claro y limpio. Funciona tambiÈn lo de los turnos, y la conservaciÛn del impulso. Ahora tambiÈn se detectan los choques de trenes, aunque de una forma un poco burda, por un cambio de sentido a una velocidad excesiva. Mejorar esto.
+Pasado a C++. Funciona bien. Mucho m√°s claro y limpio. Funciona tambi√©n lo de los turnos, y la conservaci√≥n del impulso. Ahora tambi√©n se detectan los choques de trenes, aunque de una forma un poco burda, por un cambio de sentido a una velocidad excesiva. Mejorar esto.
 
 10 de Octubre de 2006.
 Nuevo replanteamiento
@@ -233,20 +233,20 @@ Nuevo replanteamiento
 Nuevo resumen de prioridades:
 - Buscar un modo de detectar los choques, desenganches y descarrilamientos
 - Agregar posibilidad de cargar y descargar los vagones
-- Gasto de combustible seg˙n carga, distancia y velocidad
+- Gasto de combustible seg√∫n carga, distancia y velocidad
 - Eliminar la basura railandcross
 - Crear cruces simples, que no cambian de aguja
-- Agregar ediciÛn de vias dentro del propio juego. Un finder puede construir vÌas.
+- Agregar edici√≥n de vias dentro del propio juego. Un finder puede construir v√≠as.
 - Salvar tambien el estado de los cruces
-- Interfaz un poco m·s visual, m·s colores, barras de progreso, menus, alertas...
-- Agregar m·s datos de cada tren, masa total, velocidad, distancia recorrida, etc...
+- Interfaz un poco m√°s visual, m√°s colores, barras de progreso, menus, alertas...
+- Agregar m√°s datos de cada tren, masa total, velocidad, distancia recorrida, etc...
 - Crear mapas bonitos
-- Poder agregar a los mapas dibujos y cosas que no se traten como vÌas
+- Poder agregar a los mapas dibujos y cosas que no se traten como v√≠as
 - Ocultar el finder cuando no se usa
 - Crear varios finders de servicio, uno por tren?
 - Que el finder sea intermitente, incluso varios distintos
-- Que se pueda detener la simulaciÛn para hacer maniobras con los finders
-- Que se puedan crear vÌas virtuales, por las que salgan trenes y al rato vuelvan a entrar
-- Que se puedan crear t˙neles, por las que los trenes pasan y no se ven, a no ser en modo maniobras
-- Que los finders ofrezcan tambiÈn informaciÛn sobre los vagones.
+- Que se pueda detener la simulaci√≥n para hacer maniobras con los finders
+- Que se puedan crear v√≠as virtuales, por las que salgan trenes y al rato vuelvan a entrar
+- Que se puedan crear t√∫neles, por las que los trenes pasan y no se ven, a no ser en modo maniobras
+- Que los finders ofrezcan tambi√©n informaci√≥n sobre los vagones.
 - Organizar los vagones por tipo? p: pasajeros, a: animales, c: cemento, g: gas...
