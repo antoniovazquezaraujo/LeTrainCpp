@@ -250,3 +250,4 @@ Nuevo resumen de prioridades:
 - Que se puedan crear túneles, por las que los trenes pasan y no se ven, a no ser en modo maniobras
 - Que los finders ofrezcan también información sobre los vagones.
 - Organizar los vagones por tipo? p: pasajeros, a: animales, c: cemento, g: gas...
+
