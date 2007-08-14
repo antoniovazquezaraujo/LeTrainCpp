@@ -27,8 +27,8 @@ sysconfdir = ${prefix}/etc
 sharedstatedir = ${prefix}/com
 localstatedir = ${prefix}/var
 libdir = ${exec_prefix}/lib
-infodir = ${prefix}/info
-mandir = ${prefix}/man
+infodir = ${prefix}/share/info
+mandir = ${prefix}/share/man
 includedir = ${prefix}/include
 oldincludedir = /usr/include
 
@@ -40,9 +40,9 @@ pkgincludedir = $(includedir)/letrain
 
 top_builddir = ..
 
-ACLOCAL = aclocal-1.4
+ACLOCAL = /home/pc-13/basura/letrain/missing aclocal-1.4
 AUTOCONF = autoconf
-AUTOMAKE = automake-1.4
+AUTOMAKE = /home/pc-13/basura/letrain/missing automake-1.4
 AUTOHEADER = autoheader
 
 INSTALL = /usr/bin/install -c
@@ -64,7 +64,7 @@ CXX = g++
 HAVE_LIB = @HAVE_LIB@
 LIB = @LIB@
 LTLIB = @LTLIB@
-MAKEINFO = makeinfo
+MAKEINFO = /home/pc-13/basura/letrain/missing makeinfo
 PACKAGE = letrain
 RANLIB = ranlib
 VERSION = 0.1
@@ -79,7 +79,7 @@ CONFIG_CLEAN_FILES =
 PROGRAMS =  $(bin_PROGRAMS)
 
 
-DEFS = -DPACKAGE_NAME=\"\" -DPACKAGE_TARNAME=\"\" -DPACKAGE_VERSION=\"\" -DPACKAGE_STRING=\"\" -DPACKAGE_BUGREPORT=\"\" -DPACKAGE=\"letrain\" -DVERSION=\"0.1\"  -I. -I$(srcdir) 
+DEFS = -DPACKAGE_NAME=\"\" -DPACKAGE_TARNAME=\"\" -DPACKAGE_VERSION=\"\" -DPACKAGE_STRING=\"\" -DPACKAGE_BUGREPORT=\"\" -DPACKAGE=\"letrain\" -DVERSION=\"0.1\" -I. -I$(srcdir) 
 CPPFLAGS = 
 LDFLAGS = 
 LIBS = 
