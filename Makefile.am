@@ -1,3 +1,3 @@
-EXTRA_DIST = src/groundmap.txt NEWS README AUTHORS INSTALL ChangeLog COPYING
-SUBDIRS = include src
+EXTRA_DIST = NEWS README AUTHORS INSTALL ChangeLog COPYING
+SUBDIRS = include src testing
 AUTOMAKE_OPTIONS = foreign

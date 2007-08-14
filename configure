@@ -1450,7 +1450,7 @@ echo "${ECHO_T}no" >&6
 fi
 
 
-PACKAGE=letrain
+PACKAGE=letrainMotor
 
 VERSION=0.1
 
@@ -2904,7 +2904,7 @@ else
   RANLIB="$ac_cv_prog_RANLIB"
 fi
 
-                              ac_config_files="$ac_config_files Makefile include/Makefile src/Makefile"
+                                                                      ac_config_files="$ac_config_files Makefile include/Makefile include/UnitTest++/Makefile include/UnitTest++/Posix/Makefile include/UnitTest++/Win32/Makefile src/Makefile testing/Makefile"
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
 # tests run on this system so they can be shared between configure
@@ -3458,7 +3458,11 @@ do
   # Handling of arguments.
   "Makefile" ) CONFIG_FILES="$CONFIG_FILES Makefile" ;;
   "include/Makefile" ) CONFIG_FILES="$CONFIG_FILES include/Makefile" ;;
+  "include/UnitTest++/Makefile" ) CONFIG_FILES="$CONFIG_FILES include/UnitTest++/Makefile" ;;
+  "include/UnitTest++/Posix/Makefile" ) CONFIG_FILES="$CONFIG_FILES include/UnitTest++/Posix/Makefile" ;;
+  "include/UnitTest++/Win32/Makefile" ) CONFIG_FILES="$CONFIG_FILES include/UnitTest++/Win32/Makefile" ;;
   "src/Makefile" ) CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
+  "testing/Makefile" ) CONFIG_FILES="$CONFIG_FILES testing/Makefile" ;;
   *) { { echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5
 echo "$as_me: error: invalid argument: $ac_config_target" >&2;}
    { (exit 1); exit 1; }; };;

@@ -34,9 +34,9 @@ oldincludedir = /usr/include
 
 DESTDIR =
 
-pkgdatadir = $(datadir)/letrain
-pkglibdir = $(libdir)/letrain
-pkgincludedir = $(includedir)/letrain
+pkgdatadir = $(datadir)/letrainMotor
+pkglibdir = $(libdir)/letrainMotor
+pkgincludedir = $(includedir)/letrainMotor
 
 top_builddir = .
 
@@ -65,12 +65,12 @@ HAVE_LIB = @HAVE_LIB@
 LIB = @LIB@
 LTLIB = @LTLIB@
 MAKEINFO = makeinfo
-PACKAGE = letrain
+PACKAGE = letrainMotor
 RANLIB = ranlib
 VERSION = 0.1
 
-EXTRA_DIST = src/groundmap.txt NEWS README AUTHORS INSTALL ChangeLog COPYING
-SUBDIRS = include src
+EXTRA_DIST = NEWS README AUTHORS INSTALL ChangeLog COPYING
+SUBDIRS = include src testing
 AUTOMAKE_OPTIONS = foreign
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
@@ -233,7 +233,6 @@ distdir: $(DISTFILES)
 	distdir=`cd $(distdir) && pwd`; \
 	cd $(top_srcdir) \
 	  && $(AUTOMAKE) --include-deps --build-dir=$$here --srcdir-name=$(top_srcdir) --output-dir=$$top_distdir --foreign Makefile
-	$(mkinstalldirs) $(distdir)/src
 	@for file in $(DISTFILES); do \
 	  d=$(srcdir); \
 	  if test -d $$d/$$file; then \

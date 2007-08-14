@@ -1,0 +1,397 @@
+#
+# Motor IDE functional Makefile template
+# 	for terminal program in C++
+#
+# Written by Konstantin Klyagin <konst@konst.org.ua>
+# Distributed under the GNU Public License
+
+# Project settings and files
+
+SOURCES = src/persist.cpp src/list.cpp src/point.cpp src/dir.cpp src/alert.cpp src/iterator.cpp src/sim.cpp src/charmap.cpp src/pruebas.cpp src/railmap.cpp src/finder.cpp src/rail.cpp src/cross.cpp src/letrain.cpp src/commander.cpp src/carriles.cpp src/vehicle.cpp src/speed.cpp src/graphics.cpp src/node.cpp src/trainiterator.cpp src/logging.cpp testing/Test.cpp testing/TestMovidas.cpp testing/Prueba.cpp testing/TestParidas.cpp include/UnitTest++/Posix/TimeHelpers.cpp include/UnitTest++/Posix/SignalTranslator.cpp include/UnitTest++/Win32/TimeHelpers.cpp 
+HEADERS = testing/Prueba.h include/debug.h include/UnitTest++/Checks.h include/UnitTest++/DeferredTestResult.h include/UnitTest++/TestDetails.h include/UnitTest++/XmlTestReporter.h include/UnitTest++/Posix/TimeHelpers.h include/UnitTest++/Posix/SignalTranslator.h include/UnitTest++/Win32/TimeHelpers.h include/UnitTest++/AssertException.h include/UnitTest++/TestMacros.h include/UnitTest++/Config.h include/UnitTest++/TestResults.h include/UnitTest++/TestReporterStdout.h include/UnitTest++/Test.h include/UnitTest++/MemoryOutStream.h include/UnitTest++/TestRunner.h include/UnitTest++/DeferredTestReporter.h include/UnitTest++/ReportAssert.h include/UnitTest++/UnitTest++.h include/UnitTest++/TestSuite.h include/UnitTest++/TestList.h include/UnitTest++/TimeHelpers.h include/UnitTest++/TestReporter.h include/UnitTest++/CheckMacros.h include/UnitTest++/TimeConstraint.h include/cross.h include/dir.h include/iterator.h include/sim.h include/commander.h include/vehicle.h include/charmap.h include/logging.h include/finder.h include/letrain.h include/persist.h include/trainiterator.h include/list.h include/node.h include/rail.h include/railmap.h include/graphics.h include/point.h 
+DOCS = src/groundmap.txt src/game1.txt src/test_groundmap.txt NEWS README AUTHORS INSTALL ChangeLog COPYING 
+MISCF = src/letrain.log include/UnitTest++/Posix/TimeHelpers.d include/UnitTest++/Posix/SignalTranslator.d 
+BUILDF = configure.in testing/Makefile.am 
+ALL_FILES := $(strip $(SOURCES) $(HEADERS) $(MISCF) $(DOCS))
+ALL_DIRS := $(sort $(dir $(ALL_FILES)))
+PROJNAME = letrainMotor
+PROJVER = 0.1
+INCLDIRS = 
+PROG = letrainMotor
+DIST_TARGZ := $(PROJNAME)-$(PROJVER).tar.gz
+LDFLAGS = 
+CLNAMES =
+WANT_AM = WANT_AUTOCONF=2.1 WANT_AUTOMAKE=1.4
+WANT = $(WANT_AM) CFLAGS="-O0 -g" CXXFLAGS="-O0 -g"
+
+# Motor specific targets
+
+# Executed every time there is a need to compile the stuff
+
+build: ready
+	$(WANT) $(MAKE)
+
+# Executed to make sure the build environment is ready
+
+ready:
+	@if test ! -f Makefile.am; then $(MAKE) -f Makefile.func automake; fi
+	@if test ! -f Makefile.in; then $(WANT) automake; fi
+	@if test ! -f configure; then autoconf; fi
+	@if test ! -f Makefile; then \
+	    $(WANT) ./configure; \
+	fi
+
+# Invoked for cleaning up
+
+clean: ready
+	$(MAKE) distclean
+
+# This one starts the debugger
+
+debug:
+	@prg=`echo "$(PROG)" | sed 's/-/_/g'`; prg=`find . -name "$${prg}"`; \
+	exec gdb --fullname -silent -tty `cat .debugtty && rm -f .debugtty` $${prg}
+
+# Runs the program
+
+run:
+	@prg=`echo "$(PROG)" | sed 's/-/_/g'`; \
+	CMD="`find . -name "$${prg}" -type f`"; \
+	`echo $$CMD` 
+
+# Executed on project creation
+
+start: automake makesure
+
+# Executed on project modification
+
+update: automake
+	rm -f config.cache && $(WANT) ./configure
+
+#
+# Add connected libs into the distribution package
+#
+
+distextra:
+	@sed 's|^EXTRA_DIST\(.*\)$$|EXTRA_DIST\1 $(addsuffix /*, $(CLNAMES))|g' Makefile.am >.makefile.am; \
+	mv .makefile.am Makefile.am
+
+#
+# Modify the Makefile.am thus connected libraries are to compile
+# don't forget to replace dirs in -L and -I
+#
+
+linklibs:
+
+distlib: linklibs
+	@echo; \
+	if test ! -z "$$rsed"; then \
+	    for file in `find . -name Makefile.am`; do \
+		sed "$$rsed" $$file >.makefile.am; \
+		mv .makefile.am $$file; \
+	    done; \
+	fi
+	@echo -e "dist-hook:\n\tcd \$$(top_distdir); subs=\`egrep \"^[:space:]*SUBDIRS\" Makefile.am | sed 's/SUBDIRS[ =]\+//g'\`; \\" >.makefile.am
+	@echo -e "\techo \"SUBDIRS = $(CLNAMES) \$$\$$subs\" >>.makefile.am; \\" >>.makefile.am
+	@echo -e "\tegrep -v \"^[:space:]*SUBDIRS\" Makefile.am >>.makefile.am; \\" >>.makefile.am
+	@echo -e "\tmv .makefile.am Makefile.am; $(WANT_AM) autoconf && automake" >>.makefile.am
+	@echo -e "\n# END OF MOTOR DIST TARGETS #" >>.makefile.am
+	@cat Makefile.am >>.makefile.am
+	@mv .makefile.am Makefile.am
+	@cat configure.in | egrep -v "^[[:space:]]*AC_OUTPUT|^[[:space:]]*AC_CONFIG_SUBDIRS" >.configure.in; \
+	libdirs="$(CLNAMES)"; \
+	if test -n "$$libdirs"; then \
+	    libdirs=`echo $$libdirs | sed 's/^\s+|\s+$$//g'`; \
+	    echo "AC_CONFIG_SUBDIRS($$libdirs)" >>.configure.in; \
+	fi; \
+	cat configure.in | egrep "^[[:space:]]*AC_OUTPUT" >>.configure.in; \
+	mv .configure.in configure.in; \
+
+dist: makesure automake distextra distlib
+	@-for i in . $(CLNAMES); do \
+	    if cd "/home/to/archivo/lab/letrain/pruebas/maspruebasautoconf"/$$i; then \
+		if test "$$i" != "."; then for file in `find . -name Makefile.am`; do \
+		    sed 's/ [[:alnum:]]*\.spec//g' $$file >.makefile.am; \
+		    mv .makefile.am $$file; \
+		done; fi; \
+		$(WANT) autoconf; automake -a -c; \
+		if test $$i != "."; then \
+		    find . -name "*.spec" -exec rm -f {} \;; \
+		fi; \
+	    fi; \
+	done
+	@if test ! -z "$(CLNAMES)"; then find $(CLNAMES) -name "*.spec" -exec rm -f {} \;; fi
+	@if test ! -f Makefile; then ./configure --cache-file=/home/to/archivo/lab/letrain/pruebas/maspruebasautoconf/config.cache; fi
+	$(MAKE) dist
+	$(MAKE) -f Makefile.func automake
+
+distcleanup:
+	@if test -f Makefile.am; then \
+	    cat Makefile.am | perl -e \
+		"while(<STDIN>) { \
+		    chomp; push (@toshow, \$$_); \
+		    @toshow = () if \$$_ eq '# END OF MOTOR DIST TARGETS #'; \
+		}; \
+		print map { \$$_, \"\n\" } @toshow;" \
+	    >.makefile.am; \
+	    mv .makefile.am Makefile.am; \
+	fi
+
+rpmspec:
+	@if test ! -f letrainMotor.spec; then \
+	    echo "letrainMotor.spec file not found!"; \
+	    exit 1; \
+	fi
+	@sed "s/^[[:space:]]*Version\: .*$$/Version: $(PROJVER)/g" <letrainMotor.spec >letrainMotor.spec.uver
+	@if test -z "`egrep '^[[:space:]]*BuildRoot: ' letrainMotor.spec`"; then \
+	    echo "BuildRoot: /var/tmp/%{name}-buildroot" >letrainMotor.spec; \
+	    cat letrainMotor.spec.uver >>letrainMotor.spec; \
+	else \
+	    mv letrainMotor.spec.uver letrainMotor.spec; \
+	fi
+	@rm -f mv letrainMotor.spec.uver
+
+rpm: rpmspec dist
+	@if test ! -f ~/.motor/rpmrc; then \
+	    echo "macrofiles:	/usr/lib/rpm/macros:/usr/lib/rpm/%{_target}/macros:/etc/rpm/macros.specspo:/etc/rpm/macros:/etc/rpm/%{_target}/macros:~/.rpmmacros:~/.motor/rpmmacros" >~/.motor/rpmrc; \
+	fi
+	@if test ! -f ~/.motor/rpmmacros; then \
+	    echo "%_topdir	$${HOME}/.motor/rpm"	>>~/.motor/rpmmacros; \
+	    echo "%_builddir	%{_topdir}/BUILD"	>>~/.motor/rpmmacros; \
+	    echo "%_rpmdir	%{_topdir}/RPMS"	>>~/.motor/rpmmacros; \
+	    echo "%_sourcedir	%{_topdir}/SOURCES"	>>~/.motor/rpmmacros; \
+	    echo "%_specdir	%{_topdir}/SPECS"	>>~/.motor/rpmmacros; \
+	    echo "%_srcrpmdir	%{_topdir}/SRPMS"	>>~/.motor/rpmmacros; \
+	    echo "%_tmppath	%{_var}/tmp"		>>~/.motor/rpmmacros; \
+	fi
+	@-for i in SPECS BUILD RPMS SRPMS; do mkdir -p "$${HOME}/.motor/rpm/$$i"; done
+	unset LINGUAS; rpmbuild -ta --rcfile ~/.motor/rpmrc --target i386-pc-linux-gnu /$(DIST_TARGZ)
+	find "${HOME}/.motor/rpm" -name "$(PROJNAME)-$(PROJVER)*rpm" -exec mv {} "" \;
+	rm -rf "${HOME}/.motor/rpm"
+
+#
+# mfdetect(currentfiles) returns
+#	1 - root dir	2 - prog dir
+#	3 - lib dir	4 - doc dir
+#	5 - misc dir
+#
+# finlist(currentfiles, setof) $result to the list of files matched
+#
+# variables
+#	rfnames - files in the current directory (with relative path names)
+#	fnames  - files in the current directory (filenames only)
+#	dnames  - current dir subdirectories
+#
+automake: distcleanup
+	@rootfound=0; \
+	cflgs=""; \
+	if test ! -z "$(INCLDIRS)"; then \
+	    idirs=`for i in $(addprefix -I, $(INCLDIRS)); do (echo -n "$$i " | \
+		grep -v "^-I/" | sed 's/^-I/-I\\\\044(top_srcdir)\//g'); done; \
+		for i in $(addprefix -I, $(INCLDIRS)); do (echo -n "$$i " | \
+		grep "^-I/"); done`; \
+	    idirs=`echo -e $$idirs | sed "s/\n//g"`; \
+	fi; \
+	amfnames=""; \
+	plibs=`for i in ; do printf " %s" $$i | sed 's/-/_/g'; done`; \
+	plibs=`for i in $$plibs; do printf " -l%s" $$i; done`; \
+	 \
+	\
+	finlist () { \
+	    result=""; \
+	    for i in $$1; do \
+		gmask=`echo $$i | sed 's/\//\\\\\//g' | sed 's/\./\\\\\./g'`; \
+		gmask="\<$$gmask\>"; \
+		if test ! -z "`echo $$2 | egrep $$gmask`"; then \
+		result="$$result $$i"; fi; \
+	    done; \
+	}; \
+	mfdetect () { \
+	    finlist "$$1" "$(SOURCES)"; \
+	    if test ! -z "$$result"; then \
+		if test "$$rootfound" = "0"; then \
+		rootfound=1; return 2; else \
+		return 3; fi; \
+	    fi; \
+	    finlist "$$1" "$(DOCS)"; \
+	    if test ! -z "$$result"; then return 4; fi; \
+	    return 5; \
+	}; \
+	getlastword () { \
+	    result=`echo $$1 | sed "s/^\(.*\)\/\([^/]\+\)\/$$/\2/g" | sed "s/\///g"`; \
+	}; \
+	filteram () { \
+	    if test -f $$1; then egrep -v "^[^#]+_PROGRAMS|^[^#]+_SOURCES|^[[:space:]]*EXTRA_DIST|^[[:space:]]*AUTOMAKE_OPTIONS|^[^#]+_LIBRARIES|^[[:space:]]*SUBDIRS|^[[:space:]]*INCLUDES|^[[:space:]]*CPPFLAGS|^[[:space:]]*CFLAGS|^[^#]+_LDADD|^[^#]+_LDFLAGS" $$1 >$${1}.motmp; \
+	    else touch $${1}.motmp; fi; \
+	    echo -n >$$1; \
+	}; \
+	extractsubdirs () { dextracted=""; \
+	    for ndir; do \
+		pathcomp=""; \
+		set `echo ":$$ndir" | sed -ne 's/^:\//#/;s/^://;s/\// /g;s/^#/\//;p'`; \
+		if test "$$ndir" != "po/" -a "$$ndir" != "./po/" -a "$$ndir" != "intl/" -a "$$ndir" != "./intl/"; then \
+		for d; do pathcomp="$$pathcomp$$d"; \
+		    pathcomp="$$pathcomp/"; \
+		    dextracted="$$dextracted $$pathcomp"; \
+		    if test $$pathcomp = "./"; then pathcomp=""; fi; \
+		done; fi; \
+	    done; \
+	    dextracted=`for i in $$dextracted; do echo $$i; done | sort -u`; \
+	}; \
+	\
+	extractsubdirs ./ $(ALL_DIRS); \
+	echo "$$dextracted" >.dextracted; \
+	for dir in $$dextracted; do \
+	    if test "$$dir" = "./"; then dir=""; fi; \
+	    gmask="^$$dir[^/]+$$"; \
+	\
+	    if test ! -z "$(ALL_FILES)"; then \
+		rfnames=`for i in $(ALL_FILES); do echo $$i | egrep $$gmask; done`; \
+		rfnames=`echo $$rfnames | sed "s/\n//g"`; \
+	    fi; \
+	    if test ! -z "$$dir"; then \
+		gmask="s/`echo $$dir | sed 's/\//\\\\\//g'`//g"; \
+		fnames=`echo $$rfnames | sed $$gmask`; \
+		gmask="^$$dir[^/]+/$$" ;\
+	    else \
+		fnames="$$rfnames"; \
+		gmask="^[^.][^/]*/$$" ;\
+	    fi; \
+	    if test -f "$${dir}letrainMotor.spec"; then fnames="$$fnames letrainMotor.spec"; fi; \
+	\
+	    dnames=`for i in $$dextracted; do echo $$i | egrep $$gmask; done`; \
+	    dnames=`echo $$dnames | sed "s/\n//g"`; \
+	    if test ! -z "$$dir"; then \
+		gmask="s/`echo $$dir | sed 's/\//\\\\\//g'`//g"; \
+		dnames=`echo $$dnames | sed $$gmask`; \
+	    fi; \
+	    dnames=`echo $$dnames | sed "s/\///g"`; \
+	\
+	    mfdetect $$rfnames; tmf=$$?; \
+	    amfname="$${dir}Makefile.am"; filteram $$amfname; \
+	    amfnames="$$amfnames $$amfname"; \
+	    case "$$tmf" in \
+		2) pdir="$$dir"; \
+		   pfnames="$$fnames"; \
+		   pdnames="$$dnames"; \
+		   ;; \
+		3) getlastword $$dir; lib=$$result; \
+		   finlist "$$fnames" "$(SOURCES)"; \
+		   if test ! -z "$$result"; then \
+		       if test ! -z "$$idirs"; then echo "INCLUDES = $$idirs" >>$$amfname; fi; \
+		       if test ! -z "$$cflgs"; then \
+		           echo "CPPFLAGS = $$cflgs" >>$$amfname; \
+		       fi; \
+		       lib=`echo $$lib | sed 's/[-.,]/_/g'`; \
+		       echo "noinst_LIBRARIES = lib$${lib}.a" >>$$amfname; \
+		       echo "lib$${lib}_a_SOURCES =$${result}" >>$$amfname; \
+		       plibs="\$$(top_srcdir)/$${dir}lib$${lib}.a $${plibs}"; \
+		   fi; ;; \
+		4) ;; \
+	    esac; \
+	    if test ! -z "$$fnames"; then echo "EXTRA_DIST = $$fnames" >>$$amfname; fi; \
+	    if test ! -z "$$dnames"; then echo "SUBDIRS = $$dnames" >>$$amfname; fi; \
+	    if test -z "$$dir"; then echo "AUTOMAKE_OPTIONS = foreign" >>$$amfname; fi; \
+	    cat $${amfname}.motmp >>$$amfname; rm -f $${amfname}.motmp; \
+	done; \
+	amfname="$${pdir}Makefile.am"; filteram $$amfname; \
+	amfnames="$$amfnames $$amfname"; \
+	prog=$(notdir $(PROG)); \
+	prog=`echo $$prog | sed 's/[-.,]/_/g'`; \
+	if test ! -z "$$idirs"; then echo "INCLUDES = $$idirs" >>$$amfname; fi; \
+	if test ! -z "$$cflgs"; then \
+	    echo "CPPFLAGS = $$cflgs" >>$$amfname; \
+	fi; \
+	finlist "$$pfnames" "$(SOURCES)"; \
+	echo "bin_PROGRAMS = $$prog" >>$$amfname; \
+	echo "$${prog}_SOURCES =$${result}" >>$$amfname; \
+	pldflags="$(LDFLAGS)"; \
+	if test ! -z "$$pldflags"; then \
+	    echo "$${prog}_LDFLAGS = $$pldflags" >> $$amfname; \
+	fi; if test ! -z "$$plibs"; then \
+	    echo "$${prog}_LDADD = $${plibs}" >>$$amfname; \
+	fi; if test ! -z "$$pdnames"; then \
+	    echo "SUBDIRS = $$pdnames" >>$$amfname; \
+	fi; \
+	echo "EXTRA_DIST = $${pfnames}" >>$$amfname; \
+	echo "AUTOMAKE_OPTIONS = foreign" >>$$amfname; \
+	cat $${amfname}.motmp >>$$amfname; rm -f $${amfname}.motmp; \
+	echo "$${amfnames}" >.amfnames
+	@rm -f .amfnames
+	@cat configure.in | egrep -v "^[[:space:]]*AC_OUTPUT" >configure.in.acout
+	@for i in `cat .dextracted && rm -f .dextracted`; do \
+	    if test ! -z "$$acmfnames"; then acmfnames="$$acmfnames "; fi; \
+	    if test $$i = "./"; then i=""; fi; \
+	    acmfnames="$${acmfnames}$${i}Makefile"; \
+	done; \
+	echo "AC_OUTPUT($${acmfnames})" >>configure.in.acout
+	@sed "s/^[[:space:]]*AM_INIT_AUTOMAKE\(.*\)/AM_INIT_AUTOMAKE($(PROJNAME), $(PROJVER))/g" <configure.in.acout >configure.in
+	@$(RM) configure.in.acout
+	@if test ! -z "`egrep '^[[:space:]]*AM_CONFIG_HEADER' configure.in`"; then \
+	    if test ! -f config.h.in; then $(WANT) autoheader; fi; \
+	fi
+	$(WANT) aclocal
+	$(WANT) autoconf
+	-$(WANT) automake -a -c
+
+gettext:
+	@for i in `ls po/*.po`; do linguas="`basename $$i .po` $$linguas"; done; \
+	cat configure.in | egrep -v "^[[:space:]]*AM_GNU_GETTEXT|^[[:space:]]*ALL_LINGUAS" >configure.in.acout; \
+	if test ! -z "$$linguas"; then \
+	    cat configure.in | egrep -v "^[[:space:]]*AM_GNU_GETTEXT|^[[:space:]]*ALL_LINGUAS|^[[:space:]]*AC_OUTPUT" >configure.in.acout; \
+	    echo "ALL_LINGUAS=\"`echo $$linguas | sed 's/^[ ]*\(.*\)[ ]*$$/\1/g' `\"" \
+		>>configure.in.acout; \
+	    echo "AM_GNU_GETTEXT" >>configure.in.acout; \
+	    acoutadd=""; if test -d intl; then acoutadd=" intl/Makefile"; fi; \
+		acopt="s|^\s*AC_OUTPUT(\\(.*\\))|AC_OUTPUT(\\1 po/Makefile.in$$acoutadd)|g"; \
+	    cat configure.in | egrep "^[[:space:]]*AC_OUTPUT" | \
+		sed "$$acopt" >>configure.in.acout; \
+	    if test ! -z "`egrep '^\s*SUBDIRS' Makefile.am`"; then \
+		sed 's/^\s*SUBDIRS[ 	=]*\(.*\)$$/SUBDIRS = intl po \1/g' <Makefile.am >Makefile.am.motmp; \
+	    else \
+		echo "SUBDIRS = intl po" >Makefile.am.motmp; cat Makefile.am >>Makefile.am.motmp; \
+	    fi; \
+	    mv Makefile.am.motmp Makefile.am; \
+	    if test ! -f po/Makefile.in.in; then \
+		m4d=""; if test -d m4; then m4d=1; fi; \
+		yes | gettextize -c -f --no-changelog --intl; \
+		if test -f po/Makevars.template -a ! -f po/Makevars; \
+		    then mv po/Makevars.template po/Makevars; fi; \
+		if test -z "$$m4d"; then \
+		    rm -rf m4; \
+		    sed 's/^\s*SUBDIRS[ 	=]*m4[ 	=]*\(.*\)$$/SUBDIRS = \1/g' <Makefile.am >Makefile.am.motmp; \
+		    grep -v "ACLOCAL_AMFLAGS = -I m4" Makefile.am.motmp >Makefile.am; \
+		fi; \
+		if test ! -d intl; then \
+		    sed 's/^\s*SUBDIRS[ 	=]*intl[ 	=]*\(.*\)$$/SUBDIRS = \1/g' <Makefile.am >Makefile.am.motmp; \
+		    mv Makefile.am.motmp Makefile.am; \
+		fi; \
+	    fi; \
+	    echo -n >po/POTFILES.in; for i in $(SOURCES) $(HEADERS); do echo $$i >>po/POTFILES.in; done; \
+	    touch po/ChangeLog; \
+	fi; \
+	mv configure.in.acout configure.in
+
+makesure:
+	@for i in $(ALL_FILES) $(BUILDF); do \
+	    if test ! -f $$i; then touch $$i; fi; \
+	done
+
+tags:
+	@if test "$$MOTOR_TAGS" = "file"; then \
+	    TFILES="$$MOTOR_CURRENTFILE"; \
+	elif test "$$MOTOR_TAGS" = "project"; then \
+	    TFILES=" src/persist.cpp src/list.cpp src/point.cpp src/dir.cpp src/alert.cpp src/iterator.cpp src/sim.cpp src/charmap.cpp src/pruebas.cpp src/railmap.cpp src/finder.cpp src/rail.cpp src/cross.cpp src/letrain.cpp src/commander.cpp src/carriles.cpp src/vehicle.cpp src/speed.cpp src/graphics.cpp src/node.cpp src/trainiterator.cpp src/logging.cpp testing/Test.cpp testing/TestMovidas.cpp testing/Prueba.cpp testing/TestParidas.cpp include/UnitTest++/Posix/TimeHelpers.cpp include/UnitTest++/Posix/SignalTranslator.cpp include/UnitTest++/Win32/TimeHelpers.cpp testing/Prueba.h include/debug.h include/UnitTest++/Checks.h include/UnitTest++/DeferredTestResult.h include/UnitTest++/TestDetails.h include/UnitTest++/XmlTestReporter.h include/UnitTest++/Posix/TimeHelpers.h include/UnitTest++/Posix/SignalTranslator.h include/UnitTest++/Win32/TimeHelpers.h include/UnitTest++/AssertException.h include/UnitTest++/TestMacros.h include/UnitTest++/Config.h include/UnitTest++/TestResults.h include/UnitTest++/TestReporterStdout.h include/UnitTest++/Test.h include/UnitTest++/MemoryOutStream.h include/UnitTest++/TestRunner.h include/UnitTest++/DeferredTestReporter.h include/UnitTest++/ReportAssert.h include/UnitTest++/UnitTest++.h include/UnitTest++/TestSuite.h include/UnitTest++/TestList.h include/UnitTest++/TimeHelpers.h include/UnitTest++/TestReporter.h include/UnitTest++/CheckMacros.h include/UnitTest++/TimeConstraint.h include/cross.h include/dir.h include/iterator.h include/sim.h include/commander.h include/vehicle.h include/charmap.h include/logging.h include/finder.h include/letrain.h include/persist.h include/trainiterator.h include/list.h include/node.h include/rail.h include/railmap.h include/graphics.h include/point.h"; \
+	elif test "$$MOTOR_TAGS" = "all"; then \
+	    TFILES=" src/persist.cpp src/list.cpp src/point.cpp src/dir.cpp src/alert.cpp src/iterator.cpp src/sim.cpp src/charmap.cpp src/pruebas.cpp src/railmap.cpp src/finder.cpp src/rail.cpp src/cross.cpp src/letrain.cpp src/commander.cpp src/carriles.cpp src/vehicle.cpp src/speed.cpp src/graphics.cpp src/node.cpp src/trainiterator.cpp src/logging.cpp testing/Test.cpp testing/TestMovidas.cpp testing/Prueba.cpp testing/TestParidas.cpp include/UnitTest++/Posix/TimeHelpers.cpp include/UnitTest++/Posix/SignalTranslator.cpp include/UnitTest++/Win32/TimeHelpers.cpp testing/Prueba.h include/debug.h include/UnitTest++/Checks.h include/UnitTest++/DeferredTestResult.h include/UnitTest++/TestDetails.h include/UnitTest++/XmlTestReporter.h include/UnitTest++/Posix/TimeHelpers.h include/UnitTest++/Posix/SignalTranslator.h include/UnitTest++/Win32/TimeHelpers.h include/UnitTest++/AssertException.h include/UnitTest++/TestMacros.h include/UnitTest++/Config.h include/UnitTest++/TestResults.h include/UnitTest++/TestReporterStdout.h include/UnitTest++/Test.h include/UnitTest++/MemoryOutStream.h include/UnitTest++/TestRunner.h include/UnitTest++/DeferredTestReporter.h include/UnitTest++/ReportAssert.h include/UnitTest++/UnitTest++.h include/UnitTest++/TestSuite.h include/UnitTest++/TestList.h include/UnitTest++/TimeHelpers.h include/UnitTest++/TestReporter.h include/UnitTest++/CheckMacros.h include/UnitTest++/TimeConstraint.h include/cross.h include/dir.h include/iterator.h include/sim.h include/commander.h include/vehicle.h include/charmap.h include/logging.h include/finder.h include/letrain.h include/persist.h include/trainiterator.h include/list.h include/node.h include/rail.h include/railmap.h include/graphics.h include/point.h"; \
+	fi; \
+	if test ! -z "$$TFILES"; then ctags --c++-types=cdefgmnpstuvx --excmd=number -f - $$TFILES; fi
+
+target: ready
+	@$(WANT) $(MAKE) ${MOTOR_TARGET}
+
+gnudoc:
+	touch INSTALL NEWS README COPYING AUTHORS ChangeLog
+
+.PHONY: build update debug automake dist rpm start makesure distextra \
+    distlib gettext target linklibs gnudoc
