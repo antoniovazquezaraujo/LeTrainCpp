@@ -1,347 +1,32 @@
 wagon
- id 1
- dir E
- aspect v
- fg 3
- bg 0
- row 33
- col 61
- imp 130.000000
- power 0
- brakes 0
- mass 10
- link0id 2
- link1id 0
-
-locomotive
- id 2
- dir E
- aspect L
- fg 7
- bg 0
- row 33
- col 62
- imp 97.000000
- power 91
- brakes 0
- mass 10
- link0id 1
- link1id 0
-
-locomotive
- id 3
- dir N
- aspect L
- fg 7
- bg 0
- row 26
- col 75
- imp 869851.000000
- power 262
- brakes 0
- mass 10
- link0id 0
- link1id 0
-
-locomotive
- id 4
- dir NW
- aspect L
- fg 7
- bg 0
- row 24
- col 75
- imp 190996.000000
- power 153
- brakes 0
- mass 10
- link0id 0
- link1id 5
-
-wagon
- id 5
- dir E
- aspect k
- fg 3
- bg 0
- row 33
- col 65
- imp 120.000000
- power 0
- brakes 0
- mass 10
- link0id 4
- link1id 6
-
-wagon
- id 6
- dir E
- aspect u
- fg 3
- bg 0
- row 33
- col 66
- imp 140.000000
- power 0
- brakes 0
- mass 10
- link0id 5
- link1id 7
-
-wagon
- id 7
- dir E
- aspect u
- fg 3
- bg 0
- row 33
- col 67
- imp 190.000000
- power 0
- brakes 0
- mass 10
- link0id 6
- link1id 8
-
-wagon
- id 8
- dir E
- aspect x
- fg 3
- bg 0
- row 33
- col 68
- imp 200.000000
- power 0
- brakes 0
- mass 10
- link0id 7
- link1id 9
-
-wagon
- id 9
- dir E
- aspect f
- fg 3
- bg 0
- row 33
- col 69
- imp 220.000000
- power 0
- brakes 0
- mass 10
- link0id 8
- link1id 10
-
-wagon
- id 10
- dir E
- aspect i
- fg 3
- bg 0
- row 33
- col 70
- imp 130.000000
- power 0
- brakes 0
- mass 10
- link0id 9
- link1id 11
-
-wagon
- id 11
+ id 26
  dir NE
- aspect t
- fg 3
- bg 0
- row 33
- col 71
- imp 130.000000
- power 0
- brakes 0
- mass 10
- link0id 10
- link1id 12
-
-wagon
- id 12
- dir NE
- aspect h
- fg 3
- bg 0
- row 32
- col 72
- imp 140.000000
- power 0
- brakes 0
- mass 10
- link0id 11
- link1id 13
-
-wagon
- id 13
- dir N
- aspect o
- fg 3
- bg 0
- row 31
- col 73
- imp 210.000000
- power 0
- brakes 0
- mass 10
- link0id 12
- link1id 14
-
-wagon
- id 14
- dir N
- aspect m
- fg 3
- bg 0
- row 30
- col 73
- imp 212.000000
- power 0
- brakes 0
- mass 10
- link0id 13
- link1id 15
-
-wagon
- id 15
- dir N
- aspect q
- fg 3
- bg 0
- row 29
- col 73
- imp 143.000000
- power 0
- brakes 0
- mass 10
- link0id 14
- link1id 16
-
-wagon
- id 16
- dir NE
- aspect j
- fg 3
- bg 0
- row 28
- col 73
- imp 252.000000
- power 0
- brakes 0
- mass 10
- link0id 15
- link1id 17
-
-wagon
- id 17
- dir N
- aspect n
- fg 3
- bg 0
- row 8
- col 71
- imp 0.000000
- power 0
- brakes 0
- mass 10
- link0id 16
- link1id 18
-
-wagon
- id 18
- dir W
- aspect y
- fg 3
- bg 0
- row 0
- col 44
- imp 0.000000
- power 0
- brakes 0
- mass 10
- link0id 17
- link1id 19
-
-wagon
- id 19
- dir W
- aspect x
- fg 3
- bg 0
- row 0
- col 43
- imp 0.000000
- power 0
- brakes 0
- mass 10
- link0id 18
- link1id 20
-
-wagon
- id 20
- dir W
- aspect q
- fg 3
- bg 0
- row 0
- col 42
- imp 0.000000
- power 0
- brakes 0
- mass 10
- link0id 19
- link1id 21
-
-wagon
- id 21
- dir W
- aspect s
- fg 3
- bg 0
- row 0
- col 41
- imp 0.000000
- power 0
- brakes 0
- mass 10
- link0id 20
- link1id 22
-
-wagon
- id 22
- dir W
  aspect d
  fg 3
  bg 0
- row 0
- col 40
- imp 0.000000
+ row 5
+ col 72
+ imp 4530.000000
  power 0
  brakes 0
  mass 10
- link0id 21
- link1id 23
+ link0id 25
+ link1id 0
 
 wagon
- id 23
- dir W
- aspect p
+ id 25
+ dir N
+ aspect g
  fg 3
  bg 0
- row 0
- col 39
- imp 0.000000
+ row 4
+ col 73
+ imp 4450.000000
  power 0
  brakes 0
  mass 10
- link0id 22
- link1id 24
+ link0id 24
+ link1id 26
 
 wagon
  id 24
@@ -359,32 +44,347 @@ wagon
  link1id 25
 
 wagon
- id 25
- dir E
- aspect g
+ id 23
+ dir W
+ aspect p
  fg 3
  bg 0
- row 33
- col 64
- imp 120.000000
+ row 0
+ col 39
+ imp 0.000000
  power 0
  brakes 0
  mass 10
- link0id 24
- link1id 26
+ link0id 22
+ link1id 24
 
 wagon
- id 26
- dir E
+ id 22
+ dir W
  aspect d
  fg 3
  bg 0
- row 33
- col 63
- imp 60.000000
+ row 0
+ col 40
+ imp 0.000000
  power 0
  brakes 0
  mass 10
- link0id 25
+ link0id 21
+ link1id 23
+
+wagon
+ id 21
+ dir W
+ aspect s
+ fg 3
+ bg 0
+ row 0
+ col 41
+ imp 0.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 20
+ link1id 22
+
+wagon
+ id 20
+ dir W
+ aspect q
+ fg 3
+ bg 0
+ row 0
+ col 42
+ imp 0.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 19
+ link1id 21
+
+wagon
+ id 19
+ dir W
+ aspect x
+ fg 3
+ bg 0
+ row 0
+ col 43
+ imp 0.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 18
+ link1id 20
+
+wagon
+ id 18
+ dir W
+ aspect y
+ fg 3
+ bg 0
+ row 0
+ col 44
+ imp 0.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 17
+ link1id 19
+
+wagon
+ id 17
+ dir SW
+ aspect n
+ fg 3
+ bg 0
+ row 1
+ col 56
+ imp 5110.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 16
+ link1id 18
+
+wagon
+ id 16
+ dir W
+ aspect j
+ fg 3
+ bg 0
+ row 0
+ col 62
+ imp 110.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 15
+ link1id 17
+
+wagon
+ id 15
+ dir W
+ aspect q
+ fg 3
+ bg 0
+ row 0
+ col 63
+ imp 10.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 14
+ link1id 16
+
+wagon
+ id 14
+ dir W
+ aspect m
+ fg 3
+ bg 0
+ row 0
+ col 64
+ imp 10.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 13
+ link1id 15
+
+wagon
+ id 13
+ dir W
+ aspect o
+ fg 3
+ bg 0
+ row 0
+ col 65
+ imp 80.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 12
+ link1id 14
+
+wagon
+ id 12
+ dir W
+ aspect h
+ fg 3
+ bg 0
+ row 0
+ col 66
+ imp 80.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 11
+ link1id 13
+
+wagon
+ id 11
+ dir W
+ aspect t
+ fg 3
+ bg 0
+ row 0
+ col 67
+ imp 40.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 10
+ link1id 12
+
+wagon
+ id 10
+ dir W
+ aspect i
+ fg 3
+ bg 0
+ row 0
+ col 68
+ imp 7378.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 9
+ link1id 11
+
+wagon
+ id 9
+ dir W
+ aspect f
+ fg 3
+ bg 0
+ row 0
+ col 69
+ imp 10900.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 8
+ link1id 10
+
+wagon
+ id 8
+ dir W
+ aspect x
+ fg 3
+ bg 0
+ row 0
+ col 70
+ imp 10510.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 7
+ link1id 9
+
+wagon
+ id 7
+ dir W
+ aspect u
+ fg 3
+ bg 0
+ row 0
+ col 71
+ imp 10250.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 6
+ link1id 8
+
+wagon
+ id 6
+ dir NW
+ aspect u
+ fg 3
+ bg 0
+ row 1
+ col 72
+ imp 8930.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 5
+ link1id 7
+
+wagon
+ id 5
+ dir NW
+ aspect k
+ fg 3
+ bg 0
+ row 2
+ col 73
+ imp 1187.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 4
+ link1id 6
+
+locomotive
+ id 4
+ dir N
+ aspect L
+ fg 7
+ bg 0
+ row 0
+ col 58
+ imp 427008.000000
+ power 153
+ brakes 0
+ mass 10
+ link0id 0
+ link1id 5
+
+locomotive
+ id 3
+ dir W
+ aspect L
+ fg 7
+ bg 0
+ row 0
+ col 59
+ imp 1249167.000000
+ power 262
+ brakes 0
+ mass 10
+ link0id 0
+ link1id 0
+
+locomotive
+ id 2
+ dir NE
+ aspect L
+ fg 7
+ bg 0
+ row 6
+ col 71
+ imp 31255.000000
+ power 91
+ brakes 0
+ mass 10
+ link0id 1
+ link1id 0
+
+wagon
+ id 1
+ dir N
+ aspect v
+ fg 3
+ bg 0
+ row 7
+ col 71
+ imp 5640.000000
+ power 0
+ brakes 0
+ mass 10
+ link0id 2
  link1id 0
 

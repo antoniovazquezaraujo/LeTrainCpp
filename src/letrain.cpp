@@ -27,15 +27,14 @@
 #include <iostream> 
 #include "letrain.h"
 #include "persist.h"
-#include "cpptest.h"
 #include "sim.h"
-#include "RailTestSuite.h"
-void test(){
-	RailTestSuite r;
-}
+#include "letrain_test.h"
 using namespace std;
 int main() {
-	test();
+	if( !(LetrainTest::test())){
+		return -1;
+	}
+	cin.get();
 	startlog("letrain.log");
 	g_init();
 	Sim * sim = new Sim();
