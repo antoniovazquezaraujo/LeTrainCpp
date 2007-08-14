@@ -3,20 +3,21 @@
   The rail pointer 
   -------------------------------------
 */
-#include "letrain.h"
+#include "finder.h"
+#include "dir.h"
 
 Finder::Finder(Vehicle * v){
 	pos.row=0;
 	pos.col=0;
 	fg = 4;
 	bg = 0;
-	if(v != NULL){
+	if(v){
 		rail = v->rail;
 		dir = v->dir;
 		pos.row= v->pos.row;
 		pos.col= v->pos.col;
 	}else{
-		rail = NULL;
+		rail = 0;
 		dir = NO_DIR;
 	}
 }
@@ -38,7 +39,7 @@ void Finder::gotoRail(Rail * r){
 int Finder::forward(){
 	int ret = 0;
 	Rail * next = rail->link(dir);
-	if( next != NULL){
+	if( next ){
 		gotoRail(next);
 		ret = 1;
 	}else{

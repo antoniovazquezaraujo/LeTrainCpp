@@ -1,12 +1,10 @@
 /*===========================================================================*/
 /*
- *                  ----------------------------------------
- *                          ___ ____  ____  ____         
- *                   /    /      /   /__ / /   /  / /\    /
- *                  /    /__    /   / \   /___/  / /  \  /
- *                 /___ /___   /   /   \ /   /  / /    \/
- *
- *               ------------------------------------------
+ *                      ________________________________
+ *                          __ ____  _     _           
+ *                    /   /_    /   / /  /__/  /  /\ /
+ *                   /__ /__   /   / \  /  /  /  /  /
+ *                  ________________________________
  *                     The Letter Train Simulator	
  *                Copyright (C) 2006 Antonio Vazquez Araujo 
  *                  antoniovazquezaraujo[at]gmail[dot]com
@@ -26,24 +24,26 @@
  *  675 Mass Ave, Cambridge, MA 02139, USA.
  */
 /*===========================================================================*/
+#include <iostream> 
 #include "letrain.h"
-int main (void) {
-	FILE *mapfile; 
-	FILE *gamefile; 
+#include "persist.h"
+#include "cpptest.h"
+#include "sim.h"
+#include "RailTestSuite.h"
+void test(){
+	RailTestSuite r;
+}
+using namespace std;
+int main() {
+	test();
 	startlog("letrain.log");
 	g_init();
 	Sim * sim = new Sim();
-	mapfile = fopen("groundmap.txt","r"); 
-	loadmap(sim, mapfile);
-	if( (gamefile = fopen("game1.txt","r")) != NULL){ 
-		loadgame(sim,gamefile);
-		fclose(gamefile);
-	}
+	loadmap(sim, "groundmap.txt");
+	loadgame(sim,"game1.txt");
 	sim->setup();
 	sim->start();
-	gamefile = fopen("game1.txt","w"); 
-	savegame(sim, gamefile);
-	fclose(gamefile);
+	savegame(sim, "game1.txt");
 	delete sim;
 	g_reset();
 	stoplog();

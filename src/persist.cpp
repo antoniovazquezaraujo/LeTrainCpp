@@ -3,18 +3,22 @@
   The persistence manager 
   -------------------------------------
 */
-//#include <stdio.h>
 #include <string.h>
-#include "letrain.h"
-
-int loadmap(Sim * s, FILE * mapfile){ 
+#include <stdio.h>
+#include "persist.h"
+#include "charmap.h"
+#include "vehicle.h"
+#include "iterator.h"
+#include "sim.h"
+int loadmap(Sim * s, char * filename){ 
+	FILE * mapfile = fopen(filename, "r");
 	Charmap * cm = new Charmap();
 	int numRow= 0; 
 	int numCol= 0; 
 	int maxcols = 0;
 	char *line = (char*)malloc(CHAR_MAP_COLS); 
-	assert( mapfile!= NULL);
-	while(fgets(line, CHAR_MAP_COLS, mapfile) != NULL){
+	assert( mapfile!= 0);
+	while(fgets(line, CHAR_MAP_COLS, mapfile) != 0){
 		maxcols = strlen(line);
 		if(numCol > maxcols) {
 			maxcols = numCol;
@@ -32,12 +36,13 @@ int loadmap(Sim * s, FILE * mapfile){
 	s->mapcols=  maxcols;
 	return numRow;
 }
-void loadgame(Sim * s, FILE * gamefile){	
+void loadgame(Sim * s, char * filename){	
+	FILE * gamefile = fopen(filename, "r");
 	V_data data = newdata();
-	Vehicle*  v = NULL;
+	Vehicle*  v = 0;
 	int n=0;
 	char section[40];
-	if(gamefile != NULL){
+	if(gamefile != 0){
 		while(1){
 			n = fscanf(gamefile, "%s",section);
 			if(n == EOF){
@@ -58,9 +63,10 @@ void loadgame(Sim * s, FILE * gamefile){
 	}
 	freedata(data);
 }
-void savegame(Sim * s, FILE * gamefile){
+void savegame(Sim * s, char * filename){
+	FILE * gamefile = fopen(filename, "w");
 	V_data data = newdata();
-	Vehicle*  v = NULL;
+	Vehicle*  v = 0;
 	Iterator * i = s->vehicles->iterator();
 	while(i->hasNext()){
 		v = (Vehicle* )i->next();
@@ -181,43 +187,10 @@ void savegame(Sim * s, FILE * gamefile){
 	data->power = v->power;
 	data->brakes = v->brakes;
 	data->mass = v->mass;
-	data->link0id = v->links[0]!= NULL?v->links[0]->id:0;
-	data->link1id = v->links[1]!= NULL?v->links[1]->id:0;
+	data->link0id = v->links[0]!= 0?v->links[0]->id:0;
+	data->link1id = v->links[1]!= 0?v->links[1]->id:0;
 }
 
-void dirtostr(int dir, char* dest){
-	const char *dirnames[] = {"E","NE","N","NW","W","SW","S","SE","NO_DIR"};
-	if(dir != NO_DIR){
-		strcpy(dest, dirnames[dir]);
-	}else{
-		strcpy(dest, dirnames[8]);
-	}
-}
-/*
- char * dirtostr(int dir){
-	const char *dirnames[] = {"E","NE","N","NW","W","SW","S","SE","NO_DIR"};
-	char * ret = (char *)malloc(7);
-	if(dir != NO_DIR){
-		strcpy(ret, dirnames[dir]);
-	}else{
-		strcpy(ret, dirnames[8]);
-	}
-	return ret;
-}
-*/
- int strToDir(char *c){
-	int ret = 0;
-	if(     !strcmp(c,"E" )) ret = E;
-	else if(!strcmp(c,"NE")) ret = NE;
-	else if(!strcmp(c,"N" )) ret = N;
-	else if(!strcmp(c,"NW")) ret = NW;
-	else if(!strcmp(c,"W" )) ret = W;
-	else if(!strcmp(c,"SW")) ret = SW;
-	else if(!strcmp(c,"S" )) ret = S;
-	else if(!strcmp(c,"SE")) ret = SE;
-	else ret = NO_DIR;
-	return ret;
-}
  V_data newdata(){
 	V_data data = (V_data)malloc(sizeof(struct data));
 	data->id = 0 ;

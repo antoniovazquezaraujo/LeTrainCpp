@@ -3,7 +3,7 @@
   ASCII plane 
   -------------------------------------
 */
-#include "letrain.h"
+#include "charmap.h"
 Charmap::Charmap(){
 	int n, m;
 	for(n = 0; n<CHAR_MAP_ROWS; n++){

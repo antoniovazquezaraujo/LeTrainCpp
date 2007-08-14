@@ -3,17 +3,19 @@
   The railroad is a graph of rails 
   -------------------------------------
 */
-#include "letrain.h"
+#include "rail.h"
+#include "dir.h"
+#include <assert.h>
 
 Rail::Rail(int type, int row, int col){
 	this->type = type;
 	pos.row = row;
 	pos.col = col;
-	vehicle = NULL;
+	vehicle = 0;
 	int cont = 0;
 	for(cont = 0; cont < 8; cont++){
 		dirs[cont] =NO_DIR; 
-		links[cont] = NULL; 
+		links[cont] = 0; 
 	}
 	switch (type){
 	case STOP_RAIL:	
@@ -58,10 +60,10 @@ void Rail::setlink(int dir, Rail * linked){
 }
 Rail *  Rail::link(int dir){
 	if(dir < 0) {
-		return NULL;
+		return 0;
 	}
 	if(dir >=8 ) {
-		return NULL;
+		return 0;
 	}
 	assert(dir >=0);
 	assert(dir <8);

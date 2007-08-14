@@ -1,6 +1,5 @@
-INCLUDES = -I$(top_srcdir)/include
-bin_PROGRAMS = letrain
-letrain_SOURCES = persist.cpp list.cpp point.cpp dir.cpp alert.cpp iterator.cpp sim.cpp charmap.cpp pruebas.cpp railmap.cpp finder.cpp rail.cpp cross.cpp letrain.cpp commander.cpp vehicle.cpp speed.cpp graphics.cpp node.cpp trainiterator.cpp logging.cpp
-letrain_LDFLAGS = -lncurses
-EXTRA_DIST = persist.cpp list.cpp point.cpp dir.cpp alert.cpp iterator.cpp sim.cpp charmap.cpp pruebas.cpp railmap.cpp finder.cpp rail.cpp cross.cpp letrain.cpp commander.cpp vehicle.cpp speed.cpp graphics.cpp node.cpp trainiterator.cpp logging.cpp
-AUTOMAKE_OPTIONS = foreign
+AM_CXXFLAGS		= -ggdb -I../include -I../include/cpptest -W -Wall -Wno-unused-parameter
+bin_PROGRAMS    = letrain 
+letrain_SOURCES = letrain.cpp persist.cpp list.cpp point.cpp dir.cpp alert.cpp iterator.cpp sim.cpp charmap.cpp railmap.cpp finder.cpp rail.cpp cross.cpp commander.cpp vehicle.cpp graphics.cpp node.cpp trainiterator.cpp logging.cpp
+letrain_LDFLAGS = -L../lib 
+letrain_LDADD	= -lncurses -lcpptest 

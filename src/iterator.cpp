@@ -3,7 +3,7 @@
   container iterator
   -------------------------------------
 */
-#include "letrain.h"
+#include "iterator.h"
 Iterator::Iterator (List * list){
 	this->list = list;
 	reset();

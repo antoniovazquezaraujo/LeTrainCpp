@@ -3,7 +3,9 @@
   The train iterator 
   -------------------------------------
 */
-#include "letrain.h"
+#include "trainiterator.h"
+#include "vehicle.h"
+#include "finder.h"
 TrainIterator::TrainIterator(Vehicle*  v, int dir){
 	f = new Finder(v);
 	this->dir = dir;
@@ -14,24 +16,24 @@ TrainIterator::~TrainIterator(){
 	delete f;
 }
 int TrainIterator::hasNext(){
-	return actual != NULL;
+	return actual != 0;
 }
 Vehicle*  TrainIterator::next(){
 	Vehicle*  oldactual = actual;
 	prev = actual;
-	if(nextVehicle != NULL && actual->linked(nextVehicle)){
-		if(nextVehicle->links[0] != NULL && nextVehicle->links[0] != oldactual){
+	if(nextVehicle != 0 && actual->linked(nextVehicle)){
+		if(nextVehicle->links[0] != 0 && nextVehicle->links[0] != oldactual){
 			actual = nextVehicle;
 			nextVehicle = nextVehicle->links[0];
-		}else if(nextVehicle->links[1] != NULL && nextVehicle->links[1] != oldactual){
+		}else if(nextVehicle->links[1] != 0 && nextVehicle->links[1] != oldactual){
 			actual = nextVehicle;
 			nextVehicle = nextVehicle->links[1];
 		}else{
 			actual = nextVehicle; 
-			nextVehicle = NULL; 
+			nextVehicle = 0; 
 		}
 	}else{
-		actual = NULL; 
+		actual = 0; 
 	}
 	return prev;
 }
@@ -43,6 +45,6 @@ void TrainIterator::reset(){
 	if(f->forward()){
 		nextVehicle = f->rail->vehicle;
 	}else{
-		nextVehicle = NULL;
+		nextVehicle = 0;
 	}
 }

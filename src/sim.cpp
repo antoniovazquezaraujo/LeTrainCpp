@@ -4,20 +4,26 @@
   -------------------------------------
 */
 
-#include "letrain.h"
+#include "sim.h"
+#include "list.h"
 #include "graphics.h"
+#include "cross.h"
+#include "vehicle.h"
+#include "commander.h"
+#include "iterator.h"
+
 static int running = 0;
 static int visormoved = 0;
 
 Sim::Sim (){
-	railmap = NULL;
-	vehicle=NULL;
-	cross = NULL;
-	rail = NULL;
+	railmap = 0;
+	vehicle=0;
+	cross = 0;
+	rail = 0;
 	locomotives = new List();
 	i_locomotives = locomotives->iterator();
 	vehicles = new List();
-	i_crosses = NULL;
+	i_crosses = 0;
 	maprow = 0;
 	mapcol=0;
 	maprows = LINES;
@@ -29,7 +35,7 @@ Sim::Sim (){
 	commander = new Commander();;
 }
 Sim::~Sim(){
-	assert(locomotives != NULL);
+	assert(locomotives != 0);
 	delete locomotives;
 	Iterator * i = vehicles->iterator();
 	while(i->hasNext()){
@@ -39,7 +45,7 @@ Sim::~Sim(){
 	delete i;
 	delete vehicles;
 	delete i_locomotives;
-	assert(i_crosses!= NULL);
+	assert(i_crosses!= 0);
 	delete i_crosses;
 	delete commander;
 	delete railmap;
@@ -65,8 +71,8 @@ void Sim::stop(){
 	running = 0;
 }
 Vehicle*  Sim::vehiclebyid(int id){
-	Vehicle*  next = NULL;
-	Vehicle*  ret = NULL;
+	Vehicle*  next = 0;
+	Vehicle*  ret = 0;
 	Iterator * i = vehicles->iterator();
 	while(i->hasNext()){
 		next = (Vehicle* )i->next();
@@ -79,10 +85,10 @@ Vehicle*  Sim::vehiclebyid(int id){
 	return ret;
 }
 void Sim::linkvehicles(){
-	Vehicle*  next = NULL;
+	Vehicle*  next = 0;
 
 	//provisional
-	if(vehicles == NULL)return;
+	if(vehicles == 0)return;
 
 	Iterator * i = vehicles->iterator();
 	while(i->hasNext()){
@@ -90,12 +96,12 @@ void Sim::linkvehicles(){
 		if(next->link0id > 0){
 			next->links[0] = vehiclebyid(next->link0id);
 		}else {
-			next->links[0] = NULL;
+			next->links[0] = 0;
 		}
 		if(next->link1id > 0){
 			next->links[1] = vehiclebyid(next->link1id);
 		}else {
-			next->links[1] = NULL;
+			next->links[1] = 0;
 		}
 
 	}
@@ -181,7 +187,7 @@ Vehicle*  Sim::prevloco(){
 	return vehicle;
 }
 Rail * Sim::getRail(){
-	return NULL;
+	return 0;
 }
 void Sim::updatevisor(){
 	if(visormoved){
@@ -229,7 +235,7 @@ void Sim::changeSelectedCross(){
 	cross->nextDir();
 } 
 void Sim::movetrains(){
-	Vehicle*  next = NULL;
+	Vehicle*  next = 0;
 	Iterator * i;
 	float remainingImp=0.0;
 	i = vehicles->iterator();
@@ -351,21 +357,21 @@ void Sim::drawstatus(){
 	int link0id, link1id;
 	v = vehicle;
 	
-	if(v != NULL){
+	if(v != 0){
 		link0id= v->links[0]?v->links[0]->id:0;
 		link1id= v->links[1]?v->links[1]->id:0;
 		g_drawVehicleStatus(v->id, v->pos.row, v->pos.col, v->dir, v->imp, v->power, v->brakes, link0id, link1id, v->aspect);
 	}
 }
 void Sim::drawfinder(){
-	if(commander->finder == NULL){
+	if(commander->finder == 0){
 		return;
 	}
-	if(commander->finder->rail == NULL){
+	if(commander->finder->rail == 0){
 		return;
 	}
 	Rail * r = commander->finder->rail;
-	if(r->vehicle != NULL){
+	if(r->vehicle != 0){
 		g_drawfinder(
 			r->pos.row, 
 			r->pos.col, 
@@ -399,17 +405,17 @@ void Sim::drawVehicles(){
 			next->fg,
 			selected);
 	}
-	assert(i != NULL);
+	assert(i != 0);
 	delete i;
 }
 void Sim::drawrails(){
-	Rail * r = NULL;
+	Rail * r = 0;
 	int n=0;
 	int m=0;
 	for(n = 0; n<RAIL_MAP_ROWS; n++){
 		for(m = 0; m<RAIL_MAP_COLS; m++){
 			r = railmap->rails[n][m];
-			if(r != NULL){
+			if(r != 0){
 				g_drawRail(
 					r->pos.row, 
 					r->pos.col, 
@@ -422,8 +428,8 @@ void Sim::drawrails(){
 }
 void Sim::drawcrosses(){
 	int selected;
-	Rail * r = NULL;
-	Cross * next = NULL;
+	Rail * r = 0;
+	Cross * next = 0;
 	Iterator * i = railmap->crosses->iterator();
 	while(i->hasNext()){
 		next = (Cross *)i->next();
@@ -445,13 +451,13 @@ void Sim::drawcrosses(){
 }
 		
 void Sim::clearrails(){
-	Rail * r = NULL;
+	Rail * r = 0;
 	int n=0;
 	int m=0;
 	for(n = 0; n<RAIL_MAP_ROWS; n++){
 		for(m = 0; m<RAIL_MAP_COLS; m++){
 			r = railmap->rails[n][m];
-			if(r != NULL){
+			if(r != 0){
 				g_clearRail(
 					r->pos.row, 
 					r->pos.col, 

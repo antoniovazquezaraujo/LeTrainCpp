@@ -3,7 +3,9 @@
   A cross point 
   -------------------------------------
 */
-#include "letrain.h"
+#include "cross.h"
+#include "dir.h"
+#include <assert.h> 
 Cross::Cross (Rail * rail, int in, int outs[]){
 	assert(rail->type == CROSS_RAIL);
 	this->rail = rail;

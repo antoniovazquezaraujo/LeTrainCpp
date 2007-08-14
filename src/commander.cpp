@@ -3,11 +3,12 @@
   Interface to keyboard and sim
   -------------------------------------
 */
-#include "letrain.h"
+#include "commander.h"
+#include "dir.h"
 
 Commander::Commander (){
-	sim = NULL;
-	finder = new Finder(NULL);
+	sim = 0;
+	finder = new Finder(0);
 	mode = TRAINS_MODE;
 }
 Commander::~Commander(){
@@ -55,8 +56,8 @@ todos
 void Commander::c_key(char key){
 	int col=0;
 	int row =0;
-	Vehicle*  newvehicle = NULL;
-	Vehicle*  actual = NULL;
+	Vehicle*  newvehicle = 0;
+	Vehicle*  actual = 0;
 	Iterator * crosses;
 	// ALL MODES:
 	switch(key){
@@ -146,7 +147,7 @@ void Commander::c_key(char key){
 		//	x          : eliminar el vehículo
 		//	space      : cargar 
 		//	.          : descargar 
-			if(finder->rail == NULL){
+			if(finder->rail == 0){
 				finder->gotoRail(sim->cross->rail);
 			}
 
@@ -164,21 +165,21 @@ void Commander::c_key(char key){
 			case 'j':
 				finder->forward();
 				actual = finder->rail->vehicle;
-				if(actual != NULL){
+				if(actual != 0){
 					sim->vehicle = actual;
 				}
 				break;
 			case ' ':
 				finder->reverse();
 				actual = finder->rail->vehicle;
-				if(actual != NULL){
+				if(actual != 0){
 					sim->vehicle = actual;
 					actual->reverse();
 				}
 				break;
 			case 'k':
 				actual = finder->rail->vehicle;
-				if(actual != NULL){
+				if(actual != 0){
 					sim->vehicle = actual;
 					actual->setDir(finder->dir);
 					actual->distpushed(actual->getMass() + actual->getBrakes());
@@ -190,11 +191,11 @@ void Commander::c_key(char key){
 				break;
 			case '0':
 				actual = finder->rail->vehicle;
-				if(actual != NULL){
+				if(actual != 0){
 					sim->vehicle = actual;
 					finder->forward();
 					Vehicle*  tolink=finder->rail->vehicle;
-					if(tolink != NULL){
+					if(tolink != 0){
 						actual->unlink(tolink);
 					}
 					finder->reverse();
@@ -204,11 +205,11 @@ void Commander::c_key(char key){
 				break;
 			case '1':
 				actual = finder->rail->vehicle;
-				if(actual != NULL){
+				if(actual != 0){
 					sim->vehicle = actual;
 					finder->forward();
 					Vehicle*  tolink=finder->rail->vehicle;
-					if(tolink != NULL){
+					if(tolink != 0){
 						actual->link(tolink);
 					}
 					finder->reverse();
@@ -217,7 +218,7 @@ void Commander::c_key(char key){
 				}
 				break;
 			case 'a':
-				if(finder->rail->vehicle == NULL){
+				if(finder->rail->vehicle == 0){
 					newvehicle = sim->addwagon();
 					sim->vehicle = newvehicle;
 					newvehicle->setDir(NO_DIR);
@@ -225,7 +226,7 @@ void Commander::c_key(char key){
 				}
 				break;
 			case 'A':
-				if(finder->rail->vehicle == NULL){
+				if(finder->rail->vehicle == 0){
 					newvehicle= sim->addloco();
 					sim->vehicle = newvehicle;
 					newvehicle->setDir(NO_DIR);
@@ -233,14 +234,14 @@ void Commander::c_key(char key){
 				}
 				break;
 			case 'x':
-				if(finder->rail->vehicle != NULL){
+				if(finder->rail->vehicle != 0){
 					actual=finder->rail->vehicle;
 					sim->vehicle = actual;
-					if(actual != NULL){
+					if(actual != 0){
 						sim->del();	
-						finder->rail->vehicle = NULL;
-						sim->vehicle = NULL;
-						actual = NULL;
+						finder->rail->vehicle = 0;
+						sim->vehicle = 0;
+						actual = 0;
 						// provisionalmente tomamos la siguiente loco
 						sim->nextloco();	
 					}

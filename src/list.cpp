@@ -3,7 +3,8 @@
   Object container
   -------------------------------------
 */
-#include "letrain.h"
+#include "list.h"
+#include <assert.h> 
 List::List(){
 	start = new Node();
 	end = new Node();
@@ -73,7 +74,7 @@ int List::contains(void * data){
 }
 void * List::get(int index){
 	int count = 0;
-	void * ret = NULL;
+	void * ret = 0;
 	Iterator * i = iterator(); 
 	while(i->hasNext()){
 		if (count == index){
@@ -84,7 +85,7 @@ void * List::get(int index){
 			i->next();
 		}
 	}
-	assert(i != NULL);
+	assert(i);
 	delete i;
 	return ret;
 }

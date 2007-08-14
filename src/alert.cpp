@@ -7,6 +7,7 @@ void alert(char * texto);
 int main3() {
 	initscr();
 	alert("hola hola caracola");
+	return 0;
 }
 
 void alert(char * texto){

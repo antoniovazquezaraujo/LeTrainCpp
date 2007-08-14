@@ -3,7 +3,9 @@
   A point 
   -------------------------------------
 */
-#include "letrain.h"
+#include "point.h"
+#include "dir.h"
+#include <assert.h> 
 void Point::move(int direction){
 	switch(direction) {
 	case N: 
@@ -35,6 +37,6 @@ void Point::move(int direction){
 		col--; 
 		break;
 	default:
-		exit(0);
+		assert(0);	
 	}
 }

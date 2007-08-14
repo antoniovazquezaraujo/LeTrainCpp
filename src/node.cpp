@@ -3,8 +3,8 @@
   Object container node
   -------------------------------------
 */
-#include "letrain.h"
-Node::Node():prev(NULL), data(NULL), next(NULL){
+#include "node.h"
+Node::Node():prev(0), data(0), next(0){
 
 }
 Node::~Node(){

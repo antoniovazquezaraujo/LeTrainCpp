@@ -3,10 +3,16 @@
   A wagon or locomotive. 
   -------------------------------------
 */
-#include "letrain.h"
+#include <stdlib.h> 
+#include <assert.h> 
+#include "dir.h"
+#include "graphics.h"
+#include "vehicle.h"
+#include "trainiterator.h"
+#include "finder.h"
 Vehicle::Vehicle(int type){
 	this->id = newid();
-	this->rail = NULL;
+	this->rail = 0;
 	this->type= type;
 	this->pos.row=0;
 	this->pos.col=0;
@@ -30,8 +36,8 @@ Vehicle::Vehicle(int type){
 	this->power = 0;
 	this->brakes = 0;
 	this->mass= 10; 
-	this->links[0] = NULL;	
-	this->links[1] = NULL;	
+	this->links[0] = 0;	
+	this->links[1] = 0;	
 	this->moved = 0;
 	this->speed = 0;
 	this->friction= 0.5;
@@ -93,16 +99,16 @@ int Vehicle::getMass(){
 
 void Vehicle::link(Vehicle * b){
 	unlink(b);
-	if(links[0] == NULL){
+	if(links[0] == 0){
 		links[0] = b;
-	}else if(links[1] == NULL){
+	}else if(links[1] == 0){
 		links[1] = b;
 	}else{
 		assert(0);
 	}
-	if(b->links[0] == NULL){
+	if(b->links[0] == 0){
 		b->links[0] = this;
-	}else if(b->links[1] == NULL){
+	}else if(b->links[1] == 0){
 		b->links[1] = this;
 	}else{
 		assert(0);
@@ -110,19 +116,19 @@ void Vehicle::link(Vehicle * b){
 }
 void Vehicle::unlink(Vehicle * b){
 	if(links[0] == b){
-		links[0] = NULL;
+		links[0] = 0;
 	}else if(links[1] == b){
-		links[1] = NULL;
+		links[1] = 0;
 	}
 	if(b->links[0] == this){
-		b->links[0] = NULL;
+		b->links[0] = 0;
 	}else if(b->links[1] == this){
-		b->links[1] = NULL;
+		b->links[1] = 0;
 	}
 }
 int Vehicle::linked(Vehicle *b){
-	assert(this != NULL);
-	assert(b != NULL);
+	assert(this != 0);
+	assert(b != 0);
 	int atob= 0;
 	int btoa= 0;
 	if(links[0] == b){
@@ -139,11 +145,11 @@ int Vehicle::linked(Vehicle *b){
 }
 int Vehicle::gotoRail(Rail * r){
 	int inputDir = NO_DIR;
-	if(r->vehicle != NULL){
+	if(r->vehicle != 0){
 		return 0;
 	}
-	if(rail != NULL){
-		rail->vehicle = NULL;
+	if(rail != 0){
+		rail->vehicle = 0;
 	}
 	if(dir != NO_DIR){
 		inputDir = invert(dir);
@@ -160,22 +166,22 @@ int Vehicle::gotoRail(Rail * r){
 int Vehicle::pushedcanmove(){
 	int ret=1;
 	Finder* f= new Finder(this);
-	Vehicle * next = NULL;
+	Vehicle * next = 0;
 	f->dir = this->dir;
 	f->forward();
 	next = f->rail->vehicle;
-	while(next != NULL){
+	while(next != 0){
 		next->dir = f->dir;
 		if(f->forward()){
 			next = f->rail->vehicle;
 		}else{
-			next = NULL;
+			next = 0;
 		}
 	}
 	f->reverse();
 	f->forward();
 	next = f->rail->vehicle;
-	while(next != NULL && next != this){ //move all yast to BEFORE v !
+	while(next != 0 && next != this){ //move all yast to BEFORE v !
 		if(! next->canmove()){
 			ret = 0;
 			break;
@@ -189,7 +195,7 @@ int Vehicle::pushedcanmove(){
 int Vehicle::canmove(){
 	if(imp >= (mass+brakes)){
 		Rail * r = rail->link(dir);
-		if( r == NULL){
+		if( r == 0){
 			return 0;
 		}
 	}else{
@@ -200,7 +206,7 @@ int Vehicle::canmove(){
 int Vehicle::linkedcanmove(){
 	int antidir = rail->getDir(dir);
 	int ret = 1;
-	Vehicle * next = NULL;
+	Vehicle * next = 0;
 	TrainIterator * t = new TrainIterator(this, antidir);
 	while(t->hasNext()){
 		next = t->next();
@@ -218,7 +224,7 @@ int Vehicle::forward(){
 	assert (this != 0);
 	int ret = 0;
 	Rail * next = rail->link(dir);
-	if( next != NULL){
+	if( next != 0){
 		if (gotoRail(next)){
 			ret = 1;
 		}else{
@@ -233,7 +239,7 @@ void Vehicle::reverse(){
 	dir = rail->getDir(dir);
 }
 int Vehicle::linkedMass(int dir){
-	Vehicle * next = NULL;
+	Vehicle * next = 0;
 	int totalmass = 0;
 	TrainIterator * t = new TrainIterator(this, dir);
 	while(t->hasNext()){
@@ -244,24 +250,24 @@ int Vehicle::linkedMass(int dir){
 	return totalmass;
 }
 int Vehicle::pushedMass(){
-	Vehicle * next = NULL;
+	Vehicle * next = 0;
 	int totalmass = 0;
 	Finder* f= new Finder(this);
 	f->forward();
 	next = f->rail->vehicle;
-	while(next != NULL){
+	while(next != 0){
 		totalmass += next->getMass()+ next->getBrakes();
 		if( f->forward()){
 			next = f->rail->vehicle;
 		}else{
-			next = NULL;
+			next = 0;
 		}
 	}
 	delete f;
 	return totalmass;
 }
 void Vehicle::braketrain(){
-	Vehicle * next = NULL;
+	Vehicle * next = 0;
 	Finder* f= new Finder(this);
 	TrainIterator * t = new TrainIterator(this, this->dir);
 	while(t->hasNext()){
@@ -274,7 +280,7 @@ void Vehicle::braketrain(){
 }
 float Vehicle::distlinked(float imp){
 	int cons = 0;
-	Vehicle * next = NULL;
+	Vehicle * next = 0;
 	int antidir = rail->getDir(dir);
 	TrainIterator * t = new TrainIterator(this, antidir);
 	while(t->hasNext()){
@@ -296,7 +302,7 @@ int Vehicle::movelinked(){
 	int antidir = rail->getDir(dir);
 	orientlinked(antidir);
 	int ret = 1;
-	Vehicle * next = NULL;
+	Vehicle * next = 0;
 	TrainIterator * t = new TrainIterator(this, antidir);
 	while(t->hasNext()){
 		next = t->next();
@@ -311,7 +317,7 @@ int Vehicle::movelinked(){
 	return ret;
 }
 void Vehicle::orientlinked(int dir){
-	Vehicle * next = NULL;
+	Vehicle * next = 0;
 	Finder* f= new Finder(this);
 	f->reverse();
 	TrainIterator * t = new TrainIterator(this, dir);
@@ -328,10 +334,10 @@ void Vehicle::orientlinked(int dir){
 float Vehicle::distpushed(float imp){
 	int cons =0;
 	Finder* f= new Finder(this);
-	Vehicle * next = NULL;
+	Vehicle * next = 0;
 	if(f->forward()){
 		next = f->rail->vehicle;
-		while(next != NULL){
+		while(next != 0){
 			cons = next->getMass() + next->getBrakes();
 			imp -= cons;
 			if(imp < 0){
@@ -357,16 +363,16 @@ float Vehicle::distpushed(float imp){
 int Vehicle::movepushed(){
 	int ret=1;
 	Finder* f= new Finder(this);
-	Vehicle * next = NULL;
+	Vehicle * next = 0;
 	f->dir = this->dir;
 	f->forward();
 	next = f->rail->vehicle;
-	while(next != NULL){
+	while(next != 0){
 		next->dir = f->dir;
 		if(f->forward()){
 			next = f->rail->vehicle;
 		}else{
-			next = NULL;
+			next = 0;
 		}
 	}
 	f->reverse();

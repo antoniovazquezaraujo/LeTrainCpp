@@ -3,8 +3,8 @@
   A two dimensional array of rails
   -------------------------------------
 */
-#include "letrain.h"
-
+#include "railmap.h"
+#include "dir.h"
 
 // TODO
 // cambiar esta struct por dos funciones diferentes!!!!!!!!!!!!!!!!
@@ -17,7 +17,7 @@ Railmap::Railmap(Charmap * charmap){
 	int n, m;
 	for(n = 0; n<RAIL_MAP_ROWS; n++){
 		for(m = 0; m<RAIL_MAP_COLS; m++){
-			rails[n][m] = NULL;
+			rails[n][m] = 0;
 		}
 	}
 	crosses = new List();
@@ -51,7 +51,7 @@ List * Railmap::crosslist(){
 int Railmap::load(Charmap * charmap){
 
 	struct railandcross rp;
-	Rail * r= NULL;
+	Rail * r= 0;
 	int row=0, col=0;
 	char c;
 	for(row = 0; row < RAIL_MAP_ROWS; row++){
@@ -82,9 +82,9 @@ int Railmap::load(Charmap * charmap){
 				addCross(rp.cross);
 				break;
 			default:
-				r= NULL;
+				r= 0;
 			}
-			if(r!= NULL){
+			if(r!= 0){
 				setRail(row, col, r);
 			}
 		}
@@ -336,13 +336,13 @@ struct railandcross Railmap::newCross(Charmap * charmap, int row, int col){
 }
 void Railmap::connect(){
 	int dir=NO_DIR;
-	Rail * rail = NULL; 
+	Rail * rail = 0; 
 	int row=0, col=0;
 	Point p(0,0);
 	for(row = 0; row < RAIL_MAP_ROWS; row++){
 		for(col = 0; col < RAIL_MAP_COLS; col++){
 			rail = getRail(row, col);
-			if(rail == NULL){
+			if(rail == 0){
 				continue;
 			}
 			for(dir = 0; dir < 8; dir++){
@@ -356,7 +356,7 @@ void Railmap::connect(){
 				assert(p.row < RAIL_MAP_ROWS);
 				assert(p.col < RAIL_MAP_COLS);
 				Rail * linked = getRail(p.row, p.col );
-				if(linked != NULL){
+				if(linked != 0){
 					rail->setlink(dir, linked);
 				}
 			}
