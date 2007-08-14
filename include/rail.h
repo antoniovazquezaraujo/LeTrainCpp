@@ -1,4 +1,18 @@
-#include "point.h"
+#ifndef RAIL_H
+#define RAIL_H
+#include "vehicle.h"
+class Vehicle;
+class Finder;
+class Point;
+class Commander;
+class Rail;
+class Cross;
+class Charmap;
+class Railmap;
+class Sim;
+class Node;
+class List;
+class Iterator;
 enum{
 	STOP_RAIL, 
 	VERTICAL_RAIL,
@@ -8,14 +22,22 @@ enum{
 	CURVE_RAIL,
 	CROSS_RAIL
 };
-typedef struct rail *Rail;
+class Rail{
+public:
+	Rail (int type, int row, int col);
+	~Rail();
+	void setlink(int dir, Rail * link);
+	Rail * link(int dir);
+	void setDir(int dir, int value);
+	int invertDir(int dir);
+	int getDir(int dir);
+	int validDir();
 
-Rail newRail(int type, int row, int col);
-void freeRail(Rail  rail);
-void addRailLink(Rail rail, int dir, Rail linked);
-Rail getRailLink(Rail rail, int dir);
-void addRailDir(Rail rail, int dir, int value);
-int getRailDir(Rail rail, int dir);
-Point getRailPosition(Rail rail);
-int getRailType(Rail rail);
-void defaultRailAspect(Rail rail);
+	int type;
+	char aspect;
+	Point pos; 
+	int dirs[8];
+	Rail * links[8];     
+	Vehicle*  vehicle;
+};
+#endif
