@@ -3,68 +3,63 @@
   The persistence manager 
   -------------------------------------
 */
-#include <string.h>
-#include <stdio.h>
 #include "persist.h"
-#include "charmap.h"
-#include "vehicle.h"
-#include "iterator.h"
-#include "sim.h"
+using namespace std;
 int loadmap(Sim * s, char * filename){ 
-	FILE * mapfile = fopen(filename, "r");
+	ifstream mapfile(filename);
 	Charmap * cm = new Charmap();
 	int numRow= 0; 
 	int numCol= 0; 
 	int maxcols = 0;
-	char *line = (char*)malloc(CHAR_MAP_COLS); 
-	assert( mapfile!= 0);
-	while(fgets(line, CHAR_MAP_COLS, mapfile) != 0){
+	char *line = new char[CHAR_MAP_COLS]; 
+	while((mapfile.getline(line, CHAR_MAP_COLS)) && (!mapfile.eof() )){
+	//while(fgets(line, CHAR_MAP_COLS, mapfile) != 0){
 		maxcols = strlen(line);
 		if(numCol > maxcols) {
 			maxcols = numCol;
 		}
-		for(numCol = 0; line[numCol] != '\n'; numCol++){
+		for(numCol = 0; numCol < maxcols; numCol++){
 			cm->h_setchar(numRow,numCol, line[numCol]);
 		}
 		numRow++;
 	}
-	free(line);
-	s->railmap = new Railmap(cm);
-	free(cm);
+	delete [] line;
+
+	s->railmap = new OldRailmap(cm);
+	delete cm;
+        
 	s->i_crosses = s->railmap->crosses->iterator();
 	s->maprows = numRow;
 	s->mapcols=  maxcols;
 	return numRow;
 }
 void loadgame(Sim * s, char * filename){	
-	FILE * gamefile = fopen(filename, "r");
+	ifstream gamefile(filename);
+	if(!gamefile){
+		cout << "Ehhhhhhhh. No hay fichero!" << endl;
+		cin.get();
+		return ;
+	}
 	V_data data = newdata();
 	Vehicle*  v = 0;
-	int n=0;
 	char section[40];
-	if(gamefile != 0){
-		while(1){
-			n = fscanf(gamefile, "%s",section);
-			if(n == EOF){
-				break;
-			}
-			if(!strcmp(section, "locomotive")){
-				dataread(data, gamefile, LOCOMOTIVE);
-				v = dataToVehicle(data);
-				s->addVehicle(v);
-			}else if(!strcmp(section, "wagon")){
-				dataread(data, gamefile, WAGON);
-				v = dataToVehicle(data);
-				s->addVehicle(v);
-			}else{
-				printf("error\n");
-			}
+	while(gamefile.getline(section, 40) && !gamefile.eof()){
+		if(!strcmp(section, "locomotive")){
+			dataread(data, gamefile, LOCOMOTIVE);
+			v = dataToVehicle(data);
+			s->addVehicle(v);
+		}else if(!strcmp(section, "wagon")){
+			dataread(data, gamefile, WAGON);
+			v = dataToVehicle(data);
+			s->addVehicle(v);
+		}else{
+			printf("error\n");
 		}
 	}
 	freedata(data);
 }
 void savegame(Sim * s, char * filename){
-	FILE * gamefile = fopen(filename, "w");
+	ofstream gamefile(filename);
 	V_data data = newdata();
 	Vehicle*  v = 0;
 	Iterator * i = s->vehicles->iterator();
@@ -77,84 +72,45 @@ void savegame(Sim * s, char * filename){
 	freedata(data);
 }
 
- void dataread(V_data data, FILE *file, int type){
-	char dummy[20];
-	int id;
-	char dir[7]; 
-	char aspect;
-	int fg;
-	int bg;
-	int row;
-	int col;
-	float imp;
-	int power;
-	int brakes;
-	int mass;
-	int link0id; 
-	int link1id;
-
-	fscanf(file, "%s %d %s %s %s %c %s %d %s %d %s %d %s %d %s %f %s %d %s %d %s %d %s %d %s %d", 
-			dummy, 
-			&id, 
-			dummy, 
-			dir, 
-			dummy, 
-			&aspect, 
-			dummy, 
-			&fg, 
-			dummy, 
-			&bg, 
-			dummy, 
-			&row, 
-			dummy, 
-			&col, 
-			dummy, 
-			&imp,
-			dummy, 
-			&power, 
-			dummy, 
-			&brakes, 
-			dummy, 
-			&mass, 
-			dummy, 
-			&link0id, 
-			dummy, 
-			&link1id); 
-
-	data->id = id;
-	data->type = type;
-	strcpy(data->dir,dir);
-	data->aspect = aspect;
-	data->fg = fg;
-	data->bg = bg;
-	data->row = row;
-	data->col = col;
-	data->imp = imp;
-	data->power = power;
-	data->brakes = brakes;
-	data->mass = mass;
-	data->link0id = link0id;
-	data->link1id = link1id;
+void dataread(V_data data, ifstream &file, int type){
+	char propertyName[100];
+	data->type = type; 
+	file >> 
+	   propertyName >> data->id 
+	>> propertyName >> data->dir 
+	>> propertyName >> data->aspect 
+	>> propertyName >> data->fg 
+	>> propertyName >> data->bg 
+	>> propertyName >> data->row 
+	>> propertyName >> data->col 
+	>> propertyName >> data->imp
+	>> propertyName >> data->power 
+	>> propertyName >> data->brakes 
+	>> propertyName >> data->mass 
+	>> propertyName >> data->link0id 
+	>> propertyName >> data->link1id; 
 }
- void datawrite(V_data data, FILE *file){
-	fprintf(file, "%s\n id %d\n dir %s\n aspect %c\n fg %d\n bg %d\n row %d\n col %d\n imp %f\n power %d\n brakes %d\n mass %d\n link0id %d\n link1id %d\n\n",
-	data->type==LOCOMOTIVE?"locomotive":"wagon",
-	data->id,
-	data->dir,
-	data->aspect,
-	data->fg,
-	data->bg,
-	data->row,
-	data->col,
-	data->imp,
-	data->power,
-	data->brakes,
-	data->mass,
-	data->link0id,
-	data->link1id);
+void datawrite(V_data data, ofstream &file){
+	char type[20];
+	strcpy(type, data->type==LOCOMOTIVE?"locomotive":"wagon");
+	file << 
+	   type
+	<< data->id
+	<< data->dir
+	<< data->aspect
+	<< data->fg
+	<< data->bg
+	<< data->row
+	<< data->col
+	<< data->imp
+	<< data->power
+	<< data->brakes
+	<< data->mass
+	<< data->link0id
+	<< data->link1id;
 }
 
- Vehicle*  dataToVehicle(V_data data){
+Vehicle*  dataToVehicle(V_data data){
 	Vehicle*  v = new Vehicle (data->type);
 	v->id = data->id;
 	v->dir = strToDir(data->dir);

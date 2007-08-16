@@ -1,5 +1,6 @@
 #ifndef DIR_H
 #define DIR_H
+#include <cstring>
 enum{
 	NO_DIR =-1,
 	E   =0,

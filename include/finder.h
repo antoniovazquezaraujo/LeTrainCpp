@@ -1,8 +1,13 @@
 #ifndef FINDER_H
 #define FINDER_H
+
+class Finder;
 #include "vehicle.h"
 #include "rail.h"
 #include "point.h"
+#include "dir.h"
+class Vehicle;
+class Rail;
 class Finder{
 public:
 	Finder (Vehicle*  v);

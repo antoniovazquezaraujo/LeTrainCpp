@@ -1,11 +1,10 @@
 /*
-  graphics.c
+  graphics.cpp
   Curses interface
   -------------------------------------
 */
-#include <string.h>
+#include <cstring>
 #include "graphics.h"
-#include "logging.h"
 
 static struct visor{
 	int row;

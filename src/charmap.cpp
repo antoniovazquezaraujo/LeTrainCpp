@@ -8,7 +8,7 @@ Charmap::Charmap(){
 	int n, m;
 	for(n = 0; n<CHAR_MAP_ROWS; n++){
 		for(m = 0; m<CHAR_MAP_COLS; m++){
-			data[n][m] = '\0';
+			data[n][m] = 0;
 		}
 	}
 }

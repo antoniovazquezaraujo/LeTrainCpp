@@ -1,5 +1,9 @@
 #ifndef POINT_H
 #define POINT_H
+class Point;
+#include "dir.h"
+#include <cassert> 
+
 class Point{
 public:
 	Point(int row=0, int col=0)

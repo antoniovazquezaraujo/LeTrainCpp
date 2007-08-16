@@ -24,17 +24,10 @@
  *  675 Mass Ave, Cambridge, MA 02139, USA.
  */
 /*===========================================================================*/
-#include <iostream> 
 #include "letrain.h"
-#include "persist.h"
-#include "sim.h"
-#include "letrain_test.h"
 using namespace std;
 int main() {
-	if( !(LetrainTest::test())){
-		return -1;
-	}
-	cin.get();
+	ifstream pepe("hola");
 	startlog("letrain.log");
 	g_init();
 	Sim * sim = new Sim();

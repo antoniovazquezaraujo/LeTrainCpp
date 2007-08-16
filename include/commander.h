@@ -1,7 +1,11 @@
 #ifndef COMMANDER_H
 #define COMMANDER_H
+
+class Commander; 
 #include "sim.h"
+#include "dir.h"
 #include "finder.h"
+
 // Commander modes
 enum{
 	DRIVERS_MODE, 

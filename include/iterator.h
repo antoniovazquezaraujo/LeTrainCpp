@@ -1,8 +1,10 @@
 #ifndef ITERATOR_H
 #define ITERATOR_H
+
+class Iterator;
 #include "node.h"
 #include "list.h"
-class List;
+
 class Iterator{
 public:
 	Iterator(List * list);

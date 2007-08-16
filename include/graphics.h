@@ -6,6 +6,7 @@
 #ifndef graphich
 #define graphich
 #include <ncurses.h>
+#include "logging.h"
 void	g_init(void);
 void	g_reset(void);
 int 	g_getkey(void);

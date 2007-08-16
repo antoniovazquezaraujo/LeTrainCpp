@@ -1,9 +1,9 @@
-#ifndef logging_h
-#define logging_h
+#ifndef LOGGING_H
+#define LOGGING_H
 
-#include <stdio.h>
-#include <stdarg.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdarg>
+#include <cstdlib>
 
 #define DEBUG
 #ifdef DEBUG

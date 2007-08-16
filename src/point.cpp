@@ -4,8 +4,6 @@
   -------------------------------------
 */
 #include "point.h"
-#include "dir.h"
-#include <assert.h> 
 void Point::move(int direction){
 	switch(direction) {
 	case N: 

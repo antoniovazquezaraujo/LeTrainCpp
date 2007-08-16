@@ -1,18 +1,11 @@
 #ifndef RAIL_H
 #define RAIL_H
-#include "vehicle.h"
-class Vehicle;
-class Finder;
-class Point;
-class Commander;
+
 class Rail;
-class Cross;
-class Charmap;
-class Railmap;
-class Sim;
-class Node;
-class List;
-class Iterator;
+#include <cassert>
+#include "vehicle.h"
+#include "dir.h"
+
 enum{
 	STOP_RAIL, 
 	VERTICAL_RAIL,
@@ -24,7 +17,7 @@ enum{
 };
 class Rail{
 public:
-	Rail (int type, int row, int col);
+	Rail(int type=STOP_RAIL, int row=0, int col=0);
 	~Rail();
 	void setlink(int dir, Rail * link);
 	Rail * link(int dir);
@@ -33,11 +26,12 @@ public:
 	int getDir(int dir);
 	int validDir();
 
+	Vehicle *  vehicle;
 	int type;
 	char aspect;
 	Point pos; 
 	int dirs[8];
-	Rail * links[8];     
-	Vehicle*  vehicle;
+	Rail * links[8];
+	friend bool operator==(Rail &a, Rail &b);
 };
 #endif

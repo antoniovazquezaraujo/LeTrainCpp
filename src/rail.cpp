@@ -4,8 +4,6 @@
   -------------------------------------
 */
 #include "rail.h"
-#include "dir.h"
-#include <assert.h>
 
 Rail::Rail(int type, int row, int col){
 	this->type = type;
@@ -99,4 +97,16 @@ int Rail::validDir(){
 		}
 	}
 	return NO_DIR;
+}
+
+bool operator == (Rail &a, Rail &b){
+	if(a.type != b.type) return false;
+	if(a.pos.row != b.pos.row) return false;;
+	if(a.pos.col != b.pos.col) return false;
+	if(a.vehicle != b.vehicle) return false;
+	for(int cont = 0; cont < 8; cont++){
+		if(a.dirs[cont] != b.dirs[cont]) return false;
+		if(a.links[cont]!= b.links[cont]) return false; 
+	}
+	return true;
 }

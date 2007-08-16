@@ -4,7 +4,6 @@
   -------------------------------------
 */
 #include "finder.h"
-#include "dir.h"
 
 Finder::Finder(Vehicle * v){
 	pos.row=0;

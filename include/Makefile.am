@@ -1,1 +1,2 @@
-EXTRA_DIST = charmap.h commander.h cross.h debug.h dir.h finder.h graphics.h iterator.h letrain.h list.h logging.h node.h persist.h point.h rail.h railmap.h sim.h trainiterator.h vehicle.h
+EXTRA_DIST = debug.h cross.h dir.h iterator.h sim.h commander.h vehicle.h charmap.h logging.h finder.h letrain.h persist.h trainiterator.h list.h node.h rail.h railmap.h graphics.h point.h
+SUBDIRS = UnitTest++

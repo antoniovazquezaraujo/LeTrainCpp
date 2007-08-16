@@ -5,11 +5,7 @@
 */
 #include <stdlib.h> 
 #include <assert.h> 
-#include "dir.h"
-#include "graphics.h"
 #include "vehicle.h"
-#include "trainiterator.h"
-#include "finder.h"
 Vehicle::Vehicle(int type){
 	this->id = newid();
 	this->rail = 0;

@@ -1,13 +1,16 @@
 #ifndef SIM_H
 #define SIM_H
-#include "vehicle.h"
+
+class Sim;
 #include "vehicle.h"
 #include "rail.h"
 #include "cross.h"
 #include "list.h"
 #include "iterator.h"
 #include "commander.h"
-#include "railmap.h"
+#include "oldRailmap.h"
+#include "graphics.h"
+
 class Sim{
 public:
 	Sim        ();
@@ -58,7 +61,6 @@ public:
 	Cross *    getCross();
 	void       changeSelectedCross(); 
 
-	//
 	void       movetrains();
 	void       cycle();
 	void       doactions();

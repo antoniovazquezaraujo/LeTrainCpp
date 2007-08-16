@@ -4,7 +4,6 @@
   -------------------------------------
 */
 #include "commander.h"
-#include "dir.h"
 
 Commander::Commander (){
 	sim = 0;

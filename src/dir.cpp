@@ -4,7 +4,6 @@
   -------------------------------------
 */
 #include "dir.h"
-#include "string.h"
 int invert(int direction){
 	int ret = NO_DIR; 
 	if(direction != NO_DIR){

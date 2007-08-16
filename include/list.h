@@ -1,8 +1,10 @@
 #ifndef LIST_H
 #define LIST_H
+
+class List;
 #include "iterator.h"
 #include "node.h"
-class Iterator;
+
 class List{
 	friend class Iterator;
 public:

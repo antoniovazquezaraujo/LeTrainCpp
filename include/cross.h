@@ -1,7 +1,10 @@
 #ifndef CROSS_H
 #define CROSS_H
 
+class Cross;
 #include "rail.h"
+#include "dir.h"
+
 class Cross{
 public:
 	Cross(Rail * r, int keydir, int outs[]);

@@ -1,7 +1,16 @@
 #ifndef PERSIST_H
 #define PERSIST_H
+
+#include <iostream>
+#include <fstream>
+#include <cstring>
 #include "sim.h"
-#include "stdio.h"
+#include "vehicle.h"
+#include "charmap.h"
+#include "vehicle.h"
+#include "iterator.h"
+#include "sim.h"
+using namespace std;
 struct data{
 	int id;
 	int type;
@@ -17,6 +26,8 @@ struct data{
 	int mass;
 	int link0id;
 	int link1id;
+	ifstream entrada;
+	ofstream salida;
 };
 typedef struct data* V_data;
 int loadmap(Sim * s, char * mapfilename); 
@@ -25,10 +36,10 @@ void savegame(Sim * s, char *gamefilename);
 int invert(int dir);
 int strToDir(char *c);
 void dirtostr(int dir, char* dest);
-void dataread(V_data data, FILE *file, int type);
-void datawrite(V_data data, FILE *file);
+void dataread(V_data data, ifstream &file, int type);
+void datawrite(V_data data, ofstream &file);
 Vehicle*  dataToVehicle(V_data data);
-void vehicletodata(Vehicle*  v, V_data data);
+void vehicletodata(Vehicle* v, V_data data);
 V_data newdata();
 void freedata(V_data data);
 #endif

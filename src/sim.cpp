@@ -5,12 +5,6 @@
 */
 
 #include "sim.h"
-#include "list.h"
-#include "graphics.h"
-#include "cross.h"
-#include "vehicle.h"
-#include "commander.h"
-#include "iterator.h"
 
 static int running = 0;
 static int visormoved = 0;
@@ -412,8 +406,8 @@ void Sim::drawrails(){
 	Rail * r = 0;
 	int n=0;
 	int m=0;
-	for(n = 0; n<RAIL_MAP_ROWS; n++){
-		for(m = 0; m<RAIL_MAP_COLS; m++){
+	for(n = 0; n < RAIL_MAP_ROWS; n++){
+		for(m = 0; m < RAIL_MAP_COLS; m++){
 			r = railmap->rails[n][m];
 			if(r != 0){
 				g_drawRail(

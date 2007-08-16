@@ -1,7 +1,9 @@
 #ifndef TRAINITERATOR_H
 #define TRAINITERATOR_H 
 
+class TrainIterator;
 #include "vehicle.h"
+#include "finder.h"
 
 class TrainIterator{
 public:

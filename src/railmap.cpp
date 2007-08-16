@@ -1,17 +1,10 @@
 /*
-  railmap.c
+  railmap.cpp
   A two dimensional array of rails
   -------------------------------------
 */
-#include "railmap.h"
-#include "dir.h"
+#include "oldRailmap.h"
 
-// TODO
-// cambiar esta struct por dos funciones diferentes!!!!!!!!!!!!!!!!
-struct railandcross{
-	Rail * rail;
-	Cross * cross;
-};
 
 Railmap::Railmap(Charmap * charmap){
 	int n, m;

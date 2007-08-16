@@ -4,8 +4,6 @@
   -------------------------------------
 */
 #include "trainiterator.h"
-#include "vehicle.h"
-#include "finder.h"
 TrainIterator::TrainIterator(Vehicle*  v, int dir){
 	f = new Finder(v);
 	this->dir = dir;

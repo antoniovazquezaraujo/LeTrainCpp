@@ -1,7 +1,9 @@
 #ifndef CHARMAP_H
 #define CHARMAP_H
-#include "letrain.h"
-class Charmap{
+
+#define CHAR_MAP_ROWS 500
+#define CHAR_MAP_COLS 500 
+class Charmap {
 public:
 	Charmap();
 	~Charmap();

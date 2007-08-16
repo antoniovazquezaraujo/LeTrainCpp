@@ -3,37 +3,21 @@
   The general declarations 
   -------------------------------------
 */
-#ifndef letrain_h
-#define letrain_h
+#ifndef LETRAIN_H
+#define LETRAIN_H
 
-#include <assert.h>
+#include <cassert>
+#include <iostream> 
+#include <fstream> 
 #include "logging.h"
 #include "graphics.h"
+#include "persist.h"
+#include "sim.h"
 
-#define CHAR_MAP_ROWS 500 
-#define CHAR_MAP_COLS 500 
 #define MAX_PAGE_ROWS 40
 #define MAX_PAGE_COLS 40
 #define START_ROW 10
 #define START_COL 10
-#define RAIL_MAP_ROWS 500 
-#define RAIL_MAP_COLS 500 
-
-
-class Vehicle;
-class Finder;
-class Point;
-class Commander;
-class Rail;
-class Cross;
-class Charmap;
-class Railmap;
-class Sim;
-class Node;
-class List;
-class Iterator;
-
-
 
 // Direction
 // int invert(int dir);
