@@ -1,42 +1,62 @@
-AM_CXXFLAGS	= -ggdb -L$(top_srcdir)/lib -I$(top_srcdir)/include/UnitTest++ -I$(top_srcdir)/include -W -Wall 
-bin_PROGRAMS = letrain carriles testing
+AM_CXXFLAGS	= -O2 -std=c++98 -ggdb -I. -I$(top_srcdir)/include -W -Wall 
 
-ALL_SRCS =\
-	list.cpp\
-	point.cpp\
-	dir.cpp\
-	alert.cpp\
-	iterator.cpp\
-	sim.cpp\
-	charmap.cpp\
-	railmap.cpp\
-	oldRailmap.cpp\
-	finder.cpp\
-	rail.cpp\
-	cross.cpp\
-	commander.cpp\
-	vehicle.cpp\
-	graphics.cpp\
-	node.cpp\
-	trainiterator.cpp\
-	logging.cpp\
-	persist.cpp
+bin_PROGRAMS = letrain 
 
-letrain_SOURCES=\
-	$(ALL_SRCS)\
-	letrain.cpp
+check_PROGRAMS = test
 
-letrain_LDFLAGS = -lncurses
+TESTS = $(check_PROGRAMS)
 
-testing_SOURCES =  $(ALL_SRCS) Test.cpp \
-	TestNewRailMap.cpp
+ALL_SRCS =                  \
+	CrossAspect.cpp         \
+	CrossRail.cpp           \
+	CurveAspect.cpp         \
+	CurveRail.cpp           \
+	Dir.cpp                 \
+	DirEnv.cpp              \
+	ForkDirSelector.cpp     \
+	ForkRail.cpp            \
+	Rail.cpp                \
+	StraightAspect.cpp      \
+	StraightRail.cpp        \
+	Aspect.cpp              \
+	ForkAspect.cpp          \
+	Point.cpp               \
+	Vehicle.cpp             \
+	RailVehicle.cpp         \
+	RailMap.cpp             \
+	RailPen.cpp             \
+	Window.cpp              \
+	TerminalWindow.cpp      \
+	Commander.cpp           \
+	Sim.cpp                 \
+	SimView.cpp             \
+	TrainIterator.cpp       \
+	CommanderView.cpp       \
+	Finder.cpp              \
+	FinderAspect.cpp        \
+	Train.cpp               \
+	Locomotive.cpp          \
+	RailEnv.cpp             \
+	Game.cpp                \
+	Wagon.cpp               \
+	WagonAspect.cpp         \
+	LocomotiveAspect.cpp    \
+	Event.cpp               \
+	EventProgram.cpp        \
+	Sensor.cpp              \
+	Message.cpp             \
+	Semaphore.cpp           \
+	Range.cpp               \
+	Filter.cpp              \
+	ProgramEditor.cpp       \
+	Link.cpp                \
+	Parser.cpp
 
-testing_LDADD = $(top_srcdir)/lib/libUnitTest++.a 
-testing_LDFLAGS = -lncurses
+letrain_SOURCES= $(ALL_SRCS) Letrain.cpp
+letrain_LDFLAGS = -lncurses -lpanel -lcpptest -llog4cplus 
+test_SOURCES = $(ALL_SRCS) Test.cpp
+test_LDFLAGS = -lncurses -lpanel -lcpptest -llog4cplus
 
-carriles_SOURCES = carriles.cpp
-carriles_LDFLAGS = -lncurses
-
-EXTRA_DIST = $(ALL_SRCS) letrain.cpp carriles.cpp 
-
+EXTRA_DIST = log4cplus.properties
 AUTOMAKE_OPTIONS = foreign
+

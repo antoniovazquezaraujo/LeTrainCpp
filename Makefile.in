@@ -592,8 +592,19 @@ uninstall-am:
 	pdf-am ps ps-am tags tags-recursive uninstall uninstall-am
 
 
-backup: clean
-	tar cvzf ../backup/`date +%F_%H_%S_%M`".tar" *
+backup: dist 
+	mkdir -p ../backup
+	mv *.tar.gz ../backup/`date +%F_%H_%M_%S`".tar" 
+
+restore: backup
+	dialog --fselect ../backup/ 15 60 2>respuesta
+	tar xvzf `cat respuesta`
+	rm -f respuesta
+
+print:
+	enscript -T4 -G2rE Test.cpp -pdata.ps
+	ps2pdf data.ps
+	rm -f data.ps
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

@@ -30,7 +30,8 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = letrain$(EXEEXT) carriles$(EXEEXT) testing$(EXEEXT)
+bin_PROGRAMS = letrain$(EXEEXT)
+check_PROGRAMS = test$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -43,28 +44,31 @@ CONFIG_CLEAN_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 binPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
 PROGRAMS = $(bin_PROGRAMS)
-am_carriles_OBJECTS = carriles.$(OBJEXT)
-carriles_OBJECTS = $(am_carriles_OBJECTS)
-carriles_LDADD = $(LDADD)
-carriles_LINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) \
-	$(carriles_LDFLAGS) $(LDFLAGS) -o $@
-am__objects_1 = list.$(OBJEXT) point.$(OBJEXT) dir.$(OBJEXT) \
-	alert.$(OBJEXT) iterator.$(OBJEXT) sim.$(OBJEXT) \
-	charmap.$(OBJEXT) railmap.$(OBJEXT) oldRailmap.$(OBJEXT) \
-	finder.$(OBJEXT) rail.$(OBJEXT) cross.$(OBJEXT) \
-	commander.$(OBJEXT) vehicle.$(OBJEXT) graphics.$(OBJEXT) \
-	node.$(OBJEXT) trainiterator.$(OBJEXT) logging.$(OBJEXT) \
-	persist.$(OBJEXT)
-am_letrain_OBJECTS = $(am__objects_1) letrain.$(OBJEXT)
+am__objects_1 = CrossAspect.$(OBJEXT) CrossRail.$(OBJEXT) \
+	CurveAspect.$(OBJEXT) CurveRail.$(OBJEXT) Dir.$(OBJEXT) \
+	DirEnv.$(OBJEXT) ForkDirSelector.$(OBJEXT) ForkRail.$(OBJEXT) \
+	Rail.$(OBJEXT) StraightAspect.$(OBJEXT) StraightRail.$(OBJEXT) \
+	Aspect.$(OBJEXT) ForkAspect.$(OBJEXT) Point.$(OBJEXT) \
+	Vehicle.$(OBJEXT) RailVehicle.$(OBJEXT) RailMap.$(OBJEXT) \
+	RailPen.$(OBJEXT) Window.$(OBJEXT) TerminalWindow.$(OBJEXT) \
+	Commander.$(OBJEXT) Sim.$(OBJEXT) SimView.$(OBJEXT) \
+	TrainIterator.$(OBJEXT) CommanderView.$(OBJEXT) \
+	Finder.$(OBJEXT) FinderAspect.$(OBJEXT) Train.$(OBJEXT) \
+	Locomotive.$(OBJEXT) RailEnv.$(OBJEXT) Game.$(OBJEXT) \
+	Wagon.$(OBJEXT) WagonAspect.$(OBJEXT) \
+	LocomotiveAspect.$(OBJEXT) Event.$(OBJEXT) \
+	EventProgram.$(OBJEXT) Sensor.$(OBJEXT) Message.$(OBJEXT) \
+	Semaphore.$(OBJEXT) Range.$(OBJEXT) Filter.$(OBJEXT) \
+	ProgramEditor.$(OBJEXT) Link.$(OBJEXT) Parser.$(OBJEXT)
+am_letrain_OBJECTS = $(am__objects_1) Letrain.$(OBJEXT)
 letrain_OBJECTS = $(am_letrain_OBJECTS)
 letrain_LDADD = $(LDADD)
 letrain_LINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(letrain_LDFLAGS) \
 	$(LDFLAGS) -o $@
-am_testing_OBJECTS = $(am__objects_1) Test.$(OBJEXT) \
-	TestNewRailMap.$(OBJEXT)
-testing_OBJECTS = $(am_testing_OBJECTS)
-testing_DEPENDENCIES = $(top_srcdir)/lib/libUnitTest++.a
-testing_LINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(testing_LDFLAGS) \
+am_test_OBJECTS = $(am__objects_1) Test.$(OBJEXT)
+test_OBJECTS = $(am_test_OBJECTS)
+test_LDADD = $(LDADD)
+test_LINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(test_LDFLAGS) \
 	$(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I. -I$(top_builddir)@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -74,9 +78,8 @@ CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-SOURCES = $(carriles_SOURCES) $(letrain_SOURCES) $(testing_SOURCES)
-DIST_SOURCES = $(carriles_SOURCES) $(letrain_SOURCES) \
-	$(testing_SOURCES)
+SOURCES = $(letrain_SOURCES) $(test_SOURCES)
+DIST_SOURCES = $(letrain_SOURCES) $(test_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -168,41 +171,59 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CXXFLAGS = -ggdb -L$(top_srcdir)/lib -I$(top_srcdir)/include/UnitTest++ -I$(top_srcdir)/include -W -Wall 
+AM_CXXFLAGS = -O2 -std=c++98 -ggdb -I. -I$(top_srcdir)/include -W -Wall 
+TESTS = $(check_PROGRAMS)
 ALL_SRCS = \
-	list.cpp\
-	point.cpp\
-	dir.cpp\
-	alert.cpp\
-	iterator.cpp\
-	sim.cpp\
-	charmap.cpp\
-	railmap.cpp\
-	oldRailmap.cpp\
-	finder.cpp\
-	rail.cpp\
-	cross.cpp\
-	commander.cpp\
-	vehicle.cpp\
-	graphics.cpp\
-	node.cpp\
-	trainiterator.cpp\
-	logging.cpp\
-	persist.cpp
+	CrossAspect.cpp         \
+	CrossRail.cpp           \
+	CurveAspect.cpp         \
+	CurveRail.cpp           \
+	Dir.cpp                 \
+	DirEnv.cpp              \
+	ForkDirSelector.cpp     \
+	ForkRail.cpp            \
+	Rail.cpp                \
+	StraightAspect.cpp      \
+	StraightRail.cpp        \
+	Aspect.cpp              \
+	ForkAspect.cpp          \
+	Point.cpp               \
+	Vehicle.cpp             \
+	RailVehicle.cpp         \
+	RailMap.cpp             \
+	RailPen.cpp             \
+	Window.cpp              \
+	TerminalWindow.cpp      \
+	Commander.cpp           \
+	Sim.cpp                 \
+	SimView.cpp             \
+	TrainIterator.cpp       \
+	CommanderView.cpp       \
+	Finder.cpp              \
+	FinderAspect.cpp        \
+	Train.cpp               \
+	Locomotive.cpp          \
+	RailEnv.cpp             \
+	Game.cpp                \
+	Wagon.cpp               \
+	WagonAspect.cpp         \
+	LocomotiveAspect.cpp    \
+	Event.cpp               \
+	EventProgram.cpp        \
+	Sensor.cpp              \
+	Message.cpp             \
+	Semaphore.cpp           \
+	Range.cpp               \
+	Filter.cpp              \
+	ProgramEditor.cpp       \
+	Link.cpp                \
+	Parser.cpp
 
-letrain_SOURCES = \
-	$(ALL_SRCS)\
-	letrain.cpp
-
-letrain_LDFLAGS = -lncurses
-testing_SOURCES = $(ALL_SRCS) Test.cpp \
-	TestNewRailMap.cpp
-
-testing_LDADD = $(top_srcdir)/lib/libUnitTest++.a 
-testing_LDFLAGS = -lncurses
-carriles_SOURCES = carriles.cpp
-carriles_LDFLAGS = -lncurses
-EXTRA_DIST = $(ALL_SRCS) letrain.cpp carriles.cpp 
+letrain_SOURCES = $(ALL_SRCS) Letrain.cpp
+letrain_LDFLAGS = -lncurses -lpanel -lcpptest -llog4cplus 
+test_SOURCES = $(ALL_SRCS) Test.cpp
+test_LDFLAGS = -lncurses -lpanel -lcpptest -llog4cplus
+EXTRA_DIST = log4cplus.properties
 AUTOMAKE_OPTIONS = foreign
 all: all-am
 
@@ -260,15 +281,15 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-carriles$(EXEEXT): $(carriles_OBJECTS) $(carriles_DEPENDENCIES) 
-	@rm -f carriles$(EXEEXT)
-	$(carriles_LINK) $(carriles_OBJECTS) $(carriles_LDADD) $(LIBS)
+
+clean-checkPROGRAMS:
+	-test -z "$(check_PROGRAMS)" || rm -f $(check_PROGRAMS)
 letrain$(EXEEXT): $(letrain_OBJECTS) $(letrain_DEPENDENCIES) 
 	@rm -f letrain$(EXEEXT)
 	$(letrain_LINK) $(letrain_OBJECTS) $(letrain_LDADD) $(LIBS)
-testing$(EXEEXT): $(testing_OBJECTS) $(testing_DEPENDENCIES) 
-	@rm -f testing$(EXEEXT)
-	$(testing_LINK) $(testing_OBJECTS) $(testing_LDADD) $(LIBS)
+test$(EXEEXT): $(test_OBJECTS) $(test_DEPENDENCIES) 
+	@rm -f test$(EXEEXT)
+	$(test_LINK) $(test_OBJECTS) $(test_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -276,29 +297,52 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Aspect.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Commander.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CommanderView.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CrossAspect.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CrossRail.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CurveAspect.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CurveRail.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Dir.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/DirEnv.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Event.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/EventProgram.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Filter.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Finder.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/FinderAspect.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ForkAspect.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ForkDirSelector.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ForkRail.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Game.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Letrain.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Link.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Locomotive.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/LocomotiveAspect.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Message.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Parser.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Point.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ProgramEditor.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Rail.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/RailEnv.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/RailMap.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/RailPen.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/RailVehicle.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Range.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Semaphore.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Sensor.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Sim.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/SimView.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/StraightAspect.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/StraightRail.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TerminalWindow.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Test.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TestNewRailMap.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/alert.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/carriles.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/charmap.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/commander.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cross.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dir.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/finder.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/graphics.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/iterator.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/letrain.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/list.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/logging.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/node.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/oldRailmap.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/persist.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/point.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rail.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/railmap.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sim.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/trainiterator.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/vehicle.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Train.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TrainIterator.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Vehicle.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Wagon.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/WagonAspect.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Window.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -362,6 +406,79 @@ GTAGS:
 distclean-tags:
 	-rm -f TAGS ID GTAGS GRTAGS GSYMS GPATH tags
 
+check-TESTS: $(TESTS)
+	@failed=0; all=0; xfail=0; xpass=0; skip=0; ws='[	 ]'; \
+	srcdir=$(srcdir); export srcdir; \
+	list=' $(TESTS) '; \
+	if test -n "$$list"; then \
+	  for tst in $$list; do \
+	    if test -f ./$$tst; then dir=./; \
+	    elif test -f $$tst; then dir=; \
+	    else dir="$(srcdir)/"; fi; \
+	    if $(TESTS_ENVIRONMENT) $${dir}$$tst; then \
+	      all=`expr $$all + 1`; \
+	      case " $(XFAIL_TESTS) " in \
+	      *$$ws$$tst$$ws*) \
+		xpass=`expr $$xpass + 1`; \
+		failed=`expr $$failed + 1`; \
+		echo "XPASS: $$tst"; \
+	      ;; \
+	      *) \
+		echo "PASS: $$tst"; \
+	      ;; \
+	      esac; \
+	    elif test $$? -ne 77; then \
+	      all=`expr $$all + 1`; \
+	      case " $(XFAIL_TESTS) " in \
+	      *$$ws$$tst$$ws*) \
+		xfail=`expr $$xfail + 1`; \
+		echo "XFAIL: $$tst"; \
+	      ;; \
+	      *) \
+		failed=`expr $$failed + 1`; \
+		echo "FAIL: $$tst"; \
+	      ;; \
+	      esac; \
+	    else \
+	      skip=`expr $$skip + 1`; \
+	      echo "SKIP: $$tst"; \
+	    fi; \
+	  done; \
+	  if test "$$failed" -eq 0; then \
+	    if test "$$xfail" -eq 0; then \
+	      banner="All $$all tests passed"; \
+	    else \
+	      banner="All $$all tests behaved as expected ($$xfail expected failures)"; \
+	    fi; \
+	  else \
+	    if test "$$xpass" -eq 0; then \
+	      banner="$$failed of $$all tests failed"; \
+	    else \
+	      banner="$$failed of $$all tests did not behave as expected ($$xpass unexpected passes)"; \
+	    fi; \
+	  fi; \
+	  dashes="$$banner"; \
+	  skipped=""; \
+	  if test "$$skip" -ne 0; then \
+	    skipped="($$skip tests were not run)"; \
+	    test `echo "$$skipped" | wc -c` -le `echo "$$banner" | wc -c` || \
+	      dashes="$$skipped"; \
+	  fi; \
+	  report=""; \
+	  if test "$$failed" -ne 0 && test -n "$(PACKAGE_BUGREPORT)"; then \
+	    report="Please report to $(PACKAGE_BUGREPORT)"; \
+	    test `echo "$$report" | wc -c` -le `echo "$$banner" | wc -c` || \
+	      dashes="$$report"; \
+	  fi; \
+	  dashes=`echo "$$dashes" | sed s/./=/g`; \
+	  echo "$$dashes"; \
+	  echo "$$banner"; \
+	  test -z "$$skipped" || echo "$$skipped"; \
+	  test -z "$$report" || echo "$$report"; \
+	  echo "$$dashes"; \
+	  test "$$failed" -eq 0; \
+	else :; fi
+
 distdir: $(DISTFILES)
 	@srcdirstrip=`echo "$(srcdir)" | sed 's/[].[^$$\\*]/\\\\&/g'`; \
 	topsrcdirstrip=`echo "$(top_srcdir)" | sed 's/[].[^$$\\*]/\\\\&/g'`; \
@@ -389,6 +506,8 @@ distdir: $(DISTFILES)
 	  fi; \
 	done
 check-am: all-am
+	$(MAKE) $(AM_MAKEFLAGS) $(check_PROGRAMS)
+	$(MAKE) $(AM_MAKEFLAGS) check-TESTS
 check: check-am
 all-am: Makefile $(PROGRAMS)
 installdirs:
@@ -421,7 +540,8 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
+clean-am: clean-binPROGRAMS clean-checkPROGRAMS clean-generic \
+	mostlyclean-am
 
 distclean: distclean-am
 	-rm -rf ./$(DEPDIR)
@@ -478,18 +598,18 @@ uninstall-am: uninstall-binPROGRAMS
 
 .MAKE: install-am install-strip
 
-.PHONY: CTAGS GTAGS all all-am check check-am clean clean-binPROGRAMS \
-	clean-generic ctags distclean distclean-compile \
-	distclean-generic distclean-tags distdir dvi dvi-am html \
-	html-am info info-am install install-am install-binPROGRAMS \
-	install-data install-data-am install-dvi install-dvi-am \
-	install-exec install-exec-am install-html install-html-am \
-	install-info install-info-am install-man install-pdf \
-	install-pdf-am install-ps install-ps-am install-strip \
-	installcheck installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
-	uninstall-am uninstall-binPROGRAMS
+.PHONY: CTAGS GTAGS all all-am check check-TESTS check-am clean \
+	clean-binPROGRAMS clean-checkPROGRAMS clean-generic ctags \
+	distclean distclean-compile distclean-generic distclean-tags \
+	distdir dvi dvi-am html html-am info info-am install \
+	install-am install-binPROGRAMS install-data install-data-am \
+	install-dvi install-dvi-am install-exec install-exec-am \
+	install-html install-html-am install-info install-info-am \
+	install-man install-pdf install-pdf-am install-ps \
+	install-ps-am install-strip installcheck installcheck-am \
+	installdirs maintainer-clean maintainer-clean-generic \
+	mostlyclean mostlyclean-compile mostlyclean-generic pdf pdf-am \
+	ps ps-am tags uninstall uninstall-am uninstall-binPROGRAMS
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

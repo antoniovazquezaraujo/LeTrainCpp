@@ -1,2 +1,48 @@
-EXTRA_DIST = debug.h cross.h dir.h iterator.h sim.h commander.h vehicle.h charmap.h logging.h finder.h letrain.h persist.h trainiterator.h list.h node.h rail.h railmap.h graphics.h point.h
-SUBDIRS = UnitTest++
+SUBDIRS =
+
+EXTRA_DIST=                 \
+	Aspect.h                \
+	Basic.h                 \
+	Commander.h             \
+	CommanderView.h         \
+	CrossAspect.h           \
+	CrossRail.h             \
+	CurveAspect.h           \
+	CurveRail.h             \
+	Dir.h                   \
+	DirEnv.h                \
+	Event.h                 \
+	EventProgram.h          \
+	Filter.h                \
+	Finder.h                \
+	FinderAspect.h          \
+	ForkAspect.h            \
+	ForkDirSelector.h       \
+	ForkRail.h              \
+	Game.h                  \
+	Link.h                  \
+	Locomotive.h            \
+	LocomotiveAspect.h      \
+	Log.h                   \
+	Message.h               \
+	Point.h                 \
+	Rail.h                  \
+	ProgramEditor.h         \
+	RailEnv.h               \
+	RailMap.h               \
+	RailPen.h               \
+	RailVehicle.h           \
+	Range.h                 \
+	Semaphore.h             \
+	Sensor.h                \
+	Sim.h                   \
+	SimView.h               \
+	StraightAspect.h        \
+	StraightRail.h          \
+	TerminalWindow.h        \
+	Train.h                 \
+	TrainIterator.h         \
+	Vehicle.h               \
+	Wagon.h                 \
+	WagonAspect.h           \
+	Window.h                 
