@@ -1,7 +1,0 @@
-AC_INIT(aclocal.m4)
-AM_INIT_AUTOMAKE(letrainMotor, 0.1)
-
-AC_PROG_CC
-AC_PROG_CXX
-AC_PROG_RANLIB
-AC_OUTPUT(Makefile include/Makefile include/UnitTest++/Makefile include/UnitTest++/Posix/Makefile include/UnitTest++/Win32/Makefile src/Makefile testing/Makefile)
