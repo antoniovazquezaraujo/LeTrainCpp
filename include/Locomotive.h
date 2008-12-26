@@ -1,0 +1,22 @@
+#ifndef LOCOMOTIVE_H
+#define LOCOMOTIVE_H
+#include "RailVehicle.h"
+class Locomotive: public RailVehicle{
+public:
+	Locomotive();
+	~Locomotive();
+	int getPower();
+	void setPower(int power);
+	void decPower(int dec);
+	void incPower(int inc);
+	void paint(Window * g);
+	void erase(Window * g);
+	int getId();
+	void setId(int id);
+	void move();
+private:
+	int id;
+	int power;
+	static Logger log;
+};
+#endif
