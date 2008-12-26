@@ -14,9 +14,9 @@
 
 
 
-pkgdatadir = $(datadir)/full-package-name
-pkglibdir = $(libdir)/full-package-name
-pkgincludedir = $(includedir)/full-package-name
+pkgdatadir = $(datadir)/letrain
+pkglibdir = $(libdir)/letrain
+pkgincludedir = $(includedir)/letrain
 am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd
 install_sh_DATA = $(install_sh) -c -m 644
 install_sh_PROGRAM = $(install_sh) -c
@@ -73,14 +73,14 @@ AMTAR = tar
 AUTOCONF = autoconf
 AUTOHEADER = autoheader
 AUTOMAKE = automake-1.10
-AWK = mawk
+AWK = gawk
 CC = gcc
-CCDEPMODE = depmode=gcc3
+CCDEPMODE = depmode=none
 CFLAGS = -g -O2
 CPP = gcc -E
 CPPFLAGS = 
 CXX = g++
-CXXDEPMODE = depmode=gcc3
+CXXDEPMODE = depmode=none
 CXXFLAGS = -g -O2
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
@@ -88,9 +88,9 @@ DEPDIR = .deps
 ECHO_C = 
 ECHO_N = -n
 ECHO_T = 
-EGREP = /bin/grep -E
+EGREP = /usr/bin/grep -E
 EXEEXT = 
-GREP = /bin/grep
+GREP = /usr/bin/grep
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
@@ -103,21 +103,21 @@ LTLIBOBJS =
 MAKEINFO = makeinfo
 MKDIR_P = /bin/mkdir -p
 OBJEXT = o
-PACKAGE = full-package-name
-PACKAGE_BUGREPORT = BUG-REPORT-ADDRESS
-PACKAGE_NAME = FULL-PACKAGE-NAME
-PACKAGE_STRING = FULL-PACKAGE-NAME VERSION
-PACKAGE_TARNAME = full-package-name
-PACKAGE_VERSION = VERSION
+PACKAGE = letrain
+PACKAGE_BUGREPORT = antoniovazquezaraujo@gmail.com
+PACKAGE_NAME = letrain
+PACKAGE_STRING = letrain 4.0
+PACKAGE_TARNAME = letrain
+PACKAGE_VERSION = 4.0
 PATH_SEPARATOR = :
 SET_MAKE = 
-SHELL = /bin/bash
+SHELL = /bin/sh
 STRIP = 
-VERSION = VERSION
-abs_builddir = /home/to/archivo/lab/c/letrain/letrain
-abs_srcdir = /home/to/archivo/lab/c/letrain/letrain
-abs_top_builddir = /home/to/archivo/lab/c/letrain/letrain
-abs_top_srcdir = /home/to/archivo/lab/c/letrain/letrain
+VERSION = 4.0
+abs_builddir = /media/sdb3/archivoDeTo/lab/proyectos/c/letrain/letrainInCVS/borrame3/letrain
+abs_srcdir = /media/sdb3/archivoDeTo/lab/proyectos/c/letrain/letrainInCVS/borrame3/letrain
+abs_top_builddir = /media/sdb3/archivoDeTo/lab/proyectos/c/letrain/letrainInCVS/borrame3/letrain
+abs_top_srcdir = /media/sdb3/archivoDeTo/lab/proyectos/c/letrain/letrainInCVS/borrame3/letrain
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 am__include = include
@@ -137,7 +137,7 @@ host_alias =
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = $(SHELL) /home/to/archivo/lab/c/letrain/letrain/install-sh
+install_sh = $(SHELL) /media/sdb3/archivoDeTo/lab/proyectos/c/letrain/letrainInCVS/borrame3/letrain/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -592,8 +592,19 @@ uninstall-am:
 	pdf-am ps ps-am tags tags-recursive uninstall uninstall-am
 
 
-backup: clean
-	tar cvzf ../backup/`date +%F_%H_%S_%M`".tar" *
+backup: dist 
+	mkdir -p ../backup
+	mv *.tar.gz ../backup/`date +%F_%H_%M_%S`".tar" 
+
+restore: backup
+	dialog --fselect ../backup/ 15 60 2>respuesta
+	tar xvzf `cat respuesta`
+	rm -f respuesta
+
+print:
+	enscript -T4 -G2rE Test.cpp -pdata.ps
+	ps2pdf data.ps
+	rm -f data.ps
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
