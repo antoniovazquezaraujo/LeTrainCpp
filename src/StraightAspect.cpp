@@ -15,7 +15,7 @@ int StraightAspect::getBgColor(){
 	return 0;
 }
 int StraightAspect::getFgColor(){
-	return 1;
+	return 7;
 }
 
 Dir StraightAspect::getDir(DirEnv * env){

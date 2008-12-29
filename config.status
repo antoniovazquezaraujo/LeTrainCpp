@@ -569,15 +569,15 @@ s,@am__quote@,|#_!!_#|,g
 s,@AMDEP_TRUE@,|#_!!_#|,g
 s,@AMDEP_FALSE@,|#_!!_#|#,g
 s,@AMDEPBACKSLASH@,|#_!!_#|\\,g
-s,@CXXDEPMODE@,|#_!!_#|depmode=none,g
-s,@am__fastdepCXX_TRUE@,|#_!!_#|#,g
-s,@am__fastdepCXX_FALSE@,|#_!!_#|,g
+s,@CXXDEPMODE@,|#_!!_#|depmode=gcc3,g
+s,@am__fastdepCXX_TRUE@,|#_!!_#|,g
+s,@am__fastdepCXX_FALSE@,|#_!!_#|#,g
 s,@CC@,|#_!!_#|gcc,g
 s,@CFLAGS@,|#_!!_#|-g -O2,g
 s,@ac_ct_CC@,|#_!!_#|gcc,g
-s,@CCDEPMODE@,|#_!!_#|depmode=none,g
-s,@am__fastdepCC_TRUE@,|#_!!_#|#,g
-s,@am__fastdepCC_FALSE@,|#_!!_#|,g
+s,@CCDEPMODE@,|#_!!_#|depmode=gcc3,g
+s,@am__fastdepCC_TRUE@,|#_!!_#|,g
+s,@am__fastdepCC_FALSE@,|#_!!_#|#,g
 s,@CPP@,|#_!!_#|gcc -E,g
 s,@GREP@,|#_!!_#|/usr/bin/grep,g
 s,@EGREP@,|#_!!_#|/usr/bin/grep -E,g

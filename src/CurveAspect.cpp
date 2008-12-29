@@ -9,5 +9,5 @@ int CurveAspect::getBgColor(){
 	return 0;
 }
 int CurveAspect::getFgColor(){
-	return 1;
+	return 7;
 }
