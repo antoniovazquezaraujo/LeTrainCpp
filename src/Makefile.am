@@ -57,6 +57,6 @@ letrain_LDFLAGS = -lncurses -lpanel -lcpptest -llog4cplus
 test_SOURCES = $(ALL_SRCS) Test.cpp
 test_LDFLAGS = -lncurses -lpanel -lcpptest -llog4cplus
 
-EXTRA_DIST = log4cplus.properties
+EXTRA_DIST = log4cplus.properties programa.ltr
 AUTOMAKE_OPTIONS = foreign
 
