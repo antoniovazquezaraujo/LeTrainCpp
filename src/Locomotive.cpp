@@ -1,5 +1,6 @@
 #include "Basic.h"
 #include "Locomotive.h"
+#include "Train.h"
 #include "LocomotiveAspect.h"
 #include "Window.h"
 
@@ -31,8 +32,15 @@ void Locomotive::setPower(int power){
 	this->power = power;
 } 
 void Locomotive::paint(Window * g){
-	g->setBg(getAspect()->getBgColor());
-	g->setFg(getAspect()->getFgColor());
+	Train * t = getTrain();
+	if(t && t->isSelected()){
+		g->setFg(getAspect()->getBgColor());
+		g->setBg(getAspect()->getFgColor());
+	}else {
+		g->setFg(getAspect()->getFgColor());
+		g->setBg(getAspect()->getBgColor());
+
+	}
 	g->putC(pos.row, pos.col, getAspect()->getAspectChar());  
 }
 void Locomotive::erase(Window * g){
@@ -41,52 +49,6 @@ void Locomotive::erase(Window * g){
 	g->putC(pos.row, pos.col, ' ');  
 }
 
-void Locomotive::move(){
-	if(!getRail()) return;
-	incImp(getPower());
-	LOG_DEBUG(log," incremento impulso a " << getImp());
-
-	setMoved(false);
-
-	if(getImp() > 0){
-		LOG_DEBUG(log," El tren tiene impulso");
-		//Esto no funciona de momento
-		// Eliminar setSpeed y usar setPower y brakes!!!!!!!
-		//setSpeed(getImp() / getMass());
-		LOG_DEBUG(log," Ponemos velocidad a " << getSpeed());
-		if(turns > 0 ){
-			turns--;
-			LOG_DEBUG(log," Decremento turnos del tren a " << turns);
-		}else{
-			LOG_DEBUG(log," Ya no le quedan turnos");
-			float remainingImp = getImp();
-			if(remainingImp > 0){
-				LOG_DEBUG(log," queda energia para linkeds");
-				remainingImp = distLinked(remainingImp);
-			}
-			if(remainingImp > 0){
-				LOG_DEBUG(log," queda para pusheds");
-				remainingImp = distPushed(remainingImp);
-			}
-			if(remainingImp > 0){
-				LOG_DEBUG(log," queda para mi");
-				setImp(remainingImp);
-			}
-			if(getImp() > 0){
-				LOG_DEBUG(log," si aun queda algo");
-				if(pushedCanMove() && linkedCanMove()){
-					LOG_DEBUG(log," si se pueden mover todos los muevo");
-					movePushed();
-					moveLinked();
-				}
-			}
-			if(getSpeed() > 0){
-				turns = RailVehicle::MAX_TURNS* 1/getSpeed();
-				LOG_DEBUG(log," como velocidad es "  << getSpeed() << " ponemos turnos a " << turns);
-			}else{
-				LOG_DEBUG(log," no le queda velocidad, ponemos turnos a " << turns);
-				turns = RailVehicle::MAX_TURNS;
-			}
-		}
-	}
+void Locomotive::addToTrain(Train * t){
+	t->addLocomotive(this);
 }

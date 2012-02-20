@@ -1,3 +1,5 @@
+CXXFLAGS= -std=c++0x -ggdb3 -O0 -I. -I$(top_srcdir)/include 
+CFLAGS	= -ggdb3 -O0 -I. -I$(top_srcdir)/include 
 EXTRA_DIST = NEWS README AUTHORS INSTALL ChangeLog COPYING
 SUBDIRS = include src 
 AUTOMAKE_OPTIONS = foreign

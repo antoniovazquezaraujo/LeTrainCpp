@@ -1,9 +1,9 @@
 #ifndef FINDER_H
 #define FINDER_H
 #include "Basic.h"
-#include "Vehicle.h"
+#include "RailVehicle.h"
 
-class Finder :public Vehicle{
+class Finder :public RailVehicle{
 public:
 	Finder (RailVehicle * r=0);
 	~Finder();
@@ -16,6 +16,7 @@ public:
 	void setDir(Dir dir);
 	void paint(Window * g);
 	void erase(Window * g);
+	void addToTrain(Train *);
 private:
 	Rail * rail;
 	static Logger log;

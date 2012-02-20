@@ -5,7 +5,6 @@
 #include "StraightRail.h"
 #include "CrossRail.h"
 MAKE_LOGGER(DirEnv);
-
 DirEnv::~DirEnv(){
 }
 DirEnv::DirEnv(){
@@ -35,21 +34,10 @@ void DirEnv::addPath(Dir from, Dir to){
 	dirs[to.getValue()] = from;
 	dirs[from.getValue()] = to;
 }
-// Entrando por la direccion dir a donde se sale?
-// Ojo, el que entra por el E lleva dirección W
-// Por eso le damos la vuelta!
 Dir DirEnv::getPath(Dir dir){
 	if(dir.getValue() != NO_DIR){
-//		ostringstream s;
-//		s<< "con dir: " << dir.getValue() <<  " devolvemos " << dirs[dir.getValue()]<< endl;
-//		const char * cad = s.str().c_str();
-//		Game::debug(cad);
 		return dirs[dir.getValue()];
 	}else{
-//		ostringstream s;
-//		s<< "no hay esa dir: " << dir.getValue() << endl;
-//		const char * cad = s.str().c_str();
-//		Game::debug(cad);
 		return Dir(NO_DIR);
 	}
 }
@@ -63,11 +51,8 @@ Dir DirEnv::getAnyPath(){
 	return Dir(NO_DIR);
 }
 Dir DirEnv::getDir(Dir dir){
-	if (dir.getValue() != NO_DIR){
-		return dirs[dir.getValue()];;
-	}else{
-		return NO_DIR;	
-	}
+	// ????????????????????????
+	return dir;
 }
 
 int DirEnv::getNumDirs(){
@@ -77,7 +62,6 @@ int DirEnv::getNumDirs(){
 			numDirs++;
 		}
 	}
-	//cout << "Tiene " << numDirs << " dirs." <<endl;
 	return numDirs;
 }
 
@@ -85,7 +69,7 @@ bool DirEnv::isStraight(){
 	//es valido si solo tiene dos dir y forman recta
 	bool ret = true;
 	int numDirs = 0;
-	for(int n(E) ;n<(NUM_DIRS); n++){
+	for(int n(Dir::E) ;n<(NUM_DIRS); n++){
 		Dir dir (n);
 		Dir found = getPath(dir);
 		if(found.getValue() != NO_DIR){
@@ -104,7 +88,7 @@ bool DirEnv::isStraight(){
 bool DirEnv::isCurve(){
 	bool ret = true;
 	int numDirs = 0;
-	for(int n(E) ;n<(NUM_DIRS); n++){
+	for(int n(Dir::E) ;n<(NUM_DIRS); n++){
 		Dir dir (n);
 		Dir from = getPath(dir);
 		if(from.getValue() != NO_DIR){
@@ -126,7 +110,7 @@ bool DirEnv::isCross(){
 	//es valido si solo tiene rectas y tiene mas de una
 	bool ret = true;
 	int numDirs = 0;
-	for(int n(E) ;n<(NUM_DIRS); n++){
+	for(int n(Dir::E) ;n<(NUM_DIRS); n++){
 		Dir dir (n);
 		Dir from = getPath(dir);
 		if(from.getValue() != NO_DIR){
@@ -142,7 +126,7 @@ bool DirEnv::isCross(){
 bool DirEnv::isFork(){
 	int numDirs = 0;
 	bool haveAnInput = false;
-	for(int n(E) ;n<(NUM_DIRS); n++){
+	for(int n(Dir::E) ;n<(NUM_DIRS); n++){
 		Dir dir(n);
 		Dir found = getPath(dir);
 		if(found.getValue() != NO_DIR){
@@ -172,29 +156,29 @@ bool DirEnv::canBeAForkInput(Dir & dir){
 ostream & operator << (ostream & o, DirEnv & env){
 	int n ;
 	//first row
-	n= NW;
+	n= Dir::NW;
 	o << "[" << setw(2) << (env.getDir(n).getValue() != NO_DIR? env.getDir(n).getName():" ") << "]";
-	n= N;
+	n= Dir::N;
 	o << "[" <<setw(2) <<  (env.getDir(n).getValue() != NO_DIR? env.getDir(n).getName():" ") << "]";
-	n= NE;
+	n= Dir::NE;
 	o << "[" << setw(2) << (env.getDir(n).getValue() != NO_DIR? env.getDir(n).getName():" ") << "]";
 	o << endl; 
 
 	// central row
-	n= W;
+	n= Dir::W;
 	o << "[" << setw(2) << (env.getDir(n).getValue() != NO_DIR? env.getDir(n).getName():" ") << "]";
 	// central point
 	o << "[* ]";
-	n= E;
+	n= Dir::E;
 	o << "[" << setw(2) << (env.getDir(n).getValue() != NO_DIR? env.getDir(n).getName():" ") << "]";
 	o << endl; 
 
 	// third row
-	n= SW;
+	n= Dir::SW;
 	o << "[" << setw(2) << (env.getDir(n).getValue() != NO_DIR? env.getDir(n).getName():" ") << "]";
-	n= S;
+	n= Dir::S;
 	o << "[" << setw(2) << (env.getDir(n).getValue() != NO_DIR? env.getDir(n).getName():" ") << "]";
-	n= SE;
+	n= Dir::SE;
 	o << "[" << setw(2) << (env.getDir(n).getValue() != NO_DIR? env.getDir(n).getName():" ") << "]";
 	o << endl; 
 	return o;

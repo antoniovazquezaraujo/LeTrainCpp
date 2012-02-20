@@ -19,7 +19,10 @@
 MAKE_LOGGER(Sim);
 
 Sim::Sim (Game * game)
-	:game(game), railMap(new RailMap()), railPen(new RailPen()), finder(new Finder(0)){ 
+	:game(game), 
+	railMap(new RailMap()), 
+	railPen(new RailPen()), 
+	finder(new Finder(0)){ 
 	int screenRows = Window::getScreenRows();
 	int screenCols = Window::getScreenCols();
 	int commandCols = screenCols * 20/100;
@@ -56,46 +59,50 @@ Finder * Sim::getFinder(){
 }
 void Sim::addEventProgram(EventProgram * p, int id){
 	if(id == -1){
-		id = eventPrograms.size();
+		eventPrograms+=p;
 	}
 	eventPrograms[id] = p;
 }
 Sim::CSemaphores * Sim::getSemaphores(){
 	return &semaphores;
 }
-/*
 void Sim::removeEventProgram(int id){
-	eventPrograms.erase(remove(eventPrograms.begin(), eventPrograms.end(), eventPrograms[id]), eventPrograms.end());
+	eventPrograms.erase(id);
 }
 EventProgram * Sim::getEventProgram(int id){
-	return eventPrograms[id];
+	return eventPrograms.get(id);
 }
-void Sim::setEventProgram(int id, EventProgram * p){
-	eventPrograms[id] = p;
-}
-*/
 Sim::CPrograms * Sim::getEventPrograms(){
 	return &eventPrograms;
 }
 void Sim::addSensor(Sensor * s, int id){
 	if(id== -1){
-		id= sensors.size();
+		sensors+=s;
 	}
 	s->setId(id);
 	sensors[id] = s;
 }
 Sensor * Sim::getSensor(int id){
-	return sensors[id];
+	return sensors.get(id);
 }
 Sim::CSensors * Sim::getSensors(){
 	return & sensors;
 }
+void Sim::addTrain(Train* train, int id){
+	if(id == -1){
+		trains+=train;
+	}
+	trains[id] = train;
+}
 void Sim::addWagon(Wagon * wagon, int id){
 	if(id == -1){
-		id = wagons.size();
+		wagons+=wagon;
 	}
-	LOG_DEBUG(log," Cantidad de vagones actual: " << id);
 	wagons[id] = wagon;
+}
+void Sim::removeTrain(int n){
+	trains.erase(n);
+	trains.selectPrev();
 }
 void Sim::removeWagon(int n){
 	wagons.erase(n);
@@ -105,96 +112,99 @@ void Sim::removeLocomotive(int n){
 }
 void Sim::addLocomotive(Locomotive* locomotive, int id){
 	if(id == -1){
-		id = locomotives.size()+1;
+		locomotives+=locomotive;
 	}
 	locomotive->setId(id);
 	locomotives[id] = locomotive;
-	LOG_DEBUG(log," Cantidad de locomotoras actual: " << id);
 }
 Sim::CLocomotives * Sim::getLocomotives(){
 	return &locomotives;
 }
 Locomotive * Sim::getLocomotive(int n){
-	map<int, Locomotive*>::iterator i = locomotives.find(n);
-	if(i != locomotives.end()){
-		return i->second;
-	}
-	return 0;
+	return locomotives.get(n); 
+}
+Train * Sim::getTrain(int id){
+	return trains.get(id);
 }
 Wagon * Sim::getWagon(int id){
-	return wagons[id];
+	return wagons.get(id);
+}
+Sim::CTrains* Sim::getTrains(){
+	return &trains;
 }
 Sim::CWagons * Sim::getWagons(){
 	return &wagons;
 }
 void Sim::addFork(ForkRail * r, int id){
 	if(id == -1){
-		id = forks.size();
+		forks+=r;
 	}
 	forks[id] = r;
 }
 Semaphore * Sim::getSemaphore(int id){
-	return semaphores[id];
+	return semaphores.get(id);
 }
 void Sim::addSemaphore(Semaphore * s, int id){
 	if(id == -1){
-		id = semaphores.size();
+		semaphores+=s;
 		s->setId(id);
 	}
 	semaphores[id] = s;
 }
 ForkRail * Sim::getFork(int id){
-	return forks[id];
+	return forks.get(id);
 }
 void Sim::moveTrains(){
-	moveLocomotives();
-	moveWagons();
-}
-void Sim::moveLocomotives(){
-	Sim::CLocomotives::iterator it;
-	for(it=locomotives.begin(); it!= locomotives.end(); it++){
-		Locomotive* next = it->second;
-		next->move();
+	for(auto t : trains){
+		t.second->setMoved(false);
+	};
+	for(auto t : trains){
+		t.second->move();
 	}
 }
-void Sim::moveWagons(){
-	map<int, Wagon *>::iterator it;
-	for(it=wagons.begin(); it!= wagons.end(); it++){
-		Wagon * next = (*it).second;
-		next->movePushed();
-	}
+Train * Sim::getSelectedTrain(){
+	return trains.getSelected(); 
 }
+void Sim::selectPrevTrain(){
+	trains.getSelected()->setSelected(false);
+	trains.selectPrev();
+	trains.getSelected()->setSelected(true);
+}
+void Sim::selectNextTrain(){
+	trains.getSelected()->setSelected(false);
+	trains.selectNext();
+	trains.getSelected()->setSelected(true);
+}
+void Sim::selectNextVehicle(){
+	trains.getSelected()->selectNextVehicle();
+}
+void Sim::selectPrevVehicle(){
+	trains.getSelected()->selectPrevVehicle();
+}
+
 void Sim::checkSensors(){
-	for(Sim::CSensors::iterator it=sensors.begin(); it!= sensors.end(); it++){
-		Sensor * next = (*it).second;
+	for(auto s : sensors){
+		Sensor * next = s.second;
 		Event *event = next->check();
 		if(event){
-			LOG_DEBUG(log," Evento creado checkeando en Sim: " << event->str());
-			for(Sim::CPrograms::iterator it2=eventPrograms.begin(); it2!= eventPrograms.end(); it2++){
-				EventProgram * eventProgram = (*it2).second;
-				acceptAndRun(event, eventProgram);
+			for(auto program: eventPrograms){
+				acceptAndRun(event, program.second);
 			}
-			delete event;
 		}
 	}
-
 }
 void Sim::acceptAndRun(Event * event, EventProgram * eventProgram){
 
 	if(!eventProgram->accept(event)){
-		LOG_DEBUG(log," el evento no se acepta en Sim");
 		return;	
 	}
-	LOG_DEBUG(log," el evento SI se acepta en Sim");
 
-	EventProgram::CMessages * messages = eventProgram->getMessages();
-	for(EventProgram::CMessages::iterator i = messages->begin();i!= messages->end(); i++){
-		Message * message = (*i);
-		Locomotive * loco=0;
-		ForkRail * forkRail=0;
-		Semaphore * semaphore=0;
-		Sensor * sensor=0;
-		Rail * rail=0;
+	for(auto message : *eventProgram->getMessages()){
+		Locomotive  * loco=0;
+		ForkRail    * forkRail=0;
+		Semaphore   * semaphore=0;
+		Sensor      * sensor=0;
+		Rail        * rail=0;
 		RailVehicle * vehicle = 0;
 		LOG_DEBUG(log," evento de tipo:" << message->getCommand());
 		switch(message->getCommand()){
@@ -231,10 +241,9 @@ void Sim::acceptAndRun(Event * event, EventProgram * eventProgram){
 			break;
 		case Message::EVENT_TRAIN_SPEED:
 			loco = getLocomotive(event->getLocomotiveId());
-			loco->setSpeed(message->getValue());
+			//Ahora debería hacerse a todo el tren!!!!!!
+			//loco->setSpeed(message->getValue());
 			break;
-
 		}
-
 	}
 }

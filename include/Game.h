@@ -6,15 +6,15 @@ public:
 	Game();
 	~Game();
 	void start();
-	Sim * getSim();
-	Commander * getCommander();
-	ProgramEditor * getProgramEditor();
 	void paint();
+	Sim           * getSim();
+	Commander     * getCommander();
+	ProgramEditor * getProgramEditor();
 private:
-	bool running;
-	Sim * sim;
-	Commander * commander;
+	Sim           * sim;
+	Commander     * commander;
 	ProgramEditor * programEditor;
+	bool running;
 	static Logger log;
 };
 #endif

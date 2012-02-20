@@ -1,4 +1,5 @@
-AM_CXXFLAGS	= -O2 -std=c++98 -ggdb -I. -I$(top_srcdir)/include -W -Wall 
+CXXFLAGS= -std=c++0x -ggdb3 -O0 -I. -I$(top_srcdir)/include 
+CFLAGS	= -ggdb3 -O0 -I. -I$(top_srcdir)/include 
 
 bin_PROGRAMS = letrain 
 
@@ -53,7 +54,7 @@ ALL_SRCS =                  \
 	Parser.cpp
 
 letrain_SOURCES= $(ALL_SRCS) Letrain.cpp
-letrain_LDFLAGS = -lncurses -lpanel -lcpptest -llog4cplus 
+letrain_LDFLAGS = -lncurses -lpanel -llog4cplus 
 test_SOURCES = $(ALL_SRCS) Test.cpp
 test_LDFLAGS = -lncurses -lpanel -lcpptest -llog4cplus
 

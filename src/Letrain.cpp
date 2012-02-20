@@ -24,14 +24,21 @@
  *  675 Mass Ave, Cambridge, MA 02139, USA.
  */
 /*===========================================================================*/
+#include <csignal>
 #include "Basic.h"
 #include "Game.h"
 #include "Window.h"
 //Window * Game::statusWindow;
+void fin(int n);
 int main(){
+	signal(SIGINT, fin);
 	PropertyConfigurator::doConfigure("log4cplus.properties");
 	Window::setup();
 	Game g;
 	g.start();
+	fin(0);
+}
+void fin(int n){
 	Window::cleanup();
+	exit(0);
 }

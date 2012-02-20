@@ -9,5 +9,6 @@ public:
 	int row;
 	int col;
 	void  move(Dir dir, int distance = 1);
+	Dir locate (Point p);
 };
 #endif

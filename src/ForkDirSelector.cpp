@@ -13,7 +13,7 @@ ForkDirSelector::ForkDirSelector(DirEnv * env)
 //cout << "el env es: " <<endl;
 //cout << *env<<endl;
 
-	for (int n(E); n<NUM_DIRS;n++){
+	for (int n(Dir::E); n<NUM_DIRS;n++){
 		Dir dir(n);
 		Dir found = env->getPath(dir);
 		if(found.getValue() != NO_DIR){

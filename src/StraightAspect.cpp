@@ -19,7 +19,7 @@ int StraightAspect::getFgColor(){
 }
 
 Dir StraightAspect::getDir(DirEnv * env){
-	for (Dir dir; dir<SE;dir++){
+	for (Dir dir; dir<Dir::SE;dir++){
 		Dir found = env->getPath(dir);
 		if(found.getValue() != NO_DIR){
 			return found;
@@ -30,28 +30,28 @@ Dir StraightAspect::getDir(DirEnv * env){
 char StraightAspect::selectAspectChar(Dir dir){
 	char ret = HORIZONTAL_LINE;
 	switch(dir.getValue()){
-		case E : 
+		case Dir::E : 
 			ret = HORIZONTAL_LINE;
 			break;
-		case NE : 
+		case Dir::NE : 
 			ret = GO_UP_LINE;
 			break;
-		case N  : 
+		case Dir::N  : 
 			ret = VERTICAL_LINE;
 			break;
-		case NW : 
+		case Dir::NW : 
 			ret = GO_DOWN_LINE;
 			break;
-		case W  : 
+		case Dir::W  : 
 			ret = HORIZONTAL_LINE;
 			break;
-		case SW : 
+		case Dir::SW : 
 			ret = GO_UP_LINE;
 			break;
-		case S  :
+		case Dir::S  :
 			ret = VERTICAL_LINE;
 			break;
-		case SE : 
+		case Dir::SE : 
 			ret = GO_DOWN_LINE;
 			break;
 	}

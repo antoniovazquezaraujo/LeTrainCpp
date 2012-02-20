@@ -2,8 +2,6 @@
 #define RAILMAP_H
 #include "Basic.h"
 
-typedef map<int, Rail*> RailMapRow;
-typedef map < int, RailMapRow> RailGrid;
 class RailMap{
 public:
 	RailMap ();
@@ -13,7 +11,7 @@ public:
 	void paint(Window * g);
 	void erase(Window * g);
 private:
-	RailGrid  rails;
+	map<int, map<int, Rail*>> rails;
 	static Logger log;
 };
 #endif

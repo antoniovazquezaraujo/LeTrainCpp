@@ -2,26 +2,68 @@
 #define SIM_H
 
 #include "Basic.h"
+template<typename T>
+class IntMap : public map<int , T>{
+public:
+	void operator +=(T t){
+		int i = this->size();
+		insert({i,t});
+	}
+	void selectNext(){
+		if(this->find(++selected) != this->end()){
+			return;
+		}
+		selected=0;
+	}
+	void selectPrev(){
+		if((--selected) >= 0){
+			return;
+		}
+		selected=0;
+	}
+	void select(int i){
+		auto f = this->find(i);
+		assert(f != this->end());
+		selected=i;
+	}
+	T get(int i){
+		auto f = this->find(i);
+		if(f != this->end()){
+			return f->second;
+		}else{
+			return nullptr;
+		}
+	}
+	T getSelected(){
+		auto f = this->find(selected);
+		return f->second;
+	}
+private:
+	int selected;
+};
 class Sim{
 public:
-	typedef map<int, Locomotive*> CLocomotives; 
-	typedef map<int, Wagon*> CWagons; 
-	typedef map<int, EventProgram*> CPrograms; 
-	typedef map<int, Sensor*> CSensors; 
-	typedef map<int, Semaphore*> CSemaphores; 
-	typedef map<int, ForkRail*> CForks; 
+	typedef IntMap<Train        *> CTrains; 
+	typedef IntMap<Locomotive   *> CLocomotives; 
+	typedef IntMap<Wagon        *> CWagons; 
+	typedef IntMap<EventProgram *> CPrograms; 
+	typedef IntMap<Sensor       *> CSensors; 
+	typedef IntMap<Semaphore    *> CSemaphores; 
+	typedef IntMap<ForkRail     *> CForks; 
 	Sim(Game * game);
 	~Sim();
 	RailPen * getRailPen();
 	RailMap * getRailMap();
 
-	CWagons *  getWagons();
+	CTrains      * getTrains();
+	CWagons      * getWagons();
 	CLocomotives * getLocomotives();
-	CSensors * getSensors();
-	CPrograms * getEventPrograms();
-	CSemaphores * getSemaphores();
-	CForks * getForks();
+	CSensors     * getSensors();
+	CPrograms    * getEventPrograms();
+	CSemaphores  * getSemaphores();
+	CForks       * getForks();
 
+	void addTrain         (Train*,        int key=-1);
 	void addWagon         (Wagon*,        int key=-1);
 	void addLocomotive    (Locomotive*,   int key=-1);
 	void addSensor        (Sensor*,       int key=-1);
@@ -29,13 +71,20 @@ public:
 	void addFork          (ForkRail*,     int key=-1);
 	void addSemaphore     (Semaphore*,    int key=-1);
 
-	Wagon*         getWagon(        int key);
-	Locomotive*    getLocomotive(   int key);
-	Sensor *       getSensor(       int key);
+	Train * getSelectedTrain();
+	void selectPrevTrain();
+	void selectNextTrain();
+	void selectNextVehicle();
+	void selectPrevVehicle();
+	Train        * getTrain(        int key);
+	Wagon        * getWagon(        int key);
+	Locomotive   * getLocomotive(   int key);
+	Sensor       * getSensor(       int key);
 	EventProgram * getEventProgram( int key);
-	ForkRail *     getFork(         int key);
-	Semaphore *    getSemaphore(    int key);
+	ForkRail     * getFork(         int key);
+	Semaphore    * getSemaphore(    int key);
 
+	void removeTrain(        int key);
 	void removeWagon(        int key);
 	void removeLocomotive(   int key);
 	void removeSensor(       int key);
@@ -44,8 +93,8 @@ public:
 	void removeSemaphore(    int key);
 
 	void moveTrains();
-	void moveWagons();
-	void moveLocomotives();
+	//void moveWagons();
+	//void moveLocomotives();
 	void checkSensors();
 
 	void followVehicle(Vehicle * v);
@@ -55,12 +104,14 @@ public:
 	void paint();
 	void erase();
 private:
-	Game * game;
+	Game    * game;
 	RailMap * railMap;
 	RailPen * railPen;
-	Finder * finder;
+	Finder  * finder;
 	SimView * view;
 
+	CTrains trains;
+	CTrains::iterator selectedTrain;
 	CWagons wagons;
 	CLocomotives locomotives;
 	CSensors sensors;

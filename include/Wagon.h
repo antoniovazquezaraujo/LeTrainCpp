@@ -8,6 +8,7 @@ public:
 	~Wagon();
 	void paint(Window * g);
 	void erase(Window * g);
+	void addToTrain(Train *);
 private:
 	static Logger log;
 };

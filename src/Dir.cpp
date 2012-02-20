@@ -21,6 +21,9 @@ char Dir::getAspectChar()const{
 	case SE:
 		ret =  '\\';
 		break;
+	default:
+		ret = '*';
+		break;
 	}
 	return ret;
 }
@@ -159,6 +162,10 @@ Dir Dir::operator+(Dir d){
 //Distancia angular
 int Dir::operator-(Dir d){
 	return shortWay(value - d.value);
+}
+Dir Dir::operator+(int n){
+	Dir ret(n+value);
+	return ret;
 }
 // Direccion inversa
 Dir Dir::operator-(){

@@ -456,7 +456,7 @@ struct SetSensorRail{
 		}	   
 	};
 };
-struct my_grammar : public grammar<my_grammar> {
+struct my_grammar : public grammar <my_grammar> {
 	template <typename ScannerT>
 	struct definition {
 		definition(my_grammar const& self) {

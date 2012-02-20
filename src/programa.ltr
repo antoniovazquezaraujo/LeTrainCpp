@@ -43,14 +43,11 @@ rotate bulldozer  1
 move bulldozer    2
 set bulldozer mode(moving)
 move bulldozer    5 
-
-add locomotive 1 row (0) col (15) speed(1000)
 /*
-add wagon 1 row(0) col(15)
-add wagon 2 row(0) col(16)
-add wagon 3 row(0) col(17)
-*/
-
+add locomotive 1 row (8) col (12) speed(100)
+add locomotive 1 row(8) col(15)
+add locomotive 2 row(8) col(17)
+add locomotive 3 row(8) col(19)
 add sensor 1 row(0) col(22)
 add sensor 2 row(0) col(0)
 
@@ -77,3 +74,4 @@ messages:
 	set semaphore 1 status(closed)
 	set locomotive 1 speed (10)
 }
+*/

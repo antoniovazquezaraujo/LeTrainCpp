@@ -4,6 +4,7 @@
 #include "Vehicle.h"
 #include "Sim.h"
 #include "Locomotive.h"
+#include "Train.h"
 #include "Semaphore.h"
 #include "Wagon.h"
 #include "RailMap.h"
@@ -71,36 +72,22 @@ void SimView::paint(){
 	sim->getRailMap()->paint(window);
 	sim->getRailPen()->paint(window);
 
-	Sim::CSemaphores * semaphores= sim->getSemaphores();
-
-	for(Sim::CSemaphores::iterator it=semaphores->begin(); it!= semaphores->end(); it++){
-		Semaphore * next = it->second;
-		LOG_DEBUG(log," llamando a pintar semaforo");
-		next->paint(window);
+	for(auto semaphore : *(sim->getSemaphores())){
+		semaphore.second->paint(window);
+	}
+	for(auto sensor: *(sim->getSensors())){
+		sensor.second->paint(window);
+	}
+	for(auto train: *(sim->getTrains())){
+		train.second->paint(window);
+	}
+	for(auto loco: *(sim->getLocomotives())){
+		loco.second->paint(window);
+	}
+	for(auto wagon: *(sim->getWagons())){
+		wagon.second->paint(window);
 	}
 
-	LOG_DEBUG(log," antes de tomar sensores");
-	Sim::CSensors * sensors= sim->getSensors();
-	LOG_DEBUG(log," despues de tomar sensores");
-	for(Sim::CSensors::iterator it =sensors->begin(); it!= sensors->end(); it++){
-		LOG_DEBUG(log," dentro de bucle de sensores");
-		Sensor * next = it->second;
-		LOG_DEBUG(log," next sensor:" << next->getRail());
-		next->paint(window);
-	}
-
-	Sim::CLocomotives * trains = sim->getLocomotives();
-
-	for(Sim::CLocomotives::iterator it=trains->begin(); it!= trains->end(); it++){
-		Locomotive * next = it->second;
-		LOG_DEBUG(log," llamando a pintar tren");
-		next->paint(window);
-	}
-	Sim::CWagons * wagons = sim->getWagons();
-	for(Sim::CWagons::iterator it=wagons->begin(); it!= wagons->end(); it++){
-		Wagon * next = it->second;
-		next->paint(window);
-	}
 	sim->getFinder()->paint(window);
 	window->repaint();
 }

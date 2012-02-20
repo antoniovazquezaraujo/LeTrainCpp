@@ -18,33 +18,28 @@ public:
 	void setLink(Dir d);
 	void setUnlink(Dir d);
 	int isLinked(RailVehicle* b);
+	virtual void addToTrain(Train *)=0;
 
-	bool forward(int distance = 1);
-	bool backwards(int distance = 1);
 	bool gotoRail(Rail * r);
 
-	bool pushedCanMove();
-	bool canMove();
-	bool linkedCanMove();
-	int linkedMass(Dir dir);
-	int pushedMass();
-	void brakeTrain();
-	float distLinked(float imp);
 	void setMoved(bool moved);
+	bool isSelected();
+	void setSelected(bool selected);
 	bool isMoved();
-	bool moveLinked();
-	bool movePushed();
-	void orientLinked(Dir dir);
-	float distPushed(float imp);
-
-	float getImp();
-	void setImp(float imp);
-	void incImp(float imp=1);
+	int getImpulse();
+	void receiveImpulse(int imp=1, Dir d=NO_DIR);
+	void consumeImpulse();
+	void generateImpulse();
+	void incImpulseGenerated(int n=1);
+	void decImpulseGenerated(int n=1);
 	void setSpeed(int speed);
 	int getSpeed();
 
 	int getBrakes();
 	void setBrakes(int brakes);
+
+	Train * getTrain();
+	void setTrain(Train *);
 
 	int getMass();
 
@@ -56,7 +51,8 @@ public:
 
 private:
 	Link linker;
-	float imp;
+	int impulse;
+	int impulseGenerated;
 	int brakes;
 	int mass;
 	float speed;
@@ -64,6 +60,8 @@ private:
 	Rail * rail;
 	static Logger log;
 	bool moved;
+	bool selected;
+	Train * train;
 
 public:
 	// cambiar esto!

@@ -7,8 +7,6 @@ class Vehicle{
 public:
 	Vehicle  (Aspect * aspect);
 	~Vehicle ();
-	virtual bool forward(int distance=1)=0;
-	virtual bool backwards(int distance=1)=0;
 	void rotateLeft(int angle = 1);
 	void rotateRight(int angle = -1);
 	void rotate(int angle = 1);

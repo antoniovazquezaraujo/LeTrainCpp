@@ -46,7 +46,7 @@ Rail * RailPen::makeNewRail(Rail * rail){
 	env.addPath(-lastDir, dir);
 	Rail * newRail = env.makeNewRail();
 	if(rail){
-		for(int n(E) ;n<(NUM_DIRS); n++){
+		for(int n(Dir::E) ;n<(NUM_DIRS); n++){
 			Dir dir (n);
 			Rail * linked = rail->getLinkedRailAt(dir);
 			if(linked){
@@ -119,29 +119,29 @@ ostream & operator << (ostream & o, const RailPen & pen){
 	int d = pen.getDir().getValue();
 	int n ;
 	//first row
-	n= NW;
+	n= Dir::NW;
 	o << (d==n?"o":" ");
-	n= N;
+	n= Dir::N;
 	o << (d==n?"o":" ");
-	n= NE;
+	n= Dir::NE;
 	o << (d==n?"o":" ");
 	o << endl; 
 
 	// central row
-	n= W;
+	n= Dir::W;
 	o << (d==n?"o":" "); 
 	// central point
 	o << pen.getDir(); 
-	n= E;
+	n= Dir::E;
 	o << (d==n?"o":" ");
 	o << endl; 
 
 	// third row
-	n= SW;
+	n= Dir::SW;
 	o << (d==n?"o":" ");
-	n= S;
+	n= Dir::S;
 	o << (d==n?"o":" ");
-	n= SE;
+	n= Dir::SE;
 	o << (d==n?"o":" ");
 	o << endl; 
 	return o;

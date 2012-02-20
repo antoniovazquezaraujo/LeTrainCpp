@@ -1,35 +1,62 @@
 #include "Basic.h"
 #include "Point.h"
 #include "Dir.h"
-
+Dir Point::locate (Point p){
+	if(row > p.row){
+		if(col > p.col){
+			return Dir::NW;
+		}else if(col < p.col){
+			return Dir::NE;
+		}else{
+			return Dir::N;
+		}
+	}else if(row < p.row){
+		if(col > p.col){
+			return Dir::SW;
+		}else if(col < p.col){
+			return Dir::SE;
+		}else{
+			return Dir::S;
+		}
+	}else{//row == p.row
+		if(col > p.col){
+			return Dir::W;
+		}else if(col < p.col){
+			return Dir::E;
+		}else{
+			return NO_DIR;
+		}
+	}
+	return NO_DIR;
+}
 void Point::move(Dir dir, int distance){
 	int direction = dir.getValue();
 	switch(direction) {
-	case N: 
+	case Dir::N: 
 		row-=distance; 
 		break;
-	case NE: 
+	case Dir::NE: 
 		row-=distance; 
 		col+=distance; 
 		break;
-	case E: 
+	case Dir::E: 
 		col+=distance; 
 		break;
-	case SE: 
+	case Dir::SE: 
 		row+=distance; 
 		col+=distance; 
 		break;
-	case S: 
+	case Dir::S: 
 		row+=distance; 
 		break;
-	case SW: 
+	case Dir::SW: 
 		row+=distance; 
 		col-=distance; 
 		break;
-	case W: 
+	case Dir::W: 
 		col-=distance; 
 		break;
-	case NW: 
+	case Dir::NW: 
 		row-=distance; 
 		col-=distance; 
 		break;

@@ -11,6 +11,7 @@
 #include <ncurses.h>
 #include <iterator>
 #include <vector>
+#include <list>
 #include <map>
 
 #include "Log.h"
@@ -77,12 +78,17 @@ const int RAIL_MAP_COLS = 80;
 #define LOG_ERROR LOG4CPLUS_ERROR
 #define LOG_FATAL LOG4CPLUS_FATAL
 //counterclockwise from east to southweast
+/*
 enum {
 	NW =3, N =2, NE =1,
 	W  =4,       E  =0,
 	SW =5, S =6, SE =7
 };
-
-enum{MIDDLE_ANGLE=NUM_DIRS/2, MIN_CURVE_ANGLE=MIDDLE_ANGLE-1, MAX_CURVE_ANGLE=MIDDLE_ANGLE+1 };
+*/
+enum{
+	MIDDLE_ANGLE   =NUM_DIRS/2, 
+	MIN_CURVE_ANGLE=MIDDLE_ANGLE-1, 
+	MAX_CURVE_ANGLE=MIDDLE_ANGLE+1 
+};
 
 #endif

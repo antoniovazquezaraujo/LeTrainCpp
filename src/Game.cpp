@@ -32,8 +32,8 @@ Game::Game(){
 //
 //	commander = new Commander(sim, simView); 
 //	commanderView = new CommanderView(commander, commanderWindow);
-	sim = new Sim(this);
-	commander = new Commander(this);
+	sim           = new Sim(this);
+	commander     = new Commander(this);
 	programEditor = new ProgramEditor(this);
 }
 
@@ -61,15 +61,16 @@ void Game::start(){
 			//LOG4CPLUS_DEBUG(log, " pulsada tecla " << key); 
 			commander->doAction(key);
 		}
-		sim->moveTrains();
-		sim->moveWagons();
-		sim->checkSensors();
+		if(commander->getAutoMove()){
+			sim->moveTrains();
+			sim->checkSensors();
+		}
 		paint();
 	}
 }
 void Game::paint(){
-	sim->paint();
-	commander->paint();
+	sim          ->paint();
+	commander    ->paint();
 	programEditor->paint();
 	update_panels();
 	doupdate();

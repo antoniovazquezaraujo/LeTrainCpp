@@ -9,7 +9,7 @@
 MAKE_LOGGER(Finder);
 
 Finder::Finder(RailVehicle * r)
-	:Vehicle(new FinderAspect()){
+	:RailVehicle(new FinderAspect()){
 	if(r){
 		gotoRail(r->getRail());
 	}else{
@@ -40,6 +40,9 @@ void Finder::gotoRail(Rail * r){
 	}
 	pos = r->getPos();
 	rail = r;
+}
+void Finder::addToTrain(Train *){
+	//dont!
 }
 bool Finder::forward(int distance){
 	bool ret = false;

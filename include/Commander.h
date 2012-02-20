@@ -27,6 +27,7 @@ public:
 	void paint();
 	void erase();
 	void doAction(char key);
+	bool getAutoMove();
 private:
 	void onSetDriversMode();	
 	void onSetPointsMode();	
@@ -42,15 +43,24 @@ private:
 	void railPenPlaceFinder();
 	void railPenLoadProgram();
 
+	void selectNextTrain();
+	void selectPreviousTrain();
+	void selectNextVehicle();
+	void selectPreviousVehicle();
+	void accelerateTrain();
+	void deccelerateTrain();
+	void unlinkTrain();
+	void linkTrain();
+
 	void finderChangeFork();
 	void finderForward();
 	void finderReverse();
-	void finderUnlink();
-	void finderLink();
 	void finderAddWagon();
 	void finderAddTrain();
 	void finderAddSensor();
 	void finderDeleteVehicle();
+	void setAutoMove();
+	void moveTrains();
 	void finderIncFork();
 	void finderDecFork();
 
@@ -65,6 +75,7 @@ private:
 	map< int,  ActionsMap>  maps;
 	map< char, CommandMode> modes;
 
+	bool autoMove;
 	CommandMode mode;
 	Game * game;
 	CommanderView * view;

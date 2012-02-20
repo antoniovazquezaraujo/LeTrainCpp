@@ -8,7 +8,6 @@ RailMap::RailMap() {
 RailMap::~RailMap(){
 }
 Rail * RailMap::getRailAt(int row, int col){
-//	return rails[row][col];
 	RailGrid::iterator i = rails.find(row);
 	if(i != rails.end()){
 		RailMapRow row = (*i).second;
@@ -29,26 +28,16 @@ void RailMap::setRail(int row, int col, Rail * rail){
 	}
 }
 void RailMap::paint(Window * g){
-	RailGrid::iterator i = rails.begin();
-	while(i != rails.end()){
-		RailMapRow row = (*i).second;
-		RailMapRow::iterator i2 = row.begin();
-		while(i2 != row.end()){
-			(*i2).second->paint(g);
-			i2++;
+	for(auto row : rails){
+		for(auto rail: row.second){
+			rail.second->paint(g);
 		}
-		i++;
 	}
 }
 void RailMap::erase(Window * g){
-	RailGrid::iterator i = rails.begin();
-	while(i != rails.end()){
-		RailMapRow row = (*i).second;
-		RailMapRow::iterator i2 = row.begin();
-		while(i2 != row.end()){
-			(*i2).second->erase(g);
-			i2++;
+	for(auto row : rails){
+		for(auto rail: row.second){
+			rail.second->erase(g);
 		}
-		i++;
 	}
 }

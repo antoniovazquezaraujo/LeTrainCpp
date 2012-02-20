@@ -7,7 +7,7 @@
 class RailPen:public Vehicle{
 public:
 	enum RailPenMode {MOVING, PAINTING};
-	RailPen(Dir dir=E);
+	RailPen(Dir dir=Dir::E);
 	~RailPen();
 	Rail * makeNewRail(Rail * rail);
 	bool move(int distance = 1, Sim * sim =0);
