@@ -17,7 +17,6 @@
 
 #define BEGIN_TEST if(true){ setup();
 #define END_TEST tear_down();} 
-
 class TestSuite1 : public Test::Suite {
 private:
 	DirEnv *env, *env1, *env2;
@@ -54,16 +53,16 @@ protected:
  ******/
 
 BEGIN_TEST
-	env1->addPath(E, W);
-	env2->addPath(W, E);
+	env1->addPath(Dir::E, Dir::W);
+	env2->addPath(Dir::W, Dir::E);
 	Rail * r1 = env1->makeNewRail();
 	r1->setPos(Point(10,10));
 	Rail * r2 = env2->makeNewRail();
 	r2->setPos(Point(10,9));
-	r1->linkRailAt(W, r2);
-	r2->linkRailAt(E, r1);
+	r1->linkRailAt(Dir::W, r2);
+	r2->linkRailAt(Dir::E, r1);
 	Finder f;
-	f.setDir(W);
+	f.setDir(Dir::W);
 	f.gotoRail(r1);
 	TEST_ASSERT(f.getPos().row == 10);
 	TEST_ASSERT(f.getPos().col == 10);
@@ -83,7 +82,7 @@ END_TEST
   obtiene la direccion de salida
  ******/
 BEGIN_TEST
-	for(int n(E) ;n<(NUM_DIRS); n++){
+	for(int n(Dir::E) ;n<(NUM_DIRS); n++){
 		Dir d(n);
 		DirEnv env;
 		env.addPath(d,-d);
@@ -101,13 +100,13 @@ END_TEST
 
 BEGIN_TEST
 	DirEnv * env = new DirEnv;
-	env->addPath(E, NW);
-	env->addPath(E, SW);
+	env->addPath(Dir::E, Dir::NW);
+	env->addPath(Dir::E, Dir::SW);
 	ForkDirSelector f(env);
-	f.selectDir(NW);
-	TEST_ASSERT(f.getSelectedDir() == NW);
-	f.selectDir(SW);
-	TEST_ASSERT(f.getSelectedDir() == SW);
+	f.selectDir(Dir::NW);
+	TEST_ASSERT(f.getSelectedDir() == Dir::NW);
+	f.selectDir(Dir::SW);
+	TEST_ASSERT(f.getSelectedDir() == Dir::SW);
 END_TEST
 /******
   Test  Dos Rails son enlazados correctamente
@@ -115,14 +114,14 @@ END_TEST
 
 BEGIN_TEST
 	DirEnv env1, env2;
-	env1.addPath(E, W);
-	env2.addPath(W, E);
+	env1.addPath(Dir::E, Dir::W);
+	env2.addPath(Dir::W, Dir::E);
 	Rail * r1 = env1.makeNewRail();
 	Rail * r2 = env2.makeNewRail();
-	r1->linkRailAt(W, r2);
-	TEST_ASSERT(r1->getLinkedRailAt(W) == r2);
-	r2->linkRailAt(E, r1);
-	TEST_ASSERT(r2->getLinkedRailAt(E) == r1);
+	r1->linkRailAt(Dir::W, r2);
+	TEST_ASSERT(r1->getLinkedRailAt(Dir::W) == r2);
+	r2->linkRailAt(Dir::E, r1);
+	TEST_ASSERT(r2->getLinkedRailAt(Dir::E) == r1);
 END_TEST
 
 /******
@@ -130,7 +129,7 @@ END_TEST
 ******/
 
 BEGIN_TEST
-	for(int n(E) ;n<(NUM_DIRS); n++){
+	for(int n(Dir::E) ;n<(NUM_DIRS); n++){
 		Dir d(n);
 		Dir e = -d;
 		TEST_ASSERT(e== d+ MIDDLE_ANGLE);
@@ -144,7 +143,7 @@ END_TEST
 ******/
 BEGIN_TEST
 	Dir real, esperada;
-	for(int n(E) ;n<(NUM_DIRS); n++){
+	for(int n(Dir::E) ;n<(NUM_DIRS); n++){
 		Dir d(n); 
 		env->addPath(d, d + MIDDLE_ANGLE);
 		real = env->getPath(d);
@@ -160,8 +159,8 @@ END_TEST
    Comprobamos que el rail creado tiene aspecto de cruce
 ******/
 BEGIN_TEST	
-	env->addPath(E, W);
-	for(int n(NE) ;n<(NUM_DIRS); n++){
+	env->addPath(Dir::E, Dir::W);
+	for(int n(Dir::NE) ;n<(NUM_DIRS); n++){
 		Dir d(n); 
 		env->addPath(d, d + MIDDLE_ANGLE);
 		TEST_ASSERT(env->getPath(d) == d + MIDDLE_ANGLE);
@@ -176,7 +175,7 @@ END_TEST
   Test  A un DirEnv le agregamos curvas MIN y comprobamos que tienen aspecto de curva
 ******/
 BEGIN_TEST
-	for(int n(E) ;n<(NUM_DIRS); n++){
+	for(int n(Dir::E) ;n<(NUM_DIRS); n++){
 		Dir d(n); 
 		DirEnv * env = new DirEnv();
 		env->addPath(d, d+MIN_CURVE_ANGLE);
@@ -194,7 +193,7 @@ END_TEST
   Test  A un DirEnv le agregamos curvas MAX y comprobamos que tienen aspecto de curva
 ******/
 BEGIN_TEST	
-	for(int n(E) ;n<(NUM_DIRS); n++){
+	for(int n(Dir::E) ;n<(NUM_DIRS); n++){
 		Dir d(n); 
 		DirEnv * env = new DirEnv();
 		env->addPath(d, d+MAX_CURVE_ANGLE);
@@ -211,7 +210,7 @@ END_TEST
    que el rail creado selecciona bien las dos direcciones
 ******/
 BEGIN_TEST
-	for(int n(E) ;n<(NUM_DIRS); n++){
+	for(int n(Dir::E) ;n<(NUM_DIRS); n++){
 		Dir d(n); 
 		DirEnv * env1 = new DirEnv();
 		env1->addPath(d, d+MIN_CURVE_ANGLE);
@@ -234,7 +233,7 @@ END_TEST
 ******/
 BEGIN_TEST
 	DirEnv * env1;
-	for(int n(E) ;n<(NUM_DIRS); n++){
+	for(int n(Dir::E) ;n<(NUM_DIRS); n++){
 		env1 = new DirEnv;
 		Dir d(n); 
 		env1->addPath(d, d+MIN_CURVE_ANGLE);
@@ -262,7 +261,7 @@ END_TEST
   Test A una Dir le ponemos las 8 direcciones y  NO_DIR y comprobamos que las devuelve 
 ******/
 BEGIN_TEST 
-	for(int n(E) ;n<(NUM_DIRS); n++){
+	for(int n(Dir::E) ;n<(NUM_DIRS); n++){
 		d->setValue(n);
 		TEST_ASSERT(d->getValue() == n);
 	}
@@ -274,23 +273,23 @@ END_TEST
   Test En una Dir comprobamos los -- y los ++ pre y post 
 ******/
 BEGIN_TEST 
-	d->setValue(E);
-	for(int n=E; n<NUM_DIRS ;n++){
+	d->setValue(Dir::E);
+	for(int n=Dir::E; n<NUM_DIRS ;n++){
 		TEST_ASSERT(d->getValue() == n);
 		(*d)++;
 	}
-	d->setValue(E);
-	for(int n=E; n<NUM_DIRS ;n++){
+	d->setValue(Dir::E);
+	for(int n=Dir::E; n<NUM_DIRS ;n++){
 		TEST_ASSERT(d->getValue() == n);
 		++(*d);
 	}
-	d->setValue(SE);
-	for(int n=SE; n>= 0;n--){
+	d->setValue(Dir::SE);
+	for(int n=Dir::SE; n>= 0;n--){
 		TEST_ASSERT(d->getValue() == n);
 		(*d)--;
 	}
-	d->setValue(SE);
-	for(int n=SE; n>= 0;n--){
+	d->setValue(Dir::SE);
+	for(int n=Dir::SE; n>= 0;n--){
 		TEST_ASSERT(d->getValue() == n);
 		--(*d);
 	}
@@ -301,14 +300,14 @@ END_TEST
 ******/
 BEGIN_TEST 
 	Dir x, y;
-	for(int n=E; n<NUM_DIRS ;n++){
+	for(int n=Dir::E; n<NUM_DIRS ;n++){
 		TEST_ASSERT(x == y);
 		x++;
 		y++;
 	}
-	x.setValue(E);
-	y.setValue(NE);
-	for(int n=E; n<NUM_DIRS-1 ;n++){
+	x.setValue(Dir::E);
+	y.setValue(Dir::NE);
+	for(int n=Dir::E; n<NUM_DIRS-1 ;n++){
 		TEST_ASSERT(x < y);
 		x++;
 		y++;
@@ -336,28 +335,28 @@ END_TEST
 ******/
 
 BEGIN_TEST
-	Dir a(E), b(W);
+	Dir a(Dir::E), b(Dir::W);
 	for(int n=0; n<NUM_DIRS;n++){
 		TEST_ASSERT(a.isStraight(b));
 		a++;
 		b++;
 	}
-	a.setValue(W);
-	b.setValue(E);
+	a.setValue(Dir::W);
+	b.setValue(Dir::E);
 	b++;
 	TEST_ASSERT(a.isCurve(b));
 	b--;
 	b--;
 	TEST_ASSERT(a.isCurve(b));
-	a.setValue(E);
-	b.setValue(W);
+	a.setValue(Dir::E);
+	b.setValue(Dir::W);
 	b++;
 	TEST_ASSERT(a.isCurve(b));
 	b--;
 	b--;
 	TEST_ASSERT(a.isCurve(b));
-	a.setValue(NE);
-	b.setValue(SW);
+	a.setValue(Dir::NE);
+	b.setValue(Dir::SW);
 	b++;
 	TEST_ASSERT(a.isCurve(b));
 	b--;
@@ -388,12 +387,28 @@ BEGIN_TEST
 	parse("add wagon 2 row(0) col(52)", g);                       
 	assert(wagons->size() == 2);
 	g->getSim()->moveTrains();
-	g->getSim()->moveWagons();
+	//g->getSim()->moveWagons();
 	g->getSim()->checkSensors();
 	//g->paint();
 	Window::cleanup();
 END_TEST
 
+BEGIN_TEST
+	/* 
+	   Probando el nuevo mapa de <int, T*> seleccionable
+	   */
+	IntMap<char> m;
+	m+='X';
+	assert(m[0] == 'X');
+	assert(m.size()== 1);
+	m+='Y';
+	assert(m[1] == 'Y');
+	assert(m.size()== 2);
+	m[2] = 'Z';
+	assert(m[2] == 'Z');
+	assert(m.size()== 3);
+
+END_TEST
 	}
 };
 

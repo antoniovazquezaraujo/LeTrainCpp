@@ -6,8 +6,6 @@
 #include "Link.h"
 class RailVehicle :public Vehicle{
 public:
-
-
 	RailVehicle (Aspect * aspect);
 	~RailVehicle ();
 	RailVehicle * getVehicleLinkedWith(RailVehicle * r);

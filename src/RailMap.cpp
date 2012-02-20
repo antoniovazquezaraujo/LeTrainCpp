@@ -6,12 +6,17 @@ MAKE_LOGGER(RailMap);
 RailMap::RailMap() {
 }
 RailMap::~RailMap(){
+	for(auto row : rails){
+		for(auto rail: row.second){
+			delete rail.second;
+		}
+	}
 }
 Rail * RailMap::getRailAt(int row, int col){
-	RailGrid::iterator i = rails.find(row);
+	auto i = rails.find(row);
 	if(i != rails.end()){
-		RailMapRow row = (*i).second;
-		RailMapRow::iterator i2 = row.find(col);
+		auto row = (*i).second;
+		auto i2 = row.find(col);
 		if(i2 != row.end()){
 			return (*i2).second;
 		}

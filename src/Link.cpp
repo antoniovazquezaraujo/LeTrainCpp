@@ -3,9 +3,8 @@
 #include "RailVehicle.h"
 MAKE_LOGGER(Link);
 
-Link::Link(){
-	links[0] = 0;
-	links[1] = 0;
+Link::Link()
+	:links({}){
 }
 bool Link::link(RailVehicle * r){
 	if(isLinked(r)){

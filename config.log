@@ -367,8 +367,8 @@ configure:4837: $? = 0
 configure:4837: result: yes
 configure:4843: checking for _doprnt
 configure:4843: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccFwASyD.o: In function `main':
-/home/to/archivo/lab/proyectos/c/letrain/letrain-5.0/conftest.c:65: undefined reference to `_doprnt'
+/tmp/ccEPWrgY.o: In function `main':
+/media/disk/archivoDeTo/lab/proyectos/c/letrain/letrain-5.0/conftest.c:65: undefined reference to `_doprnt'
 collect2: ld returned 1 exit status
 configure:4843: $? = 1
 configure: failed program was:
@@ -613,7 +613,7 @@ host_alias=''
 htmldir='${docdir}'
 includedir='${prefix}/include'
 infodir='${datarootdir}/info'
-install_sh='${SHELL} /home/to/archivo/lab/proyectos/c/letrain/letrain-5.0/install-sh'
+install_sh='${SHELL} /media/disk/archivoDeTo/lab/proyectos/c/letrain/letrain-5.0/install-sh'
 libdir='${exec_prefix}/lib'
 libexecdir='${exec_prefix}/libexec'
 localedir='${datarootdir}/locale'

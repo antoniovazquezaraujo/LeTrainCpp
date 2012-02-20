@@ -7,16 +7,16 @@ class Vehicle{
 public:
 	Vehicle  (Aspect * aspect);
 	~Vehicle ();
+	void rotate(int angle = 1);
 	void rotateLeft(int angle = 1);
 	void rotateRight(int angle = -1);
-	void rotate(int angle = 1);
-	Point getPos()const;
+	Point  	getPos()const;
+	Dir 	getDir()const;
+	Aspect* getAspect();
 	void setPos(Point pos);
 	void setRow(int row);
 	void setCol(int col);
 	void setDir(Dir dir);
-	Dir getDir()const;
-	Aspect * getAspect();
 	virtual void paint(Window * g)=0;
 	virtual void erase(Window * g)=0;
 protected:

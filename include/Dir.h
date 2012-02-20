@@ -3,7 +3,7 @@
 #include "Basic.h"
 class Dir{
 public:
-	enum {
+	enum Dirs {
 		NW =3, N =2, NE =1,
 		W  =4,       E  =0,
 		SW =5, S =6, SE =7
