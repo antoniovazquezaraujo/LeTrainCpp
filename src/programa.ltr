@@ -1,0 +1,77 @@
+/* 
+                       ________________________________
+                           __ ____  _     _           
+                     /   /_    /   / /  /__/  /  /\ /
+                    /__ /__   /   / \  /  /  /  /  /
+                   ________________________________
+                        The Letter Train Simulator	
+                 Copyright (C) 2006 Antonio Vazquez Araujo 
+                  antoniovazquezaraujo[at]gmail[dot]com
+*/
+/*
+   Plantilla básica para ejercicios con cruces
+
+*/
+set bulldozer row(0) col(0) 
+set bulldozer dir (0) mode(moving)
+move bulldozer    1 
+set bulldozer mode(painting)
+move bulldozer   24 
+rotate bulldozer -1
+move bulldozer    2
+rotate bulldozer -1
+move bulldozer    4
+rotate bulldozer -1
+move bulldozer    2
+rotate bulldozer -1
+move bulldozer   25
+rotate bulldozer -1
+move bulldozer    2
+rotate bulldozer -1
+move bulldozer    4
+rotate bulldozer -1
+move bulldozer    2
+rotate bulldozer -1
+move bulldozer    4
+rotate bulldozer  1
+move bulldozer    2
+rotate bulldozer -1
+move bulldozer   12 
+rotate bulldozer -1
+move bulldozer    2
+rotate bulldozer  1
+move bulldozer    2
+set bulldozer mode(moving)
+move bulldozer    5 
+/*
+add locomotive 1 row (8) col (12) speed(100)
+add locomotive 1 row(8) col(15)
+add locomotive 2 row(8) col(17)
+add locomotive 3 row(8) col(19)
+add sensor 1 row(0) col(22)
+add sensor 2 row(0) col(0)
+
+add semaphore 1 row (1) col(20) status(closed)
+
+add program 1 {
+filters:
+	locomotive 1
+	sensor 1
+messages:
+	set locomotive 1 speed (5)
+	set fork 1 dir(3) 
+	set fork 0 dir(0) 
+	set semaphore 1 status(open)
+}
+
+add program 2 {
+filters:
+	locomotive 1
+	sensor 2
+messages:
+	set fork 1 dir(4) 
+	set fork 0 dir(1) 
+	set semaphore 1 status(closed)
+	set locomotive 1 speed (10)
+}
+*/

@@ -1,0 +1,37 @@
+/*===========================================================================*/
+/*
+ *                      ________________________________
+ *                          __ ____  _     _           
+ *                    /   /_    /   / /  /__/  /  /\ /
+ *                   /__ /__   /   / \  /  /  /  /  /
+ *                  ________________________________
+ *                     The Letter Train Simulator	
+ *                Copyright (C) 2006 Antonio Vazquez Araujo 
+ *                  antoniovazquezaraujo[at]gmail[dot]com
+ *
+ *  This program is free software; you can redistribute it and/or modify it
+ *  under the terms of the GNU General Public License as published by the Free
+ *  Software Foundation; either version 2 of the license or (at your option)
+ *  any later version.
+ *
+ *  This program is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ *  or FITNESS FOR A PARTICULAR PURPOSE.  See the Gnu Public License for more
+ *  details.
+ *
+ *  You should have received a copy of the GNU General Public License along
+ *  with this program; if not, write to the Free Software Foundation, Inc.,
+ *  675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+/*===========================================================================*/
+Letrain (The Letter Train Simulator)
+Letrain is a train simulator made only with letters.
+Is an object oriented project writed in C++, for curses terminals 
+with extensive use of stl containers and a little language 
+(using boost Spirit) for map and events description.
+You can design infinite maps in real time crossing and forking rails 
+automatically while the trains are moving around.
+You can place sensors and semaphores to programs fork changes and
+locomotive speeds and directions.
+The train movement is influenced by the number of wagons pulled or
+pushed, and it can detect train crashes.
