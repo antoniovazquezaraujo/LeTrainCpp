@@ -97,10 +97,14 @@ void Commander::selectPreviousVehicle(){
 	game->sim.selectPrevVehicle();
 }
 void Commander::accelerateTrain(){
-	game->sim.getSelectedTrain()->incImpulseGenerated();
+	vector<Train *>::iterator i = game->sim.getSelectedTrain();
+	(*i)->incImpulseGenerated();
+
+
+//	(*(game->sim.getSelectedTrain()))->incImpulseGenerated();
 }
 void Commander::deccelerateTrain(){
-	game->sim.getSelectedTrain()->decImpulseGenerated();
+	(*(game->sim.getSelectedTrain()))->decImpulseGenerated();
 }
 //////// RailPen actions /////////
 void Commander::toggleRailPenPainting(){
@@ -189,10 +193,10 @@ void Commander::finderReverse(){
 	game->sim.getFinder()->reverse();
 }
 void Commander::unlinkTrain(){
-	game->sim.getSelectedTrain()->unlink();
+	(*(game->sim.getSelectedTrain()))->unlink();
 }
 void Commander::linkTrain(){
-	game->sim.getSelectedTrain()->link();
+	(*(game->sim.getSelectedTrain()))->link();
 }
 void Commander::finderAddWagon(){
 	Train * train = new Train;

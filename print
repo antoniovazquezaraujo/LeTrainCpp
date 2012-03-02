@@ -1,0 +1,3 @@
+enscript -T4 -G2rE $1 -pimpreso.ps
+ps2pdf impreso.ps
+rm -f impreso.ps

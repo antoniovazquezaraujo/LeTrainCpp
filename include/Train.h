@@ -7,6 +7,7 @@
 #include "Wagon.h"
 #include "Rail.h"
 #include "RailVehicle.h"
+#include "Selector.h"
 enum SelectorStatus{
 	atBegin, atMiddle, atEnd
 };
@@ -23,7 +24,6 @@ public:
 	void selectNextForkDir();
 	void selectPrevForkDir();
 
-	void selectVehicle(RailVehicle * v);
 	//Motores
 	void incImpulseGenerated();
 	void decImpulseGenerated();
@@ -65,6 +65,8 @@ public:
 	//Si se quiere eliminar uno del medio, dividir primero el tren en dos,
 	//borrar el último y luego volver a unirlos.
 	void removeLastVehicle();
+	vector<RailVehicle*> & getVehicles();
+	void clear();
 private:
 	int crash(RailVehicle * crashed, int impulse, Dir d);
 	Dir getDirFromFirst();
@@ -75,10 +77,10 @@ private:
 	//int setupTrainDir();
 
 //properties:
-	list <RailVehicle*> train;
+	vector <RailVehicle*> vehicles;
+	Selector<vector<RailVehicle*>> vehicleSelector;
 	list <Locomotive*> locomotives;
-	RailVehicle* selectedVehicle;
-	list<RailVehicle*>::iterator vehicleIterator;
+	//list<RailVehicle*>::iterator vehicleIterator;
 
 	int totalImpulse;
 	int totalMass;
@@ -88,6 +90,5 @@ private:
 	bool selected;
 	bool reversedSelector;
 	static Logger log;
-	SelectorStatus selectorStatus;
 }; 
 #endif

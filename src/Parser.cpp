@@ -189,11 +189,8 @@ void getSemaphore(int n){
 	d.semaphore= d.game->sim.getSemaphore(n);
 }
 void showLocomotives(const char * a, const char * b) {
-	Sim::CLocomotives::iterator i = d.game->sim.getLocomotives()->begin() ;
-	while(i != d.game->sim.getLocomotives()->end()){
-		Locomotive * l = (*i).second;
-		cout << (*l) << endl;
-		i++;
+	for(auto l:d.game->sim.getLocomotives()){
+		cout << l << endl;
 	}
 }
 void showLocomotive(int n){
@@ -205,16 +202,13 @@ void showWagon(int n){
 	cout << *(l) << endl;
 }
 void showWagons(const char * a, const char * b){
-	map <int , Wagon*>::iterator i = d.game->sim.getWagons()->begin() ;
-	while(i != d.game->sim.getWagons()->end()){
-		Wagon* l = (*i).second;
-		cout << *(l) << endl;
-		i++;
+	for(auto w:d.game->sim.getWagons()){
+		cout << w << endl;
 	}
 }
 void addLocomotive(int t){
 	Locomotive * l = new Locomotive(); 
-	d.game->sim.addLocomotive(l, t);
+	d.game->sim.addLocomotive(l);
 	Point p = l->getPos();
 	Rail * r = d.game->sim.railMap.getRailAt(p.row,p.col);
 	if(r) l->gotoRail(r);
@@ -222,24 +216,24 @@ void addLocomotive(int t){
 }
 void addWagon(int t){
 	Wagon * w = new Wagon();
-	d.game->sim.addWagon(w, t);
+	d.game->sim.addWagon(w);
 	d.wagon = w;
 }
 void addSemaphore(int t){
 	Semaphore* s = new Semaphore(t);
-	d.game->sim.addSemaphore(s, t);
+	d.game->sim.addSemaphore(s);
 	d.semaphore= s;
 	LOG_DEBUG(d.log," agregando semaforo" << t);
 }
 void addSensor(int t){
 	Sensor * s = new Sensor(t);
-	d.game->sim.addSensor(s, t);
+	d.game->sim.addSensor(s);
 	d.sensor= s;
 	LOG_DEBUG(d.log," agregando sensor " << t);
 }
 void addEventProgram(int t){
 	EventProgram * w = new EventProgram();
-	d.game->sim.addEventProgram(w, t);
+	d.game->sim.addEventProgram(w);
 	d.eventProgram = w;
 	LOG_DEBUG(d.log," agregando programa " << t);
 }

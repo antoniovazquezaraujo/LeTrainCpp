@@ -66,9 +66,12 @@ int RailVehicle::isLinked(RailVehicle *b){
 	return linker.isLinked(b); 
 }
 void RailVehicle::setLink(Dir d){
+	assert(false);
+
 // TODO
 }
 void RailVehicle::setUnlink(Dir d){
+	assert(false);
 // TODO
 
 }
@@ -76,6 +79,9 @@ bool RailVehicle::gotoRail(Rail * r){
 	if(r->getRailVehicle()!= 0){
 		return false;
 	}
+	r->enter(this);
+	return true;
+	/*
 	// si ya tengo un rail lo vacio
 	if(rail != 0){
 		rail->setRailVehicle(0);
@@ -85,10 +91,11 @@ bool RailVehicle::gotoRail(Rail * r){
 	}else{
 		dir = r->getAnyPath();
 	}
-	pos = r->getPos();
-	rail = r;
-	r->setRailVehicle(this);
+ 	pos = r->getPos();
+ 	rail = r;
+ 	r->setRailVehicle(this);
 	return true;
+	*/
 }
 void RailVehicle::setSpeed(int speed){
 	this->speed = speed;

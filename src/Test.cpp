@@ -14,6 +14,8 @@
 #include "ForkDirSelector.h"
 #include "ForkRail.h"
 #include "Range.h"
+#include "Locomotive.h"
+#include "Train.h"
 
 #define BEGIN_TEST if(true){ setup();
 #define END_TEST tear_down();} 
@@ -375,16 +377,16 @@ BEGIN_TEST
 
 	Window::setup();
 	Game * g = new Game();
-	Sim::CLocomotives * locos = g->sim.getLocomotives();
-	Sim::CWagons      * wagons= g->sim.getWagons();
+	vector<Locomotive*>& locos = g->sim.getLocomotives();
+	vector<Wagon*>     & wagons= g->sim.getWagons();
 	parse("set bulldozer row(0) col(0) dir(0) mode(painting)",g);
 	parse("move bulldozer   100", g);
 	parse("add locomotive 1 row (0) col (50) speed(10)", g);      
 	parse("add wagon 1 row(0) col(51)", g);                       
-	assert(locos->size() == 1);
-	assert(wagons->size() == 1);
+	assert(locos.size() == 1);
+	assert(wagons.size() == 1);
 	parse("add wagon 2 row(0) col(52)", g);                       
-	assert(wagons->size() == 2);
+	assert(wagons.size() == 2);
 	g->sim.moveTrains();
 	//g->sim.moveWagons();
 	g->sim.checkSensors();
@@ -394,22 +396,6 @@ END_TEST
 
 BEGIN_TEST
 	/* 
-	   Probando el nuevo mapa de <int, T*> seleccionable
-	   */
-	IntMap<char> m;
-	m+='X';
-	assert(m[0] == 'X');
-	assert(m.size()== 1);
-	m+='Y';
-	assert(m[1] == 'Y');
-	assert(m.size()== 2);
-	m[2] = 'Z';
-	assert(m[2] == 'Z');
-	assert(m.size()== 3);
-
-END_TEST
-BEGIN_TEST
-	/* 
 	  RailEnv 
 	   */
 	RailEnv a,b;
@@ -417,6 +403,32 @@ BEGIN_TEST
 		assert(r == nullptr);
 	}
 
+END_TEST
+BEGIN_TEST
+	env1->addPath(Dir::E, Dir::W);
+	env2->addPath(Dir::W, Dir::E);
+	Rail * r1 = env1->makeNewRail();
+	r1->setPos(Point(10,10));
+	Rail * r2 = env2->makeNewRail();
+	r2->setPos(Point(10,9));
+	r1->linkRailAt(Dir::W, r2);
+	r2->linkRailAt(Dir::E, r1);
+	Finder f;
+	f.setDir(Dir::W);
+	f.gotoRail(r1);
+	RailVehicle * locomotive = new Locomotive;
+	assert(f.isEmpty());
+	assert(f.getRail()->getRailVehicle() == 0);
+	f.getRail()->enter(locomotive);
+	assert(!f.isEmpty());
+	assert(f.getRail()->getRailVehicle() == locomotive);
+	assert(f.getRail()->getRailVehicle()->getRail() == r1);
+
+	Train * train = new Train;
+	train->addVehicle(locomotive);
+
+	delete train;
+	delete locomotive;
 END_TEST
 	}
 };

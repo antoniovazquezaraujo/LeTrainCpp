@@ -1,0 +1,1483 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ACLOCAL	Makefile	/^ACLOCAL = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run aclocal-1.11$/;"	m
+ACLOCAL	include/Makefile	/^ACLOCAL = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run aclocal-1.11$/;"	m
+ACLOCAL	src/Makefile	/^ACLOCAL = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run aclocal-1.11$/;"	m
+ACLOCAL_M4	Makefile	/^ACLOCAL_M4 = $(top_srcdir)\/aclocal.m4$/;"	m
+ACLOCAL_M4	include/Makefile	/^ACLOCAL_M4 = $(top_srcdir)\/aclocal.m4$/;"	m
+ACLOCAL_M4	src/Makefile	/^ACLOCAL_M4 = $(top_srcdir)\/aclocal.m4$/;"	m
+ALL_SRCS	src/Makefile	/^ALL_SRCS = \\$/;"	m
+AMTAR	Makefile	/^AMTAR = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run tar$/;"	m
+AMTAR	include/Makefile	/^AMTAR = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run tar$/;"	m
+AMTAR	src/Makefile	/^AMTAR = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run tar$/;"	m
+AM_RECURSIVE_TARGETS	Makefile	/^AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \\$/;"	m
+AM_RECURSIVE_TARGETS	include/Makefile	/^AM_RECURSIVE_TARGETS = $(RECURSIVE_TARGETS:-recursive=) \\$/;"	m
+ASPECT_H	include/Aspect.h	2;"	d
+AUTOCONF	Makefile	/^AUTOCONF = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run autoconf$/;"	m
+AUTOCONF	include/Makefile	/^AUTOCONF = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run autoconf$/;"	m
+AUTOCONF	src/Makefile	/^AUTOCONF = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run autoconf$/;"	m
+AUTOHEADER	Makefile	/^AUTOHEADER = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run autoheader$/;"	m
+AUTOHEADER	include/Makefile	/^AUTOHEADER = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run autoheader$/;"	m
+AUTOHEADER	src/Makefile	/^AUTOHEADER = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run autoheader$/;"	m
+AUTOMAKE	Makefile	/^AUTOMAKE = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run automake-1.11$/;"	m
+AUTOMAKE	include/Makefile	/^AUTOMAKE = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run automake-1.11$/;"	m
+AUTOMAKE	src/Makefile	/^AUTOMAKE = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run automake-1.11$/;"	m
+AUTOMAKE_OPTIONS	Makefile	/^AUTOMAKE_OPTIONS = foreign$/;"	m
+AUTOMAKE_OPTIONS	src/Makefile	/^AUTOMAKE_OPTIONS = foreign$/;"	m
+AWK	Makefile	/^AWK = gawk$/;"	m
+AWK	include/Makefile	/^AWK = gawk$/;"	m
+AWK	src/Makefile	/^AWK = gawk$/;"	m
+Action	include/Commander.h	/^struct Action{ $/;"	s
+ActionsMap	include/Commander.h	/^	typedef map<char, Action> ActionsMap;$/;"	t	class:Commander
+Angles	include/Dir.h	/^	enum Angles {$/;"	g	class:Dir
+Aspect	include/Aspect.h	/^class Aspect{$/;"	c
+BASIC_H	include/Basic.h	2;"	d
+BEGIN_TEST	src/Test.cpp	18;"	d	file:
+BRAKES	src/Parser.cpp	/^enum {ROW, COL, SPEED, POWER, BRAKES, DIR, LINK, UNLINK, SENSOR, HOURS, MINUTES,$/;"	e	enum:__anon1	file:
+CC	Makefile	/^CC = gcc$/;"	m
+CC	include/Makefile	/^CC = gcc$/;"	m
+CC	src/Makefile	/^CC = gcc$/;"	m
+CCDEPMODE	Makefile	/^CCDEPMODE = depmode=gcc3$/;"	m
+CCDEPMODE	include/Makefile	/^CCDEPMODE = depmode=gcc3$/;"	m
+CCDEPMODE	src/Makefile	/^CCDEPMODE = depmode=gcc3$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -g -O2$/;"	m
+CFLAGS	include/Makefile	/^CFLAGS = -g -O2$/;"	m
+CFLAGS	src/Makefile	/^CFLAGS = -ggdb3 -O0 -I. -I$(top_srcdir)\/include $/;"	m
+CForks	include/Sim.h	/^	typedef IntMap<ForkRail     *> CForks; $/;"	t	class:Sim
+CLOSED	include/Semaphore.h	/^	enum{CLOSED, OPEN};$/;"	e	enum:Semaphore::__anon6
+CLocomotives	include/Sim.h	/^	typedef IntMap<Locomotive   *> CLocomotives; $/;"	t	class:Sim
+CMessages	include/EventProgram.h	/^	typedef vector<Message*> CMessages;$/;"	t	class:EventProgram
+COL	src/Parser.cpp	/^enum {ROW, COL, SPEED, POWER, BRAKES, DIR, LINK, UNLINK, SENSOR, HOURS, MINUTES,$/;"	e	enum:__anon1	file:
+COMMANDERVIEW_H	include/CommanderView.h	2;"	d
+COMMANDER_H	include/Commander.h	2;"	d
+CONFIG_CLEAN_FILES	Makefile	/^CONFIG_CLEAN_FILES =$/;"	m
+CONFIG_CLEAN_FILES	include/Makefile	/^CONFIG_CLEAN_FILES =$/;"	m
+CONFIG_CLEAN_FILES	src/Makefile	/^CONFIG_CLEAN_FILES =$/;"	m
+CONFIG_CLEAN_VPATH_FILES	Makefile	/^CONFIG_CLEAN_VPATH_FILES =$/;"	m
+CONFIG_CLEAN_VPATH_FILES	include/Makefile	/^CONFIG_CLEAN_VPATH_FILES =$/;"	m
+CONFIG_CLEAN_VPATH_FILES	src/Makefile	/^CONFIG_CLEAN_VPATH_FILES =$/;"	m
+CONFIG_HEADER	Makefile	/^CONFIG_HEADER = config.h$/;"	m
+CONFIG_HEADER	include/Makefile	/^CONFIG_HEADER = $(top_builddir)\/config.h$/;"	m
+CONFIG_HEADER	src/Makefile	/^CONFIG_HEADER = $(top_builddir)\/config.h$/;"	m
+CPP	Makefile	/^CPP = gcc -E$/;"	m
+CPP	include/Makefile	/^CPP = gcc -E$/;"	m
+CPP	src/Makefile	/^CPP = gcc -E$/;"	m
+CPPFLAGS	Makefile	/^CPPFLAGS = $/;"	m
+CPPFLAGS	include/Makefile	/^CPPFLAGS = $/;"	m
+CPPFLAGS	src/Makefile	/^CPPFLAGS = $/;"	m
+CPrograms	include/Sim.h	/^	typedef IntMap<EventProgram *> CPrograms; $/;"	t	class:Sim
+CROSSASPECT_H	include/CrossAspect.h	2;"	d
+CROSSRAIL_H	include/CrossRail.h	2;"	d
+CSemaphores	include/Sim.h	/^	typedef IntMap<Semaphore    *> CSemaphores; $/;"	t	class:Sim
+CSensors	include/Sim.h	/^	typedef IntMap<Sensor       *> CSensors; $/;"	t	class:Sim
+CTAGS	Makefile	/^CTAGS = ctags$/;"	m
+CTAGS	include/Makefile	/^CTAGS = ctags$/;"	m
+CTAGS	src/Makefile	/^CTAGS = ctags$/;"	m
+CTrains	include/Sim.h	/^	typedef IntMap<Train        *> CTrains; $/;"	t	class:Sim
+CURVEASPECT_H	include/CurveAspect.h	2;"	d
+CURVERAIL_H	include/CurveRail.h	2;"	d
+CWagons	include/Sim.h	/^	typedef IntMap<Wagon        *> CWagons; $/;"	t	class:Sim
+CXX	Makefile	/^CXX = g++$/;"	m
+CXX	include/Makefile	/^CXX = g++$/;"	m
+CXX	src/Makefile	/^CXX = g++$/;"	m
+CXXCOMPILE	src/Makefile	/^CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \\$/;"	m
+CXXDEPMODE	Makefile	/^CXXDEPMODE = depmode=gcc3$/;"	m
+CXXDEPMODE	include/Makefile	/^CXXDEPMODE = depmode=gcc3$/;"	m
+CXXDEPMODE	src/Makefile	/^CXXDEPMODE = depmode=gcc3$/;"	m
+CXXFLAGS	Makefile	/^CXXFLAGS = -g -O2$/;"	m
+CXXFLAGS	include/Makefile	/^CXXFLAGS = -g -O2$/;"	m
+CXXFLAGS	src/Makefile	/^CXXFLAGS = -std=c++0x -ggdb3 -O0 -I. -I$(top_srcdir)\/include $/;"	m
+CXXLD	src/Makefile	/^CXXLD = $(CXX)$/;"	m
+CXXLINK	src/Makefile	/^CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \\$/;"	m
+CYGPATH_W	Makefile	/^CYGPATH_W = echo$/;"	m
+CYGPATH_W	include/Makefile	/^CYGPATH_W = echo$/;"	m
+CYGPATH_W	src/Makefile	/^CYGPATH_W = echo$/;"	m
+CommandMode	include/Commander.h	/^	enum CommandMode {$/;"	g	class:Commander
+Commander	include/Commander.h	/^class Commander{$/;"	c
+Commander	src/Commander.cpp	/^Commander::Commander(Game * game)$/;"	f	class:Commander
+Commander	src/Commander.cpp	/^MAKE_LOGGER(Commander);$/;"	v
+CommanderView	include/CommanderView.h	/^class CommanderView{$/;"	c
+CommanderView	src/CommanderView.cpp	/^CommanderView::CommanderView(Commander * commander )$/;"	f	class:CommanderView
+CommanderView	src/CommanderView.cpp	/^MAKE_LOGGER(CommanderView);$/;"	v
+CreateRange	src/Parser.cpp	/^	CreateRange(int rangeType){$/;"	f	struct:CreateRange
+CreateRange	src/Parser.cpp	/^struct CreateRange{$/;"	s	file:
+CrossAspect	include/CrossAspect.h	/^class CrossAspect : public Aspect{$/;"	c
+CrossAspect	src/CrossAspect.cpp	/^MAKE_LOGGER(CrossAspect);$/;"	v
+CrossRail	include/CrossRail.h	/^class CrossRail: public Rail{$/;"	c
+CrossRail	src/CrossRail.cpp	/^CrossRail::CrossRail(DirEnv * env)$/;"	f	class:CrossRail
+CrossRail	src/CrossRail.cpp	/^MAKE_LOGGER(CrossRail);$/;"	v
+CurveAspect	include/CurveAspect.h	/^class CurveAspect : public Aspect{$/;"	c
+CurveAspect	src/CurveAspect.cpp	/^MAKE_LOGGER(CurveAspect);$/;"	v
+CurveRail	include/CurveRail.h	/^class CurveRail: public Rail{$/;"	c
+CurveRail	src/CurveRail.cpp	/^CurveRail::CurveRail(DirEnv * env)$/;"	f	class:CurveRail
+CurveRail	src/CurveRail.cpp	/^MAKE_LOGGER(CurveRail);$/;"	v
+DEFAULT_INCLUDES	src/Makefile	/^DEFAULT_INCLUDES = -I. -I$(top_builddir)$/;"	m
+DEFS	Makefile	/^DEFS = -DHAVE_CONFIG_H$/;"	m
+DEFS	include/Makefile	/^DEFS = -DHAVE_CONFIG_H$/;"	m
+DEFS	src/Makefile	/^DEFS = -DHAVE_CONFIG_H$/;"	m
+DEPDIR	Makefile	/^DEPDIR = .deps$/;"	m
+DEPDIR	include/Makefile	/^DEPDIR = .deps$/;"	m
+DEPDIR	src/Makefile	/^DEPDIR = .deps$/;"	m
+DIR	src/Parser.cpp	/^enum {ROW, COL, SPEED, POWER, BRAKES, DIR, LINK, UNLINK, SENSOR, HOURS, MINUTES,$/;"	e	enum:__anon1	file:
+DIRENV_H	include/DirEnv.h	2;"	d
+DIR_H	include/Dir.h	2;"	d
+DISTFILES	Makefile	/^DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)$/;"	m
+DISTFILES	include/Makefile	/^DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)$/;"	m
+DISTFILES	src/Makefile	/^DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)$/;"	m
+DIST_ARCHIVES	Makefile	/^DIST_ARCHIVES = $(distdir).tar.gz$/;"	m
+DIST_COMMON	Makefile	/^DIST_COMMON = README $(am__configure_deps) $(srcdir)\/Makefile.am \\$/;"	m
+DIST_COMMON	include/Makefile	/^DIST_COMMON = $(srcdir)\/Makefile.am $(srcdir)\/Makefile.in$/;"	m
+DIST_COMMON	src/Makefile	/^DIST_COMMON = $(srcdir)\/Makefile.am $(srcdir)\/Makefile.in$/;"	m
+DIST_SOURCES	Makefile	/^DIST_SOURCES =$/;"	m
+DIST_SOURCES	include/Makefile	/^DIST_SOURCES =$/;"	m
+DIST_SOURCES	src/Makefile	/^DIST_SOURCES = $(letrain_SOURCES) $(test_SOURCES)$/;"	m
+DIST_SUBDIRS	Makefile	/^DIST_SUBDIRS = $(SUBDIRS)$/;"	m
+DIST_SUBDIRS	include/Makefile	/^DIST_SUBDIRS = $(SUBDIRS)$/;"	m
+DRIVERS_MODE	include/Commander.h	/^		DRIVERS_MODE, $/;"	e	enum:Commander::CommandMode
+Dir	include/Dir.h	/^class Dir{$/;"	c
+Dir	src/Dir.cpp	/^Dir::Dir(const Dir& d){$/;"	f	class:Dir
+Dir	src/Dir.cpp	/^Dir::Dir(int d ){$/;"	f	class:Dir
+Dir	src/Dir.cpp	/^MAKE_LOGGER(Dir);$/;"	v
+DirEnv	include/DirEnv.h	/^class DirEnv{$/;"	c
+DirEnv	src/DirEnv.cpp	/^DirEnv::DirEnv(){$/;"	f	class:DirEnv
+DirEnv	src/DirEnv.cpp	/^DirEnv::DirEnv(const DirEnv & env){$/;"	f	class:DirEnv
+DirEnv	src/DirEnv.cpp	/^MAKE_LOGGER(DirEnv);$/;"	v
+Dirs	include/Dir.h	/^	enum Dirs {$/;"	g	class:Dir
+E	include/Dir.h	/^		W  =4,       E  =0,$/;"	e	enum:Dir::Dirs
+ECHO_C	Makefile	/^ECHO_C = $/;"	m
+ECHO_C	include/Makefile	/^ECHO_C = $/;"	m
+ECHO_C	src/Makefile	/^ECHO_C = $/;"	m
+ECHO_N	Makefile	/^ECHO_N = -n$/;"	m
+ECHO_N	include/Makefile	/^ECHO_N = -n$/;"	m
+ECHO_N	src/Makefile	/^ECHO_N = -n$/;"	m
+ECHO_T	Makefile	/^ECHO_T = $/;"	m
+ECHO_T	include/Makefile	/^ECHO_T = $/;"	m
+ECHO_T	src/Makefile	/^ECHO_T = $/;"	m
+EGREP	Makefile	/^EGREP = \/bin\/grep -E$/;"	m
+EGREP	include/Makefile	/^EGREP = \/bin\/grep -E$/;"	m
+EGREP	src/Makefile	/^EGREP = \/bin\/grep -E$/;"	m
+END_TEST	src/Test.cpp	19;"	d	file:
+ETAGS	Makefile	/^ETAGS = etags$/;"	m
+ETAGS	include/Makefile	/^ETAGS = etags$/;"	m
+ETAGS	src/Makefile	/^ETAGS = etags$/;"	m
+EVENTPROGRAM_H	include/EventProgram.h	2;"	d
+EVENTS_MODE	include/Commander.h	/^		EVENTS_MODE,	$/;"	e	enum:Commander::CommandMode
+EVENT_H	include/Event.h	2;"	d
+EVENT_TRAIN_SPEED	include/Message.h	/^		EVENT_TRAIN_SPEED$/;"	e	enum:Message::__anon5
+EXEEXT	Makefile	/^EXEEXT = $/;"	m
+EXEEXT	include/Makefile	/^EXEEXT = $/;"	m
+EXEEXT	src/Makefile	/^EXEEXT = $/;"	m
+EXTRA_DIST	Makefile	/^EXTRA_DIST = NEWS README AUTHORS INSTALL ChangeLog COPYING$/;"	m
+EXTRA_DIST	include/Makefile	/^EXTRA_DIST = \\$/;"	m
+EXTRA_DIST	src/Makefile	/^EXTRA_DIST = log4cplus.properties $/;"	m
+Event	include/Event.h	/^class Event{$/;"	c
+Event	src/Event.cpp	/^Event::Event()$/;"	f	class:Event
+Event	src/Event.cpp	/^Event::Event(const Event & e)$/;"	f	class:Event
+Event	src/Event.cpp	/^Event::Event(int sensorId, int hour, int minute, int second, $/;"	f	class:Event
+EventProgram	include/EventProgram.h	/^class EventProgram{$/;"	c
+FILTER_H	include/Filter.h	2;"	d
+FINDERASPECT_H	include/FinderAspect.h	2;"	d
+FINDER_H	include/Finder.h	2;"	d
+FORKASPECT_H	include/ForkAspect.h	2;"	d
+FORKDIRSELECTOR_H	include/ForkDirSelector.h	2;"	d
+FORKRAIL_H	include/ForkRail.h	2;"	d
+FORK_DIR	include/Message.h	/^		FORK_DIR,$/;"	e	enum:Message::__anon5
+Filter	include/Filter.h	/^class Filter{$/;"	c
+Filter	src/Filter.cpp	/^Filter::Filter()$/;"	f	class:Filter
+Filter	src/Filter.cpp	/^Filter::Filter(Range * sensorId, Range * hour, Range * minute, Range *second, $/;"	f	class:Filter
+Filter	src/Filter.cpp	/^Filter::Filter(const Filter & f) $/;"	f	class:Filter
+Filter	src/Filter.cpp	/^MAKE_LOGGER(Filter);$/;"	v
+Finder	include/Finder.h	/^class Finder :public RailVehicle{$/;"	c
+Finder	src/Finder.cpp	/^Finder::Finder(RailVehicle * r)$/;"	f	class:Finder
+Finder	src/Finder.cpp	/^MAKE_LOGGER(Finder);$/;"	v
+FinderAspect	include/FinderAspect.h	/^class FinderAspect: public Aspect{$/;"	c
+FinderAspect	src/FinderAspect.cpp	/^MAKE_LOGGER(FinderAspect);$/;"	v
+ForkAspect	include/ForkAspect.h	/^class ForkAspect : public StraightAspect{$/;"	c
+ForkAspect	src/ForkAspect.cpp	/^ForkAspect::ForkAspect(DirEnv * env)$/;"	f	class:ForkAspect
+ForkAspect	src/ForkAspect.cpp	/^MAKE_LOGGER(ForkAspect);$/;"	v
+ForkDirSelector	include/ForkDirSelector.h	/^class ForkDirSelector{$/;"	c
+ForkDirSelector	src/ForkDirSelector.cpp	/^ForkDirSelector::ForkDirSelector(DirEnv * env)$/;"	f	class:ForkDirSelector
+ForkDirSelector	src/ForkDirSelector.cpp	/^MAKE_LOGGER(ForkDirSelector);$/;"	v
+ForkRail	include/ForkRail.h	/^class ForkRail: public Rail{$/;"	c
+ForkRail	src/ForkRail.cpp	/^ForkRail::ForkRail(DirEnv * env)$/;"	f	class:ForkRail
+ForkRail	src/ForkRail.cpp	/^MAKE_LOGGER(ForkRail);$/;"	v
+GAMEVIEW_H	include/SimView.h	2;"	d
+GAME_H	include/Game.h	2;"	d
+GO_DOWN_LINE	include/StraightAspect.h	/^		GO_DOWN_LINE= '\\\\',$/;"	e	enum:StraightAspect::__anon2
+GO_UP_LINE	include/StraightAspect.h	/^		GO_UP_LINE= '\/',$/;"	e	enum:StraightAspect::__anon2
+GREP	Makefile	/^GREP = \/bin\/grep$/;"	m
+GREP	include/Makefile	/^GREP = \/bin\/grep$/;"	m
+GREP	src/Makefile	/^GREP = \/bin\/grep$/;"	m
+GZIP_ENV	Makefile	/^GZIP_ENV = --best$/;"	m
+Game	include/Game.h	/^class Game{$/;"	c
+Game	src/Game.cpp	/^Game::Game()$/;"	f	class:Game
+HAVE_GETTIMEOFDAY	config.h	24;"	d
+HAVE_INTTYPES_H	config.h	27;"	d
+HAVE_MALLOC	config.h	31;"	d
+HAVE_MEMORY_H	config.h	34;"	d
+HAVE_STDBOOL_H	config.h	37;"	d
+HAVE_STDINT_H	config.h	40;"	d
+HAVE_STDLIB_H	config.h	43;"	d
+HAVE_STRINGS_H	config.h	46;"	d
+HAVE_STRING_H	config.h	49;"	d
+HAVE_SYS_STAT_H	config.h	52;"	d
+HAVE_SYS_TIME_H	config.h	55;"	d
+HAVE_SYS_TYPES_H	config.h	58;"	d
+HAVE_UNISTD_H	config.h	61;"	d
+HAVE_VPRINTF	config.h	64;"	d
+HAVE__BOOL	config.h	67;"	d
+HORIZONTAL_LINE	include/StraightAspect.h	/^		HORIZONTAL_LINE='-',$/;"	e	enum:StraightAspect::__anon2
+HORIZONTAL_SHIFT	include/Window.h	/^	enum {VERTICAL_SHIFT, HORIZONTAL_SHIFT};$/;"	e	enum:Window::__anon3
+HOURS	src/Parser.cpp	/^enum {ROW, COL, SPEED, POWER, BRAKES, DIR, LINK, UNLINK, SENSOR, HOURS, MINUTES,$/;"	e	enum:__anon1	file:
+INSTALL	Makefile	/^INSTALL = \/usr\/bin\/install -c$/;"	m
+INSTALL	include/Makefile	/^INSTALL = \/usr\/bin\/install -c$/;"	m
+INSTALL	src/Makefile	/^INSTALL = \/usr\/bin\/install -c$/;"	m
+INSTALL_DATA	Makefile	/^INSTALL_DATA = ${INSTALL} -m 644$/;"	m
+INSTALL_DATA	include/Makefile	/^INSTALL_DATA = ${INSTALL} -m 644$/;"	m
+INSTALL_DATA	src/Makefile	/^INSTALL_DATA = ${INSTALL} -m 644$/;"	m
+INSTALL_HEADER	Makefile	/^INSTALL_HEADER = $(INSTALL_DATA)$/;"	m
+INSTALL_HEADER	include/Makefile	/^INSTALL_HEADER = $(INSTALL_DATA)$/;"	m
+INSTALL_HEADER	src/Makefile	/^INSTALL_HEADER = $(INSTALL_DATA)$/;"	m
+INSTALL_PROGRAM	Makefile	/^INSTALL_PROGRAM = ${INSTALL}$/;"	m
+INSTALL_PROGRAM	include/Makefile	/^INSTALL_PROGRAM = ${INSTALL}$/;"	m
+INSTALL_PROGRAM	src/Makefile	/^INSTALL_PROGRAM = ${INSTALL}$/;"	m
+INSTALL_SCRIPT	Makefile	/^INSTALL_SCRIPT = ${INSTALL}$/;"	m
+INSTALL_SCRIPT	include/Makefile	/^INSTALL_SCRIPT = ${INSTALL}$/;"	m
+INSTALL_SCRIPT	src/Makefile	/^INSTALL_SCRIPT = ${INSTALL}$/;"	m
+INSTALL_STRIP_PROGRAM	Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
+INSTALL_STRIP_PROGRAM	include/Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
+INSTALL_STRIP_PROGRAM	src/Makefile	/^INSTALL_STRIP_PROGRAM = $(install_sh) -c -s$/;"	m
+IntMap	include/Sim.h	/^	IntMap()$/;"	f	class:IntMap
+IntMap	include/Sim.h	/^class IntMap : public map<int , T>{$/;"	c
+LDFLAGS	Makefile	/^LDFLAGS = $/;"	m
+LDFLAGS	include/Makefile	/^LDFLAGS = $/;"	m
+LDFLAGS	src/Makefile	/^LDFLAGS = $/;"	m
+LIBOBJS	Makefile	/^LIBOBJS = $/;"	m
+LIBOBJS	include/Makefile	/^LIBOBJS = $/;"	m
+LIBOBJS	src/Makefile	/^LIBOBJS = $/;"	m
+LIBS	Makefile	/^LIBS = $/;"	m
+LIBS	include/Makefile	/^LIBS = $/;"	m
+LIBS	src/Makefile	/^LIBS = $/;"	m
+LINK	src/Parser.cpp	/^enum {ROW, COL, SPEED, POWER, BRAKES, DIR, LINK, UNLINK, SENSOR, HOURS, MINUTES,$/;"	e	enum:__anon1	file:
+LINK_H	include/Link.h	2;"	d
+LOCOMOTIVE	src/Parser.cpp	/^	SECONDS, LOCOMOTIVE, WAGON, MODE, STATUS$/;"	e	enum:__anon1	file:
+LOCOMOTIVEASPECT_H	include/LocomotiveAspect.h	2;"	d
+LOCOMOTIVE_H	include/Locomotive.h	2;"	d
+LOG_DEBUG	include/Basic.h	74;"	d
+LOG_ERROR	include/Basic.h	77;"	d
+LOG_FATAL	include/Basic.h	78;"	d
+LOG_H	include/Log.h	2;"	d
+LOG_INFO	include/Basic.h	75;"	d
+LOG_WARN	include/Basic.h	76;"	d
+LTLIBOBJS	Makefile	/^LTLIBOBJS = $/;"	m
+LTLIBOBJS	include/Makefile	/^LTLIBOBJS = $/;"	m
+LTLIBOBJS	src/Makefile	/^LTLIBOBJS = $/;"	m
+Link	include/Link.h	/^class Link{$/;"	c
+Link	src/Link.cpp	/^Link::Link() {$/;"	f	class:Link
+Link	src/Link.cpp	/^MAKE_LOGGER(Link);$/;"	v
+Locomotive	include/Locomotive.h	/^class Locomotive: public RailVehicle{$/;"	c
+Locomotive	src/Locomotive.cpp	/^Locomotive::Locomotive()$/;"	f	class:Locomotive
+Locomotive	src/Locomotive.cpp	/^MAKE_LOGGER(Locomotive);$/;"	v
+LocomotiveAspect	include/LocomotiveAspect.h	/^class LocomotiveAspect : public Aspect{$/;"	c
+LocomotiveAspect	src/LocomotiveAspect.cpp	/^MAKE_LOGGER(LocomotiveAspect);$/;"	v
+MAKEINFO	Makefile	/^MAKEINFO = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run makeinfo$/;"	m
+MAKEINFO	include/Makefile	/^MAKEINFO = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run makeinfo$/;"	m
+MAKEINFO	src/Makefile	/^MAKEINFO = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/missing --run makeinfo$/;"	m
+MAKE_LOGGER	include/Basic.h	72;"	d
+MAX_CURVE_ANGLE	include/Dir.h	/^		MAX_CURVE_ANGLE=MIDDLE_ANGLE+1 $/;"	e	enum:Dir::Angles
+MAX_TURNS	include/RailVehicle.h	/^	enum{MAX_TURNS=20};$/;"	e	enum:RailVehicle::__anon4
+MESSAGE_H	include/Message.h	2;"	d
+MIDDLE_ANGLE	include/Dir.h	/^		MIDDLE_ANGLE   =NUM_DIRS\/2, $/;"	e	enum:Dir::Angles
+MINUTES	src/Parser.cpp	/^enum {ROW, COL, SPEED, POWER, BRAKES, DIR, LINK, UNLINK, SENSOR, HOURS, MINUTES,$/;"	e	enum:__anon1	file:
+MIN_CURVE_ANGLE	include/Dir.h	/^		MIN_CURVE_ANGLE=MIDDLE_ANGLE-1, $/;"	e	enum:Dir::Angles
+MKDIR_P	Makefile	/^MKDIR_P = \/bin\/mkdir -p$/;"	m
+MKDIR_P	include/Makefile	/^MKDIR_P = \/bin\/mkdir -p$/;"	m
+MKDIR_P	src/Makefile	/^MKDIR_P = \/bin\/mkdir -p$/;"	m
+MODE	src/Parser.cpp	/^	SECONDS, LOCOMOTIVE, WAGON, MODE, STATUS$/;"	e	enum:__anon1	file:
+MOVING	include/RailPen.h	/^	enum RailPenMode {MOVING, PAINTING};$/;"	e	enum:RailPen::RailPenMode
+Message	include/Message.h	/^class Message{$/;"	c
+Message	src/Message.cpp	/^Message::Message(int command, int target, int value)$/;"	f	class:Message
+Method	include/Commander.h	/^typedef void (Commander::*Method)(void); $/;"	t
+ModesMap	include/Commander.h	/^	typedef map< char, CommandMode> ModesMap;$/;"	t	class:Commander
+N	include/Dir.h	/^		NW =3, N =2, NE =1,$/;"	e	enum:Dir::Dirs
+NE	include/Dir.h	/^		NW =3, N =2, NE =1,$/;"	e	enum:Dir::Dirs
+NORMAL_INSTALL	Makefile	/^NORMAL_INSTALL = :$/;"	m
+NORMAL_INSTALL	include/Makefile	/^NORMAL_INSTALL = :$/;"	m
+NORMAL_INSTALL	src/Makefile	/^NORMAL_INSTALL = :$/;"	m
+NORMAL_UNINSTALL	Makefile	/^NORMAL_UNINSTALL = :$/;"	m
+NORMAL_UNINSTALL	include/Makefile	/^NORMAL_UNINSTALL = :$/;"	m
+NORMAL_UNINSTALL	src/Makefile	/^NORMAL_UNINSTALL = :$/;"	m
+NO_DIR	include/Dir.h	/^	static const int NO_DIR = 999;$/;"	m	class:Dir
+NUM_DIRS	include/Dir.h	/^	static const int NUM_DIRS = 8;$/;"	m	class:Dir
+NW	include/Dir.h	/^		NW =3, N =2, NE =1,$/;"	e	enum:Dir::Dirs
+OBJEXT	Makefile	/^OBJEXT = o$/;"	m
+OBJEXT	include/Makefile	/^OBJEXT = o$/;"	m
+OBJEXT	src/Makefile	/^OBJEXT = o$/;"	m
+OPEN	include/Semaphore.h	/^	enum{CLOSED, OPEN};$/;"	e	enum:Semaphore::__anon6
+PACKAGE	Makefile	/^PACKAGE = letrain$/;"	m
+PACKAGE	config.h	70;"	d
+PACKAGE	include/Makefile	/^PACKAGE = letrain$/;"	m
+PACKAGE	src/Makefile	/^PACKAGE = letrain$/;"	m
+PACKAGE_BUGREPORT	Makefile	/^PACKAGE_BUGREPORT = antoniovazquezaraujo@gmail.com$/;"	m
+PACKAGE_BUGREPORT	config.h	73;"	d
+PACKAGE_BUGREPORT	include/Makefile	/^PACKAGE_BUGREPORT = antoniovazquezaraujo@gmail.com$/;"	m
+PACKAGE_BUGREPORT	src/Makefile	/^PACKAGE_BUGREPORT = antoniovazquezaraujo@gmail.com$/;"	m
+PACKAGE_NAME	Makefile	/^PACKAGE_NAME = letrain$/;"	m
+PACKAGE_NAME	config.h	76;"	d
+PACKAGE_NAME	include/Makefile	/^PACKAGE_NAME = letrain$/;"	m
+PACKAGE_NAME	src/Makefile	/^PACKAGE_NAME = letrain$/;"	m
+PACKAGE_STRING	Makefile	/^PACKAGE_STRING = letrain 4.0$/;"	m
+PACKAGE_STRING	config.h	79;"	d
+PACKAGE_STRING	include/Makefile	/^PACKAGE_STRING = letrain 4.0$/;"	m
+PACKAGE_STRING	src/Makefile	/^PACKAGE_STRING = letrain 4.0$/;"	m
+PACKAGE_TARNAME	Makefile	/^PACKAGE_TARNAME = letrain$/;"	m
+PACKAGE_TARNAME	config.h	82;"	d
+PACKAGE_TARNAME	include/Makefile	/^PACKAGE_TARNAME = letrain$/;"	m
+PACKAGE_TARNAME	src/Makefile	/^PACKAGE_TARNAME = letrain$/;"	m
+PACKAGE_URL	Makefile	/^PACKAGE_URL = $/;"	m
+PACKAGE_URL	config.h	85;"	d
+PACKAGE_URL	include/Makefile	/^PACKAGE_URL = $/;"	m
+PACKAGE_URL	src/Makefile	/^PACKAGE_URL = $/;"	m
+PACKAGE_VERSION	Makefile	/^PACKAGE_VERSION = 4.0$/;"	m
+PACKAGE_VERSION	config.h	88;"	d
+PACKAGE_VERSION	include/Makefile	/^PACKAGE_VERSION = 4.0$/;"	m
+PACKAGE_VERSION	src/Makefile	/^PACKAGE_VERSION = 4.0$/;"	m
+PAINTING	include/RailPen.h	/^	enum RailPenMode {MOVING, PAINTING};$/;"	e	enum:RailPen::RailPenMode
+PATH_SEPARATOR	Makefile	/^PATH_SEPARATOR = :$/;"	m
+PATH_SEPARATOR	include/Makefile	/^PATH_SEPARATOR = :$/;"	m
+PATH_SEPARATOR	src/Makefile	/^PATH_SEPARATOR = :$/;"	m
+POINTS_MODE	include/Commander.h	/^		POINTS_MODE,$/;"	e	enum:Commander::CommandMode
+POINT_H	include/Point.h	2;"	d
+POST_INSTALL	Makefile	/^POST_INSTALL = :$/;"	m
+POST_INSTALL	include/Makefile	/^POST_INSTALL = :$/;"	m
+POST_INSTALL	src/Makefile	/^POST_INSTALL = :$/;"	m
+POST_UNINSTALL	Makefile	/^POST_UNINSTALL = :$/;"	m
+POST_UNINSTALL	include/Makefile	/^POST_UNINSTALL = :$/;"	m
+POST_UNINSTALL	src/Makefile	/^POST_UNINSTALL = :$/;"	m
+POWER	src/Parser.cpp	/^enum {ROW, COL, SPEED, POWER, BRAKES, DIR, LINK, UNLINK, SENSOR, HOURS, MINUTES,$/;"	e	enum:__anon1	file:
+PRE_INSTALL	Makefile	/^PRE_INSTALL = :$/;"	m
+PRE_INSTALL	include/Makefile	/^PRE_INSTALL = :$/;"	m
+PRE_INSTALL	src/Makefile	/^PRE_INSTALL = :$/;"	m
+PRE_UNINSTALL	Makefile	/^PRE_UNINSTALL = :$/;"	m
+PRE_UNINSTALL	include/Makefile	/^PRE_UNINSTALL = :$/;"	m
+PRE_UNINSTALL	src/Makefile	/^PRE_UNINSTALL = :$/;"	m
+PROGRAMEDITOR_H	include/ProgramEditor.h	2;"	d
+PROGRAMS	src/Makefile	/^PROGRAMS = $(bin_PROGRAMS)$/;"	m
+ParserData	src/Parser.cpp	/^struct ParserData{$/;"	s	file:
+Point	include/Point.h	/^	Point(int row=0, int col=0)$/;"	f	class:Point
+Point	include/Point.h	/^class Point{$/;"	c
+ProgramEditor	include/ProgramEditor.h	/^class ProgramEditor{$/;"	c
+ProgramEditor	src/ProgramEditor.cpp	/^MAKE_LOGGER(ProgramEditor);$/;"	v
+ProgramEditor	src/ProgramEditor.cpp	/^ProgramEditor::ProgramEditor (Game * game)$/;"	f	class:ProgramEditor
+RAILENV_H	include/RailEnv.h	2;"	d
+RAILMAP_H	include/RailMap.h	2;"	d
+RAILPEN_H	include/RailPen.h	2;"	d
+RAILPEN_MODE	include/Commander.h	/^		RAILPEN_MODE$/;"	e	enum:Commander::CommandMode
+RAILS_MODE	include/Commander.h	/^		RAILS_MODE,$/;"	e	enum:Commander::CommandMode
+RAILVEHICLE_H	include/RailVehicle.h	2;"	d
+RAIL_H	include/Rail.h	2;"	d
+RAIL_MAP_COLS	include/Basic.h	/^const int RAIL_MAP_COLS = 80;$/;"	v
+RAIL_MAP_ROWS	include/Basic.h	/^const int RAIL_MAP_ROWS = 25;$/;"	v
+RANGE_H	include/Range.h	2;"	d
+RECURSIVE_CLEAN_TARGETS	Makefile	/^RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\\$/;"	m
+RECURSIVE_CLEAN_TARGETS	include/Makefile	/^RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive	\\$/;"	m
+RECURSIVE_TARGETS	Makefile	/^RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \\$/;"	m
+RECURSIVE_TARGETS	include/Makefile	/^RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \\$/;"	m
+ROW	src/Parser.cpp	/^enum {ROW, COL, SPEED, POWER, BRAKES, DIR, LINK, UNLINK, SENSOR, HOURS, MINUTES,$/;"	e	enum:__anon1	file:
+Rail	include/Rail.h	/^class Rail{$/;"	c
+Rail	src/Rail.cpp	/^MAKE_LOGGER(Rail);$/;"	v
+Rail	src/Rail.cpp	/^Rail::Rail(DirEnv * dirEnv, Aspect * aspect)$/;"	f	class:Rail
+RailEnv	include/RailEnv.h	/^class RailEnv{$/;"	c
+RailEnv	src/RailEnv.cpp	/^MAKE_LOGGER(RailEnv);$/;"	v
+RailEnv	src/RailEnv.cpp	/^RailEnv::RailEnv(){$/;"	f	class:RailEnv
+RailEnv	src/RailEnv.cpp	/^RailEnv::RailEnv(const RailEnv & env){$/;"	f	class:RailEnv
+RailMap	include/RailMap.h	/^class RailMap{$/;"	c
+RailMap	src/RailMap.cpp	/^MAKE_LOGGER(RailMap);$/;"	v
+RailMap	src/RailMap.cpp	/^RailMap::RailMap() {$/;"	f	class:RailMap
+RailPen	include/RailPen.h	/^class RailPen:public Vehicle{$/;"	c
+RailPen	src/RailPen.cpp	/^MAKE_LOGGER(RailPen);$/;"	v
+RailPen	src/RailPen.cpp	/^RailPen::RailPen(Dir dir)$/;"	f	class:RailPen
+RailPenMode	include/RailPen.h	/^	enum RailPenMode {MOVING, PAINTING};$/;"	g	class:RailPen
+RailVehicle	include/RailVehicle.h	/^class RailVehicle :public Vehicle{$/;"	c
+RailVehicle	src/RailVehicle.cpp	/^MAKE_LOGGER(RailVehicle);$/;"	v
+RailVehicle	src/RailVehicle.cpp	/^RailVehicle::RailVehicle(Aspect * aspect)$/;"	f	class:RailVehicle
+Range	include/Range.h	/^class Range{$/;"	c
+Range	src/Range.cpp	/^Range::Range()$/;"	f	class:Range
+Range	src/Range.cpp	/^Range::Range(const Range & r){$/;"	f	class:Range
+S	include/Dir.h	/^		SW =5, S =6, SE =7$/;"	e	enum:Dir::Dirs
+SE	include/Dir.h	/^		SW =5, S =6, SE =7$/;"	e	enum:Dir::Dirs
+SECONDS	src/Parser.cpp	/^	SECONDS, LOCOMOTIVE, WAGON, MODE, STATUS$/;"	e	enum:__anon1	file:
+SEMAPHORE	include/Message.h	/^		SEMAPHORE,$/;"	e	enum:Message::__anon5
+SEMAPHORE_H	include/Semaphore.h	2;"	d
+SENSOR	src/Parser.cpp	/^enum {ROW, COL, SPEED, POWER, BRAKES, DIR, LINK, UNLINK, SENSOR, HOURS, MINUTES,$/;"	e	enum:__anon1	file:
+SENSOR_H	include/Sensor.h	2;"	d
+SET_MAKE	Makefile	/^SET_MAKE = $/;"	m
+SET_MAKE	include/Makefile	/^SET_MAKE = $/;"	m
+SET_MAKE	src/Makefile	/^SET_MAKE = $/;"	m
+SHELL	Makefile	/^SHELL = \/bin\/bash$/;"	m
+SHELL	include/Makefile	/^SHELL = \/bin\/bash$/;"	m
+SHELL	src/Makefile	/^SHELL = \/bin\/bash$/;"	m
+SIM_H	include/Sim.h	2;"	d
+SOURCES	Makefile	/^SOURCES =$/;"	m
+SOURCES	include/Makefile	/^SOURCES =$/;"	m
+SOURCES	src/Makefile	/^SOURCES = $(letrain_SOURCES) $(test_SOURCES)$/;"	m
+SPEED	src/Parser.cpp	/^enum {ROW, COL, SPEED, POWER, BRAKES, DIR, LINK, UNLINK, SENSOR, HOURS, MINUTES,$/;"	e	enum:__anon1	file:
+STATUS	src/Parser.cpp	/^	SECONDS, LOCOMOTIVE, WAGON, MODE, STATUS$/;"	e	enum:__anon1	file:
+STDC_HEADERS	config.h	91;"	d
+STRAIGHTASPECT_H	include/StraightAspect.h	2;"	d
+STRAIGHTRAIL_H	include/StraightRail.h	2;"	d
+STRIP	Makefile	/^STRIP = $/;"	m
+STRIP	include/Makefile	/^STRIP = $/;"	m
+STRIP	src/Makefile	/^STRIP = $/;"	m
+SUBDIRS	Makefile	/^SUBDIRS = include src $/;"	m
+SUBDIRS	include/Makefile	/^SUBDIRS = $/;"	m
+SW	include/Dir.h	/^		SW =5, S =6, SE =7$/;"	e	enum:Dir::Dirs
+SelectObject	src/Parser.cpp	/^	SelectObject(int t){$/;"	f	struct:SelectObject
+SelectObject	src/Parser.cpp	/^struct SelectObject{$/;"	s	file:
+SelectProperty	src/Parser.cpp	/^	SelectProperty(int p){$/;"	f	struct:SelectProperty
+SelectProperty	src/Parser.cpp	/^struct SelectProperty{$/;"	s	file:
+SelectorStatus	include/Train.h	/^enum SelectorStatus{$/;"	g
+Semaphore	include/Semaphore.h	/^class Semaphore{$/;"	c
+Semaphore	src/Semaphore.cpp	/^Semaphore::Semaphore(int id, bool open)$/;"	f	class:Semaphore
+Sensor	include/Sensor.h	/^class Sensor{$/;"	c
+Sensor	src/Sensor.cpp	/^MAKE_LOGGER(Sensor);$/;"	v
+Sensor	src/Sensor.cpp	/^Sensor::Sensor(int id)$/;"	f	class:Sensor
+SetBulldozerMode	src/Parser.cpp	/^	SetBulldozerMode(RailPen::RailPenMode mode){$/;"	f	struct:SetBulldozerMode
+SetBulldozerMode	src/Parser.cpp	/^struct SetBulldozerMode{$/;"	s	file:
+SetBulldozerValue	src/Parser.cpp	/^struct SetBulldozerValue {$/;"	s	file:
+SetEventLocomotiveSpeedValue	src/Parser.cpp	/^struct SetEventLocomotiveSpeedValue{$/;"	s	file:
+SetLocomotiveValue	src/Parser.cpp	/^struct SetLocomotiveValue {$/;"	s	file:
+SetPropertyValue	src/Parser.cpp	/^	SetPropertyValue(int n){$/;"	f	struct:SetPropertyValue
+SetPropertyValue	src/Parser.cpp	/^struct SetPropertyValue{$/;"	s	file:
+SetSemaphoreValue	src/Parser.cpp	/^struct SetSemaphoreValue {$/;"	s	file:
+SetSensorLocomotiveSpeedValue	src/Parser.cpp	/^struct SetSensorLocomotiveSpeedValue{$/;"	s	file:
+SetSensorRail	src/Parser.cpp	/^struct SetSensorRail{$/;"	s	file:
+SetSensorValue	src/Parser.cpp	/^struct SetSensorValue {$/;"	s	file:
+SetTargetForkDir	src/Parser.cpp	/^struct SetTargetForkDir{$/;"	s	file:
+SetTargetLocomotiveSpeedValue	src/Parser.cpp	/^struct SetTargetLocomotiveSpeedValue{$/;"	s	file:
+SetTargetSemaphoreStatus	src/Parser.cpp	/^struct SetTargetSemaphoreStatus{$/;"	s	file:
+SetWagonValue	src/Parser.cpp	/^struct SetWagonValue {$/;"	s	file:
+Sim	include/Sim.h	/^class Sim{$/;"	c
+Sim	src/Sim.cpp	/^MAKE_LOGGER(Sim);$/;"	v
+Sim	src/Sim.cpp	/^Sim::Sim ()$/;"	f	class:Sim
+SimView	include/SimView.h	/^class SimView{$/;"	c
+SimView	src/SimView.cpp	/^MAKE_LOGGER(SimView);$/;"	v
+SimView	src/SimView.cpp	/^SimView::SimView(Sim * sim)$/;"	f	class:SimView
+StraightAspect	include/StraightAspect.h	/^class StraightAspect : public Aspect{$/;"	c
+StraightAspect	src/StraightAspect.cpp	/^MAKE_LOGGER(StraightAspect);$/;"	v
+StraightAspect	src/StraightAspect.cpp	/^StraightAspect::StraightAspect(DirEnv * env)$/;"	f	class:StraightAspect
+StraightRail	include/StraightRail.h	/^class StraightRail: public Rail{$/;"	c
+StraightRail	src/StraightRail.cpp	/^MAKE_LOGGER(StraightRail);$/;"	v
+StraightRail	src/StraightRail.cpp	/^StraightRail::StraightRail(DirEnv * env)$/;"	f	class:StraightRail
+TERMINALWINDOW_H	include/TerminalWindow.h	7;"	d
+TESTS	src/Makefile	/^TESTS = $(check_PROGRAMS)$/;"	m
+TIME_WITH_SYS_TIME	config.h	94;"	d
+TRAINITERATOR_H	include/TrainIterator.h	2;"	d
+TRAINS_MODE	include/Commander.h	/^		TRAINS_MODE,$/;"	e	enum:Commander::CommandMode
+TRAIN_AT_SENSOR_SPEED	include/Message.h	/^		TRAIN_AT_SENSOR_SPEED,$/;"	e	enum:Message::__anon5
+TRAIN_H	include/Train.h	2;"	d
+TRAIN_SPEED	include/Message.h	/^		TRAIN_SPEED,$/;"	e	enum:Message::__anon5
+TerminalWindow	include/TerminalWindow.h	/^class TerminalWindow :public Window{$/;"	c
+TerminalWindow	src/TerminalWindow.cpp	/^MAKE_LOGGER(TerminalWindow);$/;"	v
+TerminalWindow	src/TerminalWindow.cpp	/^TerminalWindow::TerminalWindow(int row, int col, int width, int height, bool withBorder)$/;"	f	class:TerminalWindow
+TestSuite1	src/Test.cpp	/^	TestSuite1() {$/;"	f	class:TestSuite1
+TestSuite1	src/Test.cpp	/^MAKE_LOGGER(TestSuite1);$/;"	v
+TestSuite1	src/Test.cpp	/^class TestSuite1 : public Test::Suite {$/;"	c	file:
+Train	include/Train.h	/^class Train{$/;"	c
+Train	src/Train.cpp	/^MAKE_LOGGER(Train);$/;"	v
+Train	src/Train.cpp	/^Train::Train(){$/;"	f	class:Train
+TrainIterator	include/TrainIterator.h	/^class TrainIterator{$/;"	c
+TrainIterator	src/TrainIterator.cpp	/^MAKE_LOGGER(TrainIterator);$/;"	v
+TrainIterator	src/TrainIterator.cpp	/^TrainIterator::TrainIterator(RailVehicle*  v, Dir dir){$/;"	f	class:TrainIterator
+UNLINK	src/Parser.cpp	/^enum {ROW, COL, SPEED, POWER, BRAKES, DIR, LINK, UNLINK, SENSOR, HOURS, MINUTES,$/;"	e	enum:__anon1	file:
+VEHICLE_H	include/Vehicle.h	2;"	d
+VERSION	Makefile	/^VERSION = 4.0$/;"	m
+VERSION	config.h	97;"	d
+VERSION	include/Makefile	/^VERSION = 4.0$/;"	m
+VERSION	src/Makefile	/^VERSION = 4.0$/;"	m
+VERTICAL_LINE	include/StraightAspect.h	/^		VERTICAL_LINE='|',$/;"	e	enum:StraightAspect::__anon2
+VERTICAL_SHIFT	include/Window.h	/^	enum {VERTICAL_SHIFT, HORIZONTAL_SHIFT};$/;"	e	enum:Window::__anon3
+Vehicle	include/Vehicle.h	/^class Vehicle{$/;"	c
+Vehicle	src/Vehicle.cpp	/^MAKE_LOGGER(Vehicle);$/;"	v
+Vehicle	src/Vehicle.cpp	/^Vehicle::Vehicle(Aspect * aspect)$/;"	f	class:Vehicle
+W	include/Dir.h	/^		W  =4,       E  =0,$/;"	e	enum:Dir::Dirs
+WAGON	src/Parser.cpp	/^	SECONDS, LOCOMOTIVE, WAGON, MODE, STATUS$/;"	e	enum:__anon1	file:
+WAGONASPECT_H	include/WagonAspect.h	2;"	d
+WAGON_H	include/Wagon.h	2;"	d
+WINDOW_H	include/Window.h	7;"	d
+Wagon	include/Wagon.h	/^class Wagon: public RailVehicle{$/;"	c
+Wagon	src/Wagon.cpp	/^MAKE_LOGGER(Wagon);$/;"	v
+Wagon	src/Wagon.cpp	/^Wagon::Wagon()$/;"	f	class:Wagon
+WagonAspect	include/WagonAspect.h	/^class WagonAspect : public Aspect{$/;"	c
+WagonAspect	src/WagonAspect.cpp	/^MAKE_LOGGER(WagonAspect);$/;"	v
+Window	include/Window.h	/^class Window{$/;"	c
+Window	src/Window.cpp	/^MAKE_LOGGER(Window);$/;"	v
+Window	src/Window.cpp	/^Window::Window(int row, int col, int width, int height, bool withBorder)$/;"	f	class:Window
+abs_builddir	Makefile	/^abs_builddir = \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0$/;"	m
+abs_builddir	include/Makefile	/^abs_builddir = \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/include$/;"	m
+abs_builddir	src/Makefile	/^abs_builddir = \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/src$/;"	m
+abs_srcdir	Makefile	/^abs_srcdir = \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0$/;"	m
+abs_srcdir	include/Makefile	/^abs_srcdir = \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/include$/;"	m
+abs_srcdir	src/Makefile	/^abs_srcdir = \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/src$/;"	m
+abs_top_builddir	Makefile	/^abs_top_builddir = \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0$/;"	m
+abs_top_builddir	include/Makefile	/^abs_top_builddir = \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0$/;"	m
+abs_top_builddir	src/Makefile	/^abs_top_builddir = \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0$/;"	m
+abs_top_srcdir	Makefile	/^abs_top_srcdir = \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0$/;"	m
+abs_top_srcdir	include/Makefile	/^abs_top_srcdir = \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0$/;"	m
+abs_top_srcdir	src/Makefile	/^abs_top_srcdir = \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0$/;"	m
+ac_ct_CC	Makefile	/^ac_ct_CC = gcc$/;"	m
+ac_ct_CC	include/Makefile	/^ac_ct_CC = gcc$/;"	m
+ac_ct_CC	src/Makefile	/^ac_ct_CC = gcc$/;"	m
+ac_ct_CXX	Makefile	/^ac_ct_CXX = g++$/;"	m
+ac_ct_CXX	include/Makefile	/^ac_ct_CXX = g++$/;"	m
+ac_ct_CXX	src/Makefile	/^ac_ct_CXX = g++$/;"	m
+ac_fn_c_check_func	configure	/^ac_fn_c_check_func ()$/;"	f
+ac_fn_c_check_header_compile	configure	/^ac_fn_c_check_header_compile ()$/;"	f
+ac_fn_c_check_header_mongrel	configure	/^ac_fn_c_check_header_mongrel ()$/;"	f
+ac_fn_c_check_type	configure	/^ac_fn_c_check_type ()$/;"	f
+ac_fn_c_try_compile	configure	/^ac_fn_c_try_compile ()$/;"	f
+ac_fn_c_try_cpp	configure	/^ac_fn_c_try_cpp ()$/;"	f
+ac_fn_c_try_link	configure	/^ac_fn_c_try_link ()$/;"	f
+ac_fn_c_try_run	configure	/^ac_fn_c_try_run ()$/;"	f
+ac_fn_cxx_try_compile	configure	/^ac_fn_cxx_try_compile ()$/;"	f
+accelerateTrain	src/Commander.cpp	/^void Commander::accelerateTrain(){$/;"	f	class:Commander
+accept	src/EventProgram.cpp	/^bool EventProgram::accept(Event * event){$/;"	f	class:EventProgram
+accept	src/Filter.cpp	/^bool Filter::accept(Event * event){$/;"	f	class:Filter
+accept	src/Range.cpp	/^bool Range::accept(int n){$/;"	f	class:Range
+acceptAll	src/Range.cpp	/^void Range::acceptAll(bool acceptAll){$/;"	f	class:Range
+acceptAndRun	src/Sim.cpp	/^void Sim::acceptAndRun(Event * event, EventProgram * eventProgram){$/;"	f	class:Sim
+acceptingAll	include/Range.h	/^	bool acceptingAll;$/;"	m	class:Range
+actual	include/TrainIterator.h	/^	RailVehicle*  actual;$/;"	m	class:TrainIterator
+addEventProgram	src/Parser.cpp	/^void addEventProgram(int t){$/;"	f
+addEventProgram	src/Sim.cpp	/^void Sim::addEventProgram(EventProgram * p, int id){$/;"	f	class:Sim
+addFork	src/Sim.cpp	/^void Sim::addFork(ForkRail * r, int id){$/;"	f	class:Sim
+addGtCondition	src/Range.cpp	/^void Range::addGtCondition(int n){$/;"	f	class:Range
+addLocomotive	src/Parser.cpp	/^void addLocomotive(int t){$/;"	f
+addLocomotive	src/Sim.cpp	/^void Sim::addLocomotive(Locomotive* locomotive, int id){$/;"	f	class:Sim
+addLocomotive	src/Train.cpp	/^void Train::addLocomotive(){$/;"	f	class:Train
+addLocomotive	src/Train.cpp	/^void Train::addLocomotive(Locomotive* l){$/;"	f	class:Train
+addLtCondition	src/Range.cpp	/^void Range::addLtCondition(int n){$/;"	f	class:Range
+addMessage	src/EventProgram.cpp	/^void EventProgram::addMessage(Message * message){$/;"	f	class:EventProgram
+addNumber	src/Range.cpp	/^void Range::addNumber(int n){$/;"	f	class:Range
+addPair	src/Range.cpp	/^void Range::addPair(int n, int m){$/;"	f	class:Range
+addPath	src/DirEnv.cpp	/^void DirEnv::addPath(Dir from, Dir to){$/;"	f	class:DirEnv
+addPath	src/RailEnv.cpp	/^void RailEnv::addPath(Dir d, Rail * r){$/;"	f	class:RailEnv
+addProgramFilter	src/Parser.cpp	/^void addProgramFilter(const char * a, const char * b){$/;"	f
+addRangeGtCondition	src/Parser.cpp	/^void addRangeGtCondition(int value){$/;"	f
+addRangeLtCondition	src/Parser.cpp	/^void addRangeLtCondition(int value){$/;"	f
+addRangeNumber	src/Parser.cpp	/^void addRangeNumber(int value){$/;"	f
+addRangePair	src/Parser.cpp	/^void addRangePair(const char * a, const char * b){$/;"	f
+addRangePairL	src/Parser.cpp	/^void addRangePairL(int value){$/;"	f
+addRangePairR	src/Parser.cpp	/^void addRangePairR(int value){$/;"	f
+addSemaphore	src/Parser.cpp	/^void addSemaphore(int t){$/;"	f
+addSemaphore	src/Sim.cpp	/^void Sim::addSemaphore(Semaphore * s, int id){$/;"	f	class:Sim
+addSensor	src/Parser.cpp	/^void addSensor(int t){$/;"	f
+addSensor	src/Sim.cpp	/^void Sim::addSensor(Sensor * s, int id){$/;"	f	class:Sim
+addToTrain	src/Finder.cpp	/^void Finder::addToTrain(Train *){$/;"	f	class:Finder
+addToTrain	src/Locomotive.cpp	/^void Locomotive::addToTrain(Train * t){$/;"	f	class:Locomotive
+addToTrain	src/Wagon.cpp	/^void Wagon::addToTrain(Train * t){$/;"	f	class:Wagon
+addTrain	src/Sim.cpp	/^void Sim::addTrain(Train* train, int id){$/;"	f	class:Sim
+addVehicle	src/Train.cpp	/^void Train::addVehicle(RailVehicle* v){$/;"	f	class:Train
+addWagon	src/Parser.cpp	/^void addWagon(int t){$/;"	f
+addWagon	src/Sim.cpp	/^void Sim::addWagon(Wagon * wagon, int id){$/;"	f	class:Sim
+addWagon	src/Train.cpp	/^void Train::addWagon(){$/;"	f	class:Train
+addWagon	src/Train.cpp	/^void Train::addWagon(Wagon* w){$/;"	f	class:Train
+adding	src/Parser.cpp	/^			adding ,setting, showing, deleting, multishowing,$/;"	m	struct:my_grammar::definition	file:
+advanceSelector	src/Train.cpp	/^void Train::advanceSelector(){$/;"	f	class:Train
+am__CONFIG_DISTCLEAN_FILES	Makefile	/^am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \\$/;"	m
+am__aclocal_m4_deps	Makefile	/^am__aclocal_m4_deps = $(top_srcdir)\/configure.ac$/;"	m
+am__aclocal_m4_deps	include/Makefile	/^am__aclocal_m4_deps = $(top_srcdir)\/configure.ac$/;"	m
+am__aclocal_m4_deps	src/Makefile	/^am__aclocal_m4_deps = $(top_srcdir)\/configure.ac$/;"	m
+am__cd	Makefile	/^am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd$/;"	m
+am__cd	include/Makefile	/^am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd$/;"	m
+am__cd	src/Makefile	/^am__cd = CDPATH="$${ZSH_VERSION+.}$(PATH_SEPARATOR)" && cd$/;"	m
+am__configure_deps	Makefile	/^am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \\$/;"	m
+am__configure_deps	include/Makefile	/^am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \\$/;"	m
+am__configure_deps	src/Makefile	/^am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \\$/;"	m
+am__depfiles_maybe	src/Makefile	/^am__depfiles_maybe = depfiles$/;"	m
+am__include	Makefile	/^am__include = include$/;"	m
+am__include	include/Makefile	/^am__include = include$/;"	m
+am__include	src/Makefile	/^am__include = include$/;"	m
+am__installdirs	src/Makefile	/^am__installdirs = "$(DESTDIR)$(bindir)"$/;"	m
+am__leading_dot	Makefile	/^am__leading_dot = .$/;"	m
+am__leading_dot	include/Makefile	/^am__leading_dot = .$/;"	m
+am__leading_dot	src/Makefile	/^am__leading_dot = .$/;"	m
+am__mv	src/Makefile	/^am__mv = mv -f$/;"	m
+am__objects_1	src/Makefile	/^am__objects_1 = Aspect.$(OBJEXT) Commander.$(OBJEXT) \\$/;"	m
+am__quote	Makefile	/^am__quote = $/;"	m
+am__quote	include/Makefile	/^am__quote = $/;"	m
+am__quote	src/Makefile	/^am__quote = $/;"	m
+am__relativize	Makefile	/^am__relativize = \\$/;"	m
+am__relativize	include/Makefile	/^am__relativize = \\$/;"	m
+am__remove_distdir	Makefile	/^am__remove_distdir = \\$/;"	m
+am__tar	Makefile	/^am__tar = ${AMTAR} chof - "$$tardir"$/;"	m
+am__tar	include/Makefile	/^am__tar = ${AMTAR} chof - "$$tardir"$/;"	m
+am__tar	src/Makefile	/^am__tar = ${AMTAR} chof - "$$tardir"$/;"	m
+am__tty_colors	src/Makefile	/^am__tty_colors = \\$/;"	m
+am__untar	Makefile	/^am__untar = ${AMTAR} xf -$/;"	m
+am__untar	include/Makefile	/^am__untar = ${AMTAR} xf -$/;"	m
+am__untar	src/Makefile	/^am__untar = ${AMTAR} xf -$/;"	m
+am_letrain_OBJECTS	src/Makefile	/^am_letrain_OBJECTS = $(am__objects_1) Letrain.$(OBJEXT)$/;"	m
+am_test_OBJECTS	src/Makefile	/^am_test_OBJECTS = $(am__objects_1) Test.$(OBJEXT)$/;"	m
+armed	include/Sensor.h	/^	bool armed;$/;"	m	class:Sensor
+as_fn_append	config.status	/^  as_fn_append ()$/;"	f
+as_fn_append	configure	/^  as_fn_append ()$/;"	f
+as_fn_arith	config.status	/^  as_fn_arith ()$/;"	f
+as_fn_arith	configure	/^  as_fn_arith ()$/;"	f
+as_fn_error	config.status	/^as_fn_error ()$/;"	f
+as_fn_error	configure	/^as_fn_error ()$/;"	f
+as_fn_exit	config.status	/^as_fn_exit ()$/;"	f
+as_fn_exit	configure	/^as_fn_exit ()$/;"	f
+as_fn_failure	configure	/^as_fn_failure () { as_fn_return 1; }$/;"	f
+as_fn_mkdir_p	config.status	/^as_fn_mkdir_p ()$/;"	f
+as_fn_mkdir_p	configure	/^as_fn_mkdir_p ()$/;"	f
+as_fn_ret_failure	configure	/^as_fn_ret_failure () { return 1; }$/;"	f
+as_fn_ret_success	configure	/^as_fn_ret_success () { return 0; }$/;"	f
+as_fn_set_status	config.status	/^as_fn_set_status ()$/;"	f
+as_fn_set_status	configure	/^as_fn_set_status ()$/;"	f
+as_fn_success	configure	/^as_fn_success () { as_fn_return 0; }$/;"	f
+as_fn_unset	config.status	/^as_fn_unset ()$/;"	f
+as_fn_unset	configure	/^as_fn_unset ()$/;"	f
+aspect	include/Rail.h	/^	Aspect *      aspect;	$/;"	m	class:Rail
+aspect	include/Vehicle.h	/^	Aspect * aspect;$/;"	m	class:Vehicle
+aspectChar	include/StraightAspect.h	/^	char aspectChar;$/;"	m	class:StraightAspect
+atBegin	include/Train.h	/^	atBegin, atMiddle, atEnd$/;"	e	enum:SelectorStatus
+atEnd	include/Train.h	/^	atBegin, atMiddle, atEnd$/;"	e	enum:SelectorStatus
+atMiddle	include/Train.h	/^	atBegin, atMiddle, atEnd$/;"	e	enum:SelectorStatus
+autoMove	include/Commander.h	/^	bool autoMove;$/;"	m	class:Commander
+backwards	src/Finder.cpp	/^bool Finder::backwards(int distance){$/;"	f	class:Finder
+backwards	src/RailPen.cpp	/^bool RailPen::backwards(int distance){$/;"	f	class:RailPen
+bgColor	include/Window.h	/^	int fgColor, bgColor;$/;"	m	class:Window
+bin_PROGRAMS	src/Makefile	/^bin_PROGRAMS = letrain$(EXEEXT)$/;"	m
+bindir	Makefile	/^bindir = ${exec_prefix}\/bin$/;"	m
+bindir	include/Makefile	/^bindir = ${exec_prefix}\/bin$/;"	m
+bindir	src/Makefile	/^bindir = ${exec_prefix}\/bin$/;"	m
+bold	include/Window.h	/^	int reversed, bold, underlined;$/;"	m	class:Window
+border	include/Window.h	/^	WINDOW * border;$/;"	m	class:Window
+brakes	include/RailVehicle.h	/^	int brakes;$/;"	m	class:RailVehicle
+brakesValue	src/Parser.cpp	/^			brakesValue, programFilter, programFilters, programMessages,$/;"	m	struct:my_grammar::definition	file:
+build_alias	Makefile	/^build_alias = $/;"	m
+build_alias	include/Makefile	/^build_alias = $/;"	m
+build_alias	src/Makefile	/^build_alias = $/;"	m
+builddir	Makefile	/^builddir = .$/;"	m
+builddir	include/Makefile	/^builddir = .$/;"	m
+builddir	src/Makefile	/^builddir = .$/;"	m
+bulldozerSettings	src/Parser.cpp	/^			my_rule, bulldozerSettings, moving, rotating, modeValue,$/;"	m	struct:my_grammar::definition	file:
+canBeAForkInput	src/DirEnv.cpp	/^bool DirEnv::canBeAForkInput(Dir & dir){$/;"	f	class:DirEnv
+check	src/Sensor.cpp	/^Event * Sensor::check(){$/;"	f	class:Sensor
+checkSensors	src/Sim.cpp	/^void Sim::checkSensors(){$/;"	f	class:Sim
+check_PROGRAMS	src/Makefile	/^check_PROGRAMS = test$(EXEEXT)$/;"	m
+cleanData	src/Parser.cpp	/^void cleanData(const char * a, const char* b){$/;"	f
+cleanup	src/Window.cpp	/^void Window::cleanup(){$/;"	f	class:Window
+close	src/Semaphore.cpp	/^void Semaphore::close(){$/;"	f	class:Semaphore
+col	include/Point.h	/^	int col;$/;"	m	class:Point
+col	include/Window.h	/^	int row, col, width, height;$/;"	m	class:Window
+colValue	src/Parser.cpp	/^			rowValue ,colValue ,speedValue ,powerValue ,dirValue,$/;"	m	struct:my_grammar::definition	file:
+command	include/Message.h	/^	int command;$/;"	m	class:Message
+command	src/Parser.cpp	/^			elements, statusValue, command, semaphoreSettings,$/;"	m	struct:my_grammar::definition	file:
+commander	include/CommanderView.h	/^	Commander * commander;$/;"	m	class:CommanderView
+commander	include/Game.h	/^	Commander     commander;$/;"	m	class:Game
+consumeImpulse	src/RailVehicle.cpp	/^void RailVehicle::consumeImpulse(){$/;"	f	class:RailVehicle
+crash	src/Train.cpp	/^int Train::crash(RailVehicle * crashed, int impulse, Dir d){$/;"	f	class:Train
+d	src/Parser.cpp	/^ParserData d;$/;"	v
+d	src/Test.cpp	/^	Dir * d;$/;"	m	class:TestSuite1	file:
+datadir	Makefile	/^datadir = ${datarootdir}$/;"	m
+datadir	include/Makefile	/^datadir = ${datarootdir}$/;"	m
+datadir	src/Makefile	/^datadir = ${datarootdir}$/;"	m
+datarootdir	Makefile	/^datarootdir = ${prefix}\/share$/;"	m
+datarootdir	include/Makefile	/^datarootdir = ${prefix}\/share$/;"	m
+datarootdir	src/Makefile	/^datarootdir = ${prefix}\/share$/;"	m
+decImpulseGenerated	src/RailVehicle.cpp	/^void RailVehicle::decImpulseGenerated(int n){$/;"	f	class:RailVehicle
+decImpulseGenerated	src/Train.cpp	/^void Train::decImpulseGenerated(){$/;"	f	class:Train
+decPower	src/Locomotive.cpp	/^void Locomotive::decPower(int dec){$/;"	f	class:Locomotive
+deccelerateTrain	src/Commander.cpp	/^void Commander::deccelerateTrain(){$/;"	f	class:Commander
+definition	src/Parser.cpp	/^		definition(my_grammar const& self) {$/;"	f	struct:my_grammar::definition
+definition	src/Parser.cpp	/^	struct definition {$/;"	s	struct:my_grammar	file:
+deleteLocomotive	src/Parser.cpp	/^void deleteLocomotive(int t){$/;"	f
+deleteWagon	src/Parser.cpp	/^void deleteWagon(int t){$/;"	f
+deleting	src/Parser.cpp	/^			adding ,setting, showing, deleting, multishowing,$/;"	m	struct:my_grammar::definition	file:
+depcomp	src/Makefile	/^depcomp = $(SHELL) $(top_srcdir)\/depcomp$/;"	m
+dir	include/TrainIterator.h	/^	Dir dir;$/;"	m	class:TrainIterator
+dir	include/Vehicle.h	/^	Dir dir;$/;"	m	class:Vehicle
+dirEnv	include/Rail.h	/^	DirEnv        dirEnv;$/;"	m	class:Rail
+dirValue	src/Parser.cpp	/^			rowValue ,colValue ,speedValue ,powerValue ,dirValue,$/;"	m	struct:my_grammar::definition	file:
+dirs	include/DirEnv.h	/^	array<Dir,Dir::NUM_DIRS>dirs;$/;"	m	class:DirEnv
+distcleancheck_listfiles	Makefile	/^distcleancheck_listfiles = find . -type f -print$/;"	m
+distdir	Makefile	/^distdir = $(PACKAGE)-$(VERSION)$/;"	m
+distuninstallcheck_listfiles	Makefile	/^distuninstallcheck_listfiles = find . -type f -print$/;"	m
+doAction	src/Commander.cpp	/^void Commander::doAction(char key){$/;"	f	class:Commander
+docdir	Makefile	/^docdir = ${datarootdir}\/doc\/${PACKAGE_TARNAME}$/;"	m
+docdir	include/Makefile	/^docdir = ${datarootdir}\/doc\/${PACKAGE_TARNAME}$/;"	m
+docdir	src/Makefile	/^docdir = ${datarootdir}\/doc\/${PACKAGE_TARNAME}$/;"	m
+dvidir	Makefile	/^dvidir = ${docdir}$/;"	m
+dvidir	include/Makefile	/^dvidir = ${docdir}$/;"	m
+dvidir	src/Makefile	/^dvidir = ${docdir}$/;"	m
+edit	src/ProgramEditor.cpp	/^void ProgramEditor::edit(){$/;"	f	class:ProgramEditor
+element	src/Parser.cpp	/^			element, range, rangeList, sensorSettings,$/;"	m	struct:my_grammar::definition	file:
+elements	src/Parser.cpp	/^			elements, statusValue, command, semaphoreSettings,$/;"	m	struct:my_grammar::definition	file:
+enter	src/Rail.cpp	/^void Rail::enter(RailVehicle* v){$/;"	f	class:Rail
+env	include/ForkDirSelector.h	/^	DirEnv * env;$/;"	m	class:ForkDirSelector
+env	include/StraightAspect.h	/^	DirEnv * env;$/;"	m	class:StraightAspect
+env	src/Test.cpp	/^	DirEnv *env, *env1, *env2;$/;"	m	class:TestSuite1	file:
+env1	src/Test.cpp	/^	DirEnv *env, *env1, *env2;$/;"	m	class:TestSuite1	file:
+env2	src/Test.cpp	/^	DirEnv *env, *env1, *env2;$/;"	m	class:TestSuite1	file:
+erase	src/Commander.cpp	/^void Commander::erase(){$/;"	f	class:Commander
+erase	src/CommanderView.cpp	/^void CommanderView::erase(){$/;"	f	class:CommanderView
+erase	src/Finder.cpp	/^void Finder::erase(Window * g){$/;"	f	class:Finder
+erase	src/Locomotive.cpp	/^void Locomotive::erase(Window * g){$/;"	f	class:Locomotive
+erase	src/Rail.cpp	/^void Rail::erase(Window * g){$/;"	f	class:Rail
+erase	src/RailMap.cpp	/^void RailMap::erase(Window * g){$/;"	f	class:RailMap
+erase	src/RailPen.cpp	/^void RailPen::erase(Window * g){$/;"	f	class:RailPen
+erase	src/Semaphore.cpp	/^void Semaphore::erase(Window * g){$/;"	f	class:Semaphore
+erase	src/Sensor.cpp	/^void Sensor::erase(Window * window){$/;"	f	class:Sensor
+erase	src/Sim.cpp	/^void Sim::erase(){$/;"	f	class:Sim
+erase	src/SimView.cpp	/^void SimView::erase(){$/;"	f	class:SimView
+erase	src/Wagon.cpp	/^void Wagon::erase(Window * g){$/;"	f	class:Wagon
+erase	src/Window.cpp	/^void Window::erase(void){$/;"	f	class:Window
+eventProgram	src/Parser.cpp	/^	EventProgram * eventProgram;$/;"	m	struct:ParserData	file:
+eventPrograms	include/Sim.h	/^	CPrograms    eventPrograms;$/;"	m	class:Sim
+exec_prefix	Makefile	/^exec_prefix = ${prefix}$/;"	m
+exec_prefix	include/Makefile	/^exec_prefix = ${prefix}$/;"	m
+exec_prefix	src/Makefile	/^exec_prefix = ${prefix}$/;"	m
+fgColor	include/Window.h	/^	int fgColor, bgColor;$/;"	m	class:Window
+filter	include/EventProgram.h	/^	Filter * filter;$/;"	m	class:EventProgram
+filter	src/Parser.cpp	/^	Filter * filter;$/;"	m	struct:ParserData	file:
+fin	src/Letrain.cpp	/^void fin(int n){$/;"	f
+finder	include/Sim.h	/^	Finder  * finder;$/;"	m	class:Sim
+finder	include/TrainIterator.h	/^	Finder* finder;$/;"	m	class:TrainIterator
+finderAddSensor	src/Commander.cpp	/^void Commander::finderAddSensor(){$/;"	f	class:Commander
+finderAddTrain	src/Commander.cpp	/^void Commander::finderAddTrain(){$/;"	f	class:Commander
+finderAddWagon	src/Commander.cpp	/^void Commander::finderAddWagon(){$/;"	f	class:Commander
+finderDecFork	src/Commander.cpp	/^void Commander::finderDecFork(){$/;"	f	class:Commander
+finderDeleteVehicle	src/Commander.cpp	/^void Commander::finderDeleteVehicle(){$/;"	f	class:Commander
+finderForward	src/Commander.cpp	/^void Commander::finderForward(){$/;"	f	class:Commander
+finderIncFork	src/Commander.cpp	/^void Commander::finderIncFork(){$/;"	f	class:Commander
+finderReverse	src/Commander.cpp	/^void Commander::finderReverse(){$/;"	f	class:Commander
+followVehicle	src/Sim.cpp	/^void Sim::followVehicle(Vehicle * v){$/;"	f	class:Sim
+followVehicle	src/SimView.cpp	/^void SimView::followVehicle(Vehicle * v){$/;"	f	class:SimView
+forkAspect	include/ForkRail.h	/^	ForkAspect * forkAspect;$/;"	m	class:ForkRail
+forks	include/Sim.h	/^	CForks       forks;$/;"	m	class:Sim
+forward	src/Finder.cpp	/^bool Finder::forward(int distance){$/;"	f	class:Finder
+forward	src/RailPen.cpp	/^bool RailPen::forward(int distance){$/;"	f	class:RailPen
+friction	include/RailVehicle.h	/^	float friction;$/;"	m	class:RailVehicle
+game	include/Commander.h	/^	Game * game;$/;"	m	class:Commander
+game	include/ProgramEditor.h	/^	Game * game;$/;"	m	class:ProgramEditor
+game	src/Parser.cpp	/^	Game * game;$/;"	m	struct:ParserData	file:
+generateImpulse	src/RailVehicle.cpp	/^void RailVehicle::generateImpulse(){$/;"	f	class:RailVehicle
+get	include/Sim.h	/^	T get(int i){$/;"	f	class:IntMap
+getAction	src/Commander.cpp	/^Action Commander::getAction(int mode, char key){$/;"	f	class:Commander
+getAnyPath	src/DirEnv.cpp	/^Dir DirEnv::getAnyPath(){$/;"	f	class:DirEnv
+getAnyPath	src/Rail.cpp	/^Dir Rail::getAnyPath(){$/;"	f	class:Rail
+getAspect	src/Rail.cpp	/^Aspect * Rail::getAspect(){$/;"	f	class:Rail
+getAspect	src/Vehicle.cpp	/^Aspect * Vehicle::getAspect(){$/;"	f	class:Vehicle
+getAspectChar	src/Aspect.cpp	/^char Aspect::getAspectChar(){$/;"	f	class:Aspect
+getAspectChar	src/CrossAspect.cpp	/^char CrossAspect::getAspectChar(){$/;"	f	class:CrossAspect
+getAspectChar	src/CurveAspect.cpp	/^char CurveAspect::getAspectChar(){$/;"	f	class:CurveAspect
+getAspectChar	src/Dir.cpp	/^char Dir::getAspectChar()const{$/;"	f	class:Dir
+getAspectChar	src/FinderAspect.cpp	/^char FinderAspect::getAspectChar(){$/;"	f	class:FinderAspect
+getAspectChar	src/LocomotiveAspect.cpp	/^char LocomotiveAspect::getAspectChar(){$/;"	f	class:LocomotiveAspect
+getAspectChar	src/StraightAspect.cpp	/^char StraightAspect::getAspectChar(){$/;"	f	class:StraightAspect
+getAspectChar	src/WagonAspect.cpp	/^char WagonAspect::getAspectChar(){$/;"	f	class:WagonAspect
+getAutoMove	src/Commander.cpp	/^bool Commander::getAutoMove(){$/;"	f	class:Commander
+getBgColor	src/CrossAspect.cpp	/^int CrossAspect::getBgColor(){$/;"	f	class:CrossAspect
+getBgColor	src/CurveAspect.cpp	/^int CurveAspect::getBgColor(){$/;"	f	class:CurveAspect
+getBgColor	src/FinderAspect.cpp	/^int FinderAspect::getBgColor(){$/;"	f	class:FinderAspect
+getBgColor	src/ForkAspect.cpp	/^int ForkAspect::getBgColor(){$/;"	f	class:ForkAspect
+getBgColor	src/LocomotiveAspect.cpp	/^int LocomotiveAspect::getBgColor(){$/;"	f	class:LocomotiveAspect
+getBgColor	src/StraightAspect.cpp	/^int StraightAspect::getBgColor(){$/;"	f	class:StraightAspect
+getBgColor	src/WagonAspect.cpp	/^int WagonAspect::getBgColor(){$/;"	f	class:WagonAspect
+getBrakes	src/RailVehicle.cpp	/^int RailVehicle::getBrakes(){$/;"	f	class:RailVehicle
+getByName	src/Dir.cpp	/^int Dir::getByName(const char * s) {$/;"	f	class:Dir
+getCommand	src/Message.cpp	/^int Message::getCommand(){$/;"	f	class:Message
+getDir	src/DirEnv.cpp	/^Dir DirEnv::getDir(Dir dir){$/;"	f	class:DirEnv
+getDir	src/Finder.cpp	/^Dir Finder::getDir(){$/;"	f	class:Finder
+getDir	src/Rail.cpp	/^Dir Rail::getDir(Dir dir){$/;"	f	class:Rail
+getDir	src/StraightAspect.cpp	/^Dir StraightAspect::getDir(DirEnv * env){$/;"	f	class:StraightAspect
+getDir	src/Vehicle.cpp	/^Dir Vehicle::getDir()const{$/;"	f	class:Vehicle
+getDirFromFirst	src/Train.cpp	/^Dir Train::getDirFromFirst(){$/;"	f	class:Train
+getDirFromLast	src/Train.cpp	/^Dir Train::getDirFromLast(){$/;"	f	class:Train
+getEnv	src/Rail.cpp	/^DirEnv Rail::getEnv(){$/;"	f	class:Rail
+getEventProgram	src/Sim.cpp	/^EventProgram * Sim::getEventProgram(int id){$/;"	f	class:Sim
+getEventPrograms	src/Sim.cpp	/^Sim::CPrograms * Sim::getEventPrograms(){$/;"	f	class:Sim
+getFgColor	src/CrossAspect.cpp	/^int CrossAspect::getFgColor(){$/;"	f	class:CrossAspect
+getFgColor	src/CurveAspect.cpp	/^int CurveAspect::getFgColor(){$/;"	f	class:CurveAspect
+getFgColor	src/FinderAspect.cpp	/^int FinderAspect::getFgColor(){$/;"	f	class:FinderAspect
+getFgColor	src/ForkAspect.cpp	/^int ForkAspect::getFgColor(){$/;"	f	class:ForkAspect
+getFgColor	src/LocomotiveAspect.cpp	/^int LocomotiveAspect::getFgColor(){$/;"	f	class:LocomotiveAspect
+getFgColor	src/StraightAspect.cpp	/^int StraightAspect::getFgColor(){$/;"	f	class:StraightAspect
+getFgColor	src/WagonAspect.cpp	/^int WagonAspect::getFgColor(){$/;"	f	class:WagonAspect
+getFilter	src/EventProgram.cpp	/^Filter * EventProgram::getFilter(){$/;"	f	class:EventProgram
+getFinder	src/Sim.cpp	/^Finder * Sim::getFinder(){$/;"	f	class:Sim
+getFork	src/Sim.cpp	/^ForkRail * Sim::getFork(int id){$/;"	f	class:Sim
+getHeight	src/Window.cpp	/^int Window::getHeight(){$/;"	f	class:Window
+getHour	src/Event.cpp	/^int Event::getHour(){$/;"	f	class:Event
+getHour	src/Filter.cpp	/^Range* Filter::getHour(){$/;"	f	class:Filter
+getId	src/Locomotive.cpp	/^int Locomotive::getId(){$/;"	f	class:Locomotive
+getId	src/Semaphore.cpp	/^int Semaphore::getId(){$/;"	f	class:Semaphore
+getId	src/Sensor.cpp	/^int Sensor::getId(){$/;"	f	class:Sensor
+getImpulse	src/RailVehicle.cpp	/^int RailVehicle::getImpulse(){$/;"	f	class:RailVehicle
+getKey	src/Window.cpp	/^int Window::getKey(){$/;"	f	class:Window
+getLastDir	src/RailPen.cpp	/^Dir RailPen::getLastDir(){$/;"	f	class:RailPen
+getLinkedRailAt	src/Rail.cpp	/^Rail * Rail::getLinkedRailAt(Dir dir){$/;"	f	class:Rail
+getLocomotive	src/Parser.cpp	/^void getLocomotive(int n){$/;"	f
+getLocomotive	src/Sim.cpp	/^Locomotive * Sim::getLocomotive(int n){$/;"	f	class:Sim
+getLocomotiveDir	src/Event.cpp	/^int Event::getLocomotiveDir(){$/;"	f	class:Event
+getLocomotiveDir	src/Filter.cpp	/^Range* Filter::getLocomotiveDir(){$/;"	f	class:Filter
+getLocomotiveId	src/Event.cpp	/^int Event::getLocomotiveId(){$/;"	f	class:Event
+getLocomotiveId	src/Filter.cpp	/^Range* Filter::getLocomotiveId(){$/;"	f	class:Filter
+getLocomotiveSpeed	src/Event.cpp	/^int Event::getLocomotiveSpeed(){$/;"	f	class:Event
+getLocomotiveSpeed	src/Filter.cpp	/^Range* Filter::getLocomotiveSpeed(){$/;"	f	class:Filter
+getLocomotives	src/Sim.cpp	/^Sim::CLocomotives * Sim::getLocomotives(){$/;"	f	class:Sim
+getMass	src/RailVehicle.cpp	/^int RailVehicle::getMass(){$/;"	f	class:RailVehicle
+getMessages	src/EventProgram.cpp	/^EventProgram::CMessages * EventProgram::getMessages(){$/;"	f	class:EventProgram
+getMinute	src/Event.cpp	/^int Event::getMinute(){$/;"	f	class:Event
+getMinute	src/Filter.cpp	/^Range* Filter::getMinute(){$/;"	f	class:Filter
+getMode	src/Commander.cpp	/^Commander::CommandMode Commander::getMode(){$/;"	f	class:Commander
+getMode	src/RailPen.cpp	/^RailPen::RailPenMode RailPen::getMode(){$/;"	f	class:RailPen
+getModeName	src/Commander.cpp	/^const char * Commander::getModeName(int mode){$/;"	f	class:Commander
+getName	src/Dir.cpp	/^const char * Dir::getName() const{$/;"	f	class:Dir
+getName	src/Dir.cpp	/^const char * Dir::getName(int value) {$/;"	f	class:Dir
+getNumDirs	src/DirEnv.cpp	/^int DirEnv::getNumDirs(){$/;"	f	class:DirEnv
+getPath	src/DirEnv.cpp	/^Dir DirEnv::getPath(Dir dir){$/;"	f	class:DirEnv
+getPath	src/ForkDirSelector.cpp	/^Dir ForkDirSelector::getPath(Dir dir){$/;"	f	class:ForkDirSelector
+getPath	src/ForkRail.cpp	/^Dir ForkRail::getPath(Dir dir){$/;"	f	class:ForkRail
+getPath	src/Rail.cpp	/^Dir Rail::getPath(Dir dir){$/;"	f	class:Rail
+getPos	src/Rail.cpp	/^Point Rail::getPos(){$/;"	f	class:Rail
+getPos	src/Semaphore.cpp	/^Point Semaphore::getPos(){$/;"	f	class:Semaphore
+getPos	src/Sensor.cpp	/^Point Sensor::getPos(){$/;"	f	class:Sensor
+getPos	src/SimView.cpp	/^Point SimView::getPos(){$/;"	f	class:SimView
+getPos	src/Vehicle.cpp	/^Point  Vehicle::getPos()const{$/;"	f	class:Vehicle
+getPower	src/Locomotive.cpp	/^int Locomotive::getPower(){$/;"	f	class:Locomotive
+getRail	src/Finder.cpp	/^Rail * Finder::getRail(){$/;"	f	class:Finder
+getRail	src/RailEnv.cpp	/^Rail * RailEnv::getRail(Dir dir){$/;"	f	class:RailEnv
+getRail	src/RailVehicle.cpp	/^Rail* RailVehicle::getRail(){$/;"	f	class:RailVehicle
+getRail	src/Sensor.cpp	/^Rail * Sensor::getRail(){$/;"	f	class:Sensor
+getRailAt	src/RailMap.cpp	/^Rail * RailMap::getRailAt(int row, int col){$/;"	f	class:RailMap
+getRailVehicle	src/Rail.cpp	/^RailVehicle * Rail::getRailVehicle(){$/;"	f	class:Rail
+getScreenCols	src/Window.cpp	/^int Window::getScreenCols(){$/;"	f	class:Window
+getScreenRows	src/Window.cpp	/^int Window::getScreenRows(){$/;"	f	class:Window
+getSecond	src/Event.cpp	/^int Event::getSecond(){$/;"	f	class:Event
+getSecond	src/Filter.cpp	/^Range* Filter::getSecond(){$/;"	f	class:Filter
+getSelected	include/Sim.h	/^	T getSelected(){$/;"	f	class:IntMap
+getSelectedDir	src/ForkDirSelector.cpp	/^Dir ForkDirSelector::getSelectedDir(){$/;"	f	class:ForkDirSelector
+getSelectedDir	src/ForkRail.cpp	/^Dir ForkRail::getSelectedDir(){$/;"	f	class:ForkRail
+getSelectedTrain	src/Sim.cpp	/^Train * Sim::getSelectedTrain(){$/;"	f	class:Sim
+getSemaphore	src/Parser.cpp	/^void getSemaphore(int n){$/;"	f
+getSemaphore	src/Sim.cpp	/^Semaphore * Sim::getSemaphore(int id){$/;"	f	class:Sim
+getSemaphores	src/Sim.cpp	/^Sim::CSemaphores * Sim::getSemaphores(){$/;"	f	class:Sim
+getSensor	src/Sim.cpp	/^Sensor * Sim::getSensor(int id){$/;"	f	class:Sim
+getSensorId	src/Event.cpp	/^int Event::getSensorId(){$/;"	f	class:Event
+getSensorId	src/Filter.cpp	/^Range * Filter::getSensorId(){$/;"	f	class:Filter
+getSensors	src/Sim.cpp	/^Sim::CSensors * Sim::getSensors(){$/;"	f	class:Sim
+getSpeed	src/RailVehicle.cpp	/^int RailVehicle::getSpeed(){$/;"	f	class:RailVehicle
+getSpeed	src/Train.cpp	/^int Train::getSpeed(){$/;"	f	class:Train
+getTarget	src/Message.cpp	/^int Message::getTarget(){$/;"	f	class:Message
+getTotalMass	src/Train.cpp	/^int Train::getTotalMass(){$/;"	f	class:Train
+getTrain	src/RailVehicle.cpp	/^Train * RailVehicle::getTrain(){$/;"	f	class:RailVehicle
+getTrain	src/Sim.cpp	/^Train * Sim::getTrain(int id){$/;"	f	class:Sim
+getTrains	src/Sim.cpp	/^Sim::CTrains* Sim::getTrains(){$/;"	f	class:Sim
+getValue	src/Dir.cpp	/^int Dir::getValue() const{$/;"	f	class:Dir
+getValue	src/Message.cpp	/^int Message::getValue(){$/;"	f	class:Message
+getVehicleLinkedAt	src/Link.cpp	/^RailVehicle * Link::getVehicleLinkedAt(int numLink){$/;"	f	class:Link
+getVehicleLinkedAt	src/RailVehicle.cpp	/^RailVehicle * RailVehicle::getVehicleLinkedAt(int numLink){$/;"	f	class:RailVehicle
+getVehicleLinkedWith	src/Link.cpp	/^RailVehicle * Link::getVehicleLinkedWith(RailVehicle * one, RailVehicle * other){$/;"	f	class:Link
+getVehicleLinkedWith	src/RailVehicle.cpp	/^RailVehicle * RailVehicle::getVehicleLinkedWith(RailVehicle * r){$/;"	f	class:RailVehicle
+getWagon	src/Parser.cpp	/^void getWagon(int n){$/;"	f
+getWagon	src/Sim.cpp	/^Wagon * Sim::getWagon(int id){$/;"	f	class:Sim
+getWagons	src/Sim.cpp	/^Sim::CWagons * Sim::getWagons(){$/;"	f	class:Sim
+getWidth	src/Window.cpp	/^int Window::getWidth(){$/;"	f	class:Window
+getWindow	src/ProgramEditor.cpp	/^TerminalWindow * ProgramEditor::getWindow(){$/;"	f	class:ProgramEditor
+gotoRail	src/Finder.cpp	/^void Finder::gotoRail(Rail * r){$/;"	f	class:Finder
+gotoRail	src/RailVehicle.cpp	/^bool RailVehicle::gotoRail(Rail * r){$/;"	f	class:RailVehicle
+gtConditions	include/Range.h	/^	vector<int>  gtConditions;$/;"	m	class:Range
+hShift	include/Window.h	/^	int hShift, vShift;$/;"	m	class:Window
+hasNext	src/TrainIterator.cpp	/^int TrainIterator::hasNext(){$/;"	f	class:TrainIterator
+height	include/Window.h	/^	int row, col, width, height;$/;"	m	class:Window
+host_alias	Makefile	/^host_alias = $/;"	m
+host_alias	include/Makefile	/^host_alias = $/;"	m
+host_alias	src/Makefile	/^host_alias = $/;"	m
+hour	include/Event.h	/^	int hour;$/;"	m	class:Event
+hour	include/Filter.h	/^	Range * hour;$/;"	m	class:Filter
+htmldir	Makefile	/^htmldir = ${docdir}$/;"	m
+htmldir	include/Makefile	/^htmldir = ${docdir}$/;"	m
+htmldir	src/Makefile	/^htmldir = ${docdir}$/;"	m
+id	include/Locomotive.h	/^	int id;$/;"	m	class:Locomotive
+id	include/Semaphore.h	/^	int id;$/;"	m	class:Semaphore
+id	include/Sensor.h	/^	int id;$/;"	m	class:Sensor
+impulse	include/RailVehicle.h	/^	int impulse;$/;"	m	class:RailVehicle
+impulseGenerated	include/RailVehicle.h	/^	int impulseGenerated;$/;"	m	class:RailVehicle
+in	include/ForkDirSelector.h	/^	Dir in;	$/;"	m	class:ForkDirSelector
+incImpulseGenerated	src/RailVehicle.cpp	/^void RailVehicle::incImpulseGenerated(int n){$/;"	f	class:RailVehicle
+incImpulseGenerated	src/Train.cpp	/^void Train::incImpulseGenerated(){$/;"	f	class:Train
+incPower	src/Locomotive.cpp	/^void Locomotive::incPower(int inc){$/;"	f	class:Locomotive
+includedir	Makefile	/^includedir = ${prefix}\/include$/;"	m
+includedir	include/Makefile	/^includedir = ${prefix}\/include$/;"	m
+includedir	src/Makefile	/^includedir = ${prefix}\/include$/;"	m
+infodir	Makefile	/^infodir = ${datarootdir}\/info$/;"	m
+infodir	include/Makefile	/^infodir = ${datarootdir}\/info$/;"	m
+infodir	src/Makefile	/^infodir = ${datarootdir}\/info$/;"	m
+install_sh	Makefile	/^install_sh = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/install-sh$/;"	m
+install_sh	include/Makefile	/^install_sh = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/install-sh$/;"	m
+install_sh	src/Makefile	/^install_sh = ${SHELL} \/home\/to\/archivo\/lab\/proyectos\/c\/letrain\/letrain-5.0\/install-sh$/;"	m
+install_sh_DATA	Makefile	/^install_sh_DATA = $(install_sh) -c -m 644$/;"	m
+install_sh_DATA	include/Makefile	/^install_sh_DATA = $(install_sh) -c -m 644$/;"	m
+install_sh_DATA	src/Makefile	/^install_sh_DATA = $(install_sh) -c -m 644$/;"	m
+install_sh_PROGRAM	Makefile	/^install_sh_PROGRAM = $(install_sh) -c$/;"	m
+install_sh_PROGRAM	include/Makefile	/^install_sh_PROGRAM = $(install_sh) -c$/;"	m
+install_sh_PROGRAM	src/Makefile	/^install_sh_PROGRAM = $(install_sh) -c$/;"	m
+install_sh_SCRIPT	Makefile	/^install_sh_SCRIPT = $(install_sh) -c$/;"	m
+install_sh_SCRIPT	include/Makefile	/^install_sh_SCRIPT = $(install_sh) -c$/;"	m
+install_sh_SCRIPT	src/Makefile	/^install_sh_SCRIPT = $(install_sh) -c$/;"	m
+interLink	src/RailVehicle.cpp	/^bool RailVehicle::interLink(RailVehicle * b){$/;"	f	class:RailVehicle
+invert	src/Train.cpp	/^void Train::invert(){$/;"	f	class:Train
+isArmed	src/Sensor.cpp	/^bool Sensor::isArmed(){$/;"	f	class:Sensor
+isCross	src/DirEnv.cpp	/^bool DirEnv::isCross(){$/;"	f	class:DirEnv
+isCurve	src/Dir.cpp	/^bool Dir::isCurve(Dir d){$/;"	f	class:Dir
+isCurve	src/DirEnv.cpp	/^bool DirEnv::isCurve(){$/;"	f	class:DirEnv
+isEmpty	src/Finder.cpp	/^bool Finder::isEmpty(){$/;"	f	class:Finder
+isEmpty	src/Link.cpp	/^bool Link::isEmpty(){$/;"	f	class:Link
+isFork	src/DirEnv.cpp	/^bool DirEnv::isFork(){$/;"	f	class:DirEnv
+isFull	src/Link.cpp	/^bool Link::isFull(){$/;"	f	class:Link
+isLinked	src/Link.cpp	/^bool Link::isLinked(RailVehicle * r){$/;"	f	class:Link
+isLinked	src/RailVehicle.cpp	/^int RailVehicle::isLinked(RailVehicle *b){$/;"	f	class:RailVehicle
+isMoved	src/RailVehicle.cpp	/^bool RailVehicle::isMoved(){$/;"	f	class:RailVehicle
+isOpen	src/Semaphore.cpp	/^bool Semaphore::isOpen(){$/;"	f	class:Semaphore
+isSelected	src/RailVehicle.cpp	/^bool RailVehicle::isSelected(){$/;"	f	class:RailVehicle
+isSelected	src/Train.cpp	/^bool Train::isSelected(){$/;"	f	class:Train
+isStraight	src/Dir.cpp	/^bool Dir::isStraight(Dir d){$/;"	f	class:Dir
+isStraight	src/DirEnv.cpp	/^bool DirEnv::isStraight(){$/;"	f	class:DirEnv
+isValidAction	src/Commander.cpp	/^bool Commander::isValidAction(int mode, char key){$/;"	f	class:Commander
+key	include/Commander.h	/^	char key;$/;"	m	struct:Action
+lastDir	include/RailPen.h	/^	Dir lastDir;$/;"	m	class:RailPen
+letrain_LDADD	src/Makefile	/^letrain_LDADD = $(LDADD)$/;"	m
+letrain_LDFLAGS	src/Makefile	/^letrain_LDFLAGS = -lncurses -lpanel -llog4cplus $/;"	m
+letrain_LINK	src/Makefile	/^letrain_LINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(letrain_LDFLAGS) \\$/;"	m
+letrain_OBJECTS	src/Makefile	/^letrain_OBJECTS = $(am_letrain_OBJECTS)$/;"	m
+letrain_SOURCES	src/Makefile	/^letrain_SOURCES = $(ALL_SRCS) Letrain.cpp$/;"	m
+libdir	Makefile	/^libdir = ${exec_prefix}\/lib$/;"	m
+libdir	include/Makefile	/^libdir = ${exec_prefix}\/lib$/;"	m
+libdir	src/Makefile	/^libdir = ${exec_prefix}\/lib$/;"	m
+libexecdir	Makefile	/^libexecdir = ${exec_prefix}\/libexec$/;"	m
+libexecdir	include/Makefile	/^libexecdir = ${exec_prefix}\/libexec$/;"	m
+libexecdir	src/Makefile	/^libexecdir = ${exec_prefix}\/libexec$/;"	m
+link	src/Link.cpp	/^bool Link::link(RailVehicle * r){$/;"	f	class:Link
+link	src/RailVehicle.cpp	/^bool RailVehicle::link(RailVehicle * b){$/;"	f	class:RailVehicle
+link	src/Train.cpp	/^Train * Train::link(){$/;"	f	class:Train
+linkRailAt	src/Rail.cpp	/^void Rail::linkRailAt(Dir dir, Rail * rail){$/;"	f	class:Rail
+linkTrain	src/Commander.cpp	/^void Commander::linkTrain(){$/;"	f	class:Commander
+linkValue	src/Parser.cpp	/^			wagonSettings, locomotiveSettings, linkValue ,unlinkValue,$/;"	m	struct:my_grammar::definition	file:
+linker	include/RailVehicle.h	/^	Link linker;$/;"	m	class:RailVehicle
+links	include/Link.h	/^	array<RailVehicle *, 2>links;$/;"	m	class:Link
+links	include/RailEnv.h	/^	array<Rail *,Dir::NUM_DIRS> links;$/;"	m	class:RailEnv
+localedir	Makefile	/^localedir = ${datarootdir}\/locale$/;"	m
+localedir	include/Makefile	/^localedir = ${datarootdir}\/locale$/;"	m
+localedir	src/Makefile	/^localedir = ${datarootdir}\/locale$/;"	m
+localstatedir	Makefile	/^localstatedir = ${prefix}\/var$/;"	m
+localstatedir	include/Makefile	/^localstatedir = ${prefix}\/var$/;"	m
+localstatedir	src/Makefile	/^localstatedir = ${prefix}\/var$/;"	m
+locate	src/Point.cpp	/^Dir Point::locate (Point p){$/;"	f	class:Point
+locomotive	src/Parser.cpp	/^	Locomotive * locomotive;$/;"	m	struct:ParserData	file:
+locomotiveDir	include/Event.h	/^	int locomotiveDir;$/;"	m	class:Event
+locomotiveDir	include/Filter.h	/^	Range * locomotiveDir;$/;"	m	class:Filter
+locomotiveId	include/Event.h	/^	int locomotiveId;$/;"	m	class:Event
+locomotiveId	include/Filter.h	/^	Range * locomotiveId;$/;"	m	class:Filter
+locomotiveSettings	src/Parser.cpp	/^			wagonSettings, locomotiveSettings, linkValue ,unlinkValue,$/;"	m	struct:my_grammar::definition	file:
+locomotiveSpeed	include/Event.h	/^	int locomotiveSpeed;$/;"	m	class:Event
+locomotiveSpeed	include/Filter.h	/^	Range * locomotiveSpeed;$/;"	m	class:Filter
+locomotives	include/Sim.h	/^	CLocomotives locomotives;$/;"	m	class:Sim
+locomotives	include/Train.h	/^	list <Locomotive*> locomotives;$/;"	m	class:Train
+log	include/Commander.h	/^	static Logger log;$/;"	m	class:Commander
+log	include/CommanderView.h	/^	static Logger log;$/;"	m	class:CommanderView
+log	include/CrossAspect.h	/^	static Logger log;$/;"	m	class:CrossAspect
+log	include/CrossRail.h	/^	static Logger log;$/;"	m	class:CrossRail
+log	include/CurveAspect.h	/^	static Logger log;$/;"	m	class:CurveAspect
+log	include/CurveRail.h	/^	static Logger log;$/;"	m	class:CurveRail
+log	include/Dir.h	/^	static Logger log;$/;"	m	class:Dir
+log	include/DirEnv.h	/^	static Logger log;$/;"	m	class:DirEnv
+log	include/EventProgram.h	/^	static Logger log;$/;"	m	class:EventProgram
+log	include/Filter.h	/^	static Logger log;$/;"	m	class:Filter
+log	include/Finder.h	/^	static Logger log;$/;"	m	class:Finder
+log	include/FinderAspect.h	/^	static Logger log;$/;"	m	class:FinderAspect
+log	include/ForkAspect.h	/^	static Logger log;$/;"	m	class:ForkAspect
+log	include/ForkDirSelector.h	/^	static Logger log;$/;"	m	class:ForkDirSelector
+log	include/ForkRail.h	/^	static Logger log;$/;"	m	class:ForkRail
+log	include/Game.h	/^	static Logger log;$/;"	m	class:Game
+log	include/Link.h	/^	static Logger log;$/;"	m	class:Link
+log	include/Locomotive.h	/^	static Logger log;$/;"	m	class:Locomotive
+log	include/LocomotiveAspect.h	/^	static Logger log;$/;"	m	class:LocomotiveAspect
+log	include/ProgramEditor.h	/^	static Logger log;$/;"	m	class:ProgramEditor
+log	include/Rail.h	/^	static Logger log;$/;"	m	class:Rail
+log	include/RailEnv.h	/^	static Logger log;$/;"	m	class:RailEnv
+log	include/RailMap.h	/^	static Logger log;$/;"	m	class:RailMap
+log	include/RailPen.h	/^	static Logger log;$/;"	m	class:RailPen
+log	include/RailVehicle.h	/^	static Logger log;$/;"	m	class:RailVehicle
+log	include/Range.h	/^	static Logger log;$/;"	m	class:Range
+log	include/Sensor.h	/^	static Logger log;$/;"	m	class:Sensor
+log	include/Sim.h	/^	static Logger log;$/;"	m	class:Sim
+log	include/SimView.h	/^	static Logger log;$/;"	m	class:SimView
+log	include/StraightAspect.h	/^	static Logger log;$/;"	m	class:StraightAspect
+log	include/StraightRail.h	/^	static Logger log;$/;"	m	class:StraightRail
+log	include/TerminalWindow.h	/^	static Logger log;$/;"	m	class:TerminalWindow
+log	include/Train.h	/^	static Logger log;$/;"	m	class:Train
+log	include/TrainIterator.h	/^	static Logger log;$/;"	m	class:TrainIterator
+log	include/Vehicle.h	/^	static Logger log;$/;"	m	class:Vehicle
+log	include/Wagon.h	/^	static Logger log;$/;"	m	class:Wagon
+log	include/WagonAspect.h	/^	static Logger log;$/;"	m	class:WagonAspect
+log	include/Window.h	/^	static Logger log;$/;"	m	class:Window
+log	src/Game.cpp	/^Logger Game::log = Logger::getInstance("Game");$/;"	m	class:Game	file:
+log	src/Parser.cpp	/^	static Logger log;$/;"	m	struct:ParserData	file:
+log	src/Parser.cpp	/^Logger ParserData::log= Logger::getInstance("ParserData");$/;"	m	class:ParserData	file:
+log	src/Test.cpp	/^	static Logger log;$/;"	m	class:TestSuite1	file:
+ltConditions	include/Range.h	/^	vector<int>  ltConditions;$/;"	m	class:Range
+main	src/Letrain.cpp	/^int main(){$/;"	f
+main	src/Test.cpp	/^int main() {$/;"	f
+makeNewRail	src/DirEnv.cpp	/^Rail * DirEnv::makeNewRail(){$/;"	f	class:DirEnv
+makeNewRail	src/RailPen.cpp	/^Rail * RailPen::makeNewRail(Rail * rail){$/;"	f	class:RailPen
+mandir	Makefile	/^mandir = ${datarootdir}\/man$/;"	m
+mandir	include/Makefile	/^mandir = ${datarootdir}\/man$/;"	m
+mandir	src/Makefile	/^mandir = ${datarootdir}\/man$/;"	m
+maps	include/Commander.h	/^	map< int,  ActionsMap>  maps;$/;"	m	class:Commander
+mass	include/RailVehicle.h	/^	int mass;$/;"	m	class:RailVehicle
+message	src/Parser.cpp	/^			message, settingMessage; $/;"	m	struct:my_grammar::definition	file:
+message	src/Parser.cpp	/^	Message * message;$/;"	m	struct:ParserData	file:
+messages	include/EventProgram.h	/^	CMessages messages;$/;"	m	class:EventProgram
+method	include/Commander.h	/^	Method method;$/;"	m	struct:Action
+minute	include/Event.h	/^	int minute;$/;"	m	class:Event
+minute	include/Filter.h	/^	Range * minute;$/;"	m	class:Filter
+mkdir_p	Makefile	/^mkdir_p = \/bin\/mkdir -p$/;"	m
+mkdir_p	include/Makefile	/^mkdir_p = \/bin\/mkdir -p$/;"	m
+mkdir_p	src/Makefile	/^mkdir_p = \/bin\/mkdir -p$/;"	m
+mkinstalldirs	Makefile	/^mkinstalldirs = $(install_sh) -d$/;"	m
+mkinstalldirs	include/Makefile	/^mkinstalldirs = $(install_sh) -d$/;"	m
+mkinstalldirs	src/Makefile	/^mkinstalldirs = $(install_sh) -d$/;"	m
+mode	include/Commander.h	/^	CommandMode mode;$/;"	m	class:Commander
+mode	include/Commander.h	/^	int mode;$/;"	m	struct:Action
+mode	include/RailPen.h	/^	RailPenMode mode;$/;"	m	class:RailPen
+mode	src/Parser.cpp	/^	RailPen::RailPenMode mode;$/;"	m	struct:SetBulldozerMode	file:
+modeValue	src/Parser.cpp	/^			my_rule, bulldozerSettings, moving, rotating, modeValue,$/;"	m	struct:my_grammar::definition	file:
+modes	include/Commander.h	/^	map< char, CommandMode> modes;$/;"	m	class:Commander
+move	src/Point.cpp	/^void Point::move(Dir dir, int distance){$/;"	f	class:Point
+move	src/RailPen.cpp	/^bool RailPen::move(int distance, Sim * sim){$/;"	f	class:RailPen
+move	src/Train.cpp	/^int Train::move(){$/;"	f	class:Train
+moveBulldozer	src/Parser.cpp	/^void moveBulldozer(int dist){$/;"	f
+moveTrains	src/Commander.cpp	/^void Commander::moveTrains(){$/;"	f	class:Commander
+moveTrains	src/Sim.cpp	/^void Sim::moveTrains(){$/;"	f	class:Sim
+moved	include/RailVehicle.h	/^	bool moved;$/;"	m	class:RailVehicle
+moved	include/Train.h	/^	bool moved;$/;"	m	class:Train
+moving	src/Parser.cpp	/^			my_rule, bulldozerSettings, moving, rotating, modeValue,$/;"	m	struct:my_grammar::definition	file:
+multishowing	src/Parser.cpp	/^			adding ,setting, showing, deleting, multishowing,$/;"	m	struct:my_grammar::definition	file:
+my_grammar	src/Parser.cpp	/^struct my_grammar : public grammar <my_grammar> {$/;"	s	file:
+my_rule	src/Parser.cpp	/^			my_rule, bulldozerSettings, moving, rotating, modeValue,$/;"	m	struct:my_grammar::definition	file:
+name	include/Commander.h	/^	string name;$/;"	m	struct:Action
+next	src/TrainIterator.cpp	/^RailVehicle*  TrainIterator::next(){$/;"	f	class:TrainIterator
+nextVehicle	include/TrainIterator.h	/^	RailVehicle*  nextVehicle;$/;"	m	class:TrainIterator
+numOuts	include/ForkDirSelector.h	/^	int numOuts;$/;"	m	class:ForkDirSelector
+numbers	include/Range.h	/^	vector<int>  numbers;$/;"	m	class:Range
+objectType	src/Parser.cpp	/^	int objectType;$/;"	m	struct:ParserData	file:
+objectType	src/Parser.cpp	/^	int objectType;$/;"	m	struct:SelectObject	file:
+oldincludedir	Makefile	/^oldincludedir = \/usr\/include$/;"	m
+oldincludedir	include/Makefile	/^oldincludedir = \/usr\/include$/;"	m
+oldincludedir	src/Makefile	/^oldincludedir = \/usr\/include$/;"	m
+onSetDriversMode	src/Commander.cpp	/^void Commander::onSetDriversMode(){$/;"	f	class:Commander
+onSetEventsMode	src/Commander.cpp	/^void Commander::onSetEventsMode(){$/;"	f	class:Commander
+onSetPointsMode	src/Commander.cpp	/^void Commander::onSetPointsMode(){$/;"	f	class:Commander
+onSetRailPenMode	src/Commander.cpp	/^void Commander::onSetRailPenMode(){$/;"	f	class:Commander
+onSetRailsMode	src/Commander.cpp	/^void Commander::onSetRailsMode(){$/;"	f	class:Commander
+onSetTrainsMode	src/Commander.cpp	/^void Commander::onSetTrainsMode(){$/;"	f	class:Commander
+open	src/Semaphore.cpp	/^void Semaphore::open(){$/;"	f	class:Semaphore
+openValue	include/Semaphore.h	/^	bool openValue;$/;"	m	class:Semaphore
+operator ()	src/Parser.cpp	/^	void operator()(const char * a, const char* b)const {$/;"	f	struct:SelectObject
+operator ()	src/Parser.cpp	/^	void operator()(const char * a, const char* b)const{$/;"	f	struct:CreateRange
+operator ()	src/Parser.cpp	/^	void operator()(const char * a, const char* b)const{$/;"	f	struct:SelectProperty
+operator ()	src/Parser.cpp	/^	void operator()(const char * a, const char* b)const{$/;"	f	struct:SetBulldozerMode
+operator ()	src/Parser.cpp	/^	void operator()(const char * a, const char* b)const{$/;"	f	struct:SetEventLocomotiveSpeedValue
+operator ()	src/Parser.cpp	/^	void operator()(const char * a, const char* b)const{$/;"	f	struct:SetPropertyValue
+operator ()	src/Parser.cpp	/^	void operator()(const char * a, const char* b)const{$/;"	f	struct:SetSensorLocomotiveSpeedValue
+operator ()	src/Parser.cpp	/^	void operator()(const char * a, const char* b)const{$/;"	f	struct:SetTargetForkDir
+operator ()	src/Parser.cpp	/^	void operator()(const char * a, const char* b)const{$/;"	f	struct:SetTargetLocomotiveSpeedValue
+operator ()	src/Parser.cpp	/^	void operator()(const char * a, const char* b)const{$/;"	f	struct:SetTargetSemaphoreStatus
+operator ()	src/Parser.cpp	/^	void operator()(const char* a, const char*b) const {$/;"	f	struct:SetBulldozerValue
+operator ()	src/Parser.cpp	/^	void operator()(const char* a, const char*b) const {$/;"	f	struct:SetLocomotiveValue
+operator ()	src/Parser.cpp	/^	void operator()(const char* a, const char*b) const {$/;"	f	struct:SetSemaphoreValue
+operator ()	src/Parser.cpp	/^	void operator()(const char* a, const char*b) const {$/;"	f	struct:SetSensorRail
+operator ()	src/Parser.cpp	/^	void operator()(const char* a, const char*b) const {$/;"	f	struct:SetSensorValue
+operator ()	src/Parser.cpp	/^	void operator()(const char* a, const char*b) const {$/;"	f	struct:SetWagonValue
+operator +	src/Dir.cpp	/^Dir Dir::operator+(Dir d){$/;"	f	class:Dir
+operator +	src/Dir.cpp	/^Dir Dir::operator+(int n){$/;"	f	class:Dir
+operator ++	src/Dir.cpp	/^Dir & Dir::operator++(){$/;"	f	class:Dir
+operator ++	src/Dir.cpp	/^Dir Dir::operator++(int ){$/;"	f	class:Dir
+operator ++	src/ForkRail.cpp	/^ForkRail & ForkRail::operator++(){$/;"	f	class:ForkRail
+operator +=	include/Sim.h	/^	void operator +=(T t){$/;"	f	class:IntMap
+operator +=	src/Dir.cpp	/^void Dir::operator+=(int d){$/;"	f	class:Dir
+operator -	src/Dir.cpp	/^Dir Dir::operator-(){$/;"	f	class:Dir
+operator -	src/Dir.cpp	/^int Dir::operator-(Dir d){$/;"	f	class:Dir
+operator --	src/Dir.cpp	/^Dir & Dir::operator--(){$/;"	f	class:Dir
+operator --	src/Dir.cpp	/^Dir Dir::operator--(int ){$/;"	f	class:Dir
+operator --	src/ForkRail.cpp	/^ForkRail & ForkRail::operator--(){$/;"	f	class:ForkRail
+operator <	src/Dir.cpp	/^bool Dir::operator<(Dir d){$/;"	f	class:Dir
+operator <<	src/Dir.cpp	/^ostream & operator << (ostream & o, Dir dir){$/;"	f
+operator <<	src/DirEnv.cpp	/^ostream & operator << (ostream & o, DirEnv & env){$/;"	f
+operator <<	src/ForkDirSelector.cpp	/^ostream & operator << (ostream & o, ForkDirSelector & selector){$/;"	f
+operator <<	src/ForkRail.cpp	/^ostream & operator << (ostream & o, ForkRail & rail){$/;"	f
+operator <<	src/Rail.cpp	/^ostream & operator << (ostream & o, Rail & rail){$/;"	f
+operator <<	src/RailEnv.cpp	/^ostream & operator << (ostream & o, RailEnv & railEnv){$/;"	f
+operator <<	src/RailPen.cpp	/^ostream & operator << (ostream & o, const RailPen & pen){$/;"	f
+operator <<	src/RailVehicle.cpp	/^ostream & operator << (ostream & o, RailVehicle & v){$/;"	f
+operator <<	src/Range.cpp	/^ostream & operator << (ostream & out, Range & r){$/;"	f
+operator <<	src/TerminalWindow.cpp	/^TerminalWindow & TerminalWindow::operator << (char c){$/;"	f	class:TerminalWindow
+operator <<	src/TerminalWindow.cpp	/^TerminalWindow & TerminalWindow::operator << (const char s[]){$/;"	f	class:TerminalWindow
+operator <<	src/TerminalWindow.cpp	/^TerminalWindow & TerminalWindow::operator << (const string & s){$/;"	f	class:TerminalWindow
+operator <<	src/TerminalWindow.cpp	/^TerminalWindow & TerminalWindow::operator << (int i){$/;"	f	class:TerminalWindow
+operator <<	src/Vehicle.cpp	/^ostream & operator << (ostream & o, Vehicle & v){$/;"	f
+operator <=	src/Dir.cpp	/^bool Dir::operator<=(Dir d){$/;"	f	class:Dir
+operator ==	src/Dir.cpp	/^bool Dir::operator==(Dir d){$/;"	f	class:Dir
+operator >>	src/TerminalWindow.cpp	/^TerminalWindow & TerminalWindow::operator >> (char & c){$/;"	f	class:TerminalWindow
+operator >>	src/TerminalWindow.cpp	/^TerminalWindow & TerminalWindow::operator >> (int & i){$/;"	f	class:TerminalWindow
+operator >>	src/TerminalWindow.cpp	/^TerminalWindow & TerminalWindow::operator >> (string & s){$/;"	f	class:TerminalWindow
+outs	include/ForkDirSelector.h	/^	array<Dir, 3> outs;$/;"	m	class:ForkDirSelector
+paint	src/Commander.cpp	/^void Commander::paint(){$/;"	f	class:Commander
+paint	src/CommanderView.cpp	/^void CommanderView::paint(){$/;"	f	class:CommanderView
+paint	src/Finder.cpp	/^void Finder::paint(Window * g){$/;"	f	class:Finder
+paint	src/Game.cpp	/^void Game::paint(){$/;"	f	class:Game
+paint	src/Locomotive.cpp	/^void Locomotive::paint(Window * g){$/;"	f	class:Locomotive
+paint	src/ProgramEditor.cpp	/^void ProgramEditor::paint(){$/;"	f	class:ProgramEditor
+paint	src/Rail.cpp	/^void Rail::paint(Window * g){$/;"	f	class:Rail
+paint	src/RailMap.cpp	/^void RailMap::paint(Window * g){$/;"	f	class:RailMap
+paint	src/RailPen.cpp	/^void RailPen::paint(Window * g){$/;"	f	class:RailPen
+paint	src/Semaphore.cpp	/^void Semaphore::paint(Window * g){$/;"	f	class:Semaphore
+paint	src/Sensor.cpp	/^void Sensor::paint(Window * window){$/;"	f	class:Sensor
+paint	src/Sim.cpp	/^void Sim::paint(){$/;"	f	class:Sim
+paint	src/SimView.cpp	/^void SimView::paint(){$/;"	f	class:SimView
+paint	src/Train.cpp	/^void Train::paint(Window * g){$/;"	f	class:Train
+paint	src/Wagon.cpp	/^void Wagon::paint(Window * g){$/;"	f	class:Wagon
+panel	include/Window.h	/^	PANEL * panel;$/;"	m	class:Window
+parse	src/Parser.cpp	/^bool parse(string str, Game * game){$/;"	f
+pdfdir	Makefile	/^pdfdir = ${docdir}$/;"	m
+pdfdir	include/Makefile	/^pdfdir = ${docdir}$/;"	m
+pdfdir	src/Makefile	/^pdfdir = ${docdir}$/;"	m
+pkgdatadir	Makefile	/^pkgdatadir = $(datadir)\/letrain$/;"	m
+pkgdatadir	include/Makefile	/^pkgdatadir = $(datadir)\/letrain$/;"	m
+pkgdatadir	src/Makefile	/^pkgdatadir = $(datadir)\/letrain$/;"	m
+pkgincludedir	Makefile	/^pkgincludedir = $(includedir)\/letrain$/;"	m
+pkgincludedir	include/Makefile	/^pkgincludedir = $(includedir)\/letrain$/;"	m
+pkgincludedir	src/Makefile	/^pkgincludedir = $(includedir)\/letrain$/;"	m
+pkglibdir	Makefile	/^pkglibdir = $(libdir)\/letrain$/;"	m
+pkglibdir	include/Makefile	/^pkglibdir = $(libdir)\/letrain$/;"	m
+pkglibdir	src/Makefile	/^pkglibdir = $(libdir)\/letrain$/;"	m
+pkglibexecdir	Makefile	/^pkglibexecdir = $(libexecdir)\/letrain$/;"	m
+pkglibexecdir	include/Makefile	/^pkglibexecdir = $(libexecdir)\/letrain$/;"	m
+pkglibexecdir	src/Makefile	/^pkglibexecdir = $(libexecdir)\/letrain$/;"	m
+pos	include/Rail.h	/^	Point         pos;$/;"	m	class:Rail
+pos	include/Semaphore.h	/^	Point pos;$/;"	m	class:Semaphore
+pos	include/Sensor.h	/^	Point pos;$/;"	m	class:Sensor
+pos	include/SimView.h	/^	Point pos;$/;"	m	class:SimView
+pos	include/Vehicle.h	/^	Point pos;$/;"	m	class:Vehicle
+power	include/Locomotive.h	/^	int power;$/;"	m	class:Locomotive
+powerValue	src/Parser.cpp	/^			rowValue ,colValue ,speedValue ,powerValue ,dirValue,$/;"	m	struct:my_grammar::definition	file:
+prefix	Makefile	/^prefix = \/usr\/local$/;"	m
+prefix	include/Makefile	/^prefix = \/usr\/local$/;"	m
+prefix	src/Makefile	/^prefix = \/usr\/local$/;"	m
+prev	include/TrainIterator.h	/^	RailVehicle*  prev;$/;"	m	class:TrainIterator
+programEditor	include/Game.h	/^	ProgramEditor programEditor;$/;"	m	class:Game
+programFilter	src/Parser.cpp	/^			brakesValue, programFilter, programFilters, programMessages,$/;"	m	struct:my_grammar::definition	file:
+programFilters	src/Parser.cpp	/^			brakesValue, programFilter, programFilters, programMessages,$/;"	m	struct:my_grammar::definition	file:
+programMessages	src/Parser.cpp	/^			brakesValue, programFilter, programFilters, programMessages,$/;"	m	struct:my_grammar::definition	file:
+program_transform_name	Makefile	/^program_transform_name = s,x,x,$/;"	m
+program_transform_name	include/Makefile	/^program_transform_name = s,x,x,$/;"	m
+program_transform_name	src/Makefile	/^program_transform_name = s,x,x,$/;"	m
+property	src/Parser.cpp	/^	int property;$/;"	m	struct:ParserData	file:
+property	src/Parser.cpp	/^	int property;$/;"	m	struct:SelectProperty	file:
+propertyValue	src/Parser.cpp	/^	int propertyValue;$/;"	m	struct:ParserData	file:
+prototypes	configure	/^   function prototypes and stuff, but not '\\xHH' hex character constants.$/;"	f
+psdir	Makefile	/^psdir = ${docdir}$/;"	m
+psdir	include/Makefile	/^psdir = ${docdir}$/;"	m
+psdir	src/Makefile	/^psdir = ${docdir}$/;"	m
+pull	src/Train.cpp	/^void Train::pull(){$/;"	f	class:Train
+push	src/Train.cpp	/^void Train::push(){$/;"	f	class:Train
+putC	src/Window.cpp	/^void Window::putC(int row, int col, char c){$/;"	f	class:Window
+putStr	src/Window.cpp	/^void Window::putStr(int row, int col, const char *str){$/;"	f	class:Window
+rail	include/Finder.h	/^	Rail * rail;$/;"	m	class:Finder
+rail	include/RailVehicle.h	/^	Rail * rail;$/;"	m	class:RailVehicle
+rail	include/Sensor.h	/^	Rail * rail;$/;"	m	class:Sensor
+railEnv	include/Rail.h	/^	RailEnv       railEnv;$/;"	m	class:Rail
+railMap	include/Sim.h	/^	RailMap railMap;$/;"	m	class:Sim
+railPen	include/Sim.h	/^	RailPen railPen;$/;"	m	class:Sim
+railPenBackwards	src/Commander.cpp	/^void Commander::railPenBackwards(){$/;"	f	class:Commander
+railPenForward	src/Commander.cpp	/^void Commander::railPenForward(){$/;"	f	class:Commander
+railPenLoadProgram	src/Commander.cpp	/^void Commander::railPenLoadProgram(){$/;"	f	class:Commander
+railPenPlaceFinder	src/Commander.cpp	/^void Commander::railPenPlaceFinder(){$/;"	f	class:Commander
+rails	include/RailMap.h	/^	map<int, map<int, Rail*>> rails;$/;"	m	class:RailMap
+range	src/Parser.cpp	/^			element, range, rangeList, sensorSettings,$/;"	m	struct:my_grammar::definition	file:
+range	src/Parser.cpp	/^	Range * range;$/;"	m	struct:ParserData	file:
+rangeList	src/Parser.cpp	/^			element, range, rangeList, sensorSettings,$/;"	m	struct:my_grammar::definition	file:
+rangePairL	src/Parser.cpp	/^	int rangePairL, rangePairR;$/;"	m	struct:ParserData	file:
+rangePairR	src/Parser.cpp	/^	int rangePairL, rangePairR;$/;"	m	struct:ParserData	file:
+rangeType	src/Parser.cpp	/^	int rangeType;$/;"	m	struct:CreateRange	file:
+rangeType	src/Parser.cpp	/^	int rangeType;$/;"	m	struct:ParserData	file:
+ranges	include/Range.h	/^	vector<pair<int, int> > ranges;$/;"	m	class:Range
+recalcWindowShift	src/SimView.cpp	/^void SimView::recalcWindowShift(){$/;"	f	class:SimView
+receiveImpulse	src/RailVehicle.cpp	/^void RailVehicle::receiveImpulse(int impulse, Dir d ){$/;"	f	class:RailVehicle
+registerAction	src/Commander.cpp	/^void Commander::registerAction(string name, Method method, int mode, char key){$/;"	f	class:Commander
+registerMode	src/Commander.cpp	/^void Commander::registerMode(Commander::CommandMode mode, char key){$/;"	f	class:Commander
+removeEventProgram	src/Sim.cpp	/^void Sim::removeEventProgram(int id){$/;"	f	class:Sim
+removeLastVehicle	src/Train.cpp	/^void Train::removeLastVehicle(){$/;"	f	class:Train
+removeLocomotive	src/Sim.cpp	/^void Sim::removeLocomotive(int n){$/;"	f	class:Sim
+removeTrain	src/Sim.cpp	/^void Sim::removeTrain(int n){$/;"	f	class:Sim
+removeWagon	src/Sim.cpp	/^void Sim::removeWagon(int n){$/;"	f	class:Sim
+repaint	src/Window.cpp	/^void Window::repaint(){$/;"	f	class:Window
+reset	src/TrainIterator.cpp	/^void TrainIterator::reset(){$/;"	f	class:TrainIterator
+reverse	src/Finder.cpp	/^void Finder::reverse(){$/;"	f	class:Finder
+reverseSelector	src/Train.cpp	/^void Train::reverseSelector(){$/;"	f	class:Train
+reversed	include/Train.h	/^	bool reversed;$/;"	m	class:Train
+reversed	include/Window.h	/^	int reversed, bold, underlined;$/;"	m	class:Window
+reversedSelector	include/Train.h	/^	bool reversedSelector;$/;"	m	class:Train
+rotate	src/Vehicle.cpp	/^void Vehicle::rotate(int angle){$/;"	f	class:Vehicle
+rotateBulldozer	src/Parser.cpp	/^void rotateBulldozer(int angle){$/;"	f
+rotateLeft	src/Vehicle.cpp	/^void Vehicle::rotateLeft(int angle){$/;"	f	class:Vehicle
+rotateLeftRailPen	src/Commander.cpp	/^void Commander::rotateLeftRailPen(){$/;"	f	class:Commander
+rotateRight	src/Vehicle.cpp	/^void Vehicle::rotateRight(int angle){$/;"	f	class:Vehicle
+rotateRightRailPen	src/Commander.cpp	/^void Commander::rotateRightRailPen(){$/;"	f	class:Commander
+rotating	src/Parser.cpp	/^			my_rule, bulldozerSettings, moving, rotating, modeValue,$/;"	m	struct:my_grammar::definition	file:
+row	include/Point.h	/^	int row;$/;"	m	class:Point
+row	include/Window.h	/^	int row, col, width, height;$/;"	m	class:Window
+rowValue	src/Parser.cpp	/^			rowValue ,colValue ,speedValue ,powerValue ,dirValue,$/;"	m	struct:my_grammar::definition	file:
+running	include/Game.h	/^	bool running;$/;"	m	class:Game
+sbindir	Makefile	/^sbindir = ${exec_prefix}\/sbin$/;"	m
+sbindir	include/Makefile	/^sbindir = ${exec_prefix}\/sbin$/;"	m
+sbindir	src/Makefile	/^sbindir = ${exec_prefix}\/sbin$/;"	m
+second	include/Event.h	/^	int second;$/;"	m	class:Event
+second	include/Filter.h	/^	Range * second;$/;"	m	class:Filter
+select	include/Sim.h	/^	void select(int i){$/;"	f	class:IntMap
+selectAspectChar	src/StraightAspect.cpp	/^char StraightAspect::selectAspectChar(Dir dir){$/;"	f	class:StraightAspect
+selectDir	src/ForkDirSelector.cpp	/^void ForkDirSelector::selectDir(Dir dir){$/;"	f	class:ForkDirSelector
+selectDir	src/ForkRail.cpp	/^void ForkRail::selectDir(Dir dir){$/;"	f	class:ForkRail
+selectNext	include/Sim.h	/^	void selectNext(){$/;"	f	class:IntMap
+selectNextForkDir	src/Train.cpp	/^void Train::selectNextForkDir(){$/;"	f	class:Train
+selectNextTrain	src/Commander.cpp	/^void Commander::selectNextTrain(){$/;"	f	class:Commander
+selectNextTrain	src/Sim.cpp	/^void Sim::selectNextTrain(){$/;"	f	class:Sim
+selectNextVehicle	src/Commander.cpp	/^void Commander::selectNextVehicle(){$/;"	f	class:Commander
+selectNextVehicle	src/Sim.cpp	/^void Sim::selectNextVehicle(){$/;"	f	class:Sim
+selectNextVehicle	src/Train.cpp	/^void Train::selectNextVehicle(){$/;"	f	class:Train
+selectPrev	include/Sim.h	/^	void selectPrev(){$/;"	f	class:IntMap
+selectPrevForkDir	src/Train.cpp	/^void Train::selectPrevForkDir(){$/;"	f	class:Train
+selectPrevTrain	src/Sim.cpp	/^void Sim::selectPrevTrain(){$/;"	f	class:Sim
+selectPrevVehicle	src/Sim.cpp	/^void Sim::selectPrevVehicle(){$/;"	f	class:Sim
+selectPrevVehicle	src/Train.cpp	/^void Train::selectPrevVehicle(){$/;"	f	class:Train
+selectPreviousTrain	src/Commander.cpp	/^void Commander::selectPreviousTrain(){$/;"	f	class:Commander
+selectPreviousVehicle	src/Commander.cpp	/^void Commander::selectPreviousVehicle(){$/;"	f	class:Commander
+selectVehicle	src/Train.cpp	/^void Train::selectVehicle(RailVehicle * v){$/;"	f	class:Train
+selected	include/RailVehicle.h	/^	bool selected;$/;"	m	class:RailVehicle
+selected	include/Sim.h	/^	int selected;$/;"	m	class:IntMap
+selected	include/Train.h	/^	bool selected;$/;"	m	class:Train
+selectedOut	include/ForkDirSelector.h	/^	int selectedOut;$/;"	m	class:ForkDirSelector
+selectedTrain	include/Sim.h	/^	CTrains::iterator selectedTrain;$/;"	m	class:Sim
+selectedVehicle	include/Train.h	/^	RailVehicle* selectedVehicle;$/;"	m	class:Train
+selector	include/ForkRail.h	/^	ForkDirSelector * selector;$/;"	m	class:ForkRail
+selectorStatus	include/Train.h	/^	SelectorStatus selectorStatus;$/;"	m	class:Train
+semaphore	src/Parser.cpp	/^	Semaphore * semaphore;$/;"	m	struct:ParserData	file:
+semaphoreSettings	src/Parser.cpp	/^			elements, statusValue, command, semaphoreSettings,$/;"	m	struct:my_grammar::definition	file:
+semaphores	include/Sim.h	/^	CSemaphores semaphores;$/;"	m	class:Sim
+sensor	src/Parser.cpp	/^	Sensor * sensor;$/;"	m	struct:ParserData	file:
+sensorId	include/Event.h	/^	int sensorId;$/;"	m	class:Event
+sensorId	include/Filter.h	/^	Range * sensorId;$/;"	m	class:Filter
+sensorSettings	src/Parser.cpp	/^			element, range, rangeList, sensorSettings,$/;"	m	struct:my_grammar::definition	file:
+sensors	include/Sim.h	/^	CSensors     sensors;$/;"	m	class:Sim
+setArmed	src/Sensor.cpp	/^void Sensor::setArmed(bool armed){$/;"	f	class:Sensor
+setAutoMove	src/Commander.cpp	/^void Commander::setAutoMove(){$/;"	f	class:Commander
+setBackwardDir	src/Train.cpp	/^void Train::setBackwardDir(){$/;"	f	class:Train
+setBg	src/Window.cpp	/^void Window::setBg(int color){$/;"	f	class:Window
+setBrakes	src/RailVehicle.cpp	/^void RailVehicle::setBrakes(int brakes){$/;"	f	class:RailVehicle
+setCol	src/Semaphore.cpp	/^void Semaphore::setCol(int col){$/;"	f	class:Semaphore
+setCol	src/Sensor.cpp	/^void Sensor::setCol(int col){$/;"	f	class:Sensor
+setCol	src/Vehicle.cpp	/^void Vehicle::setCol(int col){$/;"	f	class:Vehicle
+setCommand	src/Message.cpp	/^void Message::setCommand(int command){$/;"	f	class:Message
+setDir	src/Finder.cpp	/^void Finder::setDir(Dir dir){$/;"	f	class:Finder
+setDir	src/Vehicle.cpp	/^void Vehicle::setDir(Dir dir){$/;"	f	class:Vehicle
+setEventLocomotive	src/Parser.cpp	/^void setEventLocomotive(const char * a, const char * b){$/;"	f
+setFg	src/Window.cpp	/^void Window::setFg(int color){$/;"	f	class:Window
+setFilter	src/EventProgram.cpp	/^void EventProgram::setFilter(Filter * filter){$/;"	f	class:EventProgram
+setFilterRange	src/Parser.cpp	/^void setFilterRange(const char * a, const char * b){ $/;"	f
+setForwardDir	src/Train.cpp	/^void Train::setForwardDir(){$/;"	f	class:Train
+setHour	src/Event.cpp	/^void Event::setHour(int n){$/;"	f	class:Event
+setHour	src/Filter.cpp	/^void Filter::setHour(Range* r){$/;"	f	class:Filter
+setId	src/Locomotive.cpp	/^void Locomotive::setId(int id){$/;"	f	class:Locomotive
+setId	src/Semaphore.cpp	/^void Semaphore::setId(int id){$/;"	f	class:Semaphore
+setId	src/Sensor.cpp	/^void Sensor::setId(int id){$/;"	f	class:Sensor
+setLink	src/RailVehicle.cpp	/^void RailVehicle::setLink(Dir d){$/;"	f	class:RailVehicle
+setLocomotiveDir	src/Event.cpp	/^void Event::setLocomotiveDir(int n){$/;"	f	class:Event
+setLocomotiveDir	src/Filter.cpp	/^void Filter::setLocomotiveDir(Range* r){$/;"	f	class:Filter
+setLocomotiveId	src/Event.cpp	/^void Event::setLocomotiveId(int n){$/;"	f	class:Event
+setLocomotiveId	src/Filter.cpp	/^void Filter::setLocomotiveId(Range* r){$/;"	f	class:Filter
+setLocomotiveSpeed	src/Event.cpp	/^void Event::setLocomotiveSpeed(int n){$/;"	f	class:Event
+setLocomotiveSpeed	src/Filter.cpp	/^void Filter::setLocomotiveSpeed(Range* r){$/;"	f	class:Filter
+setMinute	src/Event.cpp	/^void Event::setMinute(int n){$/;"	f	class:Event
+setMinute	src/Filter.cpp	/^void Filter::setMinute(Range* r){$/;"	f	class:Filter
+setMode	src/Commander.cpp	/^void Commander::setMode(char key){$/;"	f	class:Commander
+setMode	src/RailPen.cpp	/^void RailPen::setMode(RailPenMode mode){$/;"	f	class:RailPen
+setMoved	src/RailVehicle.cpp	/^void RailVehicle::setMoved(bool moved){$/;"	f	class:RailVehicle
+setMoved	src/Train.cpp	/^void Train::setMoved(bool moved){$/;"	f	class:Train
+setNextDir	src/ForkDirSelector.cpp	/^void ForkDirSelector::setNextDir(){$/;"	f	class:ForkDirSelector
+setPos	src/Rail.cpp	/^void Rail::setPos(Point pos){$/;"	f	class:Rail
+setPos	src/SimView.cpp	/^void SimView::setPos(Point p){$/;"	f	class:SimView
+setPos	src/Vehicle.cpp	/^void Vehicle::setPos(Point pos){$/;"	f	class:Vehicle
+setPower	src/Locomotive.cpp	/^void Locomotive::setPower(int power){$/;"	f	class:Locomotive
+setPrevDir	src/ForkDirSelector.cpp	/^void ForkDirSelector::setPrevDir(){$/;"	f	class:ForkDirSelector
+setRail	src/RailMap.cpp	/^void RailMap::setRail(int row, int col, Rail * rail){$/;"	f	class:RailMap
+setRail	src/RailVehicle.cpp	/^void RailVehicle::setRail(Rail * r){$/;"	f	class:RailVehicle
+setRail	src/Sensor.cpp	/^void Sensor::setRail(Rail * rail){$/;"	f	class:Sensor
+setRailVehicle	src/Rail.cpp	/^void Rail::setRailVehicle(RailVehicle * vehicle){$/;"	f	class:Rail
+setReversed	src/Window.cpp	/^void Window::setReversed(bool r){$/;"	f	class:Window
+setRow	src/Semaphore.cpp	/^void Semaphore::setRow(int row){$/;"	f	class:Semaphore
+setRow	src/Sensor.cpp	/^void Sensor::setRow(int row){$/;"	f	class:Sensor
+setRow	src/Vehicle.cpp	/^void Vehicle::setRow(int row){$/;"	f	class:Vehicle
+setSecond	src/Event.cpp	/^void Event::setSecond(int n){$/;"	f	class:Event
+setSecond	src/Filter.cpp	/^void Filter::setSecond(Range* r){$/;"	f	class:Filter
+setSelected	src/RailVehicle.cpp	/^void RailVehicle::setSelected(bool selected){$/;"	f	class:RailVehicle
+setSelected	src/Train.cpp	/^void Train::setSelected(bool selected){$/;"	f	class:Train
+setSensorId	src/Event.cpp	/^void Event::setSensorId(int n){$/;"	f	class:Event
+setSensorId	src/Filter.cpp	/^void Filter::setSensorId(Range* r){$/;"	f	class:Filter
+setSensorLocomotive	src/Parser.cpp	/^void setSensorLocomotive(const char * a, const char * b){$/;"	f
+setSpeed	src/RailVehicle.cpp	/^void RailVehicle::setSpeed(int speed){$/;"	f	class:RailVehicle
+setSpeed	src/Train.cpp	/^void Train::setSpeed(int speed){$/;"	f	class:Train
+setTarget	src/Message.cpp	/^void Message::setTarget(int target){$/;"	f	class:Message
+setTargetFork	src/Parser.cpp	/^void setTargetFork(int id){$/;"	f
+setTargetLocomotive	src/Parser.cpp	/^void setTargetLocomotive(int id){$/;"	f
+setTargetSemaphore	src/Parser.cpp	/^void setTargetSemaphore(int id){$/;"	f
+setTitle	src/Window.cpp	/^void Window::setTitle(const char * str){$/;"	f	class:Window
+setTrain	src/RailVehicle.cpp	/^void RailVehicle::setTrain(Train * t){$/;"	f	class:RailVehicle
+setUnderlined	src/Window.cpp	/^void Window::setUnderlined(bool r){$/;"	f	class:Window
+setUnlink	src/RailVehicle.cpp	/^void RailVehicle::setUnlink(Dir d){$/;"	f	class:RailVehicle
+setValue	src/Dir.cpp	/^void Dir::setValue(int d){$/;"	f	class:Dir
+setValue	src/Message.cpp	/^void Message::setValue(int value){$/;"	f	class:Message
+setting	src/Parser.cpp	/^			adding ,setting, showing, deleting, multishowing,$/;"	m	struct:my_grammar::definition	file:
+settingMessage	src/Parser.cpp	/^			message, settingMessage; $/;"	m	struct:my_grammar::definition	file:
+setup	src/Test.cpp	/^	virtual void setup(){$/;"	f	class:TestSuite1
+setup	src/Window.cpp	/^void Window::setup(){$/;"	f	class:Window
+sharedstatedir	Makefile	/^sharedstatedir = ${prefix}\/com$/;"	m
+sharedstatedir	include/Makefile	/^sharedstatedir = ${prefix}\/com$/;"	m
+sharedstatedir	src/Makefile	/^sharedstatedir = ${prefix}\/com$/;"	m
+shift	src/Window.cpp	/^void Window::shift(int mode, int size){$/;"	f	class:Window
+shiftBackward	src/Train.cpp	/^void Train::shiftBackward(){$/;"	f	class:Train
+shiftForward	src/Train.cpp	/^void Train::shiftForward(){$/;"	f	class:Train
+shortWay	src/Dir.cpp	/^int Dir::shortWay(int angle){$/;"	f	class:Dir
+show	src/TerminalWindow.cpp	/^void TerminalWindow::show(bool b){$/;"	f	class:TerminalWindow
+show	src/Window.cpp	/^void Window::show(bool b){$/;"	f	class:Window
+showLocomotive	src/Parser.cpp	/^void showLocomotive(int n){$/;"	f
+showLocomotives	src/Parser.cpp	/^void showLocomotives(const char * a, const char * b) {$/;"	f
+showWagon	src/Parser.cpp	/^void showWagon(int n){$/;"	f
+showWagons	src/Parser.cpp	/^void showWagons(const char * a, const char * b){$/;"	f
+showing	src/Parser.cpp	/^			adding ,setting, showing, deleting, multishowing,$/;"	m	struct:my_grammar::definition	file:
+sim	include/Game.h	/^	Sim           sim;$/;"	m	class:Game
+sim	include/SimView.h	/^	Sim * sim;$/;"	m	class:SimView
+speed	include/RailVehicle.h	/^	float speed;$/;"	m	class:RailVehicle
+speedValue	src/Parser.cpp	/^			rowValue ,colValue ,speedValue ,powerValue ,dirValue,$/;"	m	struct:my_grammar::definition	file:
+srcdir	Makefile	/^srcdir = .$/;"	m
+srcdir	include/Makefile	/^srcdir = .$/;"	m
+srcdir	src/Makefile	/^srcdir = .$/;"	m
+start	include/TrainIterator.h	/^	RailVehicle*  start;$/;"	m	class:TrainIterator
+start	src/Game.cpp	/^void Game::start(){$/;"	f	class:Game
+start	src/Parser.cpp	/^		rule<ScannerT> const& start() const { $/;"	f	struct:my_grammar::definition
+statusValue	src/Parser.cpp	/^			elements, statusValue, command, semaphoreSettings,$/;"	m	struct:my_grammar::definition	file:
+str	src/Event.cpp	/^string Event::str(){$/;"	f	class:Event
+str	src/Filter.cpp	/^string Filter::str(){$/;"	f	class:Filter
+str	src/Range.cpp	/^string Range::str(){$/;"	f	class:Range
+subdir	Makefile	/^subdir = .$/;"	m
+subdir	include/Makefile	/^subdir = include$/;"	m
+subdir	src/Makefile	/^subdir = src$/;"	m
+sumImpulse	src/Train.cpp	/^int Train::sumImpulse(){$/;"	f	class:Train
+sysconfdir	Makefile	/^sysconfdir = ${prefix}\/etc$/;"	m
+sysconfdir	include/Makefile	/^sysconfdir = ${prefix}\/etc$/;"	m
+sysconfdir	src/Makefile	/^sysconfdir = ${prefix}\/etc$/;"	m
+tardir	Makefile	/^	tardir=$(distdir) && $(am__tar) | GZIP=$(GZIP_ENV) gzip -c >$(distdir).tar.gz$/;"	m
+tardir	Makefile	/^	tardir=$(distdir) && $(am__tar) | bzip2 -9 -c >$(distdir).tar.bz2$/;"	m
+tardir	Makefile	/^	tardir=$(distdir) && $(am__tar) | compress -c >$(distdir).tar.Z$/;"	m
+tardir	Makefile	/^	tardir=$(distdir) && $(am__tar) | lzma -9 -c >$(distdir).tar.lzma$/;"	m
+tardir	Makefile	/^	tardir=$(distdir) && $(am__tar) | xz -c >$(distdir).tar.xz$/;"	m
+target	include/Message.h	/^	int target;$/;"	m	class:Message
+targetForkId	src/Parser.cpp	/^	int targetForkId;$/;"	m	struct:ParserData	file:
+targetLocomotiveId	src/Parser.cpp	/^	int targetLocomotiveId;$/;"	m	struct:ParserData	file:
+targetSemaphoreId	src/Parser.cpp	/^	int targetSemaphoreId;$/;"	m	struct:ParserData	file:
+target_alias	Makefile	/^target_alias = $/;"	m
+target_alias	include/Makefile	/^target_alias = $/;"	m
+target_alias	src/Makefile	/^target_alias = $/;"	m
+tear_down	src/Test.cpp	/^	virtual void tear_down(){$/;"	f	class:TestSuite1
+test	src/Test.cpp	/^	void test(){$/;"	f	class:TestSuite1
+test_LDADD	src/Makefile	/^test_LDADD = $(LDADD)$/;"	m
+test_LDFLAGS	src/Makefile	/^test_LDFLAGS = -lncurses -lpanel -lcpptest -llog4cplus$/;"	m
+test_LINK	src/Makefile	/^test_LINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(test_LDFLAGS) \\$/;"	m
+test_OBJECTS	src/Makefile	/^test_OBJECTS = $(am_test_OBJECTS)$/;"	m
+test_SOURCES	src/Makefile	/^test_SOURCES = $(ALL_SRCS) Test.cpp$/;"	m
+toggleRailPenPainting	src/Commander.cpp	/^void Commander::toggleRailPenPainting(){$/;"	f	class:Commander
+top_build_prefix	Makefile	/^top_build_prefix = $/;"	m
+top_build_prefix	include/Makefile	/^top_build_prefix = ..\/$/;"	m
+top_build_prefix	src/Makefile	/^top_build_prefix = ..\/$/;"	m
+top_builddir	Makefile	/^top_builddir = .$/;"	m
+top_builddir	include/Makefile	/^top_builddir = ..$/;"	m
+top_builddir	src/Makefile	/^top_builddir = ..$/;"	m
+top_distdir	Makefile	/^top_distdir = $(distdir)$/;"	m
+top_srcdir	Makefile	/^top_srcdir = .$/;"	m
+top_srcdir	include/Makefile	/^top_srcdir = ..$/;"	m
+top_srcdir	src/Makefile	/^top_srcdir = ..$/;"	m
+totalImpulse	include/Train.h	/^	int totalImpulse;$/;"	m	class:Train
+totalMass	include/Train.h	/^	int totalMass;$/;"	m	class:Train
+train	include/RailVehicle.h	/^	Train * train;$/;"	m	class:RailVehicle
+train	include/Train.h	/^	list <RailVehicle*> train;$/;"	m	class:Train
+trainDir	include/Train.h	/^	Dir trainDir;$/;"	m	class:Train
+trains	include/Sim.h	/^	CTrains      trains;$/;"	m	class:Sim
+transform	Makefile	/^transform = $(program_transform_name)$/;"	m
+transform	include/Makefile	/^transform = $(program_transform_name)$/;"	m
+transform	src/Makefile	/^transform = $(program_transform_name)$/;"	m
+turns	include/RailVehicle.h	/^	int turns;$/;"	m	class:RailVehicle
+underlined	include/Window.h	/^	int reversed, bold, underlined;$/;"	m	class:Window
+unlink	src/Link.cpp	/^RailVehicle * Link::unlink(RailVehicle * r){$/;"	f	class:Link
+unlink	src/RailVehicle.cpp	/^void RailVehicle::unlink(RailVehicle * b){$/;"	f	class:RailVehicle
+unlink	src/Train.cpp	/^Train * Train::unlink(){$/;"	f	class:Train
+unlinkTrain	src/Commander.cpp	/^void Commander::unlinkTrain(){$/;"	f	class:Commander
+unlinkValue	src/Parser.cpp	/^			wagonSettings, locomotiveSettings, linkValue ,unlinkValue,$/;"	m	struct:my_grammar::definition	file:
+updateAspect	src/Aspect.cpp	/^void Aspect::updateAspect(Dir d){$/;"	f	class:Aspect
+updateAspect	src/ForkAspect.cpp	/^void ForkAspect::updateAspect(Dir dir){$/;"	f	class:ForkAspect
+usingEventLocomotive	src/Parser.cpp	/^	bool usingEventLocomotive;$/;"	m	struct:ParserData	file:
+usingSensorLocomotive	src/Parser.cpp	/^	bool usingSensorLocomotive;$/;"	m	struct:ParserData	file:
+vShift	include/Window.h	/^	int hShift, vShift;$/;"	m	class:Window
+value	include/Dir.h	/^	short int value;$/;"	m	class:Dir
+value	include/Message.h	/^	int value;$/;"	m	class:Message
+value	src/Parser.cpp	/^	int value;$/;"	m	struct:SetPropertyValue	file:
+vehicle	include/Rail.h	/^	RailVehicle * vehicle;$/;"	m	class:Rail
+vehicleIterator	include/Train.h	/^	list<RailVehicle*>::iterator vehicleIterator;$/;"	m	class:Train
+vehicleToFollow	include/SimView.h	/^	Vehicle * vehicleToFollow;$/;"	m	class:SimView
+view	include/Commander.h	/^	CommanderView * view;$/;"	m	class:Commander
+view	include/Sim.h	/^	SimView * view;$/;"	m	class:Sim
+wagon	src/Parser.cpp	/^	Wagon * wagon;$/;"	m	struct:ParserData	file:
+wagonSettings	src/Parser.cpp	/^			wagonSettings, locomotiveSettings, linkValue ,unlinkValue,$/;"	m	struct:my_grammar::definition	file:
+wagons	include/Sim.h	/^	CWagons      wagons;$/;"	m	class:Sim
+waitKey	src/Window.cpp	/^int Window::waitKey(){$/;"	f	class:Window
+width	include/Window.h	/^	int row, col, width, height;$/;"	m	class:Window
+window	include/CommanderView.h	/^	Window * window ;$/;"	m	class:CommanderView
+window	include/ProgramEditor.h	/^	TerminalWindow * window ;$/;"	m	class:ProgramEditor
+window	include/SimView.h	/^	Window * window;$/;"	m	class:SimView
+window	include/Window.h	/^	WINDOW * window;$/;"	m	class:Window
+withBorder	include/Window.h	/^	bool withBorder;$/;"	m	class:Window
+~Commander	src/Commander.cpp	/^Commander::~Commander(){$/;"	f	class:Commander
+~CommanderView	src/CommanderView.cpp	/^CommanderView::~CommanderView(){$/;"	f	class:CommanderView
+~CrossRail	src/CrossRail.cpp	/^CrossRail::~CrossRail(){$/;"	f	class:CrossRail
+~CurveRail	src/CurveRail.cpp	/^CurveRail::~CurveRail(){$/;"	f	class:CurveRail
+~DirEnv	src/DirEnv.cpp	/^DirEnv::~DirEnv(){$/;"	f	class:DirEnv
+~Finder	src/Finder.cpp	/^Finder::~Finder(){$/;"	f	class:Finder
+~ForkRail	src/ForkRail.cpp	/^ForkRail::~ForkRail(){$/;"	f	class:ForkRail
+~Game	src/Game.cpp	/^Game::~Game(){$/;"	f	class:Game
+~Locomotive	src/Locomotive.cpp	/^Locomotive::~Locomotive(){$/;"	f	class:Locomotive
+~Rail	src/Rail.cpp	/^Rail::~Rail(){$/;"	f	class:Rail
+~RailMap	src/RailMap.cpp	/^RailMap::~RailMap(){$/;"	f	class:RailMap
+~RailPen	src/RailPen.cpp	/^RailPen::~RailPen(){$/;"	f	class:RailPen
+~RailVehicle	src/RailVehicle.cpp	/^RailVehicle::~RailVehicle(){$/;"	f	class:RailVehicle
+~Sim	src/Sim.cpp	/^Sim::~Sim(){$/;"	f	class:Sim
+~SimView	src/SimView.cpp	/^SimView::~SimView(){$/;"	f	class:SimView
+~StraightRail	src/StraightRail.cpp	/^StraightRail::~StraightRail(){$/;"	f	class:StraightRail
+~TrainIterator	src/TrainIterator.cpp	/^TrainIterator::~TrainIterator(){$/;"	f	class:TrainIterator
+~Vehicle	src/Vehicle.cpp	/^Vehicle::~Vehicle(){$/;"	f	class:Vehicle
+~Wagon	src/Wagon.cpp	/^Wagon::~Wagon(){$/;"	f	class:Wagon
+~Window	src/Window.cpp	/^Window::~Window(){$/;"	f	class:Window

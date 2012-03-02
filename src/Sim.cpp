@@ -20,7 +20,8 @@ MAKE_LOGGER(Sim);
 
 Sim::Sim ()
 	:
-	finder(new Finder(0)){ 
+	finder(new Finder(0)),
+	trainSelector(&trains){ 
 	int screenRows = Window::getScreenRows();
 	int screenCols = Window::getScreenCols();
 	int commandCols = screenCols * 20/100;
@@ -44,159 +45,145 @@ void Sim::followVehicle(Vehicle * v){
 
 Sim::~Sim(){
 	for(auto t : trains){
-		delete t.second;
+		delete t;
 	}
 	for(auto t : wagons){
-		delete t.second;
+		delete t;
 	}
 	for(auto t : locomotives){
-		delete t.second;
+		delete t;
 	}
 	for(auto t : sensors){
-		delete t.second;
+		delete t;
 	}
 	for(auto t : eventPrograms){
-		delete t.second;
+		delete t;
 	}
 	for(auto t : forks){
-		delete t.second;
+		delete t;
 	}
 }
 Finder * Sim::getFinder(){
 	return finder;
 }
-void Sim::addEventProgram(EventProgram * p, int id){
-	if(id == -1){
-		eventPrograms+=p;
-	}
-	eventPrograms[id] = p;
+void Sim::addEventProgram(EventProgram * p){
+	eventPrograms.push_back(p);
 }
-Sim::CSemaphores * Sim::getSemaphores(){
-	return &semaphores;
+vector<Semaphore *> & Sim::getSemaphores(){
+	return semaphores;
 }
 void Sim::removeEventProgram(int id){
-	eventPrograms.erase(id);
+	eventPrograms.erase(eventPrograms.begin()+id);
 }
 EventProgram * Sim::getEventProgram(int id){
-	return eventPrograms.get(id);
+	return eventPrograms.at(id);
 }
-Sim::CPrograms * Sim::getEventPrograms(){
-	return &eventPrograms;
+vector<EventProgram *> & Sim::getEventPrograms(){
+	return eventPrograms;
 }
-void Sim::addSensor(Sensor * s, int id){
-	if(id== -1){
-		sensors+=s;
-	}
-	s->setId(id);
-	sensors[id] = s;
+void Sim::addSensor(Sensor * s){
+	sensors.push_back(s);
 }
 Sensor * Sim::getSensor(int id){
-	return sensors.get(id);
+	return sensors.at(id);
 }
-Sim::CSensors * Sim::getSensors(){
-	return & sensors;
+vector<Sensor *>& Sim::getSensors(){
+	return sensors;
 }
-void Sim::addTrain(Train* train, int id){
-	if(id == -1){
-		trains+=train;
-	}
-	trains[id] = train;
+void Sim::addTrain(Train* train){
+	trains.push_back(train);
 }
-void Sim::addWagon(Wagon * wagon, int id){
-	if(id == -1){
-		wagons+=wagon;
-	}
-	wagons[id] = wagon;
+void Sim::addWagon(Wagon * wagon){
+	wagons.push_back(wagon);
 }
 void Sim::removeTrain(int n){
-	trains.erase(n);
-	trains.selectPrev();
+	trains.erase(trains.begin()+n);
 }
 void Sim::removeWagon(int n){
-	wagons.erase(n);
+	wagons.erase(wagons.begin()+n);
 }
 void Sim::removeLocomotive(int n){
-	locomotives.erase(n);
+	locomotives.erase(locomotives.begin()+n);
 }
-void Sim::addLocomotive(Locomotive* locomotive, int id){
-	if(id == -1){
-		locomotives+=locomotive;
-	}
-	locomotive->setId(id);
-	locomotives[id] = locomotive;
+void Sim::addLocomotive(Locomotive* locomotive){
+	locomotives.push_back(locomotive);
 }
-Sim::CLocomotives * Sim::getLocomotives(){
-	return &locomotives;
+vector<Locomotive *> & Sim::getLocomotives(){
+	return locomotives;
 }
 Locomotive * Sim::getLocomotive(int n){
-	return locomotives.get(n); 
+	return locomotives.at(n); 
 }
 Train * Sim::getTrain(int id){
-	return trains.get(id);
+	return trains.at(id);
 }
 Wagon * Sim::getWagon(int id){
-	return wagons.get(id);
+	return wagons.at(id);
 }
-Sim::CTrains* Sim::getTrains(){
-	return &trains;
+vector<Train*> & Sim::getTrains(){
+	return trains;
 }
-Sim::CWagons * Sim::getWagons(){
-	return &wagons;
+vector<Wagon *> & Sim::getWagons(){
+	return wagons;
 }
-void Sim::addFork(ForkRail * r, int id){
-	if(id == -1){
-		forks+=r;
-	}
-	forks[id] = r;
+void Sim::addFork(ForkRail * r){
+	forks.push_back(r);
 }
 Semaphore * Sim::getSemaphore(int id){
-	return semaphores.get(id);
+	return semaphores.at(id);
 }
-void Sim::addSemaphore(Semaphore * s, int id){
-	if(id == -1){
-		semaphores+=s;
-		s->setId(id);
-	}
-	semaphores[id] = s;
+void Sim::addSemaphore(Semaphore * s){
+	semaphores.push_back(s);
 }
 ForkRail * Sim::getFork(int id){
-	return forks.get(id);
+	return forks.at(id);
 }
 void Sim::moveTrains(){
 	for(auto t : trains){
-		t.second->setMoved(false);
+		t->setMoved(false);
 	};
 	for(auto t : trains){
-		t.second->move();
+		t->move();
 	}
 }
-Train * Sim::getSelectedTrain(){
-	return trains.getSelected(); 
+vector<Train*>::iterator Sim::getSelectedTrain(){
+	return trainSelector.getSelected(); 
 }
 void Sim::selectPrevTrain(){
-	trains.getSelected()->setSelected(false);
-	trains.selectPrev();
-	trains.getSelected()->setSelected(true);
+	if(trainSelector.isSelected()){
+		(*trainSelector.getSelected())->setSelected(false);
+	}
+	trainSelector.selectPrev();
+	if(trainSelector.isSelected()){
+		(*trainSelector.getSelected())->setSelected(true);
+	}
 }
 void Sim::selectNextTrain(){
-	trains.getSelected()->setSelected(false);
-	trains.selectNext();
-	trains.getSelected()->setSelected(true);
+	if(trainSelector.isSelected()){
+		(*trainSelector.getSelected())->setSelected(false);
+	}
+	trainSelector.selectNext();
+	if(trainSelector.isSelected()){
+		(*trainSelector.getSelected())->setSelected(true);
+	}
 }
 void Sim::selectNextVehicle(){
-	trains.getSelected()->selectNextVehicle();
+	if(trainSelector.isSelected()){
+		(*trainSelector.getSelected())->selectNextVehicle();
+	}
 }
 void Sim::selectPrevVehicle(){
-	trains.getSelected()->selectPrevVehicle();
+	if(trainSelector.isSelected()){
+		(*trainSelector.getSelected())->selectPrevVehicle();
+	}
 }
 
 void Sim::checkSensors(){
 	for(auto s : sensors){
-		Sensor * next = s.second;
-		Event *event = next->check();
+		Event *event = s->check();
 		if(event){
 			for(auto program: eventPrograms){
-				acceptAndRun(event, program.second);
+				acceptAndRun(event, program);
 			}
 		}
 	}
