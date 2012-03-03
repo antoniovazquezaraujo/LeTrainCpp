@@ -221,9 +221,12 @@ void Train::shiftBackward(){
 	);
 }
 void Train::invert(){
-	vector<RailVehicle*>::reverse_iterator i;
-	for(i=vehicles.rbegin();i!=vehicles.rend();i++){
+	vector<RailVehicle*>::iterator i;
+	for(i=vehicles.begin();i!=vehicles.end();i++){
+		Dir d = (*i)->getDir();
 		(*i)->getRail()->reverseVehicle();
+		Dir d2 = (*i)->getDir();
+		LOG_DEBUG(log," Direccion invertida: " << d << ":" << d2); 
 	}
 }
 /*
@@ -328,7 +331,7 @@ int Train::move(){
 		Rail        * topRail = nullptr;
 		Rail        * nextRail   = nullptr;
 		Dir           trainDir;
-		if(totalImpulse > 0){
+		if(!reversed){
 			vector<RailVehicle*>::iterator         i = vehicles. begin();
 			topVehicle = *i;
 		}else{
@@ -342,8 +345,6 @@ int Train::move(){
 			crashedVehicle = nextRail->getRailVehicle();
 			if(crashedVehicle){
 				consumed = crash(crashedVehicle, totalImpulse,trainDir );
-				totalImpulse-=consumed;
-				return consumed;
 			}else{
 				if(reversed){
 					shiftBackward();
@@ -351,9 +352,9 @@ int Train::move(){
 					shiftForward();
 				}
 				consumed= totalMass;
-				totalImpulse-=consumed;
-				return consumed;
 			}
+			totalImpulse-=consumed;
+			return consumed;
 		}else{
 			// agregar aqui descarrilamientos!!!
 			return 9999999;

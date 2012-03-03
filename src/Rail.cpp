@@ -44,14 +44,12 @@ bool Rail::exitVehicle(){
 }
 /*
     ReverseVehicle
-    Toma la dirección del vehículo, la invierte 180 grados, y ahora busca la puerta que
+    Toma la dirección del vehículo, y busca la puerta que
     está conectada desde esa dirección de entrada. Entonces le pone al vehículo esa
     dirección.
 */
 void Rail::reverseVehicle(){
-    Dir d = -(vehicle->getDir());
-    Dir out = getPath(d);
-    vehicle->setDir(out);
+	vehicle->setDir(getPath(vehicle->getDir()));
 }
 //---------------------------------------
 Rail::Rail(DirEnv * dirEnv, Aspect * aspect)
