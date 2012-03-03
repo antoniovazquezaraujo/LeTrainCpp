@@ -56,14 +56,6 @@ void Train::decImpulseGenerated(){
 		locomotive->decImpulseGenerated();
 	}
 }
-//invertimos el sentido de todo el tren
-void Train::invert(){
-	if(reversed){
-		setForwardDir();
-	}else{
-		setBackwardDir();
-	}
-}
 void Train::setSpeed(int speed){
 
 }
@@ -217,19 +209,24 @@ Dir Train::getDirFromLast(){
 void Train::shiftForward(){
 	for_each(vehicles.begin(), vehicles.end(),
 		[](RailVehicle* v){
-			//v->gotoRail(v->getRail()->getLinkedRailAt(v->getDir()));
-			v->forward();
+			v->getRail()->exitVehicle();
 		}
 	);
 }
 void Train::shiftBackward(){
 	for_each(vehicles.rbegin(), vehicles.rend(),
 		[](RailVehicle* v){
-			//v->gotoRail(v->getRail()->getLinkedRailAt(v->getRail()->getPath(v->getDir())));
-			v->backward();
+			v->getRail()->exitVehicle();
 		}
 	);
 }
+void Train::invert(){
+	vector<RailVehicle*>::reverse_iterator i;
+	for(i=vehicles.rbegin();i!=vehicles.rend();i++){
+		(*i)->getRail()->reverseVehicle();
+	}
+}
+/*
 void Train::setForwardDir(){
 	vector<RailVehicle*>::reverse_iterator i = vehicles.rbegin();
 	Dir d;
@@ -287,6 +284,7 @@ void Train::setBackwardDir(){
 	}
 	reversed = true;
 }
+*/
 int Train::sumImpulse(){
 	int total=0;
 	for_each(vehicles.begin(), vehicles.end(),
@@ -307,82 +305,58 @@ int Train::crash(RailVehicle * crashed, int impulse, Dir d){
 	return consumed;
 }
 int Train::move(){
-	//LOG_DEBUG(log," Train.move(): " << "{{" << *this << "}}");
-	//LOG_DEBUG(log," Comprobando tren con masa: " << totalMass );
 	if(moved) return totalMass; 
-	//LOG_DEBUG(log," moviendo el tren " );
 	moved = true;
 	int consumed = 0;
 	totalImpulse += sumImpulse();
-	//LOG_DEBUG(log," El impulso total es : "  << totalImpulse);
+	if(totalImpulse < 0){
+		if(!reversed){
+			invert();
+			reversed=true;
+		}
+	}else if(totalImpulse > 0){
+		if(reversed){
+			invert();
+			reversed=false;
+		}
+	}
+
 	if(abs(totalImpulse) >= totalMass){
-		//LOG_DEBUG(log," El tren se intentará mover"); 
 		//el tren intentará moverse, porque su impulso puede con su masa
+		RailVehicle * crashedVehicle= nullptr;
+		RailVehicle * topVehicle    = nullptr;
+		Rail        * topRail = nullptr;
+		Rail        * nextRail   = nullptr;
+		Dir           trainDir;
 		if(totalImpulse > 0){
-			//LOG_DEBUG(log," El tren tiene impulso positivo"); 
-			trainDir= getDirFromFirst();
-			//LOG_DEBUG(log," El tren tiene direccion " << trainDir); 
-			vector<RailVehicle*>::iterator i = vehicles.begin();
-			//LOG_DEBUG(log," El primer vehículo es" << *i); 
-			Rail * r = (*i)->getRail();
-			//LOG_DEBUG(log," El rail de ese vehículo es" << *r); 
-			Rail * next = r->getLinkedRailAt(trainDir);
-			//LOG_DEBUG(log," El siguiente rail de ese direccion es" << *next); 
-			RailVehicle * crashed=0;
-			if(next){
-				if((crashed = next->getRailVehicle()) != 0){
-					//LOG_DEBUG(log," Chocamos contra otro vehiculo") ; 
-					consumed = crash(crashed, totalImpulse,trainDir );
-					//LOG_DEBUG(log," consumimos " << consumed); 
-					totalImpulse-=consumed;
-					//LOG_DEBUG(log," impulso total restante" << totalImpulse); 
-					return consumed;
-				}else{
-					//LOG_DEBUG(log," avanzamos hacie adelante" ); 
-					shiftForward();
-					//LOG_DEBUG(log," consumimos la masa total de "  << totalMass); 
-					consumed= totalMass;
-					totalImpulse-=consumed;
-					return consumed;
-				}
-			}else{
-				//LOG_DEBUG(log," No hay rail: descarrilamos" );
-				// agregar aqui descarrilamientos!!!
-				return 9999999;
-			}
-		}else if (totalImpulse < 0 ){
-			trainDir= getDirFromLast();
+			vector<RailVehicle*>::iterator         i = vehicles. begin();
+			topVehicle = *i;
+		}else{
 			vector<RailVehicle*>::reverse_iterator i = vehicles.rbegin();
-			RailVehicle * last = *i;
-			Rail * r = (*i)->getRail();
-			Rail * next = r->getLinkedRailAt(trainDir);
-			RailVehicle * crashed=0;
-			if(next){
-				if((crashed = next->getRailVehicle()) != 0){
-					consumed = crash(crashed, totalImpulse, trainDir);
-					if(consumed < totalImpulse){
-						totalImpulse-=consumed;
-					}else{
-						totalImpulse = 0;
-					}
-					return consumed;
-				}else{
-					//nos movemos hacia atrás 
-					shiftBackward();
-					consumed= totalMass;
-					if(consumed < totalImpulse){
-						totalImpulse-=consumed;
-					}else{
-						totalImpulse = 0;
-					}
-					return consumed;
-				}
+			topVehicle = *i;
+		}
+		trainDir = topVehicle->getDir();
+		topRail = topVehicle->getRail();
+		nextRail = topRail->getLinkedRailAt(trainDir);
+		if(nextRail){
+			crashedVehicle = nextRail->getRailVehicle();
+			if(crashedVehicle){
+				consumed = crash(crashedVehicle, totalImpulse,trainDir );
+				totalImpulse-=consumed;
+				return consumed;
 			}else{
-				// agregar aqui descarrilamientos!!!
-				return 9999999;
+				if(reversed){
+					shiftBackward();
+				}else{
+					shiftForward();
+				}
+				consumed= totalMass;
+				totalImpulse-=consumed;
+				return consumed;
 			}
 		}else{
-			return 0;
+			// agregar aqui descarrilamientos!!!
+			return 9999999;
 		}
 	}
 }

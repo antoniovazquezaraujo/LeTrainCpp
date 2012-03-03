@@ -7,6 +7,53 @@
 #include "Aspect.h"
 MAKE_LOGGER(Rail);
 
+/*
+    EnterVehicle
+    Si hay un vehículo no entra y devuelve false.
+    Si el rail está vacio, entra el vehículo.
+    Cuando entra un vehículo, miramos su dirección, y girandola 180 grados obtenemos
+    la puerta por la que está entrando (si viene en dirección sur, entra por la puerta
+    norte, etc)
+    Entonces, obtenemos la puerta a donde va a dar esa entrada, y le ponemos al vehículo
+    esa dirección, para que cuando salga, lo haga por ahí.
+*/
+bool Rail::enterVehicle(RailVehicle* vehicle){
+    if(this->vehicle){
+        return false;
+    }
+    this->vehicle = vehicle;
+    Dir d = -(vehicle->getDir());
+    Dir out = getPath(d);
+    vehicle->setDir(out);
+	vehicle->setPos(pos);
+    vehicle->setRail(this);
+    return true;
+}
+/*
+    ExitVehicle
+    Saca el vehículo hacia el rail conectado en la dirección de avance del mismo
+    y lo hace entrar en el rail conectado en esa dirección
+*/
+bool Rail::exitVehicle(){
+    Rail * dest = getLinkedRailAt(vehicle->getDir());
+    if(dest->enterVehicle(this->vehicle)){
+        this->vehicle = nullptr;
+        return true;
+    }
+    return false;
+}
+/*
+    ReverseVehicle
+    Toma la dirección del vehículo, la invierte 180 grados, y ahora busca la puerta que
+    está conectada desde esa dirección de entrada. Entonces le pone al vehículo esa
+    dirección.
+*/
+void Rail::reverseVehicle(){
+    Dir d = -(vehicle->getDir());
+    Dir out = getPath(d);
+    vehicle->setDir(out);
+}
+//---------------------------------------
 Rail::Rail(DirEnv * dirEnv, Aspect * aspect)
 	:aspect(aspect), vehicle(0),dirEnv(*dirEnv){
 }
