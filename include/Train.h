@@ -90,5 +90,6 @@ private:
 	bool selected;
 	bool reversedSelector;
 	static Logger log;
+	friend ostream & operator << (ostream & o, Train t);
 }; 
 #endif

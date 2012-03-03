@@ -6,12 +6,16 @@ char Dir::getAspectChar()const{
 	char ret = 0; 
 	switch(value){
 	case N:
+		ret =  '^';
+		break;
 	case S:
-		ret =  '|';
+		ret =  'v';
 		break;
 	case E:
+		ret =  '>';
+		break;
 	case W:
-		ret =  '-';
+		ret =  '<';
 		break;
 	case NE:
 	case SW:
@@ -95,7 +99,7 @@ const char * Dir::getName() const{
 		return "SE";
 		break;
 	default:
-		return " ";
+		return "X";
 	}
 }
 int Dir::getValue() const{

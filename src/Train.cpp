@@ -196,38 +196,37 @@ void Train::removeLastVehicle(){
 }
 ////////////////////////////////////////////////////
 Dir Train::getDirFromFirst(){
+	if(reversed) return getDirFromLast();
 	vector<RailVehicle*>::iterator i = vehicles.begin();
+	//LOG_DEBUG(log," Vehiculo inicial: " << **i); 
 	Rail * r = (*i)->getRail();
+	//LOG_DEBUG(log," Su rail : " << *r); 
 	Dir d = (*i)->getDir();
+	//LOG_DEBUG(log," Su direccion: " << d); 
+	//LOG_DEBUG(log," Su path: " << r->getPath(d)); 
 	return r->getPath(d);
 }
 Dir Train::getDirFromLast(){
+	if(reversed) return getDirFromFirst();
 	vector<RailVehicle*>::reverse_iterator i = vehicles.rbegin();
 	Rail * r = (*i)->getRail();
 	Dir d = (*i)->getDir();
-	return r->getPath(d);
+	//return r->getPath(d);
+	return d;
 }
 void Train::shiftForward(){
-	Dir trainDir= getDirFromFirst();
-	Rail * actualRail, * prevRail;
 	for_each(vehicles.begin(), vehicles.end(),
-		[&actualRail, &prevRail, trainDir](RailVehicle* v){
-			actualRail=v->getRail();
-			prevRail = actualRail->getLinkedRailAt(trainDir);
-			prevRail->enter(v);
-			prevRail=actualRail;
+		[](RailVehicle* v){
+			//v->gotoRail(v->getRail()->getLinkedRailAt(v->getDir()));
+			v->forward();
 		}
 	);
 }
 void Train::shiftBackward(){
-	Dir trainDir= getDirFromLast();
-	Rail * actualRail, * prevRail;
 	for_each(vehicles.rbegin(), vehicles.rend(),
-		[&actualRail, &prevRail, trainDir](RailVehicle* v){
-			actualRail=v->getRail();
-			prevRail = actualRail->getLinkedRailAt(trainDir);
-			prevRail->enter(v);
-			prevRail=actualRail;
+		[](RailVehicle* v){
+			//v->gotoRail(v->getRail()->getLinkedRailAt(v->getRail()->getPath(v->getDir())));
+			v->backward();
 		}
 	);
 }
@@ -308,31 +307,46 @@ int Train::crash(RailVehicle * crashed, int impulse, Dir d){
 	return consumed;
 }
 int Train::move(){
+	//LOG_DEBUG(log," Train.move(): " << "{{" << *this << "}}");
+	//LOG_DEBUG(log," Comprobando tren con masa: " << totalMass );
 	if(moved) return totalMass; 
+	//LOG_DEBUG(log," moviendo el tren " );
 	moved = true;
 	int consumed = 0;
 	totalImpulse += sumImpulse();
+	//LOG_DEBUG(log," El impulso total es : "  << totalImpulse);
 	if(abs(totalImpulse) >= totalMass){
+		//LOG_DEBUG(log," El tren se intentará mover"); 
 		//el tren intentará moverse, porque su impulso puede con su masa
 		if(totalImpulse > 0){
+			//LOG_DEBUG(log," El tren tiene impulso positivo"); 
 			trainDir= getDirFromFirst();
+			//LOG_DEBUG(log," El tren tiene direccion " << trainDir); 
 			vector<RailVehicle*>::iterator i = vehicles.begin();
-			RailVehicle * first = *i;
+			//LOG_DEBUG(log," El primer vehículo es" << *i); 
 			Rail * r = (*i)->getRail();
+			//LOG_DEBUG(log," El rail de ese vehículo es" << *r); 
 			Rail * next = r->getLinkedRailAt(trainDir);
+			//LOG_DEBUG(log," El siguiente rail de ese direccion es" << *next); 
 			RailVehicle * crashed=0;
 			if(next){
 				if((crashed = next->getRailVehicle()) != 0){
+					//LOG_DEBUG(log," Chocamos contra otro vehiculo") ; 
 					consumed = crash(crashed, totalImpulse,trainDir );
+					//LOG_DEBUG(log," consumimos " << consumed); 
 					totalImpulse-=consumed;
+					//LOG_DEBUG(log," impulso total restante" << totalImpulse); 
 					return consumed;
 				}else{
+					//LOG_DEBUG(log," avanzamos hacie adelante" ); 
 					shiftForward();
+					//LOG_DEBUG(log," consumimos la masa total de "  << totalMass); 
 					consumed= totalMass;
 					totalImpulse-=consumed;
 					return consumed;
 				}
 			}else{
+				//LOG_DEBUG(log," No hay rail: descarrilamos" );
 				// agregar aqui descarrilamientos!!!
 				return 9999999;
 			}
@@ -371,4 +385,29 @@ int Train::move(){
 			return 0;
 		}
 	}
+}
+ostream & operator << (ostream & o, Train t){
+	o << "Vehicles:" ;
+	for(auto v: t.vehicles){
+		o << *v;
+	}
+	o<< endl;
+	if(t.vehicleSelector.isSelected()){
+		o << "Vehicle selected" << *(t.vehicleSelector.getSelected());
+	}
+	o<< endl;
+	o << "Locomotives:" ;
+	for(auto l: t.locomotives){
+		o << *l;
+	}
+	o<< endl;
+	o << " Impulso total: "  << t.totalImpulse;
+	o << " Masa total:"      << t.totalMass;
+	o << " Dir: "            << t.trainDir;
+	o << " Moved: "          << t.moved;
+	o << " Reversed:"        << t.reversed;
+	o << " Selected:"        << t.selected;
+	o << " ReversedSelector:"<< t.reversedSelector;
+	o<< endl;
+	return o;
 }

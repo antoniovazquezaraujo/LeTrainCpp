@@ -37,8 +37,10 @@ void DirEnv::addPath(Dir from, Dir to){
 }
 Dir DirEnv::getPath(Dir dir){
 	if(dir.getValue() != Dir::NO_DIR){
+		LOG_DEBUG(log, " el path de " << dir << " es " << dirs[dir.getValue()]);
 		return dirs[dir.getValue()];
 	}else{
+		LOG_DEBUG(log, " Dir no encuentra ese camino");
 		return Dir(Dir::NO_DIR);
 	}
 }
@@ -160,7 +162,7 @@ ostream & operator << (ostream & o, DirEnv & env){
 	n= Dir::NW;
 	o << "[" << setw(2) << (env.getDir(n).getValue() != Dir::NO_DIR? env.getDir(n).getName():" ") << "]";
 	n= Dir::N;
-	o << "[" <<setw(2) <<  (env.getDir(n).getValue() != Dir::NO_DIR? env.getDir(n).getName():" ") << "]";
+	o << "[" << setw(2) << (env.getDir(n).getValue() != Dir::NO_DIR? env.getDir(n).getName():" ") << "]";
 	n= Dir::NE;
 	o << "[" << setw(2) << (env.getDir(n).getValue() != Dir::NO_DIR? env.getDir(n).getName():" ") << "]";
 	o << endl; 

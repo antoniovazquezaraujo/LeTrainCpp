@@ -4,6 +4,8 @@
 MAKE_LOGGER(Link);
 
 Link::Link() {
+	links[0]=nullptr;
+	links[1]=nullptr;
 }
 bool Link::link(RailVehicle * r){
 	if(isLinked(r)){

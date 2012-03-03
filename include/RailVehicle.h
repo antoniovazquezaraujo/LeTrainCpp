@@ -19,6 +19,9 @@ public:
 	virtual void addToTrain(Train *)=0;
 
 	bool gotoRail(Rail * r);
+	bool goBackToRail(Rail * r);
+	void forward();
+	void backward();
 
 	void setMoved(bool moved);
 	bool isSelected();

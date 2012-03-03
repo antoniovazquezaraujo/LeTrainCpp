@@ -1,0 +1,17 @@
+Si el vehiculo tiene un rail, se le quita
+2 Si la dir del vehículo no es NO_DIR
+	al vehiculo le pone de dir el rail->getPath(-dir)
+   si no 
+	le pone rail->getAnyPath()
+
+3 al vehículo le pone la pos del rail
+4 al vehiculo le pone ese rail
+1 al rail le pone ese vehiculo
+--------------------------------------------------
+1 al rail le pone ese vehiculo
+2 si la dir del vehiculo no es NO_DIR
+   al vehiculo se pone de dir getPath(-dir)
+	si no le pone getAnyPath
+3 al vehiculo le pone de pos la pos del rail
+4 al vehiculo le pone de rail ese rail
+

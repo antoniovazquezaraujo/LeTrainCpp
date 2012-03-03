@@ -73,11 +73,6 @@ void Rail::enter(RailVehicle* v){
 	v->setRail(this);
 }
 ostream & operator << (ostream & o, Rail & rail){
-	/*
-	o << endl << "{" ;
-	o << *(rail.railEnv);
-	o << "}" << endl;
-	*/
 	DirEnv * env = &(rail.dirEnv);
 	int n ;
 	o << endl; 

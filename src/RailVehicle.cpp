@@ -6,13 +6,21 @@
 MAKE_LOGGER(RailVehicle);
 
 ostream & operator << (ostream & o, RailVehicle & v){
-	o << "RailVehicle{" << endl ;
-	Vehicle * v1 = v.linker.getVehicleLinkedAt(0);
-	if(v1) o << "Link 1: " << *v1 ;
-	Vehicle * v2 = v.linker.getVehicleLinkedAt(1);
-	if(v2) o << "Link 2: " << *v2 ;
-	o << endl << "Dir: " << v.dir.getName() << endl;
-	o <<endl << "}"<<endl ;
+	o << "RailVehicle{" ;
+		o << " Dir:" << v.dir.getName();
+
+		Vehicle * v1 = v.linker.getVehicleLinkedAt(0);
+		if(v1) o << " Link 1:" << *v1 ;
+
+		Vehicle * v2 = v.linker.getVehicleLinkedAt(1);
+		if(v2) o << " Link 2:" << *v2 ;
+
+		if(v.rail){
+			o << " Rail:" << *(v.rail) ;
+		}else{
+			o << "Sin rail!";
+		}
+	o << "}"<<endl ;
 	return o;
 }
 
@@ -75,13 +83,35 @@ void RailVehicle::setUnlink(Dir d){
 // TODO
 
 }
+void RailVehicle::forward(){
+	gotoRail(rail->getLinkedRailAt(dir));
+}
+void RailVehicle::backward(){
+	goBackToRail(rail->getLinkedRailAt(rail->getPath(dir)));
+}
+bool RailVehicle::goBackToRail(Rail * r){
+	if(r->getRailVehicle()!= 0){
+		return false;
+	}
+	// si ya tengo un rail lo vacio
+	if(rail != 0){
+		rail->setRailVehicle(0);
+	}
+	if(dir.getValue() != Dir::NO_DIR){
+		dir = r->getPath(dir);
+		dir = -dir;
+	}else{
+		dir = r->getAnyPath();
+	}
+ 	pos = r->getPos();
+ 	rail = r;
+ 	r->setRailVehicle(this);
+	return true;
+}
 bool RailVehicle::gotoRail(Rail * r){
 	if(r->getRailVehicle()!= 0){
 		return false;
 	}
-	r->enter(this);
-	return true;
-	/*
 	// si ya tengo un rail lo vacio
 	if(rail != 0){
 		rail->setRailVehicle(0);
@@ -95,7 +125,6 @@ bool RailVehicle::gotoRail(Rail * r){
  	rail = r;
  	r->setRailVehicle(this);
 	return true;
-	*/
 }
 void RailVehicle::setSpeed(int speed){
 	this->speed = speed;
