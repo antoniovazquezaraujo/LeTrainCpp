@@ -6,6 +6,10 @@
 #include "RailEnv.h"
 class Rail{
 public:
+    bool    enterVehicle  (RailVehicle* v);
+    bool    exitVehicle   ();
+    void    reverseVehicle();
+//-------------------------------------------
 	Rail(DirEnv * env, Aspect * aspect);
 	~Rail();
 
