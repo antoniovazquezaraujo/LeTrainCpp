@@ -141,12 +141,43 @@ void RailVehicle::setTrain(Train * t){
 Train * RailVehicle::getTrain(){
 	return train;
 }
-void RailVehicle::receiveImpulse(int impulse, Dir d ){
-	if(getRail()->getPath(-d) == dir){
-		this->impulse+=impulse;
+int RailVehicle::receiveImpulse(int impulseReceived, Dir dir){
+	int consumed = 0;
+	if(getRail()->getPath(-dir) == this->dir){
+		consumed = mass - this->impulse;
+		if(consumed < 0) consumed = 0;
 	}else{
-		this->impulse-=impulse;
+		consumed = mass + this->impulse;
 	}
+	if(impulseReceived >= consumed){
+		this->impulse += consumed;
+		return impulseReceived - consumed;
+	}else{
+		this->impulse += impulseReceived;
+		return 0;
+	}
+}
+/*
+void RailVehicle::receiveImpulse(int impulse, Dir d ){
+						LOG_DEBUG(log," Tenia: " << this->impulse << " recibe" << impulse << " hacia " << d); 
+	if(getRail()->getPath(-d) == dir){
+		if(this->impulse >= 0){
+			this->impulse+=impulse;
+		}else{
+			this->impulse-=impulse;
+		}
+	}else{
+		if(this->impulse >= 0){
+			this->impulse-=impulse;
+		}else{
+			this->impulse+=impulse;
+		}
+	}
+						LOG_DEBUG(log," queda: " << this->impulse); 
+}
+*/
+void RailVehicle::reverseImpulse(){
+	impulse*= -1;
 }
 void RailVehicle::incImpulseGenerated(int n){
 	impulseGenerated+=n;
@@ -155,10 +186,14 @@ void RailVehicle::decImpulseGenerated(int n){
 	impulseGenerated-=n;
 }
 void RailVehicle::generateImpulse(){
-	impulse+= impulseGenerated;
+	if(impulse >= 0){
+		impulse+= impulseGenerated;
+	}else{
+		impulse-= impulseGenerated;
+	}
 }
 void RailVehicle::consumeImpulse(){
-	impulse= 0;
+	impulse =0;
 }
 int RailVehicle::getBrakes(){
 	return brakes;

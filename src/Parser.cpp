@@ -10,6 +10,7 @@
 #include <algorithm>
 #include "Sim.h" 
 #include "Locomotive.h" 
+#include "Train.h" 
 #include "Wagon.h" 
 #include "Filter.h" 
 #include "Message.h" 
@@ -207,16 +208,20 @@ void showWagons(const char * a, const char * b){
 	}
 }
 void addLocomotive(int t){
-	Locomotive * l = new Locomotive(); 
-	d.game->sim.addLocomotive(l);
-	Point p = l->getPos();
+	Locomotive * locomotive = new Locomotive; 
+	Train * train = new Train;
+	train->addVehicle(locomotive);
+	d.game->sim.addLocomotive(locomotive);
+	d.game->sim.addTrain(train);
+	Point p = locomotive->getPos();
 	Rail * r = d.game->sim.railMap.getRailAt(p.row,p.col);
-	if(r) l->gotoRail(r);
-	d.locomotive = l;
+	if(r) locomotive->gotoRail(r);
+	d.locomotive = locomotive;
 }
 void addWagon(int t){
 	Wagon * w = new Wagon();
-	d.game->sim.addWagon(w);
+	Train * train = new Train;
+	d.game->sim.addTrain(train);
 	d.wagon = w;
 }
 void addSemaphore(int t){

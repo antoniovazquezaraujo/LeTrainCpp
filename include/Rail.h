@@ -23,6 +23,7 @@ public:
 	Rail *        getLinkedRailAt(Dir d);
 
 	void setRailVehicle(RailVehicle * vehicle);
+	void reverseVehicleImpulse();
 	void setPos(Point pos);
 	void linkRailAt(Dir d, Rail * rail);
 	void paint(Window * g);

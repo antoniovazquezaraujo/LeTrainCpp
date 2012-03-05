@@ -18,6 +18,7 @@ public:
 	int isLinked(RailVehicle* b);
 	virtual void addToTrain(Train *)=0;
 
+	void reverseImpulse();
 	bool gotoRail(Rail * r);
 	bool goBackToRail(Rail * r);
 	void forward();
@@ -28,7 +29,7 @@ public:
 	void setSelected(bool selected);
 	bool isMoved();
 	int getImpulse();
-	void receiveImpulse(int imp=1, Dir d=Dir::NO_DIR);
+	int receiveImpulse(int imp=1, Dir d=Dir::NO_DIR);
 	void consumeImpulse();
 	void generateImpulse();
 	void incImpulseGenerated(int n=1);

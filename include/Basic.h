@@ -11,6 +11,7 @@
 #include <ncurses.h>
 #include <iterator>
 #include <vector>
+#include <deque>
 #include <array>
 #include <list>
 #include <map>

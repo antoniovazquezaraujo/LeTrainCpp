@@ -51,6 +51,9 @@ bool Rail::exitVehicle(){
 void Rail::reverseVehicle(){
 	vehicle->setDir(getPath(vehicle->getDir()));
 }
+void Rail::reverseVehicleImpulse(){
+	vehicle->reverseImpulse();
+}
 //---------------------------------------
 Rail::Rail(DirEnv * dirEnv, Aspect * aspect)
 	:aspect(aspect), vehicle(0),dirEnv(*dirEnv){

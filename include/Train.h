@@ -13,6 +13,7 @@ enum SelectorStatus{
 };
 class Train{
 public:
+	typedef deque<RailVehicle *> TVehicles;
 	Train();
 	void paint(Window * g);
 
@@ -65,7 +66,7 @@ public:
 	//Si se quiere eliminar uno del medio, dividir primero el tren en dos,
 	//borrar el último y luego volver a unirlos.
 	void removeLastVehicle();
-	vector<RailVehicle*> & getVehicles();
+	TVehicles & getVehicles();
 	void clear();
 private:
 	int crash(RailVehicle * crashed, int impulse, Dir d);
@@ -77,8 +78,8 @@ private:
 	//int setupTrainDir();
 
 //properties:
-	vector <RailVehicle*> vehicles;
-	Selector<vector<RailVehicle*>> vehicleSelector;
+	Train::TVehicles vehicles;
+	Selector<TVehicles> vehicleSelector;
 	list <Locomotive*> locomotives;
 	//list<RailVehicle*>::iterator vehicleIterator;
 

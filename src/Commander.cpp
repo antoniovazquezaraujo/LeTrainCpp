@@ -34,9 +34,9 @@ Commander::Commander(Game * game)
 	registerMode(EVENTS_MODE, 'V');
 
 	registerAction("Next train",       &Commander::selectNextTrain,      DRIVERS_MODE, 'n');
-	registerAction("Previous train",   &Commander::selectPreviousTrain,  DRIVERS_MODE, 'p');
+	registerAction("Prev train",       &Commander::selectPreviousTrain,  DRIVERS_MODE, 'p');
 	registerAction("Next vehicle",     &Commander::selectNextVehicle,    DRIVERS_MODE, 'l');
-	registerAction("Previous vehicle", &Commander::selectPreviousVehicle,DRIVERS_MODE, 'h');
+	registerAction("Prev vehicle",     &Commander::selectPreviousVehicle,DRIVERS_MODE, 'h');
 	registerAction("Accelerate",       &Commander::accelerateTrain,      DRIVERS_MODE, 'k');
 	registerAction("Deccelerate",      &Commander::deccelerateTrain,     DRIVERS_MODE, 'j');
 	registerAction("Unlink",           &Commander::unlinkTrain,          DRIVERS_MODE, '0');
@@ -55,10 +55,10 @@ Commander::Commander(Game * game)
 	registerAction("Add wagon",        &Commander::finderAddWagon,             TRAINS_MODE, 'w');
 	registerAction("Add train",        &Commander::finderAddTrain,             TRAINS_MODE, 't');
 	registerAction("Add sensor",       &Commander::finderAddSensor,            TRAINS_MODE, 's');
-	registerAction("Delete vehicle",   &Commander::finderDeleteVehicle,        TRAINS_MODE, 'x');
+	registerAction("Del. vehicle",     &Commander::finderDeleteVehicle,        TRAINS_MODE, 'x');
 	registerAction("Inc. fork dir",    &Commander::finderIncFork,              TRAINS_MODE, 'h');
 	registerAction("Dec. fork dir",    &Commander::finderDecFork,              TRAINS_MODE, 'l');
-	registerAction("Set auto-move",    &Commander::setAutoMove,                TRAINS_MODE, 'a');
+	registerAction("Auto-move",        &Commander::setAutoMove,                TRAINS_MODE, 'a');
 	registerAction("Move trains",      &Commander::moveTrains,                 TRAINS_MODE, '.');
 
 	setMode('P');

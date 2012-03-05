@@ -2,14 +2,17 @@
 #include "Game.h"
 #include "Window.h"
 #include "Sim.h"
+#include "Train.h"
 #include "SimView.h"
 #include "Commander.h"
 #include "CommanderView.h"
 #include "TerminalWindow.h"
 #include "ProgramEditor.h"
+#include "Console.h"
 Logger Game::log = Logger::getInstance("Game");
 Game::Game()
 	:programEditor(this),
+	console(this),
 	commander(this){
 }
 
@@ -28,13 +31,21 @@ void Game::start(){
 			sim.moveTrains();
 			sim.checkSensors();
 		}
+		if(sim.getTrainSelector()->isSelected()){
+			vector<Train*>::iterator i = sim.getSelectedTrain();
+			Train * t = *i;
+			stringstream s;
+			s << *t;
+			console.add(s.str());
+		}
 		paint();
 	}
 }
 void Game::paint(){
 	sim          .paint();
 	commander    .paint();
-	programEditor.paint();
+	console      .paint();
+	//programEditor.paint();
 	update_panels();
 	doupdate();
 }

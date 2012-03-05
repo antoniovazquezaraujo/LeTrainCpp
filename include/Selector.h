@@ -3,6 +3,7 @@
 #include<iostream>
 #include<cassert>
 #include<exception>
+#include<deque>
 #include<vector>
 using namespace std;
 

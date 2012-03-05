@@ -20,11 +20,14 @@ void Wagon::paint(Window * g){
 		g->setBg(getAspect()->getBgColor());
 
 	}
+	g->putC(pos.row, pos.col, dir.getAspectChar());  
+	/*
 	if(isSelected()){
 		g->putC(pos.row, pos.col, '*');  
 	}else{
 		g->putC(pos.row, pos.col, getAspect()->getAspectChar());  
 	}
+	*/
 }
 void Wagon::erase(Window * g){
 	g->setBg(getAspect()->getBgColor());

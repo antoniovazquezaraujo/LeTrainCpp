@@ -1,17 +1,126 @@
-Si el vehiculo tiene un rail, se le quita
-2 Si la dir del vehículo no es NO_DIR
-	al vehiculo le pone de dir el rail->getPath(-dir)
-   si no 
-	le pone rail->getAnyPath()
+mover()
+	Si movido devuelve masa total
+	A impulso total le sumo impulso de todos los vehiculos
+	Si es negativo invierto la dirección
+	Si el impulso total es mayor que la masa entonces{
+		Si está invertido tomo el último vehículo
+		Si no tomo el primero
+		La dirección es la del vehículo tomado
+		El top rail es su rail
+		en next rail es el rail enlazado en esa dirección desde ahí
+		Si hay un rail entonces{
+			vehiculo crashed es el vehiculo de ese rail
+			Si hay un vehículo crashed entonces{
+				consumido es el crash de ese vehículo con el impulso total y mi dirección
+			si no entonces{
+				si invertido entonces
+					muevo hacia atrás
+				si no entonces
+					muevo hacia adelante
+				consumido es la masa total
+			a impulso total le resto consumido
 
-3 al vehículo le pone la pos del rail
-4 al vehiculo le pone ese rail
-1 al rail le pone ese vehiculo
---------------------------------------------------
-1 al rail le pone ese vehiculo
-2 si la dir del vehiculo no es NO_DIR
-   al vehiculo se pone de dir getPath(-dir)
-	si no le pone getAnyPath
-3 al vehiculo le pone de pos la pos del rail
-4 al vehiculo le pone de rail ese rail
+crash(vehículo, impulso, direccion){
+	vehículo recibe impulso en esa dirección
+	tomo su tren
+	consumido es el move de dicho tren
+	devuelvo consumido
 
+vehículo recibe impulso(impulso dirección)
+	si la dirección es la suya
+		el impulso se suma al suyo
+	si no
+		se resta
+
+Un tren tiene varios elementos que definen su movimiento. Sin entrar en precisiones físicas podemos abstraerlo por turnos de movimiento, de la siguiente manera.
+
+impulso: 
+	la energía cinética que lleva el tren en un instante dado
+
+impulsoGenerado: 
+	el incremento de impulso que se le aplica en cada turno. Si tiene un motor, el motor aplicará ese incremento.
+
+consumo: la cantidad de impulso que consume en cada turno si se mueve, es decir, si el impulso es suficiente para mover su masa. En resumen, cada vez que su impulso es mayor a su masa, se puede mover y consume la misma cantidad que su masa.
+
+dirección: la dirección en la que va en tren. Si el impulso total del tren es negativo, se invierte el tren de sentido, se invierte el impulso por -1 y se continúa
+
+Luego, el impulso del tren no tiene signo. Sin embargo, la suma de impulsos de todos sus vehículos sí, puesto que puden haber recibido empujes desde ambos lados. Así que una vez que se calcula, se invierte o no el tren y se continua como si nada.
+
+El impulso generado también puede tener signo, pues el motor funciona en ambos sentidos. Si es de signo negativo, ha de invertirse en tren y sumarse normalmente.
+Así que el orden de acciones es el siguiente:
+
+Obtener el impulso de todos los vehículos. Las locomotoras generarán impulso con signo y los vagones tendrán el impulso recibido en choques externos. Eso nos dará un número con signo.
+Si ese número es negativo y el tren no está invertido, lo invertimos. Sumamos el abs de ese impulso al del tren.
+Si chocamos, le enviamos el impulso que llevamos en la dirección actual al vehículo golpeado. Eso nos devolverá un consumo de energía, que hemos de restar a nuestro impulso.
+
+Cuando un vehículo es golpeado, qué energía recibe, y cuánta devuelve?
+Si la dirección en la que va es contraria a nosotros, nos restará su impulso. Si está parado nos restará su masa, si va en nuestra dirección, su masa menos su impulso. Es decir, nos roba lo que nos cuesta moverlo.
+vehículo en dirección +, con impulso 10 y masa 10
+golpeo con impulso 20 en dirección +
+del impulso que le paso no gasta nada, porque el que tiene le llega para moverse.
+Si no le llega, toma el necesario y me devuelve el resto.
+Si tiene impulso contrario al mio, para moverse tendrá que restárselo a su masa y luego tomar el necesario para moverse. Me devuelve el resto.
+Es decir, todos los vehículos empujados, toman hasta el impulso necesario para poder moverse. Si les paso suficiente lo consumen todo y se mueven. Si les paso de más me devuelven el restante. Si tienen impulso contrario, lo restarán.
+Bien. Cuál es la operación matemática???
+
+impulso 100
+dir 3
+
+masa = 60
+miImpulso 30
+miDir 3 
+consumo
+
+int receiveImpulse(int impulseReceived, Dir dir){
+	int consumed = 0;
+	if(getRail()->getPath(-dir) == this->dir){
+		consumed = masa - this->impulse;
+		if(consumed < 0) consumed = 0;
+	}else{
+		consumed = masa + this->impulse;
+	}
+	if(impulseReceived >= consumed){
+		this->impulse += consumed;
+		return impulseReceived - consumed;
+	}else{
+		this->impulse += impulseReceived;
+		return 0;
+	}
+}
+
+En resumen, quizá hay que cambiar los nombres de las cosas:
+
+impulsoGenerado : impulsoGenerado (tiene signo +-)
+consumo         : impulsoRecibido (tiene signo +-)
+impulso         : impulso (no tiene signo)
+direccion       : inversa o directa
+masa            : masa    (no tiene signo)
+
+impulsoGenerado : el generado por las locomotoras
+impulsoRecibido : el recibido por un vehículo
+impulsoTotal    : impulsoGenerado + impulsoRecibido de todos los vehículos
+                  si es < 0 se invierte el tren y se pone inverted a true
+dirección       : si se invierte es inversa
+masa            : la masa total del tren, suma de la de sus vehículos
+
+mover()
+	Si ya se ha atendido en este turno devuelve masa 
+	impulsoTotal = impulsoGenerado de las locos + impulsoRecibido de todos
+	si impulsoTotal < 0 invierto dirección y impulsoTotal = abs(impulsoTotal)
+	Si (impulsoTotal > masa) {
+		Si está invertido tomo el último vehículo
+		Si no tomo el primero
+		La dirección es la del vehículo tomado
+		El top rail es su rail
+		en next rail es el rail enlazado en esa dirección desde ahí
+		Si hay un rail entonces{
+			vehiculo crashed es el vehiculo de ese rail
+			Si hay un vehículo crashed entonces{
+				consumido es el crash de ese vehículo con el impulso total y mi dirección
+			si no entonces{
+				si invertido entonces
+					muevo hacia atrás
+				si no entonces
+					muevo hacia adelante
+				consumido es la masa total
+			a impulso total le resto consumido

@@ -52,6 +52,7 @@ public:
 	void removeFork(         int key);
 	void removeSemaphore(    int key);
 
+	Selector<vector<Train*>> * getTrainSelector();
 	void moveTrains();
 	//void moveWagons();
 	//void moveLocomotives();

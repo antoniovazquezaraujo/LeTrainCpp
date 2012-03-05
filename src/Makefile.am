@@ -33,6 +33,7 @@ Message.cpp                 \
 Parser.cpp                  \
 Point.cpp                   \
 ProgramEditor.cpp           \
+Console.cpp                 \
 Rail.cpp                    \
 RailEnv.cpp                 \
 RailMap.cpp                 \

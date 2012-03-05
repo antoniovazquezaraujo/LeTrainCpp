@@ -63,6 +63,9 @@ Sim::~Sim(){
 		delete t;
 	}
 }
+Selector<vector<Train*>> * Sim::getTrainSelector(){
+	return &trainSelector;
+}
 Finder * Sim::getFinder(){
 	return finder;
 }
