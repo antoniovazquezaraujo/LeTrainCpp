@@ -213,8 +213,7 @@ void Train::invert(){
 	for(i=vehicles.begin();i!=vehicles.end();i++){
 		Dir d = (*i)->getDir();
 		(*i)->getRail()->reverseVehicle();
-		(*i)->getRail()->reverseVehicleImpulse();
-		Dir d2 = (*i)->getDir();
+		//(*i)->getRail()->reverseVehicleImpulse();
 	}
 }
 int Train::sumImpulse(){
@@ -229,30 +228,21 @@ int Train::sumImpulse(){
 	return total;
 }
 int Train::crash(RailVehicle * crashed, int impulse, Dir d){
-	//chocamos con algo
-	//le pasamos todo el impulso y esperamos resto
-	int consumed = crashed->receiveImpulse(impulse, d);
-	Train * crashedTrain = crashed->getTrain();
-	//int consumed= crashedTrain->move();
-	crashedTrain->move();
-	return consumed;
+	return crashed->receiveImpulse(impulse, d);
 }
-int Train::move(){
-	if(moved) return totalMass; 
+void Train::move(){
+	if(moved) return ; 
 	moved = true;
-	int consumed = 0;
-	totalImpulse += sumImpulse(); 
-	if(totalImpulse < 0){
-		if(!reversed){
-			invert();
-			reversed=true;
-		}
-	}else if(totalImpulse > 0){
-		if(reversed){
-			invert();
-			reversed=false;
-		}
+	totalImpulse += sumImpulse();
+
+	if(reversed && totalImpulse > 0){
+		invert();
+		reversed=false;
+	}else if(!reversed && totalImpulse < 0){
+		invert();
+		reversed=true;
 	}
+	//totalImpulse= abs(totalImpulse);
 	if(abs(totalImpulse) >= totalMass){
 		//el tren intentará moverse, porque su impulso puede con su masa
 		RailVehicle * crashedVehicle= nullptr;
@@ -272,8 +262,10 @@ int Train::move(){
 		nextRail = topRail->getLinkedRailAt(trainDir);
 		if(nextRail){
 			crashedVehicle = nextRail->getRailVehicle();
+			int consumed = 0;
 			if(crashedVehicle){
-				consumed = crash(crashedVehicle, abs(totalImpulse),trainDir );
+				consumed = crash(crashedVehicle, totalImpulse,trainDir );
+				LOG_DEBUG(log," consumido en crash: " << consumed);
 			}else{
 				if(reversed){
 					shiftBackward();
@@ -282,20 +274,17 @@ int Train::move(){
 				}
 				consumed= totalMass;
 			}
-			if(totalImpulse >0){
+			if(totalImpulse > 0){
 				totalImpulse -=consumed;
-			}else if(totalImpulse < 0){
+			}else{
 				totalImpulse +=consumed;
 			}
-			assert(consumed >=0);
-			return consumed;
+			LOG_DEBUG(log," me queda: " << totalImpulse);
 		}else{
 			// agregar aqui descarrilamientos!!!
 			assert(false);
-			return 9999999;
 		}
 	}
-	return totalMass; 
 }
 ostream & operator << (ostream & o, Train t){
 	o << "Vehicles:" ;

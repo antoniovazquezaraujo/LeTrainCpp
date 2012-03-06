@@ -35,7 +35,7 @@ public:
 	void setSpeed(int speed);
 	int getSpeed();
 	int getTotalMass();
-	int move();
+	void move();
 	void setMoved(bool moved);
 
 	//Manejo de vehículos

@@ -186,11 +186,7 @@ void RailVehicle::decImpulseGenerated(int n){
 	impulseGenerated-=n;
 }
 void RailVehicle::generateImpulse(){
-	if(impulse >= 0){
-		impulse+= impulseGenerated;
-	}else{
-		impulse-= impulseGenerated;
-	}
+	impulse+= impulseGenerated;
 }
 void RailVehicle::consumeImpulse(){
 	impulse =0;
