@@ -52,6 +52,7 @@ public:
 	Train * unlink();          // intro
 	void reverseSelector(); // barra espaciadora
 	void advanceSelector(); // flecha arriba
+	Selector<TVehicles>  getVehicleSelector();
 
 	//Gestión de elementos
 	//Si hay via libre agregamos al final del tren en la dirección en la que

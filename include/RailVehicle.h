@@ -16,6 +16,9 @@ public:
 	void setLink(Dir d);
 	void setUnlink(Dir d);
 	int isLinked(RailVehicle* b);
+	void selectFrontLink();
+	void selectBackLink();
+	void toggleLink();
 	virtual void addToTrain(Train *)=0;
 
 	void reverseImpulse();
@@ -50,6 +53,7 @@ public:
 
 	RailVehicle * getRailVehicleAt(int numLink);
 	enum{MAX_TURNS=20};
+	enum{FRONT, BACK};
 
 private:
 	Link linker;
@@ -64,6 +68,7 @@ private:
 	bool moved;
 	bool selected;
 	Train * train;
+	int selectedLink;
 
 public:
 	// cambiar esto!

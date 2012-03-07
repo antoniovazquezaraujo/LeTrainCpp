@@ -13,6 +13,7 @@ public:
 	Window(int row, int col, int width, int height, bool withBorder = true);
 	~Window();
 	static void setup();
+	static void resize();
 	static void cleanup();
 	static int getKey();
 	static int waitKey();

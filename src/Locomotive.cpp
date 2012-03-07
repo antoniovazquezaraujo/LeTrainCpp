@@ -34,12 +34,11 @@ void Locomotive::setPower(int power){
 void Locomotive::paint(Window * g){
 	Train * t = getTrain();
 	if(t && t->isSelected()){
-		g->setFg(getAspect()->getBgColor());
-		g->setBg(getAspect()->getFgColor());
-	}else {
 		g->setFg(getAspect()->getFgColor());
 		g->setBg(getAspect()->getBgColor());
-
+	}else {
+		g->setFg(getAspect()->getBgColor());
+		g->setBg(getAspect()->getFgColor());
 	}
 	//g->putC(pos.row, pos.col, getAspect()->getAspectChar());  
 	g->putC(pos.row, pos.col, dir.getAspectChar());  

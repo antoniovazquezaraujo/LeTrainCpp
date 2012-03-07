@@ -32,15 +32,14 @@ Commander::Commander(Game * game)
 	registerMode(RAILS_MODE,  'R');
 	registerMode(RAILPEN_MODE,'P');
 	registerMode(EVENTS_MODE, 'V');
+	registerMode(LINK_MODE,   'L');
 
-	registerAction("Next train",       &Commander::selectNextTrain,      DRIVERS_MODE, 'n');
-	registerAction("Prev train",       &Commander::selectPreviousTrain,  DRIVERS_MODE, 'p');
-	registerAction("Next vehicle",     &Commander::selectNextVehicle,    DRIVERS_MODE, 'l');
-	registerAction("Prev vehicle",     &Commander::selectPreviousVehicle,DRIVERS_MODE, 'h');
-	registerAction("Accelerate",       &Commander::accelerateTrain,      DRIVERS_MODE, 'k');
-	registerAction("Deccelerate",      &Commander::deccelerateTrain,     DRIVERS_MODE, 'j');
-	registerAction("Unlink",           &Commander::unlinkTrain,          DRIVERS_MODE, '0');
-	registerAction("Link",             &Commander::linkTrain,            DRIVERS_MODE, '1');
+	registerAction("Next train",       &Commander::selectNextTrain,            DRIVERS_MODE, 'n');
+	registerAction("Prev train",       &Commander::selectPrevTrain,            DRIVERS_MODE, 'p');
+	registerAction("Next vehicle",     &Commander::selectNextVehicle,          DRIVERS_MODE, 'l');
+	registerAction("Prev vehicle",     &Commander::selectPrevVehicle,          DRIVERS_MODE, 'h');
+	registerAction("Accelerate",       &Commander::accelerateTrain,            DRIVERS_MODE, 'k');
+	registerAction("Deccelerate",      &Commander::deccelerateTrain,           DRIVERS_MODE, 'j');
 
 	registerAction("Move/paint",       &Commander::toggleRailPenPainting,      RAILPEN_MODE, ' ');
 	registerAction("Rotate right",     &Commander::rotateRightRailPen,         RAILPEN_MODE, 'l');
@@ -60,6 +59,14 @@ Commander::Commander(Game * game)
 	registerAction("Dec. fork dir",    &Commander::finderDecFork,              TRAINS_MODE, 'l');
 	registerAction("Auto-move",        &Commander::setAutoMove,                TRAINS_MODE, 'a');
 	registerAction("Move trains",      &Commander::moveTrains,                 TRAINS_MODE, '.');
+
+	registerAction("Next train",       &Commander::selectNextTrain,            LINK_MODE,   'n');
+	registerAction("Prev train",       &Commander::selectPrevTrain,            LINK_MODE,   'p');
+	registerAction("Next vehicle",     &Commander::selectNextVehicle,          LINK_MODE,   'k');
+	registerAction("Prev vehicle",     &Commander::selectPrevVehicle,          LINK_MODE,   'j');
+	registerAction("Front link",       &Commander::selectFrontLink,            LINK_MODE,   'l');
+	registerAction("Back link",        &Commander::selectBackLink,             LINK_MODE,   'h');
+	registerAction("Link/Unlink",      &Commander::toggleLink,                 LINK_MODE,   ' ');
 
 	setMode('P');
 	autoMove=true;
@@ -83,21 +90,24 @@ void Commander::onSetRailPenMode(){
 void Commander::onSetEventsMode(){
 	game->programEditor.edit();
 }
+void Commander::onSetLinkMode(){
+
+}
 //////// Drivers actions /////////
 void Commander::selectNextTrain(){
 	game->sim.selectNextTrain();
 }
-void Commander::selectPreviousTrain(){
+void Commander::selectPrevTrain(){
 	game->sim.selectPrevTrain();
 }
 void Commander::selectNextVehicle(){
 	game->sim.selectNextVehicle();
 }
-void Commander::selectPreviousVehicle(){
+void Commander::selectPrevVehicle(){
 	game->sim.selectPrevVehicle();
 }
 void Commander::accelerateTrain(){
-	vector<Train *>::iterator i = game->sim.getSelectedTrain();
+	Sim::TTrains::iterator i = game->sim.getSelectedTrain();
 	(*i)->incImpulseGenerated();
 
 
@@ -192,12 +202,6 @@ void Commander::finderForward(){
 void Commander::finderReverse(){
 	game->sim.getFinder()->reverse();
 }
-void Commander::unlinkTrain(){
-	(*(game->sim.getSelectedTrain()))->unlink();
-}
-void Commander::linkTrain(){
-	(*(game->sim.getSelectedTrain()))->link();
-}
 void Commander::finderAddWagon(){
 	Train * train = new Train;
 	RailVehicle* wagon = new Wagon;
@@ -257,6 +261,16 @@ void Commander::moveTrains(){
 	game->sim.moveTrains();
 	//game->sim.moveWagons();
 	game->sim.checkSensors();
+}
+/////////////////////////////////////////////////////////////////
+void Commander::selectFrontLink(){
+	game->sim.selectFrontLink();
+}
+void Commander::selectBackLink(){
+	game->sim.selectBackLink();
+}
+void Commander::toggleLink(){
+	game->sim.toggleLink();
 }
 /////////////////////////////////////////////////////////////////
 void Commander::doAction(char key){
@@ -319,6 +333,9 @@ void Commander::setMode(char key){
 	case EVENTS_MODE:
 		onSetEventsMode();	
 		break;
+	case LINK_MODE:
+		onSetLinkMode();	
+		break;
 	}
 }
 Commander::CommandMode Commander::getMode(){
@@ -344,6 +361,9 @@ const char * Commander::getModeName(int mode){
 		break;
 	case EVENTS_MODE:
 		ret = "Events";
+		break;
+	case LINK_MODE:
+		ret = "Links";
 		break;
 	}
 	return ret;

@@ -63,7 +63,7 @@ Sim::~Sim(){
 		delete t;
 	}
 }
-Selector<vector<Train*>> * Sim::getTrainSelector(){
+Selector<Sim::TTrains> * Sim::getTrainSelector(){
 	return &trainSelector;
 }
 Finder * Sim::getFinder(){
@@ -123,7 +123,7 @@ Train * Sim::getTrain(int id){
 Wagon * Sim::getWagon(int id){
 	return wagons.at(id);
 }
-vector<Train*> & Sim::getTrains(){
+Sim::TTrains & Sim::getTrains(){
 	return trains;
 }
 vector<Wagon *> & Sim::getWagons(){
@@ -149,7 +149,7 @@ void Sim::moveTrains(){
 		t->move();
 	}
 }
-vector<Train*>::iterator Sim::getSelectedTrain(){
+Sim::TTrains::iterator Sim::getSelectedTrain(){
 	return trainSelector.getSelected(); 
 }
 void Sim::selectPrevTrain(){
@@ -181,6 +181,30 @@ void Sim::selectPrevVehicle(){
 	}
 }
 
+void Sim::selectFrontLink(){
+	if(trainSelector.isSelected()){
+		Selector<Train::TVehicles> vehicleSelector = (*trainSelector.getSelected())->getVehicleSelector();
+		if(vehicleSelector.isSelected()){
+			(*(vehicleSelector.getSelected()))->selectFrontLink();
+		}
+	}
+}
+void Sim::selectBackLink(){
+	if(trainSelector.isSelected()){
+		Selector<Train::TVehicles> vehicleSelector = (*trainSelector.getSelected())->getVehicleSelector();
+		if(vehicleSelector.isSelected()){
+			(*(vehicleSelector.getSelected()))->selectBackLink();
+		}
+	}
+}
+void Sim::toggleLink(){
+	if(trainSelector.isSelected()){
+		Selector<Train::TVehicles> vehicleSelector = (*trainSelector.getSelected())->getVehicleSelector();
+		if(vehicleSelector.isSelected()){
+			(*(vehicleSelector.getSelected()))->toggleLink();
+		}
+	}
+}
 void Sim::checkSensors(){
 	for(auto s : sensors){
 		Event *event = s->check();

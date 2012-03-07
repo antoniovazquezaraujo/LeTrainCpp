@@ -34,6 +34,7 @@ RailVehicle::RailVehicle(Aspect * aspect)
 	friction(0),
 	rail(0),
 	moved(false),
+	selectedLink(FRONT),
 	turns(1){
 
 }
@@ -75,13 +76,18 @@ int RailVehicle::isLinked(RailVehicle *b){
 }
 void RailVehicle::setLink(Dir d){
 	assert(false);
-
-// TODO
 }
 void RailVehicle::setUnlink(Dir d){
 	assert(false);
-// TODO
-
+}
+void RailVehicle::selectFrontLink(){
+	selectedLink = FRONT;
+}
+void RailVehicle::selectBackLink(){
+	selectedLink = BACK;
+}
+void RailVehicle::toggleLink(){
+	assert(false);
 }
 void RailVehicle::forward(){
 	gotoRail(rail->getLinkedRailAt(dir));
@@ -157,25 +163,6 @@ int RailVehicle::receiveImpulse(int impulseReceived, Dir dir){
 		return 0;
 	}
 }
-/*
-void RailVehicle::receiveImpulse(int impulse, Dir d ){
-						LOG_DEBUG(log," Tenia: " << this->impulse << " recibe" << impulse << " hacia " << d); 
-	if(getRail()->getPath(-d) == dir){
-		if(this->impulse >= 0){
-			this->impulse+=impulse;
-		}else{
-			this->impulse-=impulse;
-		}
-	}else{
-		if(this->impulse >= 0){
-			this->impulse-=impulse;
-		}else{
-			this->impulse+=impulse;
-		}
-	}
-						LOG_DEBUG(log," queda: " << this->impulse); 
-}
-*/
 void RailVehicle::reverseImpulse(){
 	impulse*= -1;
 }

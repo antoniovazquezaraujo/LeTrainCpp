@@ -32,7 +32,7 @@ void Game::start(){
 			sim.checkSensors();
 		}
 		if(sim.getTrainSelector()->isSelected()){
-			vector<Train*>::iterator i = sim.getSelectedTrain();
+			Sim::TTrains::iterator i = sim.getSelectedTrain();
 			Train * t = *i;
 			stringstream s;
 			s << *t;

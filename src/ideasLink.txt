@@ -1,0 +1,39 @@
+Para enlazar dos vehículos usaremos un par de símbolos como 0 y 8
+El 0 significa que no están enganchados y el 8 que sí.
+Se mostrarán a ambos lados del vehículo seleccionado, como
+
+   -----------0>8----------
+
+Que indica que está enlazado con el vehículo de la derecha.
+El vehículo queda justo debajo del número, pero esto solo ocurre
+en el modo "Link" que muestra las conexiones del seleccionado.
+Las conexiones se seleccionan con n y p, como los vehículos.
+Y se conectan o desconectan con espacio, por ejemplo, o con 1 y 0
+En el modo "Link" quizá j y k servirán para ir al siguiente vehículo
+para poder enganchar todo un tren rápidamente.
+La conexión seleccionada se verá con el fondo inverso y la otra no.
+Qué pasa con un tren al que se le pasan todos sus vehículos a otro?
+Se borra ese tren al quedar vacío? Quizá será lo mejor.
+Un tren solo se elimina cuando se queda sin ningún vehículo.
+Si enlazo un tren con otro, mediante el vagón primero de uno y 
+último del otro, qué pasa? El seleccionado es el que "absorbe" al
+otro, haciéndolo desaparecer por completo.
+Qué pasa cuando se desenganchan???
+Se crea un nuevo tren por cada grupo desenganchado. 
+Qué bien!
+7 de Marzo de 2012
+Entonces, para el link necesitamos las siguientes acciones nuevas:
+Modo Link : L
+Next vehicle :k
+Prev vehicle :j
+Next train: n
+Prev train: p
+Front link: l
+Back link : h
+Link/unlink: Space
+El aspecto de los enlaces será un 0 y un 8, según esté suelto o enlazado,
+Cuando se selecciona uno o el otro, se muestran seleccionados, y el vehículo que
+haya debajo no se ve. Si no hay vehículo entonces no se muestra ningun link.
+Al cambiar de vehículo, obviamente, desaparecen y se vuelve a ver lo que hubiese 
+debajo.
+

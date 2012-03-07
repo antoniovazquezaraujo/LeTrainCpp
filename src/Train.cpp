@@ -74,6 +74,9 @@ int Train::getTotalMass(){
 	return total;
 }
 
+Selector<Train::TVehicles>  Train::getVehicleSelector(){
+	return vehicleSelector;
+}
 //Manejo de vehículos
 void Train::selectNextVehicle(){
 	if(vehicleSelector.isSelected()){
@@ -213,7 +216,6 @@ void Train::invert(){
 	for(i=vehicles.begin();i!=vehicles.end();i++){
 		Dir d = (*i)->getDir();
 		(*i)->getRail()->reverseVehicle();
-		//(*i)->getRail()->reverseVehicleImpulse();
 	}
 }
 int Train::sumImpulse(){
@@ -242,7 +244,6 @@ void Train::move(){
 		invert();
 		reversed=true;
 	}
-	//totalImpulse= abs(totalImpulse);
 	if(abs(totalImpulse) >= totalMass){
 		//el tren intentará moverse, porque su impulso puede con su masa
 		RailVehicle * crashedVehicle= nullptr;
@@ -265,7 +266,6 @@ void Train::move(){
 			int consumed = 0;
 			if(crashedVehicle){
 				consumed = crash(crashedVehicle, totalImpulse,trainDir );
-				LOG_DEBUG(log," consumido en crash: " << consumed);
 			}else{
 				if(reversed){
 					shiftBackward();
@@ -279,7 +279,6 @@ void Train::move(){
 			}else{
 				totalImpulse +=consumed;
 			}
-			LOG_DEBUG(log," me queda: " << totalImpulse);
 		}else{
 			// agregar aqui descarrilamientos!!!
 			assert(false);

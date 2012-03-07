@@ -1,7 +1,15 @@
 #include "Basic.h"
 #include "Window.h"
+#include <signal.h>
 MAKE_LOGGER(Window);
 
+void do_resize(int dummy) {
+	Window::setup();
+}
+void Window::resize(){
+
+
+}
 Window::Window(int row, int col, int width, int height, bool withBorder)
 	: row(row), col(col), width(width), height(height), withBorder(withBorder) {
 	if(withBorder){
@@ -26,6 +34,7 @@ Window::Window(int row, int col, int width, int height, bool withBorder)
 	vShift=0;
 	hShift=0;
 	show(true);
+	signal(SIGWINCH, do_resize);
 }
 void Window::show(bool b){
 	if(b){
@@ -152,4 +161,5 @@ void Window::putC(int row, int col, char c){
 void Window::putStr(int row, int col, const char *str){
 	mvwaddstr(window, row-vShift,col-hShift,str);
 }
+
 

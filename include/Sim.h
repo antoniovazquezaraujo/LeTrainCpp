@@ -6,16 +6,17 @@
 #include "Selector.h"
 class Sim{
 public:
-	//typedef IntMap<Locomotive   *> CLocomotives; 
-	//typedef IntMap<Wagon        *> CWagons; 
-	//typedef IntMap<EventProgram *> CPrograms; 
-	//typedef IntMap<Sensor       *> CSensors; 
-	//typedef IntMap<Semaphore    *> CSemaphores; 
-	//typedef IntMap<ForkRail     *> CForks; 
+	typedef deque<Train        *> TTrains; 
+	typedef deque<Locomotive   *> TLocomotives; 
+	typedef deque<Wagon        *> TWagons; 
+	typedef deque<EventProgram *> TPrograms; 
+	typedef deque<Sensor       *> TSensors; 
+	typedef deque<Semaphore    *> TSemaphores; 
+	typedef deque<ForkRail     *> TForks; 
 	Sim();
 	~Sim();
 
-	vector<Train        * >& getTrains();
+	TTrains                & getTrains();
 	vector<Wagon        * >& getWagons();
 	vector<Locomotive   * >& getLocomotives();
 	vector<Sensor       * >& getSensors();
@@ -31,11 +32,14 @@ public:
 	void addFork          (ForkRail*    );
 	void addSemaphore     (Semaphore*   );
 
-	vector<Train *>::iterator getSelectedTrain();
+	Sim::TTrains::iterator getSelectedTrain();
 	void selectPrevTrain();
 	void selectNextTrain();
 	void selectNextVehicle();
 	void selectPrevVehicle();
+	void selectFrontLink();
+	void selectBackLink();
+	void toggleLink();
 	Train        * getTrain(        int key);
 	Wagon        * getWagon(        int key);
 	Locomotive   * getLocomotive(   int key);
@@ -52,7 +56,7 @@ public:
 	void removeFork(         int key);
 	void removeSemaphore(    int key);
 
-	Selector<vector<Train*>> * getTrainSelector();
+	Selector<TTrains> * getTrainSelector();
 	void moveTrains();
 	//void moveWagons();
 	//void moveLocomotives();
@@ -69,8 +73,8 @@ public:
 private:
 	Finder  * finder;
 	SimView * view;
-	Selector<vector<Train*>> trainSelector;
-	vector<Train        * >trains;
+	Selector<TTrains>      trainSelector;
+	TTrains                trains;
 	vector<Wagon        * >wagons;
 	vector<Locomotive   * >locomotives;
 	vector<Sensor       * >sensors;
