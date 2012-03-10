@@ -14,14 +14,10 @@ enum SelectorStatus{
 class Train{
 public:
 	typedef deque<RailVehicle *> TVehicles;
-	typedef deque<Locomotive  *> TLocomotives;
 	Train();
 	void paint(Window * g);
 
 	//Manejo manual
-	void selectFrontLink();
-	void selectBackLink();
-	void toggleLink();
 	void setSelected(bool selected);
 	bool isSelected();
 	void push();
@@ -45,27 +41,33 @@ public:
 	//Manejo de vehículos
 	void selectNextVehicle();
 	void selectPrevVehicle();
+	// Estas devuelven un puntero al tren que desaparece y que debemos borrar
+	// o bien al nuevo que se crea automáticamente y que debemos agregar
+	//Train * linkSelectedVehicleForward();
+	//Train * unlinkSelectedVehicleForward();
+	//Train * linkSelectedVehicleBackward();
+	//Train * unlinkSelectedVehicleBackward();
 
-	void reverseSelector(); 
-	void advanceSelector(); 
-
-	TVehicles               & getVehicles();
-	TLocomotives            & getLocomotives();
-
-	Selector<TVehicles>     getVehicleSelector();
-	Selector<TLocomotives>  getLocomotiveSelector();
+	Train * link();            // intro
+	Train * unlink();          // intro
+	void reverseSelector(); // barra espaciadora
+	void advanceSelector(); // flecha arriba
+	Selector<TVehicles>  getVehicleSelector();
 
 	//Gestión de elementos
 	//Si hay via libre agregamos al final del tren en la dirección en la que
 	//va el selector de vehículos
-	void addVehicle(int p, RailVehicle* v);
-	void addWagon(int p, Wagon* w);
-	void addLocomotive(int p, Locomotive* l);
+	void addWagon();
+	void addLocomotive();
+	void addVehicle(RailVehicle* v);
+	void addWagon(Wagon* w);
+	void addLocomotive(Locomotive* l);
 
 	//Borra el último vehículo en la dirección del selector de vehículos
 	//Si se quiere eliminar uno del medio, dividir primero el tren en dos,
 	//borrar el último y luego volver a unirlos.
 	void removeLastVehicle();
+	TVehicles & getVehicles();
 	void clear();
 private:
 	int crash(RailVehicle * crashed, int impulse, Dir d);
@@ -74,13 +76,13 @@ private:
 	void shiftForward();
 	void shiftBackward();
 	int sumImpulse();
+	//int setupTrainDir();
 
 //properties:
-	TVehicles vehicles;
-	Train::TLocomotives locomotives;
-
+	Train::TVehicles vehicles;
 	Selector<TVehicles> vehicleSelector;
-	Selector<TLocomotives> locomotiveSelector;
+	list <Locomotive*> locomotives;
+	//list<RailVehicle*>::iterator vehicleIterator;
 
 	int totalImpulse;
 	int totalMass;

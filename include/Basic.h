@@ -68,6 +68,9 @@ class CrossRail;
 const int RAIL_MAP_ROWS = 25;
 const int RAIL_MAP_COLS = 80;
 
+const int FRONT=0;
+const int BACK=1;
+
 //crea un logger para cada clase. Agregarlo al principio de cada fichero
 // con MAKE_LOGGER(NombreDeLaClase); (ojo, poner el ; )
 #define MAKE_LOGGER(className) Logger className::log = Logger::getInstance(# className)

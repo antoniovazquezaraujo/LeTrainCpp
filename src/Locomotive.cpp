@@ -49,6 +49,6 @@ void Locomotive::erase(Window * g){
 	g->putC(pos.row, pos.col, ' ');  
 }
 
-void Locomotive::addToTrain(Train * t){
-	t->addLocomotive(this);
+void Locomotive::addToTrain(int p, Train * t){
+	t->addLocomotive(p, this);
 }

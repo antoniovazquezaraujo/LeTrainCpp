@@ -10,6 +10,7 @@ CrossRail.h                 \
 CurveAspect.h               \
 CurveRail.h                 \
 DirEnv.h                    \
+RailEnv.h                   \
 Dir.h                       \
 Event.h                     \
 EventProgram.h              \
@@ -20,14 +21,12 @@ ForkAspect.h                \
 ForkDirSelector.h           \
 ForkRail.h                  \
 Game.h                      \
-Link.h                      \
 LocomotiveAspect.h          \
 Locomotive.h                \
 Log.h                       \
 Message.h                   \
 Point.h                     \
 ProgramEditor.h             \
-RailEnv.h                   \
 Rail.h                      \
 RailMap.h                   \
 RailPen.h                   \

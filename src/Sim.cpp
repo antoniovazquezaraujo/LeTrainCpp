@@ -181,28 +181,10 @@ void Sim::selectPrevVehicle(){
 	}
 }
 
-void Sim::selectFrontLink(){
-	if(trainSelector.isSelected()){
-		Selector<Train::TVehicles> vehicleSelector = (*trainSelector.getSelected())->getVehicleSelector();
-		if(vehicleSelector.isSelected()){
-			(*(vehicleSelector.getSelected()))->selectFrontLink();
-		}
-	}
-}
-void Sim::selectBackLink(){
-	if(trainSelector.isSelected()){
-		Selector<Train::TVehicles> vehicleSelector = (*trainSelector.getSelected())->getVehicleSelector();
-		if(vehicleSelector.isSelected()){
-			(*(vehicleSelector.getSelected()))->selectBackLink();
-		}
-	}
-}
 void Sim::toggleLink(){
 	if(trainSelector.isSelected()){
-		Selector<Train::TVehicles> vehicleSelector = (*trainSelector.getSelected())->getVehicleSelector();
-		if(vehicleSelector.isSelected()){
-			(*(vehicleSelector.getSelected()))->toggleLink();
-		}
+		Train * t = *(trainSelector.getSelected());
+		t->toggleLink();
 	}
 }
 void Sim::checkSensors(){

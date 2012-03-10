@@ -31,10 +31,10 @@ public:
 	void enter(RailVehicle* v);
 protected:
 	Point         pos;
-	RailEnv       railEnv;
 	Aspect *      aspect;	
 	RailVehicle * vehicle;
 	DirEnv        dirEnv;
+	RailEnv       railEnv;
 
 	friend ostream & operator << (ostream & o, Rail & rail);
 	static Logger log;

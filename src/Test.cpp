@@ -395,16 +395,6 @@ BEGIN_TEST
 END_TEST
 
 BEGIN_TEST
-	/* 
-	  RailEnv 
-	   */
-	RailEnv a,b;
-	for(Rail* r :a.links){
-		assert(r == nullptr);
-	}
-
-END_TEST
-BEGIN_TEST
 	env1->addPath(Dir::E, Dir::W);
 	env2->addPath(Dir::W, Dir::E);
 	Rail * r1 = env1->makeNewRail();

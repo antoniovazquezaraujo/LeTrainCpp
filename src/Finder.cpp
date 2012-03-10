@@ -44,7 +44,7 @@ void Finder::gotoRail(Rail * r){
 	pos = r->getPos();
 	rail = r;
 }
-void Finder::addToTrain(Train *){
+void Finder::addToTrain(int, Train *){
 	//dont!
 }
 bool Finder::forward(int distance){

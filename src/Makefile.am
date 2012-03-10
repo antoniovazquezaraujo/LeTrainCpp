@@ -13,6 +13,7 @@ Commander.cpp               \
 CommanderView.cpp           \
 CrossAspect.cpp             \
 CrossRail.cpp               \
+RailEnv.cpp                 \
 CurveAspect.cpp             \
 CurveRail.cpp               \
 Dir.cpp                     \
@@ -26,7 +27,6 @@ ForkAspect.cpp              \
 ForkDirSelector.cpp         \
 ForkRail.cpp                \
 Game.cpp                    \
-Link.cpp                    \
 LocomotiveAspect.cpp        \
 Locomotive.cpp              \
 Message.cpp                 \
@@ -35,7 +35,6 @@ Point.cpp                   \
 ProgramEditor.cpp           \
 Console.cpp                 \
 Rail.cpp                    \
-RailEnv.cpp                 \
 RailMap.cpp                 \
 RailPen.cpp                 \
 RailVehicle.cpp             \
@@ -48,7 +47,6 @@ StraightAspect.cpp          \
 StraightRail.cpp            \
 TerminalWindow.cpp          \
 Train.cpp                   \
-TrainIterator.cpp           \
 Vehicle.cpp                 \
 WagonAspect.cpp             \
 Wagon.cpp                   \

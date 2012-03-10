@@ -16,7 +16,7 @@ public:
 	void setDir(Dir dir);
 	void paint(Window * g);
 	void erase(Window * g);
-	void addToTrain(Train *);
+	void addToTrain(int, Train *);
 	bool isEmpty();
 private:
 	Rail * rail;

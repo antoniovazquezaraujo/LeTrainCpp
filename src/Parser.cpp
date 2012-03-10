@@ -210,7 +210,7 @@ void showWagons(const char * a, const char * b){
 void addLocomotive(int t){
 	Locomotive * locomotive = new Locomotive; 
 	Train * train = new Train;
-	train->addVehicle(locomotive);
+	train->addVehicle(0,locomotive);
 	d.game->sim.addLocomotive(locomotive);
 	d.game->sim.addTrain(train);
 	Point p = locomotive->getPos();
@@ -322,12 +322,6 @@ struct SetLocomotiveValue {
 		case DIR: 
 			d.locomotive->setDir(d.propertyValue);
 			break;
-		case LINK: 
-			d.locomotive->setLink(d.propertyValue);
-			break;
-		case UNLINK:
-			d.locomotive->setUnlink(d.propertyValue);
-			break;
 		case POWER: 
 			d.locomotive->setPower(d.propertyValue);
 			break;
@@ -399,12 +393,6 @@ struct SetWagonValue {
 			break;
 		case DIR: 
 			d.wagon->setDir(d.propertyValue);
-			break;
-		case LINK: 
-			d.wagon->setLink(d.propertyValue);
-			break;
-		case UNLINK:
-			d.wagon->setUnlink(d.propertyValue);
 			break;
 		}
 	};

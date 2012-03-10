@@ -34,6 +34,6 @@ void Wagon::erase(Window * g){
 	g->setFg(getAspect()->getFgColor());
 	g->putC(pos.row, pos.col, ' ');  
 }
-void Wagon::addToTrain(Train * t){
-	t->addWagon(this);	
+void Wagon::addToTrain(int p, Train * t){
+	t->addWagon(p, this);	
 }

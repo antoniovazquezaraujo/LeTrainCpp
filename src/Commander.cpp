@@ -64,8 +64,6 @@ Commander::Commander(Game * game)
 	registerAction("Prev train",       &Commander::selectPrevTrain,            LINK_MODE,   'p');
 	registerAction("Next vehicle",     &Commander::selectNextVehicle,          LINK_MODE,   'k');
 	registerAction("Prev vehicle",     &Commander::selectPrevVehicle,          LINK_MODE,   'j');
-	registerAction("Front link",       &Commander::selectFrontLink,            LINK_MODE,   'l');
-	registerAction("Back link",        &Commander::selectBackLink,             LINK_MODE,   'h');
 	registerAction("Link/Unlink",      &Commander::toggleLink,                 LINK_MODE,   ' ');
 
 	setMode('P');
@@ -208,7 +206,7 @@ void Commander::finderAddWagon(){
 	Finder * f = game->sim.getFinder();
 	if(f->getRail()->getRailVehicle() == 0){
 		f->getRail()->enter(wagon);
-		train->addVehicle(wagon);
+		train->addVehicle(0, wagon);
 		game->sim.addTrain(train);
 		LOG_DEBUG(log," Agrego el tren en: " << f->getPos().row << "," << f->getPos().col);
 	}else{
@@ -223,7 +221,7 @@ void Commander::finderAddTrain(){
 	if(finder->isEmpty()){
 		//l->gotoRail(f->getRail());
 		finder->getRail()->enter(locomotive);
-		train->addVehicle(locomotive);
+		train->addVehicle(0, locomotive);
 		game->sim.addTrain(train);
 		LOG_DEBUG(log," Agrego el tren en: " << finder->getPos().row << "," << finder->getPos().col);
 	}else{
@@ -263,12 +261,6 @@ void Commander::moveTrains(){
 	game->sim.checkSensors();
 }
 /////////////////////////////////////////////////////////////////
-void Commander::selectFrontLink(){
-	game->sim.selectFrontLink();
-}
-void Commander::selectBackLink(){
-	game->sim.selectBackLink();
-}
 void Commander::toggleLink(){
 	game->sim.toggleLink();
 }

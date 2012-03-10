@@ -9,12 +9,6 @@ ostream & operator << (ostream & o, RailVehicle & v){
 	o << "RailVehicle{" ;
 		o << " Dir:" << v.dir.getName();
 
-		Vehicle * v1 = v.linker.getVehicleLinkedAt(0);
-		if(v1) o << " Link 1:" << *v1 ;
-
-		Vehicle * v2 = v.linker.getVehicleLinkedAt(1);
-		if(v2) o << " Link 2:" << *v2 ;
-
 		if(v.rail){
 			o << " Rail:" << *(v.rail) ;
 		}else{
@@ -34,7 +28,7 @@ RailVehicle::RailVehicle(Aspect * aspect)
 	friction(0),
 	rail(0),
 	moved(false),
-	selectedLink(FRONT),
+	selectedLink(0),
 	turns(1){
 
 }
@@ -46,48 +40,6 @@ bool RailVehicle::isSelected(){
 }
 void RailVehicle::setSelected(bool selected){
 	this->selected = selected;
-}
-RailVehicle * RailVehicle::getVehicleLinkedWith(RailVehicle * r){
-	return linker.getVehicleLinkedWith(this, r);
-}
-RailVehicle * RailVehicle::getVehicleLinkedAt(int numLink){
-	return linker.getVehicleLinkedAt(numLink);
-}
-bool RailVehicle::link(RailVehicle * b){
-	return linker.link(b);
-}
-bool RailVehicle::interLink(RailVehicle * b){
-	if(b->link(this)){
-		if(linker.link(b)){
-			return true;
-		}else{
-			b->unlink(this);
-			return false;
-		}
-	}else{
-		return false;
-	}
-}
-void RailVehicle::unlink(RailVehicle * b){
-	linker.unlink(b);
-}
-int RailVehicle::isLinked(RailVehicle *b){
-	return linker.isLinked(b); 
-}
-void RailVehicle::setLink(Dir d){
-	assert(false);
-}
-void RailVehicle::setUnlink(Dir d){
-	assert(false);
-}
-void RailVehicle::selectFrontLink(){
-	selectedLink = FRONT;
-}
-void RailVehicle::selectBackLink(){
-	selectedLink = BACK;
-}
-void RailVehicle::toggleLink(){
-	assert(false);
 }
 void RailVehicle::forward(){
 	gotoRail(rail->getLinkedRailAt(dir));

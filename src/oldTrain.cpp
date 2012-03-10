@@ -1,9 +1,9 @@
+#include "Basic.h"
 #include "Train.h"
 MAKE_LOGGER(Train);
 //////////////////////////////////////////////////////
 Train::Train()
-	:vehicleSelector(&vehicles),
-	locomotiveSelector(&locomotives){
+	:vehicleSelector(&vehicles){
 	totalImpulse=0;
 	totalMass = 0;
 	trainDir = Dir::Dir::NO_DIR;
@@ -96,77 +96,66 @@ void Train::selectPrevVehicle(){
 		(*vehicleSelector.getSelected())->setSelected(true);
 	}
 }
-void Train::addVehicle(int p , RailVehicle* v){
-	v->addToTrain(p, this);
+void Train::addVehicle(RailVehicle* v){
+	v->addToTrain(0, this);
 	totalMass = getTotalMass();
+	//setForwardDir();
 }
-void Train::addWagon(int p, Wagon* w){
-	if(p == FRONT){
-		vehicles.push_front(w);
-	}else{
-		vehicles.push_back(w);
-	}
+void Train::addWagon(Wagon* w){
+	vehicles.push_back(w);
 	w->setTrain(this);
 }
-void Train::addLocomotive(int p, Locomotive* l){
-	if(p == FRONT){
-		vehicles.push_front(l);
-	}else{
-		vehicles.push_back(l);
-	}
+void Train::addLocomotive(Locomotive* l){
+	vehicles.push_back(l);
 	locomotives.push_back(l);
 	l->setTrain(this);
 }
-void Train::toggleLink(){
-		RailVehicle * topVehicle    = nullptr;
-		Rail        * topRail = nullptr;
-		Rail        * nextRail   = nullptr;
-		if(!reversed){
-			Train::TVehicles::iterator         i = vehicles. begin();
-			topVehicle = *i;
-		}else{
-			Train::TVehicles::reverse_iterator i = vehicles.rbegin();
-			topVehicle = *i;
-		}
-		trainDir = topVehicle->getDir();
-		topRail = topVehicle->getRail();
-		nextRail = topRail->getLinkedRailAt(trainDir);
-		if(nextRail){
-			RailVehicle* linked = nextRail->getRailVehicle();
-			if(linked){
-				Train *t = linked->getTrain();
-				if(*(t->vehicles.begin()) == linked){
-					//enganchamos con el primero
-					for_each(t->vehicles.begin(), t->vehicles.end(),
-						[&](RailVehicle* v){
-							if(!reversed){
-								addVehicle(FRONT, v);
-							}else{
-								addVehicle(BACK, v);
-							}
-						}
-					);
-				}else{ //enganchamos con el último
-					for_each(t->vehicles.rbegin(), t->vehicles.rend(),
-						[&](RailVehicle* v){
-							if(!reversed){
-								addVehicle(FRONT, v);
-							}else{
-								addVehicle(BACK, v);
-							}
-						}
-					);
-
-				}
-				t->vehicles.clear();
-
-			}else{
-				//nadie para enganchar.
-			}
-
+// Estas devuelven un puntero al tren que desaparece y que debemos borrar
+// o bien al nuevo que se crea automáticamente y que debemos agregar
+Train * Train::link(){
+	Dir actualDir;
+	RailVehicle * topVehicle;
+	if(!reversed){
+		actualDir = getDirFromFirst();
+		topVehicle = *(vehicles.begin());
 	}else{
-		//No hay rail en esa direccion!!
+		actualDir = getDirFromLast();
+		topVehicle = *(vehicles.rbegin());
 	}
+	Rail * selectedRail = topVehicle->getRail();
+	Rail * nextRail = selectedRail->getLinkedRailAt(actualDir);
+	RailVehicle * linked = nextRail->getRailVehicle();
+	Train * linkedTrain=0;
+	if(linked){
+		linkedTrain = linked->getTrain();
+		for(RailVehicle * v : linkedTrain->getVehicles()){
+			addVehicle(v);
+		}
+		linkedTrain->clear();
+		totalMass = getTotalMass();
+	}
+	return linkedTrain;
+}
+Train * Train::unlink(){
+	if(vehicleSelector.atFirst()
+			|| vehicleSelector.atLast()){
+		return nullptr;
+	}
+	Train * unlinkedTrain = new Train;
+	if(reversedSelector){
+		for_each(vehicles.begin(), vehicleSelector.getSelected(), 
+				[&unlinkedTrain](RailVehicle * v){
+				unlinkedTrain->addVehicle(v);
+				});
+		vehicles.erase(vehicles.begin(), vehicleSelector.getSelected());
+	}else{
+		for_each(vehicleSelector.getSelected(), vehicles.end(), 
+				[&unlinkedTrain](RailVehicle * v){
+				unlinkedTrain->addVehicle(v);
+				});
+		vehicles.erase(vehicleSelector.getSelected(),vehicles.begin());
+	}
+	return unlinkedTrain;
 }
 void Train::reverseSelector(){
 	reversedSelector = !reversedSelector;
@@ -179,6 +168,15 @@ void Train::advanceSelector(){
 	}
 }
 
+//Gestión de elementos
+//Si hay via libre agregamos al final del tren en la dirección en la que
+//va el selector de vehículos
+void Train::addWagon(){
+
+}
+void Train::addLocomotive(){
+
+}
 void Train::clear(){
 	vehicles.clear();
 }
@@ -302,8 +300,8 @@ ostream & operator << (ostream & o, Train t){
 		o << *l;
 	}
 	o<< endl;
-	o << " Total impulse: "  << t.totalImpulse;
-	o << " Total mass:"      << t.totalMass;
+	o << " Impulso total: "  << t.totalImpulse;
+	o << " Masa total:"      << t.totalMass;
 	o << " Dir: "            << t.trainDir;
 	o << " Moved: "          << t.moved;
 	o << " Reversed:"        << t.reversed;

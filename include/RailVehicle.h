@@ -1,25 +1,15 @@
 #ifndef RAILVEHICLE_H
 #define RAILVEHICLE_H
 #include "Basic.h"
-#include "RailVehicle.h"
 #include "Vehicle.h"
-#include "Link.h"
 class RailVehicle :public Vehicle{
 public:
 	RailVehicle (Aspect * aspect);
 	~RailVehicle ();
-	RailVehicle * getVehicleLinkedWith(RailVehicle * r);
-	RailVehicle * getVehicleLinkedAt(int numLink);
-	bool interLink(RailVehicle * b);
-	bool link(RailVehicle* b);
-	void unlink(RailVehicle* b);
-	void setLink(Dir d);
-	void setUnlink(Dir d);
-	int isLinked(RailVehicle* b);
 	void selectFrontLink();
 	void selectBackLink();
 	void toggleLink();
-	virtual void addToTrain(Train *)=0;
+	virtual void addToTrain(int, Train *)=0;
 
 	void reverseImpulse();
 	bool gotoRail(Rail * r);
@@ -53,10 +43,8 @@ public:
 
 	RailVehicle * getRailVehicleAt(int numLink);
 	enum{MAX_TURNS=20};
-	enum{FRONT, BACK};
 
 private:
-	Link linker;
 	int impulse;
 	int impulseGenerated;
 	int brakes;
