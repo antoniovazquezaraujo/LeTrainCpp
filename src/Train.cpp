@@ -101,25 +101,39 @@ void Train::addVehicle(int p , RailVehicle* v){
 	totalMass = getTotalMass();
 }
 void Train::addWagon(int p, Wagon* w){
+	RailVehicle * linker=nullptr;
 	if(p == FRONT){
+		linker = vehicles.empty()?nullptr:*(vehicles.begin());
 		vehicles.push_front(w);
 	}else{
+		linker = vehicles.empty()?nullptr:*(vehicles.rbegin());
 		vehicles.push_back(w);
+	}
+	if(linker ){
+		Rail * linkedRail = w->getRail();
+		w->setDir(linkedRail->getPath(-(linker->getDir())));
 	}
 	w->setTrain(this);
 }
 void Train::addLocomotive(int p, Locomotive* l){
+	RailVehicle * linker=nullptr;
 	if(p == FRONT){
+		linker = vehicles.empty()?nullptr:*(vehicles.begin());
 		vehicles.push_front(l);
 	}else{
+		linker = vehicles.empty()?nullptr:*(vehicles.rbegin());
 		vehicles.push_back(l);
+	}
+	if(linker ){
+		Rail * linkedRail = l->getRail();
+		l->setDir(linkedRail->getPath(-(linker->getDir())));
 	}
 	locomotives.push_back(l);
 	l->setTrain(this);
 }
 void Train::toggleLink(){
-		RailVehicle * topVehicle    = nullptr;
-		Rail        * topRail = nullptr;
+		RailVehicle * topVehicle = nullptr;
+		Rail        * topRail    = nullptr;
 		Rail        * nextRail   = nullptr;
 		if(!reversed){
 			Train::TVehicles::iterator         i = vehicles. begin();

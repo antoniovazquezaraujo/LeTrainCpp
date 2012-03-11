@@ -194,8 +194,7 @@ void Commander::finderDecFork(){
 	}
 }
 void Commander::finderForward(){
-	if( game->sim.getFinder()->forward()){
-	}
+	game->sim.getFinder()->forward();
 }
 void Commander::finderReverse(){
 	game->sim.getFinder()->reverse();

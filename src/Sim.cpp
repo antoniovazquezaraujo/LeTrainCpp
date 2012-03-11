@@ -148,6 +148,9 @@ void Sim::moveTrains(){
 	for(auto t : trains){
 		t->move();
 	}
+	trains.erase(remove_if(trains.begin(), trains.end(),
+			[](Train * t){return t->getVehicles().empty();}),
+			trains.end());
 }
 Sim::TTrains::iterator Sim::getSelectedTrain(){
 	return trainSelector.getSelected(); 
