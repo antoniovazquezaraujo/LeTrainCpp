@@ -21,11 +21,11 @@ int StraightAspect::getFgColor(){
 Dir StraightAspect::getDir(DirEnv * env){
 	for (Dir dir; dir<Dir::SE;dir++){
 		Dir found = env->getPath(dir);
-		if(found.getValue() != NO_DIR){
+		if(found.getValue() != Dir::NO_DIR){
 			return found;
 		}
 	}
-	return NO_DIR;
+	return Dir::NO_DIR;
 }
 char StraightAspect::selectAspectChar(Dir dir){
 	char ret = HORIZONTAL_LINE;

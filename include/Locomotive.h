@@ -13,7 +13,7 @@ public:
 	void erase(Window * g);
 	int getId();
 	void setId(int id);
-	void addToTrain(Train *);
+	void addToTrain(int, Train *);
 	//void move();
 private:
 	int id;

@@ -2,17 +2,18 @@
 #include "RailVehicle.h"
 #include "Rail.h"
 #include "Finder.h"
-#include "TrainIterator.h"
 MAKE_LOGGER(RailVehicle);
 
 ostream & operator << (ostream & o, RailVehicle & v){
-	o << "RailVehicle{" << endl ;
-	Vehicle * v1 = v.linker.getVehicleLinkedAt(0);
-	if(v1) o << "Link 1: " << *v1 ;
-	Vehicle * v2 = v.linker.getVehicleLinkedAt(1);
-	if(v2) o << "Link 2: " << *v2 ;
-	o << endl << "Dir: " << v.dir.getName() << endl;
-	o <<endl << "}"<<endl ;
+	o << "RailVehicle{" ;
+		o << " Dir:" << v.dir.getName();
+
+		if(v.rail){
+			o << " Rail:" << *(v.rail) ;
+		}else{
+			o << "Sin rail!";
+		}
+	o << "}"<<endl ;
 	return o;
 }
 
@@ -26,6 +27,7 @@ RailVehicle::RailVehicle(Aspect * aspect)
 	friction(0),
 	rail(0),
 	moved(false),
+	selectedLink(0),
 	turns(1){
 
 }
@@ -38,39 +40,30 @@ bool RailVehicle::isSelected(){
 void RailVehicle::setSelected(bool selected){
 	this->selected = selected;
 }
-RailVehicle * RailVehicle::getVehicleLinkedWith(RailVehicle * r){
-	return linker.getVehicleLinkedWith(this, r);
+void RailVehicle::forward(){
+	gotoRail(rail->getLinkedRailAt(dir));
 }
-RailVehicle * RailVehicle::getVehicleLinkedAt(int numLink){
-	return linker.getVehicleLinkedAt(numLink);
+void RailVehicle::backward(){
+	goBackToRail(rail->getLinkedRailAt(rail->getPath(dir)));
 }
-bool RailVehicle::link(RailVehicle * b){
-	return linker.link(b);
-}
-bool RailVehicle::interLink(RailVehicle * b){
-	if(b->link(this)){
-		if(linker.link(b)){
-			return true;
-		}else{
-			b->unlink(this);
-			return false;
-		}
-	}else{
+bool RailVehicle::goBackToRail(Rail * r){
+	if(r->getRailVehicle()!= 0){
 		return false;
 	}
-}
-void RailVehicle::unlink(RailVehicle * b){
-	linker.unlink(b);
-}
-int RailVehicle::isLinked(RailVehicle *b){
-	return linker.isLinked(b); 
-}
-void RailVehicle::setLink(Dir d){
-// TODO
-}
-void RailVehicle::setUnlink(Dir d){
-// TODO
-
+	// si ya tengo un rail lo vacio
+	if(rail != 0){
+		rail->setRailVehicle(0);
+	}
+	if(dir.getValue() != Dir::NO_DIR){
+		dir = r->getPath(dir);
+		dir = -dir;
+	}else{
+		dir = r->getAnyPath();
+	}
+ 	pos = r->getPos();
+ 	rail = r;
+ 	r->setRailVehicle(this);
+	return true;
 }
 bool RailVehicle::gotoRail(Rail * r){
 	if(r->getRailVehicle()!= 0){
@@ -80,14 +73,14 @@ bool RailVehicle::gotoRail(Rail * r){
 	if(rail != 0){
 		rail->setRailVehicle(0);
 	}
-	if(dir.getValue() != NO_DIR){
+	if(dir.getValue() != Dir::NO_DIR){
 		dir = r->getPath(-dir);
 	}else{
 		dir = r->getAnyPath();
 	}
-	pos = r->getPos();
-	rail = r;
-	r->setRailVehicle(this);
+ 	pos = r->getPos();
+ 	rail = r;
+ 	r->setRailVehicle(this);
 	return true;
 }
 void RailVehicle::setSpeed(int speed){
@@ -96,7 +89,7 @@ void RailVehicle::setSpeed(int speed){
 int RailVehicle::getSpeed(){
 	return speed;
 }
-int RailVehicle::getImpulse(){
+float RailVehicle::getImpulse(){
 	return impulse;
 }
 void RailVehicle::setTrain(Train * t){
@@ -105,24 +98,36 @@ void RailVehicle::setTrain(Train * t){
 Train * RailVehicle::getTrain(){
 	return train;
 }
-void RailVehicle::receiveImpulse(int impulse, Dir d ){
-	if(getRail()->getPath(-d) == dir){
-		this->impulse+=impulse;
+float RailVehicle::receiveImpulse(float impulseReceived, Dir dir){
+	float consumed = 0;
+	if(getRail()->getPath(-dir) == this->dir){
+		consumed = mass - this->impulse;
+		if(consumed < 0) consumed = 0;
 	}else{
-		this->impulse-=impulse;
+		consumed = mass + this->impulse;
+	}
+	if(impulseReceived >= consumed){
+		this->impulse += consumed;
+		return impulseReceived - consumed;
+	}else{
+		this->impulse += impulseReceived;
+		return 0;
 	}
 }
-void RailVehicle::incImpulseGenerated(int n){
+void RailVehicle::reverseImpulse(){
+	impulse*= -1;
+}
+void RailVehicle::incImpulseGenerated(float n){
 	impulseGenerated+=n;
 }
-void RailVehicle::decImpulseGenerated(int n){
+void RailVehicle::decImpulseGenerated(float n){
 	impulseGenerated-=n;
 }
 void RailVehicle::generateImpulse(){
 	impulse+= impulseGenerated;
 }
 void RailVehicle::consumeImpulse(){
-	impulse= 0;
+	impulse =0;
 }
 int RailVehicle::getBrakes(){
 	return brakes;

@@ -46,7 +46,7 @@ Rail * RailPen::makeNewRail(Rail * rail){
 	env.addPath(-lastDir, dir);
 	Rail * newRail = env.makeNewRail();
 	if(rail){
-		for(int n(Dir::E) ;n<(NUM_DIRS); n++){
+		for(int n(Dir::E) ;n<(Dir::NUM_DIRS); n++){
 			Dir dir (n);
 			Rail * linked = rail->getLinkedRailAt(dir);
 			if(linked){
@@ -62,12 +62,11 @@ Dir RailPen::getLastDir(){
 // ojo, no pinta cuando distance es mayor que 1. Testear esto!!!!!!!!!!!!!!
 bool RailPen::move(int distance, Sim * sim){
 	Point p = getPos();
-	RailMap *railMap = sim->getRailMap(); 
 	if(getMode() == PAINTING){
 		if(distance>0){
 			for(int n= 0; n<distance;n++){
-				Rail * newRail = makeNewRail(railMap->getRailAt(p.row, p.col));
-				railMap->setRail(p.row, p.col, newRail);
+				Rail * newRail = makeNewRail(sim->railMap.getRailAt(p.row, p.col));
+				sim->railMap.setRail(p.row, p.col, newRail);
 
 				ForkRail *rf = dynamic_cast<ForkRail *>(newRail);
 				if(rf){
@@ -78,7 +77,7 @@ bool RailPen::move(int distance, Sim * sim){
 				Dir lastDir = getLastDir();
 				Dir backDir = -lastDir; 
 				lastPoint.move(backDir);
-				Rail * lastRail = railMap->getRailAt(lastPoint.row, lastPoint.col);
+				Rail * lastRail = sim->railMap.getRailAt(lastPoint.row, lastPoint.col);
 				if(lastRail){
 					newRail->linkRailAt(backDir, lastRail);
 				}
@@ -86,9 +85,8 @@ bool RailPen::move(int distance, Sim * sim){
 			}
 		}else{
 			for(int n=0; n>distance;n--){
-				RailMap *railMap = sim->getRailMap(); 
 				Point p = getPos();
-				railMap->setRail(p.row, p.col, 0);
+				sim->railMap.setRail(p.row, p.col, 0);
 				backwards();
 			}
 		}
@@ -104,7 +102,7 @@ bool RailPen::forward(int distance){
 	return true;
 }
 bool RailPen::backwards(int distance){
-	pos.move(dir+MIDDLE_ANGLE, distance);
+	pos.move(dir+Dir::MIDDLE_ANGLE, distance);
 	return true;
 }
 

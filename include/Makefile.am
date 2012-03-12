@@ -1,48 +1,46 @@
 SUBDIRS =
 
 EXTRA_DIST=                 \
-	Aspect.h                \
-	Basic.h                 \
-	Commander.h             \
-	CommanderView.h         \
-	CrossAspect.h           \
-	CrossRail.h             \
-	CurveAspect.h           \
-	CurveRail.h             \
-	Dir.h                   \
-	DirEnv.h                \
-	Event.h                 \
-	EventProgram.h          \
-	Filter.h                \
-	Finder.h                \
-	FinderAspect.h          \
-	ForkAspect.h            \
-	ForkDirSelector.h       \
-	ForkRail.h              \
-	Game.h                  \
-	Link.h                  \
-	Locomotive.h            \
-	LocomotiveAspect.h      \
-	Log.h                   \
-	Message.h               \
-	Point.h                 \
-	Rail.h                  \
-	ProgramEditor.h         \
-	RailEnv.h               \
-	RailMap.h               \
-	RailPen.h               \
-	RailVehicle.h           \
-	Range.h                 \
-	Semaphore.h             \
-	Sensor.h                \
-	Sim.h                   \
-	SimView.h               \
-	StraightAspect.h        \
-	StraightRail.h          \
-	TerminalWindow.h        \
-	Train.h                 \
-	TrainIterator.h         \
-	Vehicle.h               \
-	Wagon.h                 \
-	WagonAspect.h           \
-	Window.h                 
+Aspect.h                    \
+Basic.h                     \
+Commander.h                 \
+CommanderView.h             \
+CrossAspect.h               \
+CrossRail.h                 \
+CurveAspect.h               \
+CurveRail.h                 \
+DirEnv.h                    \
+RailEnv.h                   \
+Dir.h                       \
+Event.h                     \
+EventProgram.h              \
+Filter.h                    \
+FinderAspect.h              \
+Finder.h                    \
+ForkAspect.h                \
+ForkDirSelector.h           \
+ForkRail.h                  \
+Game.h                      \
+LocomotiveAspect.h          \
+Locomotive.h                \
+Log.h                       \
+Message.h                   \
+Point.h                     \
+ProgramEditor.h             \
+Rail.h                      \
+RailMap.h                   \
+RailPen.h                   \
+RailVehicle.h               \
+Range.h                     \
+Semaphore.h                 \
+Sensor.h                    \
+Sim.h                       \
+SimView.h                   \
+StraightAspect.h            \
+StraightRail.h              \
+TerminalWindow.h            \
+Train.h                     \
+Vehicle.h                   \
+WagonAspect.h               \
+Wagon.h                     \
+Window.h                     

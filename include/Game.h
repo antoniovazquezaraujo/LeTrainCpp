@@ -1,19 +1,21 @@
 #ifndef GAME_H
 #define GAME_H
 #include "Basic.h"
+#include "Sim.h"
+#include "ProgramEditor.h"
+#include "Console.h"
+#include "Commander.h"
 class Game{
 public:
 	Game();
 	~Game();
 	void start();
 	void paint();
-	Sim           * getSim();
-	Commander     * getCommander();
-	ProgramEditor * getProgramEditor();
+	Sim           sim;
+	ProgramEditor programEditor;
+	Console       console;
+	Commander     commander;
 private:
-	Sim           * sim;
-	Commander     * commander;
-	ProgramEditor * programEditor;
 	bool running;
 	static Logger log;
 };

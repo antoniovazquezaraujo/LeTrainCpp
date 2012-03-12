@@ -11,8 +11,11 @@
 #include <ncurses.h>
 #include <iterator>
 #include <vector>
+#include <deque>
+#include <array>
 #include <list>
 #include <map>
+#include <chrono> 
 
 #include "Log.h"
 
@@ -34,7 +37,6 @@ class SimView;
 class CommanderView;
 class Link;
 class RailVehicle;
-class TrainIterator;
 class Finder;
 class Train;
 class Locomotive;
@@ -63,10 +65,11 @@ class ForkRail;
 class CurveRail;
 class CrossRail;
 
-const int NUM_DIRS = 8;
-const int NO_DIR = 999;
 const int RAIL_MAP_ROWS = 25;
 const int RAIL_MAP_COLS = 80;
+
+const int FRONT=0;
+const int BACK=1;
 
 //crea un logger para cada clase. Agregarlo al principio de cada fichero
 // con MAKE_LOGGER(NombreDeLaClase); (ojo, poner el ; )
@@ -77,18 +80,5 @@ const int RAIL_MAP_COLS = 80;
 #define LOG_WARN  LOG4CPLUS_WARN
 #define LOG_ERROR LOG4CPLUS_ERROR
 #define LOG_FATAL LOG4CPLUS_FATAL
-//counterclockwise from east to southweast
-/*
-enum {
-	NW =3, N =2, NE =1,
-	W  =4,       E  =0,
-	SW =5, S =6, SE =7
-};
-*/
-enum{
-	MIDDLE_ANGLE   =NUM_DIRS/2, 
-	MIN_CURVE_ANGLE=MIDDLE_ANGLE-1, 
-	MAX_CURVE_ANGLE=MIDDLE_ANGLE+1 
-};
 
 #endif

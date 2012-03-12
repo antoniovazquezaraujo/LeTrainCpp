@@ -1,6 +1,7 @@
 #ifndef RAILENV_H
 #define RAILENV_H
 #include "Basic.h"
+#include "Dir.h"
 class RailEnv{
 public:
 	RailEnv();
@@ -8,8 +9,7 @@ public:
 	void addPath(Dir d, Rail * r);
 	Rail * getRail(Dir dir);
 	friend ostream & operator << (ostream & o, RailEnv & railEnv);
-private:
-	Rail * links[NUM_DIRS];
+	array<Rail *,Dir::NUM_DIRS> links;
 	static Logger log;
 };
 #endif

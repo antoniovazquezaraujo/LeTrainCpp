@@ -24,10 +24,10 @@ Dir Point::locate (Point p){
 		}else if(col < p.col){
 			return Dir::E;
 		}else{
-			return NO_DIR;
+			return Dir::NO_DIR;
 		}
 	}
-	return NO_DIR;
+	return Dir::NO_DIR;
 }
 void Point::move(Dir dir, int distance){
 	int direction = dir.getValue();

@@ -1,4 +1,5 @@
 #include "Event.h"
+#include "Dir.h"
 Event::Event(int sensorId, int hour, int minute, int second, 
 		int locomotiveId, int locomotiveSpeed, int locomotiveDir)
 	:sensorId(sensorId), hour(hour), minute(minute), second(second), 
@@ -33,7 +34,7 @@ Event::Event()
 	second(0), 
 	locomotiveId(0), 
 	locomotiveSpeed(0),  
-	locomotiveDir(NO_DIR){
+	locomotiveDir(Dir::NO_DIR){
 }
 int Event::getSensorId(){
 	return sensorId;

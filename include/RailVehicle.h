@@ -1,35 +1,32 @@
 #ifndef RAILVEHICLE_H
 #define RAILVEHICLE_H
 #include "Basic.h"
-#include "RailVehicle.h"
 #include "Vehicle.h"
-#include "Link.h"
 class RailVehicle :public Vehicle{
 public:
 	RailVehicle (Aspect * aspect);
 	~RailVehicle ();
-	RailVehicle * getVehicleLinkedWith(RailVehicle * r);
-	RailVehicle * getVehicleLinkedAt(int numLink);
-	bool interLink(RailVehicle * b);
-	bool link(RailVehicle* b);
-	void unlink(RailVehicle* b);
-	void setLink(Dir d);
-	void setUnlink(Dir d);
-	int isLinked(RailVehicle* b);
-	virtual void addToTrain(Train *)=0;
+	void selectFrontLink();
+	void selectBackLink();
+	void toggleLink();
+	virtual void addToTrain(int, Train *)=0;
 
+	void reverseImpulse();
 	bool gotoRail(Rail * r);
+	bool goBackToRail(Rail * r);
+	void forward();
+	void backward();
 
 	void setMoved(bool moved);
 	bool isSelected();
 	void setSelected(bool selected);
 	bool isMoved();
-	int getImpulse();
-	void receiveImpulse(int imp=1, Dir d=NO_DIR);
+	float getImpulse();
+	float receiveImpulse(float imp=0.1, Dir d=Dir::NO_DIR);
 	void consumeImpulse();
 	void generateImpulse();
-	void incImpulseGenerated(int n=1);
-	void decImpulseGenerated(int n=1);
+	void incImpulseGenerated(float n=0.1);
+	void decImpulseGenerated(float n=0.1);
 	void setSpeed(int speed);
 	int getSpeed();
 
@@ -48,9 +45,8 @@ public:
 	enum{MAX_TURNS=20};
 
 private:
-	Link linker;
-	int impulse;
-	int impulseGenerated;
+	float impulse;
+	float impulseGenerated;
 	int brakes;
 	int mass;
 	float speed;
@@ -60,6 +56,7 @@ private:
 	bool moved;
 	bool selected;
 	Train * train;
+	int selectedLink;
 
 public:
 	// cambiar esto!

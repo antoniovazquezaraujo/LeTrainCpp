@@ -15,7 +15,7 @@ public:
 	bool canBeAForkInput(Dir &dir);
 private:
 	friend ostream & operator << (ostream & o, DirEnv & env);
-	Dir dirs[NUM_DIRS];
+	array<Dir,Dir::NUM_DIRS>dirs;
 	int getNumDirs();
 	bool isStraight();
 	bool isCurve();

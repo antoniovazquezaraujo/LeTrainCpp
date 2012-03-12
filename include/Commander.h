@@ -3,6 +3,7 @@
 #include "Basic.h"
 class Commander;
 typedef void (Commander::*Method)(void); 
+//using Method = void (*)(void);
 struct Action{ 
 	int mode;
 	char key;
@@ -18,7 +19,8 @@ public:
 		TRAINS_MODE,
 		RAILS_MODE,
 		EVENTS_MODE,	
-		RAILPEN_MODE
+		RAILPEN_MODE,
+		LINK_MODE
 	};
 	typedef map<char, Action> ActionsMap;
 	typedef map< char, CommandMode> ModesMap;
@@ -35,6 +37,7 @@ private:
 	void onSetRailsMode();	
 	void onSetRailPenMode();	
 	void onSetEventsMode();	
+	void onSetLinkMode();	
 	void toggleRailPenPainting();
 	void rotateLeftRailPen();
 	void rotateRightRailPen();
@@ -44,13 +47,11 @@ private:
 	void railPenLoadProgram();
 
 	void selectNextTrain();
-	void selectPreviousTrain();
+	void selectPrevTrain();
 	void selectNextVehicle();
-	void selectPreviousVehicle();
+	void selectPrevVehicle();
 	void accelerateTrain();
 	void deccelerateTrain();
-	void unlinkTrain();
-	void linkTrain();
 
 	void finderChangeFork();
 	void finderForward();
@@ -63,6 +64,10 @@ private:
 	void moveTrains();
 	void finderIncFork();
 	void finderDecFork();
+
+	void selectFrontLink();
+	void selectBackLink();
+	void toggleLink();
 
 	Action getAction(int mode, char key);
 	bool isValidAction(int mode, char key);

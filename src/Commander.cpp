@@ -32,34 +32,39 @@ Commander::Commander(Game * game)
 	registerMode(RAILS_MODE,  'R');
 	registerMode(RAILPEN_MODE,'P');
 	registerMode(EVENTS_MODE, 'V');
+	registerMode(LINK_MODE,   'L');
 
-	registerAction("Select next train",       &Commander::selectNextTrain,      DRIVERS_MODE, 'n');
-	registerAction("Select previous train",   &Commander::selectPreviousTrain,  DRIVERS_MODE, 'p');
-	registerAction("Select next vehicle",     &Commander::selectNextVehicle,    DRIVERS_MODE, 'l');
-	registerAction("Select previous vehicle", &Commander::selectPreviousVehicle,DRIVERS_MODE, 'h');
-	registerAction("Accelerate",              &Commander::accelerateTrain,      DRIVERS_MODE, 'k');
-	registerAction("Deccelerate",             &Commander::deccelerateTrain,     DRIVERS_MODE, 'j');
-	registerAction("Unlink",                  &Commander::unlinkTrain,          DRIVERS_MODE, '0');
-	registerAction("Link",                    &Commander::linkTrain,            DRIVERS_MODE, '1');
+	registerAction("Next train",       &Commander::selectNextTrain,            DRIVERS_MODE, 'n');
+	registerAction("Prev train",       &Commander::selectPrevTrain,            DRIVERS_MODE, 'p');
+	registerAction("Next vehicle",     &Commander::selectNextVehicle,          DRIVERS_MODE, 'l');
+	registerAction("Prev vehicle",     &Commander::selectPrevVehicle,          DRIVERS_MODE, 'h');
+	registerAction("Accelerate",       &Commander::accelerateTrain,            DRIVERS_MODE, 'k');
+	registerAction("Deccelerate",      &Commander::deccelerateTrain,           DRIVERS_MODE, 'j');
 
-	registerAction("Toggle move/paint", &Commander::toggleRailPenPainting,      RAILPEN_MODE, ' ');
-	registerAction("Rotate right",      &Commander::rotateRightRailPen,         RAILPEN_MODE, 'l');
-	registerAction("Rotate left",       &Commander::rotateLeftRailPen,          RAILPEN_MODE, 'h');
-	registerAction("Forward",           &Commander::railPenForward,             RAILPEN_MODE, 'k');
-	registerAction("Backwards",         &Commander::railPenBackwards,           RAILPEN_MODE, 'j');
-	registerAction("Place finder",      &Commander::railPenPlaceFinder,         RAILPEN_MODE, 'f');
-	registerAction("Load program",      &Commander::railPenLoadProgram,         RAILPEN_MODE, 'p');
+	registerAction("Move/paint",       &Commander::toggleRailPenPainting,      RAILPEN_MODE, ' ');
+	registerAction("Rotate right",     &Commander::rotateRightRailPen,         RAILPEN_MODE, 'l');
+	registerAction("Rotate left",      &Commander::rotateLeftRailPen,          RAILPEN_MODE, 'h');
+	registerAction("Forward",          &Commander::railPenForward,             RAILPEN_MODE, 'k');
+	registerAction("Backwards",        &Commander::railPenBackwards,           RAILPEN_MODE, 'j');
+	registerAction("Place finder",     &Commander::railPenPlaceFinder,         RAILPEN_MODE, 'f');
+	registerAction("Load program",     &Commander::railPenLoadProgram,         RAILPEN_MODE, 'p');
 
-	registerAction("Forward",           &Commander::finderForward,              TRAINS_MODE, 'j');
-	registerAction("Reverse",           &Commander::finderReverse,              TRAINS_MODE, ' ');
-	registerAction("Add wagon",         &Commander::finderAddWagon,             TRAINS_MODE, 'w');
-	registerAction("Add train",         &Commander::finderAddTrain,             TRAINS_MODE, 't');
-	registerAction("Add sensor",        &Commander::finderAddSensor,            TRAINS_MODE, 's');
-	registerAction("Delete vehicle",    &Commander::finderDeleteVehicle,        TRAINS_MODE, 'x');
-	registerAction("Inc. fork dir",     &Commander::finderIncFork,              TRAINS_MODE, 'h');
-	registerAction("Dec. fork dir",     &Commander::finderDecFork,              TRAINS_MODE, 'l');
-	registerAction("Set auto-move",     &Commander::setAutoMove,                TRAINS_MODE, 'a');
-	registerAction("Move trains",       &Commander::moveTrains,                 TRAINS_MODE, '.');
+	registerAction("Forward",          &Commander::finderForward,              TRAINS_MODE, 'j');
+	registerAction("Reverse",          &Commander::finderReverse,              TRAINS_MODE, ' ');
+	registerAction("Add wagon",        &Commander::finderAddWagon,             TRAINS_MODE, 'w');
+	registerAction("Add train",        &Commander::finderAddTrain,             TRAINS_MODE, 't');
+	registerAction("Add sensor",       &Commander::finderAddSensor,            TRAINS_MODE, 's');
+	registerAction("Del. vehicle",     &Commander::finderDeleteVehicle,        TRAINS_MODE, 'x');
+	registerAction("Inc. fork dir",    &Commander::finderIncFork,              TRAINS_MODE, 'h');
+	registerAction("Dec. fork dir",    &Commander::finderDecFork,              TRAINS_MODE, 'l');
+	registerAction("Auto-move",        &Commander::setAutoMove,                TRAINS_MODE, 'a');
+	registerAction("Move trains",      &Commander::moveTrains,                 TRAINS_MODE, '.');
+
+	registerAction("Next train",       &Commander::selectNextTrain,            LINK_MODE,   'n');
+	registerAction("Prev train",       &Commander::selectPrevTrain,            LINK_MODE,   'p');
+	registerAction("Next vehicle",     &Commander::selectNextVehicle,          LINK_MODE,   'k');
+	registerAction("Prev vehicle",     &Commander::selectPrevVehicle,          LINK_MODE,   'j');
+	registerAction("Link/Unlink",      &Commander::toggleLink,                 LINK_MODE,   ' ');
 
 	setMode('P');
 	autoMove=true;
@@ -73,89 +78,90 @@ void Commander::onSetDriversMode(){
 void Commander::onSetPointsMode(){
 }
 void Commander::onSetTrainsMode(){
-	game->getSim()->followVehicle(game->getSim()->getFinder());
+	game->sim.followVehicle(game->sim.getFinder());
 }
 void Commander::onSetRailsMode(){
 }
 void Commander::onSetRailPenMode(){
-	game->getSim()->followVehicle(game->getSim()->getRailPen());
+	game->sim.followVehicle(&(game->sim.railPen));
 }
 void Commander::onSetEventsMode(){
-	game->getProgramEditor()->edit();
+	game->programEditor.edit();
+}
+void Commander::onSetLinkMode(){
+
 }
 //////// Drivers actions /////////
 void Commander::selectNextTrain(){
-	game->getSim()->selectNextTrain();
+	game->sim.selectNextTrain();
 }
-void Commander::selectPreviousTrain(){
-	game->getSim()->selectPrevTrain();
+void Commander::selectPrevTrain(){
+	game->sim.selectPrevTrain();
 }
 void Commander::selectNextVehicle(){
-	game->getSim()->selectNextVehicle();
+	game->sim.selectNextVehicle();
 }
-void Commander::selectPreviousVehicle(){
-	game->getSim()->selectPrevVehicle();
+void Commander::selectPrevVehicle(){
+	game->sim.selectPrevVehicle();
 }
 void Commander::accelerateTrain(){
-	game->getSim()->getSelectedTrain()->incImpulseGenerated();
+	Sim::TTrains::iterator i = game->sim.getSelectedTrain();
+	(*i)->incImpulseGenerated();
+
+
+//	(*(game->sim.getSelectedTrain()))->incImpulseGenerated();
 }
 void Commander::deccelerateTrain(){
-	game->getSim()->getSelectedTrain()->decImpulseGenerated();
+	(*(game->sim.getSelectedTrain()))->decImpulseGenerated();
 }
 //////// RailPen actions /////////
 void Commander::toggleRailPenPainting(){
-	RailPen* railPen = game->getSim()->getRailPen();
-	if(railPen->getMode() == RailPen::MOVING){
-		railPen->setMode(RailPen::PAINTING);
+	if(game->sim.railPen.getMode() == RailPen::MOVING){
+		game->sim.railPen.setMode(RailPen::PAINTING);
 	}else{
-		railPen->setMode(RailPen::MOVING);
+		game->sim.railPen.setMode(RailPen::MOVING);
 	}
 }
 void Commander::rotateLeftRailPen(){
-	game->getSim()->getRailPen()->rotateLeft();
+	game->sim.railPen.rotateLeft();
 }
 void Commander::rotateRightRailPen(){
-	game->getSim()->getRailPen()->rotateRight();
+	game->sim.railPen.rotateRight();
 }
 void Commander::railPenForward(){
-	RailPen* railPen = game->getSim()->getRailPen();
-	Point p = railPen->getPos();
-	RailMap *railMap = game->getSim()->getRailMap(); 
-	if(railPen->getMode() == RailPen::PAINTING){
-		Rail * newRail = railPen->makeNewRail(railMap->getRailAt(p.row, p.col));
-		railMap->setRail(p.row, p.col, newRail);
+	Point p = game->sim.railPen.getPos();
+	if(game->sim.railPen.getMode() == RailPen::PAINTING){
+		Rail * newRail = game->sim.railPen.makeNewRail(game->sim.railMap.getRailAt(p.row, p.col));
+		game->sim.railMap.setRail(p.row, p.col, newRail);
 
 		ForkRail *rf = dynamic_cast<ForkRail *>(newRail);
 		if(rf){
-			game->getSim()->addFork(rf);
+			game->sim.addFork(rf);
 		}
 
-		Point lastPoint = railPen->getPos();
-		Dir lastDir = railPen->getLastDir();
+		Point lastPoint = game->sim.railPen.getPos();
+		Dir lastDir = game->sim.railPen.getLastDir();
 		Dir backDir = -lastDir; 
 		lastPoint.move(backDir);
-		Rail * lastRail = railMap->getRailAt(lastPoint.row, lastPoint.col);
+		Rail * lastRail = game->sim.railMap.getRailAt(lastPoint.row, lastPoint.col);
 		if(lastRail){
 			newRail->linkRailAt(backDir, lastRail);
 		}
 	}
-	railPen->forward();
+	game->sim.railPen.forward();
 }
 void Commander::railPenBackwards(){
-	RailPen* railPen = game->getSim()->getRailPen();
-	if(railPen->getMode() == RailPen::PAINTING){
-		RailMap *railMap = game->getSim()->getRailMap(); 
-		Point p = railPen->getPos();
-		railMap->setRail(p.row, p.col, 0);
+	if(game->sim.railPen.getMode() == RailPen::PAINTING){
+		Point p = game->sim.railPen.getPos();
+		game->sim.railMap.setRail(p.row, p.col, 0);
 	}
-	railPen->backwards();
+	game->sim.railPen.backwards();
 }
 void Commander::railPenPlaceFinder(){
-	RailPen* railPen = game->getSim()->getRailPen();
-	Point p = railPen->getPos();
-	Rail * r = game->getSim()->getRailMap()->getRailAt(p.row, p.col);
+	Point p = game->sim.railPen.getPos();
+	Rail * r = game->sim.railMap.getRailAt(p.row, p.col);
 	if(r){
-		game->getSim()->getFinder()->gotoRail(r);
+		game->sim.getFinder()->gotoRail(r);
 	}
 }
 void Commander::railPenLoadProgram(){
@@ -174,56 +180,48 @@ void Commander::railPenLoadProgram(){
 
 //////// Finder actions /////////
 void Commander::finderIncFork(){
-	Rail * rail = game->getSim()->getFinder()->getRail();
+	Rail * rail = game->sim.getFinder()->getRail();
 	ForkRail *rf = dynamic_cast<ForkRail *>(rail);
 	if(rf){
 		++(*rf);
 	}
 }
 void Commander::finderDecFork(){
-	Rail * rail = game->getSim()->getFinder()->getRail();
+	Rail * rail = game->sim.getFinder()->getRail();
 	ForkRail *rf = dynamic_cast<ForkRail *>(rail);
 	if(rf){
 		--(*rf);
 	}
 }
 void Commander::finderForward(){
-	if( game->getSim()->getFinder()->forward()){
-	}
+	game->sim.getFinder()->forward();
 }
 void Commander::finderReverse(){
-	game->getSim()->getFinder()->reverse();
-}
-void Commander::unlinkTrain(){
-	game->getSim()->getSelectedTrain()->unlink();
-}
-void Commander::linkTrain(){
-	game->getSim()->getSelectedTrain()->link();
+	game->sim.getFinder()->reverse();
 }
 void Commander::finderAddWagon(){
 	Train * train = new Train;
-	//Wagon * w = new Wagon;
-	RailVehicle* w = new Wagon;
-	Finder * f = game->getSim()->getFinder();
+	RailVehicle* wagon = new Wagon;
+	Finder * f = game->sim.getFinder();
 	if(f->getRail()->getRailVehicle() == 0){
-		//w->gotoRail(f->getRail());
-		*(f->getRail()) < w;
-		train->addVehicle(w);
-		game->getSim()->addTrain(train);
+		f->getRail()->enter(wagon);
+		train->addVehicle(0, wagon);
+		game->sim.addTrain(train);
 		LOG_DEBUG(log," Agrego el tren en: " << f->getPos().row << "," << f->getPos().col);
 	}else{
 		LOG_DEBUG(log," No puedo agregar vehiculo pues hay uno");
+		delete wagon;
 	}
 }
 void Commander::finderAddTrain(){
 	Train * train = new Train;
 	RailVehicle * locomotive = new Locomotive;
-	Finder * finder = game->getSim()->getFinder();
-	if(finder->getRail()->getRailVehicle() == 0){
+	Finder * finder = game->sim.getFinder();
+	if(finder->isEmpty()){
 		//l->gotoRail(f->getRail());
-		*(finder->getRail()) < locomotive;
-		train->addVehicle(locomotive);
-		game->getSim()->addTrain(train);
+		finder->getRail()->enter(locomotive);
+		train->addVehicle(0, locomotive);
+		game->sim.addTrain(train);
 		LOG_DEBUG(log," Agrego el tren en: " << finder->getPos().row << "," << finder->getPos().col);
 	}else{
 		LOG_DEBUG(log," No puedo agregar vehiculo pues hay uno");
@@ -232,17 +230,17 @@ void Commander::finderAddTrain(){
 	}
 }
 void Commander::finderAddSensor(){
-	Finder * f = game->getSim()->getFinder();
+	Finder * f = game->sim.getFinder();
 	Rail * r = f->getRail();
 	if(r){
 		Sensor * s = new Sensor();
 		s->setRail(r);
 		LOG_DEBUG(log," Agregamos sensor con rail:" << s->getRail());
-		game->getSim()->addSensor(s);
+		game->sim.addSensor(s);
 	}
 }
 void Commander::finderDeleteVehicle(){
-	Finder * f = game->getSim()->getFinder();
+	Finder * f = game->sim.getFinder();
 	RailVehicle *r = f->getRail()->getRailVehicle();
 	if(r){
 		r->setRail(0);
@@ -257,9 +255,13 @@ bool Commander::getAutoMove(){
 	return autoMove;
 }
 void Commander::moveTrains(){
-	game->getSim()->moveTrains();
-	//game->getSim()->moveWagons();
-	game->getSim()->checkSensors();
+	game->sim.moveTrains();
+	//game->sim.moveWagons();
+	game->sim.checkSensors();
+}
+/////////////////////////////////////////////////////////////////
+void Commander::toggleLink(){
+	game->sim.toggleLink();
 }
 /////////////////////////////////////////////////////////////////
 void Commander::doAction(char key){
@@ -322,6 +324,9 @@ void Commander::setMode(char key){
 	case EVENTS_MODE:
 		onSetEventsMode();	
 		break;
+	case LINK_MODE:
+		onSetLinkMode();	
+		break;
 	}
 }
 Commander::CommandMode Commander::getMode(){
@@ -347,6 +352,9 @@ const char * Commander::getModeName(int mode){
 		break;
 	case EVENTS_MODE:
 		ret = "Events";
+		break;
+	case LINK_MODE:
+		ret = "Links";
 		break;
 	}
 	return ret;

@@ -37,7 +37,7 @@ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
@@ -176,51 +176,49 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = 
 EXTRA_DIST = \
-	Aspect.h                \
-	Basic.h                 \
-	Commander.h             \
-	CommanderView.h         \
-	CrossAspect.h           \
-	CrossRail.h             \
-	CurveAspect.h           \
-	CurveRail.h             \
-	Dir.h                   \
-	DirEnv.h                \
-	Event.h                 \
-	EventProgram.h          \
-	Filter.h                \
-	Finder.h                \
-	FinderAspect.h          \
-	ForkAspect.h            \
-	ForkDirSelector.h       \
-	ForkRail.h              \
-	Game.h                  \
-	Link.h                  \
-	Locomotive.h            \
-	LocomotiveAspect.h      \
-	Log.h                   \
-	Message.h               \
-	Point.h                 \
-	Rail.h                  \
-	ProgramEditor.h         \
-	RailEnv.h               \
-	RailMap.h               \
-	RailPen.h               \
-	RailVehicle.h           \
-	Range.h                 \
-	Semaphore.h             \
-	Sensor.h                \
-	Sim.h                   \
-	SimView.h               \
-	StraightAspect.h        \
-	StraightRail.h          \
-	TerminalWindow.h        \
-	Train.h                 \
-	TrainIterator.h         \
-	Vehicle.h               \
-	Wagon.h                 \
-	WagonAspect.h           \
-	Window.h                 
+Aspect.h                    \
+Basic.h                     \
+Commander.h                 \
+CommanderView.h             \
+CrossAspect.h               \
+CrossRail.h                 \
+CurveAspect.h               \
+CurveRail.h                 \
+DirEnv.h                    \
+RailEnv.h                   \
+Dir.h                       \
+Event.h                     \
+EventProgram.h              \
+Filter.h                    \
+FinderAspect.h              \
+Finder.h                    \
+ForkAspect.h                \
+ForkDirSelector.h           \
+ForkRail.h                  \
+Game.h                      \
+LocomotiveAspect.h          \
+Locomotive.h                \
+Log.h                       \
+Message.h                   \
+Point.h                     \
+ProgramEditor.h             \
+Rail.h                      \
+RailMap.h                   \
+RailPen.h                   \
+RailVehicle.h               \
+Range.h                     \
+Semaphore.h                 \
+Sensor.h                    \
+Sim.h                       \
+SimView.h                   \
+StraightAspect.h            \
+StraightRail.h              \
+TerminalWindow.h            \
+Train.h                     \
+Vehicle.h                   \
+WagonAspect.h               \
+Wagon.h                     \
+Window.h                     
 
 all: all-recursive
 

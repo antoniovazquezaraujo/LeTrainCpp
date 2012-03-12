@@ -12,7 +12,7 @@ public:
 	Dir getPath(Dir dir);
 private:
 	DirEnv * env;
-	Dir outs[3];
+	array<Dir, 3> outs;
 	Dir in;	
 	int selectedOut;
 	int numOuts;

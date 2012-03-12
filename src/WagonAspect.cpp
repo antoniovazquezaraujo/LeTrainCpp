@@ -10,5 +10,5 @@ int WagonAspect::getBgColor(){
 	return 2;
 }
 int WagonAspect::getFgColor(){
-	return 12;
+	return 8;
 }

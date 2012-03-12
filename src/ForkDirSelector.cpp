@@ -6,17 +6,17 @@ MAKE_LOGGER(ForkDirSelector);
 ForkDirSelector::ForkDirSelector(DirEnv * env)
 	: env(env){
 	for (int n(0); n<3;n++){
-		outs[n] = NO_DIR;
+		outs[n] = Dir::NO_DIR;
 	}
 	selectedOut=0;
 	numOuts = 0;
 //cout << "el env es: " <<endl;
 //cout << *env<<endl;
 
-	for (int n(Dir::E); n<NUM_DIRS;n++){
+	for (int n(Dir::E); n<Dir::NUM_DIRS;n++){
 		Dir dir(n);
 		Dir found = env->getPath(dir);
-		if(found.getValue() != NO_DIR){
+		if(found.getValue() != Dir::NO_DIR){
 //			cout << "Buscando la salida por: " << dir.getValue() << "= " << found.getValue()<<endl;
 			if(env->canBeAForkInput(dir)){
 				in = dir;

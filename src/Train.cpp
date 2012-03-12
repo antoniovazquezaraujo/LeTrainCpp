@@ -1,32 +1,32 @@
-#include "Basic.h"
 #include "Train.h"
 MAKE_LOGGER(Train);
 //////////////////////////////////////////////////////
-Train::Train(){
-	vehicleIterator= train.begin();
-	selectedVehicle = 0;
-	selectVehicle(*vehicleIterator);
-	totalImpulse=0;
-	totalMass = 0;
-	trainDir = NO_DIR;
-	moved = false;
-	reversed = false;
-	selected = false;
-	reversedSelector = false;
-	selectorStatus = atBegin;
+Train::Train()
+	:
+	vehicleSelector   (&vehicles),
+	locomotiveSelector(&locomotives),
+	totalImpulse      (0),
+	numStoppedTurns   (0),
+	speed             (0),
+	totalMass         (0),
+	trainDir          (Dir::NO_DIR),
+	moved             (false),
+	reversed          (false),
+	selected          (false),
+	deleted           (false),
+	reversedSelector  (false){
+		
 }
 void Train::paint(Window * g){
-	list<RailVehicle*>::iterator i = train.begin();
-	while(i != train.end()){
-		(*i)->paint(g);	
-		i++;
+	for(auto vehicle:vehicles){
+		vehicle->paint(g);
 	}
 }
-void Train::selectVehicle(RailVehicle * v){
-	if(selectedVehicle){
-		selectedVehicle->setSelected(false);
-	}
-	selectedVehicle = v;
+bool Train::isMarkedAsDeleted(){
+	return deleted;
+}
+void Train::markAsDeleted(){
+	deleted = true;
 }
 //Manejo manual
 void Train::setSelected(bool selected){
@@ -34,6 +34,9 @@ void Train::setSelected(bool selected){
 }
 bool Train::isSelected(){
 	return selected;
+}
+Train::TVehicles & Train::getVehicles(){
+	return vehicles;
 }
 void Train::push(){
 // Aquí, lo mejor sería agregar tanto impulso como 
@@ -55,177 +58,140 @@ void Train::setMoved(bool moved){
 }
 //Motores
 void Train::incImpulseGenerated(){
-	list<Locomotive*>::iterator i = locomotives.begin();
-	while(i != locomotives.end()){
-		(*i)->incImpulseGenerated();
-		i++;
+	for(auto locomotive: locomotives){
+		locomotive->incImpulseGenerated();
 	}
 }
 void Train::decImpulseGenerated(){
-	list<Locomotive*>::iterator i = locomotives.begin();
-	while(i != locomotives.end()){
-		(*i)->decImpulseGenerated();
-		i++;
+	for(auto locomotive: locomotives){
+		locomotive->decImpulseGenerated();
 	}
 }
-//invertimos el sentido de todo el tren
-void Train::invert(){
-	if(reversed){
-		setForwardDir();
-	}else{
-		setBackwardDir();
-	}
+void Train::setSpeed(float speed){
+	this->speed = speed;
 }
-void Train::setSpeed(int speed){
-
-}
-int Train::getSpeed(){
-	return 10;
+float Train::getSpeed(){
+	return speed;
 }
 int Train::getTotalMass(){
 	int total = 0;
-	list<RailVehicle*>::iterator i = train.begin();
-	while(i != train.end()){
-		total += (*i)->getMass();
-		i++;
-	}
+	for_each(
+		vehicles.begin(), 
+		vehicles.end(),
+		[&total](RailVehicle * vehicle){
+			total+= vehicle->getMass();
+		}
+	);
 	return total;
 }
 
+Selector<Train::TVehicles>  Train::getVehicleSelector(){
+	return vehicleSelector;
+}
 //Manejo de vehículos
 void Train::selectNextVehicle(){
-	vehicleIterator++;
-	if(vehicleIterator!= train.end()){
-		selectorStatus = atMiddle;
-	}else{
-		vehicleIterator--;
-		selectorStatus = atEnd;
+	if(vehicleSelector.isSelected()){
+		(*vehicleSelector.getSelected())->setSelected(false);
 	}
-	selectVehicle(*vehicleIterator); 
+	vehicleSelector.selectNext();
+	if(vehicleSelector.isSelected()){
+		(*vehicleSelector.getSelected())->setSelected(true);
+	}
 }
 void Train::selectPrevVehicle(){
-	if(vehicleIterator != train.begin()){
-		vehicleIterator--;
+	if(vehicleSelector.isSelected()){
+		(*vehicleSelector.getSelected())->setSelected(false);
 	}
-	if(vehicleIterator != train.begin()){
-		selectorStatus = atMiddle;
-	}else{
-		selectorStatus = atBegin;
+	vehicleSelector.selectPrev();
+	if(vehicleSelector.isSelected()){
+		(*vehicleSelector.getSelected())->setSelected(true);
 	}
-	selectVehicle(*vehicleIterator); 
 }
-void Train::addVehicle(RailVehicle* v){
-	v->addToTrain(this);
+void Train::addVehicle(int p , RailVehicle* v){
+	v->addToTrain(p, this);
 	totalMass = getTotalMass();
-	selectNextVehicle();
-	//setForwardDir();
 }
-void Train::addWagon(Wagon* w){
-	train.push_back(w);
+void Train::addWagon(int p, Wagon* w){
+	RailVehicle * linker=nullptr;
+	if(p == FRONT){
+		linker = vehicles.empty()?nullptr:*(vehicles.begin());
+		vehicles.push_front(w);
+	}else{
+		linker = vehicles.empty()?nullptr:*(vehicles.rbegin());
+		vehicles.push_back(w);
+	}
+	if(linker ){
+		Rail * linkedRail = w->getRail();
+		w->setDir(linkedRail->getPath(-(linker->getDir())));
+	}
 	w->setTrain(this);
 }
-void Train::addLocomotive(Locomotive* l){
-	train.push_back(l);
+void Train::addLocomotive(int p, Locomotive* l){
+	RailVehicle * linker=nullptr;
+	if(p == FRONT){
+		linker = vehicles.empty()?nullptr:*(vehicles.begin());
+		vehicles.push_front(l);
+	}else{
+		linker = vehicles.empty()?nullptr:*(vehicles.rbegin());
+		vehicles.push_back(l);
+	}
+	if(linker ){
+		Rail * linkedRail = l->getRail();
+		l->setDir(linkedRail->getPath(-(linker->getDir())));
+	}
 	locomotives.push_back(l);
 	l->setTrain(this);
 }
-// Estas devuelven un puntero al tren que desaparece y que debemos borrar
-// o bien al nuevo que se crea automáticamente y que debemos agregar
-
-Train * Train::link(){
-	Train * linkedTrain = 0;
-	RailVehicle * linked = 0;
-	RailVehicle * linker = selectedVehicle;
-	Rail * nextRail = 0;
-	Dir actualDir=  NO_DIR;
-	Dir reverseDir =  NO_DIR;
-	Rail * selectedRail = 0;
-	switch(selectorStatus){
-	case atMiddle:
-		//don't link at middle!
-		break;
-	case atBegin:
-		if(reversedSelector){
-			actualDir = getDirFromFirst();
-			selectedRail = selectedVehicle->getRail();
-			reverseDir = selectedRail->getPath(actualDir);
-			nextRail = selectedRail->getLinkedRailAt(reverseDir);
-			linked = nextRail->getRailVehicle();
-			if(linked){
-				linkedTrain = linked->getTrain();
-				list<RailVehicle*>::iterator i = linkedTrain->train.begin();
-				while(i != linkedTrain->train.end()){
-					addVehicle(*i);
-					linkedTrain->train.remove(*i);
-					i++;
-				}
-				totalMass = getTotalMass();
-			}
-		}
-		break;
-	case atEnd:
-		if(!reversedSelector){
-			actualDir = getDirFromLast();
-			selectedRail = selectedVehicle->getRail();
-			reverseDir = selectedRail->getPath(actualDir);
-			nextRail = selectedRail->getLinkedRailAt(reverseDir);
-			linked = nextRail->getRailVehicle();
-			if(linked){
-				linkedTrain = linked->getTrain();
-				list<RailVehicle*>::iterator i = linkedTrain->train.begin();
-				while(i != linkedTrain->train.end()){
-					addVehicle(*i);
-					linkedTrain->train.remove(*i);
-					i++;
-				}
-				totalMass = getTotalMass();
-			}
-		}
-		break;
-	}
-	return linkedTrain;
-}
-Train * Train::unlink(){
-	Train * unlinkedTrain = 0;
-	RailVehicle * unlinkedVehicle = 0;
-	RailVehicle * unlinkerVehicle = selectedVehicle;
-	Rail * nextRail = 0;
-	Dir actualDir=  NO_DIR;
-	Dir reverseDir =  NO_DIR;
-	Rail * selectedRail = 0;
-	switch(selectorStatus){
-	case atBegin:
-		//nothing
-		break;
-	case atEnd:
-		//nothing
-		break;
-	case atMiddle:
-		unlinkedTrain = new Train;
-		if(reversedSelector){
-			selectPrevVehicle();
-			unlinkedVehicle = selectedVehicle;
-			list<RailVehicle*>::iterator i= vehicleIterator;
-			if(i != train.begin()){
-				do{
-					i--;
-					train.remove(*i);
-					unlinkedTrain->addVehicle(*i);
-				}while(i != train.begin());
-			}
+void Train::toggleLink(){
+		RailVehicle * topVehicle = nullptr;
+		Rail        * topRail    = nullptr;
+		Rail        * nextRail   = nullptr;
+		if(!reversed){
+			Train::TVehicles::iterator         i = vehicles. begin();
+			topVehicle = *i;
 		}else{
-			selectNextVehicle();
-			unlinkedVehicle = selectedVehicle;
-			list<RailVehicle*>::iterator i= vehicleIterator;
-			while(i != train.end()){
-				train.remove(*i);
-				unlinkedTrain->addVehicle(*i);
-				i++;
-			}
+			Train::TVehicles::reverse_iterator i = vehicles.rbegin();
+			topVehicle = *i;
 		}
-		break;
+		trainDir = topVehicle->getDir();
+		topRail = topVehicle->getRail();
+		nextRail = topRail->getLinkedRailAt(trainDir);
+		if(nextRail){
+			RailVehicle* linked = nextRail->getRailVehicle();
+			if(linked){
+				Train *t = linked->getTrain();
+				if(*(t->vehicles.begin()) == linked){
+					//enganchamos con el primero
+					for_each(t->vehicles.begin(), t->vehicles.end(),
+						[&](RailVehicle* v){
+							if(!reversed){
+								addVehicle(FRONT, v);
+							}else{
+								addVehicle(BACK, v);
+							}
+						}
+					);
+				}else{ //enganchamos con el último
+					for_each(t->vehicles.rbegin(), t->vehicles.rend(),
+						[&](RailVehicle* v){
+							if(!reversed){
+								addVehicle(FRONT, v);
+							}else{
+								addVehicle(BACK, v);
+							}
+						}
+					);
+
+				}
+				t->vehicles.clear();
+
+			}else{
+				//nadie para enganchar.
+			}
+
+	}else{
+		//No hay rail en esa direccion!!
 	}
-	return unlinkedTrain;
 }
 void Train::reverseSelector(){
 	reversedSelector = !reversedSelector;
@@ -238,16 +204,9 @@ void Train::advanceSelector(){
 	}
 }
 
-//Gestión de elementos
-//Si hay via libre agregamos al final del tren en la dirección en la que
-//va el selector de vehículos
-void Train::addWagon(){
-
+void Train::clear(){
+	vehicles.clear();
 }
-void Train::addLocomotive(){
-
-}
-
 //Borra el último vehículo en la dirección del selector de vehículos
 //Si se quiere eliminar uno del medio, dividir primero el tren en dos,
 //borrar el último y luego volver a unirlos.
@@ -256,215 +215,136 @@ void Train::removeLastVehicle(){
 }
 ////////////////////////////////////////////////////
 Dir Train::getDirFromFirst(){
-	/*
-	list <RailVehicle*>::iterator i = train.begin();
-	Rail * r = (*i)->getRail();
-	Dir d = (*i)->getDir();
-	return (d);
-	*/
-	list <RailVehicle*>::iterator i = train.begin();
-
-}
-Dir Train::getDirFromLast(){
-	list <RailVehicle*>::reverse_iterator i = train.rbegin();
-	Rail * r = (*i)->getRail();
-	Dir d = (*i)->getDir();
+	Rail * r =(*(vehicles.begin()))->getRail();
+	Dir d    =(*(vehicles.begin()))->getDir();
 	return r->getPath(d);
 }
-
+Dir Train::getDirFromLast(){
+	Rail * r =(*(vehicles.rbegin()))->getRail();
+	Dir d    =(*(vehicles.rbegin()))->getDir();
+	return r->getPath(d);
+}
 void Train::shiftForward(){
-	list <RailVehicle*>::iterator i = train.begin();
-	RailVehicle * next = *i;
-	Rail * rail = next->getRail();
-	trainDir= getDirFromFirst();
-	Rail * nextRail =0; 
-	Rail * prevRail = rail->getLinkedRailAt(trainDir);
-	//next->gotoRail(prevRail);
-	*(prevRail) < next;
-	i++;
-	while(i != train.end()){
-		next = *i;
-		nextRail=next->getRail();
-		//next->gotoRail(prevRail);
-		*(prevRail) < next;
-		prevRail=nextRail;
-		i++;
-	}
+	for_each(vehicles.begin(), vehicles.end(),
+		[](RailVehicle* v){
+			v->getRail()->exitVehicle();
+		}
+	);
 }
 void Train::shiftBackward(){
-	list <RailVehicle*>::reverse_iterator i = train.rbegin();
-	RailVehicle * next = *i;
-	Rail * rail = next->getRail();
-	trainDir= getDirFromLast(); 
-	Rail * nextRail =0; 
-	Rail * prevRail = rail->getLinkedRailAt(trainDir);
-	next->setDir(-trainDir);
-	//next->gotoRail(prevRail);
-	*(prevRail) < next;
-	next->setDir(-trainDir);
-	i++;
-	while(i != train.rend()){
-		next = *i;
-		nextRail=next->getRail();
-		//next->gotoRail(prevRail);
-		*(prevRail) < next;
-		prevRail=nextRail;
-		i++;
+	for_each(vehicles.rbegin(), vehicles.rend(),
+		[](RailVehicle* v){
+			v->getRail()->exitVehicle();
+		}
+	);
+}
+void Train::invert(){
+	Train::TVehicles::iterator i;
+	for(i=vehicles.begin();i!=vehicles.end();i++){
+		Dir d = (*i)->getDir();
+		(*i)->getRail()->reverseVehicle();
 	}
 }
-void Train::setForwardDir(){
-	list <RailVehicle*>::reverse_iterator i = train.rbegin();
-	Dir d;
-	if(i != train.rend()){
-		d = (*i)->getDir();
-		Rail * r = (*i)->getRail();
-		Rail * next = r->getLinkedRailAt(d);
-		if(next){
-			i++;
-			if(i != train.rend()){
-				RailVehicle * v = next->getRailVehicle();
-				if (v != *i){
-					//dirección contraria;
-					d = next->getPath(d);
-				}else{
-				}
-			}
+float Train::sumImpulse(){
+	float total=0;
+	for_each(vehicles.begin(), vehicles.end(),
+		[&total](RailVehicle* v){
+			v->generateImpulse();
+			total += v->getImpulse(); 
+			v->consumeImpulse();
 		}
-		i = train.rbegin();
-		while(i != train.rend()){
-			RailVehicle* next = *i;
-			Rail * r = next->getRail();
-			next->setDir(d);
-			d = r->getPath(d);
-			i++;
-		}
-	}
-	reversed = false;
-}
-void Train::setBackwardDir(){
-	list <RailVehicle*>::iterator i = train.begin();
-	Dir d;
-	if(i != train.end()){
-		d = (*i)->getDir();
-		Rail * r = (*i)->getRail();
-		Rail * next = r->getLinkedRailAt(d);
-		if(next){
-			i++;
-			if(i != train.end()){
-				RailVehicle * v = next->getRailVehicle();
-				if (v != *i){
-					//dirección contraria;
-					d = next->getPath(d);
-				}
-			}
-		}
-		i = train.begin();
-		while(i != train.end()){
-			RailVehicle* next = *i;
-			Rail * r = next->getRail();
-			next->setDir(d);
-			d = r->getPath(d);
-			i++;
-		}
-	}
-	reversed = true;
-}
-int Train::sumImpulse(){
-	int total=0;
-	Dir d;
-	list <RailVehicle*>::reverse_iterator i = train.rbegin();
-	while(i != train.rend()){
-		RailVehicle* next = *i;
-		Rail * r = next->getRail();
-		next->generateImpulse();
-		int impulse = next->getImpulse();
-		next->consumeImpulse();
-		d= next->getDir();
-		total += impulse;
-		i++;
-	}
+	);
 	return total;
 }
 int Train::crash(RailVehicle * crashed, int impulse, Dir d){
-	//chocamos con algo
-	//le pasamos todo el impulso y esperamos resto
-	crashed->receiveImpulse(impulse, d);
-	Train * crashedTrain = crashed->getTrain();
-	int consumed= crashedTrain->move();
-	return consumed;
+	return crashed->receiveImpulse(impulse, d);
 }
-int Train::move(){
-	if(moved) return totalMass; 
+void Train::move(){
+	if(moved) return ; 
 	moved = true;
-	int consumed = 0;
 	totalImpulse += sumImpulse();
-			LOG_DEBUG(log,"Impulso total:" << totalImpulse);
+
+	if(reversed && totalImpulse > 0){
+		invert();
+		reversed=false;
+	}else if(!reversed && totalImpulse < 0){
+		invert();
+		reversed=true;
+	}
 	if(abs(totalImpulse) >= totalMass){
 		//el tren intentará moverse, porque su impulso puede con su masa
-		if(totalImpulse > 0){
-			LOG_DEBUG(log,"Dir antes de from first: " << trainDir); 
-			trainDir= getDirFromFirst();
-			LOG_DEBUG(log,"Dir después de from first: " << trainDir); 
-			list <RailVehicle*>::iterator i = train.begin();
-			RailVehicle * first = *i;
-			Rail * r = (*i)->getRail();
-			Rail * next = r->getLinkedRailAt(trainDir);
-			RailVehicle * crashed=0;
-			if(next){
-				if((crashed = next->getRailVehicle()) != 0){
-			LOG_DEBUG(log,"Crash from first");
-					consumed = crash(crashed, totalImpulse,trainDir );
-					totalImpulse-=consumed;
-					return consumed;
+		RailVehicle * crashedVehicle= nullptr;
+		RailVehicle * topVehicle    = nullptr;
+		Rail        * topRail = nullptr;
+		Rail        * nextRail   = nullptr;
+		//Dir           trainDir;
+		if(!reversed){
+			Train::TVehicles::iterator         i = vehicles. begin();
+			topVehicle = *i;
+		}else{
+			Train::TVehicles::reverse_iterator i = vehicles.rbegin();
+			topVehicle = *i;
+		}
+		trainDir = topVehicle->getDir();
+		topRail = topVehicle->getRail();
+		nextRail = topRail->getLinkedRailAt(trainDir);
+		if(nextRail){
+			crashedVehicle = nextRail->getRailVehicle();
+			float consumed = 0;
+			if(crashedVehicle){
+				consumed = crash(crashedVehicle, totalImpulse,trainDir );
+	//			LOG_DEBUG(log," consumo: " << consumed << " totalImpulse: " << totalImpulse << " totalMass: " << totalMass);
+				if(getSpeed() > 50) markAsDeleted();
+				if(crashedVehicle->getTrain()->getSpeed() > 50) crashedVehicle->getTrain()->markAsDeleted();
+			}else{
+				if(reversed){
+					shiftBackward();
 				}else{
 					shiftForward();
-					consumed= totalMass;
-					totalImpulse-=consumed;
-					return consumed;
 				}
-			}else{
-				// agregar aqui descarrilamientos!!!
-			LOG_DEBUG(log,"Descarrila hacia adelante");
-				return 9999999;
+				consumed= totalMass;
 			}
-		}else if (totalImpulse < 0 ){
-			trainDir= getDirFromLast();
-			LOG_DEBUG(log,"Dir from last: " << trainDir); 
-			list <RailVehicle*>::reverse_iterator i = train.rbegin();
-			RailVehicle * last = *i;
-			Rail * r = (*i)->getRail();
-			Rail * next = r->getLinkedRailAt(trainDir);
-			RailVehicle * crashed=0;
-			if(next){
-				if((crashed = next->getRailVehicle()) != 0){
-			LOG_DEBUG(log,"Crash from last");
-					consumed = crash(crashed, totalImpulse, trainDir);
-					if(consumed < totalImpulse){
-						totalImpulse-=consumed;
-					}else{
-						totalImpulse = 0;
-					}
-					return consumed;
-				}else{
-					//nos movemos hacia atrás 
-			LOG_DEBUG(log,"Dir from last antes de shift: " << getDirFromLast()); 
-					shiftBackward();
-			LOG_DEBUG(log,"Dir from last despues de shift: " << getDirFromLast()); 
-					consumed= totalMass;
-					if(consumed < totalImpulse){
-						totalImpulse-=consumed;
-					}else{
-						totalImpulse = 0;
-					}
-					return consumed;
-				}
+			if(totalImpulse > 0){
+				totalImpulse -=consumed;
 			}else{
-				// agregar aqui descarrilamientos!!!
-			LOG_DEBUG(log,"Descarrila hacia atras");
-				return 9999999;
+				totalImpulse +=consumed;
 			}
 		}else{
-			return 0;
+			// agregar aqui descarrilamientos!!!
+			assert(false);
 		}
+		if(numStoppedTurns > 0){
+			setSpeed(1.0/std::log(numStoppedTurns)*150);
+		}else{
+		}
+		numStoppedTurns=0;	
+	}else{
+		numStoppedTurns++;
 	}
+}
+ostream & operator << (ostream & o, Train t){
+	o << "Vehicles:" ;
+	for(auto v: t.vehicles){
+		o << *v;
+	}
+	o<< endl;
+	if(t.vehicleSelector.isSelected()){
+		o << "Vehicle selected" << *(t.vehicleSelector.getSelected());
+	}
+	o<< endl;
+	o << "Locomotives:" ;
+	for(auto l: t.locomotives){
+		o << *l;
+	}
+	o<< endl
+	 << " Total impulse: "  << t.totalImpulse
+	 << " Speed: "          << t.speed
+	 << " Total mass:"      << t.totalMass
+	 << " Dir: "            << t.trainDir
+	 << " Moved: "          << t.moved
+	 << " Reversed:"        << t.reversed
+	 << " Selected:"        << t.selected
+	 << " ReversedSelector:"<< t.reversedSelector
+	<< endl;
+	return o;
 }

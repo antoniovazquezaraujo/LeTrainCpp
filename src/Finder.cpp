@@ -16,7 +16,7 @@ Finder::Finder(RailVehicle * r)
 		pos.row=0;
 		pos.col=0;
 		rail = 0;
-		dir = NO_DIR;
+		dir = Dir::NO_DIR;
 	}
 	
 }
@@ -32,8 +32,11 @@ Dir Finder::getDir(){
 void Finder::setDir(Dir dir){
 	this->dir = dir;
 }
+bool Finder::isEmpty(){
+	return !(rail != 0 && rail->getRailVehicle() != 0);
+}
 void Finder::gotoRail(Rail * r){
-	if(dir.getValue() != NO_DIR){
+	if(dir.getValue() != Dir::NO_DIR){
 		dir = r->getPath(-dir);
 	}else{
 		dir = r->getAnyPath();
@@ -41,12 +44,12 @@ void Finder::gotoRail(Rail * r){
 	pos = r->getPos();
 	rail = r;
 }
-void Finder::addToTrain(Train *){
+void Finder::addToTrain(int, Train *){
 	//dont!
 }
 bool Finder::forward(int distance){
 	bool ret = false;
-	if(dir.getValue() == NO_DIR){
+	if(dir.getValue() == Dir::NO_DIR){
 		dir = rail->getAnyPath();
 	}
 	Rail * next = rail->getLinkedRailAt(dir);
@@ -67,7 +70,7 @@ void Finder::reverse(){
 bool Finder::backwards(int distance){
 	bool ret = false;
 	LOG_DEBUG(log, " finder backwards");
-	if(dir.getValue() == NO_DIR){
+	if(dir.getValue() == Dir::NO_DIR){
 		LOG_DEBUG(log, " finder sin dir");
 		dir = rail->getPath(rail->getPath(-dir));
 	}

@@ -63,29 +63,29 @@ Point SimView::getPos(){
 	return pos;
 }
 void SimView::erase(){
-	sim->getRailMap()->erase(window);
-	sim->getRailPen()->erase(window);
+	sim->railMap.erase(window);
+	sim->railPen.erase(window);
 	sim->getFinder()->erase(window);
 }
 void SimView::paint(){
 	recalcWindowShift();
-	sim->getRailMap()->paint(window);
-	sim->getRailPen()->paint(window);
+	sim->railMap.paint(window);
+	sim->railPen.paint(window);
 
-	for(auto semaphore : *(sim->getSemaphores())){
-		semaphore.second->paint(window);
+	for(auto semaphore : sim->getSemaphores()){
+		semaphore->paint(window);
 	}
-	for(auto sensor: *(sim->getSensors())){
-		sensor.second->paint(window);
+	for(auto sensor: sim->getSensors()){
+		sensor->paint(window);
 	}
-	for(auto train: *(sim->getTrains())){
-		train.second->paint(window);
+	for(auto train: sim->getTrains()){
+		train->paint(window);
 	}
-	for(auto loco: *(sim->getLocomotives())){
-		loco.second->paint(window);
+	for(auto loco: sim->getLocomotives()){
+		loco->paint(window);
 	}
-	for(auto wagon: *(sim->getWagons())){
-		wagon.second->paint(window);
+	for(auto wagon: sim->getWagons()){
+		wagon->paint(window);
 	}
 
 	sim->getFinder()->paint(window);

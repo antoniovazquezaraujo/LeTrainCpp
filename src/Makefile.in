@@ -40,28 +40,28 @@ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am__objects_1 = CrossAspect.$(OBJEXT) CrossRail.$(OBJEXT) \
-	CurveAspect.$(OBJEXT) CurveRail.$(OBJEXT) Dir.$(OBJEXT) \
-	DirEnv.$(OBJEXT) ForkDirSelector.$(OBJEXT) ForkRail.$(OBJEXT) \
-	Rail.$(OBJEXT) StraightAspect.$(OBJEXT) StraightRail.$(OBJEXT) \
-	Aspect.$(OBJEXT) ForkAspect.$(OBJEXT) Point.$(OBJEXT) \
-	Vehicle.$(OBJEXT) RailVehicle.$(OBJEXT) RailMap.$(OBJEXT) \
-	RailPen.$(OBJEXT) Window.$(OBJEXT) TerminalWindow.$(OBJEXT) \
-	Commander.$(OBJEXT) Sim.$(OBJEXT) SimView.$(OBJEXT) \
-	TrainIterator.$(OBJEXT) CommanderView.$(OBJEXT) \
-	Finder.$(OBJEXT) FinderAspect.$(OBJEXT) Train.$(OBJEXT) \
-	Locomotive.$(OBJEXT) RailEnv.$(OBJEXT) Game.$(OBJEXT) \
-	Wagon.$(OBJEXT) WagonAspect.$(OBJEXT) \
-	LocomotiveAspect.$(OBJEXT) Event.$(OBJEXT) \
-	EventProgram.$(OBJEXT) Sensor.$(OBJEXT) Message.$(OBJEXT) \
-	Semaphore.$(OBJEXT) Range.$(OBJEXT) Filter.$(OBJEXT) \
-	ProgramEditor.$(OBJEXT) Link.$(OBJEXT) Parser.$(OBJEXT)
+am__objects_1 = Aspect.$(OBJEXT) Commander.$(OBJEXT) \
+	CommanderView.$(OBJEXT) CrossAspect.$(OBJEXT) \
+	CrossRail.$(OBJEXT) RailEnv.$(OBJEXT) CurveAspect.$(OBJEXT) \
+	CurveRail.$(OBJEXT) Dir.$(OBJEXT) DirEnv.$(OBJEXT) \
+	Event.$(OBJEXT) EventProgram.$(OBJEXT) Filter.$(OBJEXT) \
+	FinderAspect.$(OBJEXT) Finder.$(OBJEXT) ForkAspect.$(OBJEXT) \
+	ForkDirSelector.$(OBJEXT) ForkRail.$(OBJEXT) Game.$(OBJEXT) \
+	LocomotiveAspect.$(OBJEXT) Locomotive.$(OBJEXT) \
+	Message.$(OBJEXT) Parser.$(OBJEXT) Point.$(OBJEXT) \
+	ProgramEditor.$(OBJEXT) Console.$(OBJEXT) Rail.$(OBJEXT) \
+	RailMap.$(OBJEXT) RailPen.$(OBJEXT) RailVehicle.$(OBJEXT) \
+	Range.$(OBJEXT) Semaphore.$(OBJEXT) Sensor.$(OBJEXT) \
+	Sim.$(OBJEXT) SimView.$(OBJEXT) StraightAspect.$(OBJEXT) \
+	StraightRail.$(OBJEXT) TerminalWindow.$(OBJEXT) \
+	Train.$(OBJEXT) Vehicle.$(OBJEXT) WagonAspect.$(OBJEXT) \
+	Wagon.$(OBJEXT) Window.$(OBJEXT)
 am_letrain_OBJECTS = $(am__objects_1) Letrain.$(OBJEXT)
 letrain_OBJECTS = $(am_letrain_OBJECTS)
 letrain_LDADD = $(LDADD)
@@ -180,56 +180,55 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 TESTS = $(check_PROGRAMS)
 ALL_SRCS = \
-	CrossAspect.cpp         \
-	CrossRail.cpp           \
-	CurveAspect.cpp         \
-	CurveRail.cpp           \
-	Dir.cpp                 \
-	DirEnv.cpp              \
-	ForkDirSelector.cpp     \
-	ForkRail.cpp            \
-	Rail.cpp                \
-	StraightAspect.cpp      \
-	StraightRail.cpp        \
-	Aspect.cpp              \
-	ForkAspect.cpp          \
-	Point.cpp               \
-	Vehicle.cpp             \
-	RailVehicle.cpp         \
-	RailMap.cpp             \
-	RailPen.cpp             \
-	Window.cpp              \
-	TerminalWindow.cpp      \
-	Commander.cpp           \
-	Sim.cpp                 \
-	SimView.cpp             \
-	TrainIterator.cpp       \
-	CommanderView.cpp       \
-	Finder.cpp              \
-	FinderAspect.cpp        \
-	Train.cpp               \
-	Locomotive.cpp          \
-	RailEnv.cpp             \
-	Game.cpp                \
-	Wagon.cpp               \
-	WagonAspect.cpp         \
-	LocomotiveAspect.cpp    \
-	Event.cpp               \
-	EventProgram.cpp        \
-	Sensor.cpp              \
-	Message.cpp             \
-	Semaphore.cpp           \
-	Range.cpp               \
-	Filter.cpp              \
-	ProgramEditor.cpp       \
-	Link.cpp                \
-	Parser.cpp
+Aspect.cpp                  \
+Commander.cpp               \
+CommanderView.cpp           \
+CrossAspect.cpp             \
+CrossRail.cpp               \
+RailEnv.cpp                 \
+CurveAspect.cpp             \
+CurveRail.cpp               \
+Dir.cpp                     \
+DirEnv.cpp                  \
+Event.cpp                   \
+EventProgram.cpp            \
+Filter.cpp                  \
+FinderAspect.cpp            \
+Finder.cpp                  \
+ForkAspect.cpp              \
+ForkDirSelector.cpp         \
+ForkRail.cpp                \
+Game.cpp                    \
+LocomotiveAspect.cpp        \
+Locomotive.cpp              \
+Message.cpp                 \
+Parser.cpp                  \
+Point.cpp                   \
+ProgramEditor.cpp           \
+Console.cpp                 \
+Rail.cpp                    \
+RailMap.cpp                 \
+RailPen.cpp                 \
+RailVehicle.cpp             \
+Range.cpp                   \
+Semaphore.cpp               \
+Sensor.cpp                  \
+Sim.cpp                     \
+SimView.cpp                 \
+StraightAspect.cpp          \
+StraightRail.cpp            \
+TerminalWindow.cpp          \
+Train.cpp                   \
+Vehicle.cpp                 \
+WagonAspect.cpp             \
+Wagon.cpp                   \
+Window.cpp                   
 
 letrain_SOURCES = $(ALL_SRCS) Letrain.cpp
 letrain_LDFLAGS = -lncurses -lpanel -llog4cplus 
 test_SOURCES = $(ALL_SRCS) Test.cpp
 test_LDFLAGS = -lncurses -lpanel -lcpptest -llog4cplus
-EXTRA_DIST = log4cplus.properties programa.ltr
+EXTRA_DIST = log4cplus.properties 
 AUTOMAKE_OPTIONS = foreign
 all: all-am
 
@@ -321,6 +320,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Aspect.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Commander.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CommanderView.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Console.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CrossAspect.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CrossRail.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/CurveAspect.Po@am__quote@
@@ -337,7 +337,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ForkRail.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Game.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Letrain.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Link.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Locomotive.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/LocomotiveAspect.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Message.Po@am__quote@
@@ -359,7 +358,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TerminalWindow.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Train.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/TrainIterator.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Vehicle.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/Wagon.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/WagonAspect.Po@am__quote@

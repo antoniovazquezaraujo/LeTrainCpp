@@ -8,14 +8,15 @@ MAKE_LOGGER(DirEnv);
 DirEnv::~DirEnv(){
 }
 DirEnv::DirEnv(){
-	for(int n(0);n<NUM_DIRS;n++){
-		dirs[n].setValue(NO_DIR);
+	for(auto &d: dirs){
+		d = Dir::NO_DIR;
+	}
+	for(auto d: dirs){
+		assert(d == Dir::NO_DIR);
 	}
 }
 DirEnv::DirEnv(const DirEnv & env){
-	for(int n(0);n<NUM_DIRS;n++){
-		dirs[n].setValue(env.dirs[n].getValue());
-	}
+	dirs = env.dirs;
 }
 Rail * DirEnv::makeNewRail(){
 	Rail * ret = 0;
@@ -35,20 +36,22 @@ void DirEnv::addPath(Dir from, Dir to){
 	dirs[from.getValue()] = to;
 }
 Dir DirEnv::getPath(Dir dir){
-	if(dir.getValue() != NO_DIR){
+	if(dir.getValue() != Dir::NO_DIR){
+		LOG_DEBUG(log, " el path de " << dir << " es " << dirs[dir.getValue()]);
 		return dirs[dir.getValue()];
 	}else{
-		return Dir(NO_DIR);
+		LOG_DEBUG(log, " Dir no encuentra ese camino");
+		return Dir(Dir::NO_DIR);
 	}
 }
 Dir DirEnv::getAnyPath(){
-	for (int n(0); n<NUM_DIRS;n++){
-		if (dirs[n].getValue() != NO_DIR){
+	for (int n(0); n<Dir::NUM_DIRS;n++){
+		if (dirs[n].getValue() != Dir::NO_DIR){
 			return dirs[n];
 		}
 	}
-	LOG_DEBUG(log, " dirEnv.getAnyPath devuelve NO_DIR");
-	return Dir(NO_DIR);
+	LOG_DEBUG(log, " dirEnv.getAnyPath devuelve Dir::NO_DIR");
+	return Dir(Dir::NO_DIR);
 }
 Dir DirEnv::getDir(Dir dir){
 	// ????????????????????????
@@ -57,8 +60,8 @@ Dir DirEnv::getDir(Dir dir){
 
 int DirEnv::getNumDirs(){
 	int numDirs=0;
-	for (int n(0); n<NUM_DIRS;n++){
-		if(dirs[n].getValue() != NO_DIR){
+	for (int n(0); n<Dir::NUM_DIRS;n++){
+		if(dirs[n].getValue() != Dir::NO_DIR){
 			numDirs++;
 		}
 	}
@@ -69,10 +72,10 @@ bool DirEnv::isStraight(){
 	//es valido si solo tiene dos dir y forman recta
 	bool ret = true;
 	int numDirs = 0;
-	for(int n(Dir::E) ;n<(NUM_DIRS); n++){
+	for(int n(Dir::E) ;n<(Dir::NUM_DIRS); n++){
 		Dir dir (n);
 		Dir found = getPath(dir);
-		if(found.getValue() != NO_DIR){
+		if(found.getValue() != Dir::NO_DIR){
 			numDirs++;
 			if(numDirs >2){
 				return false;
@@ -88,10 +91,10 @@ bool DirEnv::isStraight(){
 bool DirEnv::isCurve(){
 	bool ret = true;
 	int numDirs = 0;
-	for(int n(Dir::E) ;n<(NUM_DIRS); n++){
+	for(int n(Dir::E) ;n<(Dir::NUM_DIRS); n++){
 		Dir dir (n);
 		Dir from = getPath(dir);
-		if(from.getValue() != NO_DIR){
+		if(from.getValue() != Dir::NO_DIR){
 			numDirs++;
 			if(numDirs >2){
 				ret = false;
@@ -110,10 +113,10 @@ bool DirEnv::isCross(){
 	//es valido si solo tiene rectas y tiene mas de una
 	bool ret = true;
 	int numDirs = 0;
-	for(int n(Dir::E) ;n<(NUM_DIRS); n++){
+	for(int n(Dir::E) ;n<(Dir::NUM_DIRS); n++){
 		Dir dir (n);
 		Dir from = getPath(dir);
-		if(from.getValue() != NO_DIR){
+		if(from.getValue() != Dir::NO_DIR){
 			numDirs++;
 			Dir to = getPath(from);
 			if(!from.isStraight(to)){
@@ -126,10 +129,10 @@ bool DirEnv::isCross(){
 bool DirEnv::isFork(){
 	int numDirs = 0;
 	bool haveAnInput = false;
-	for(int n(Dir::E) ;n<(NUM_DIRS); n++){
+	for(int n(Dir::E) ;n<(Dir::NUM_DIRS); n++){
 		Dir dir(n);
 		Dir found = getPath(dir);
-		if(found.getValue() != NO_DIR){
+		if(found.getValue() != Dir::NO_DIR){
 			numDirs++;
 			if(canBeAForkInput(found)){
 				haveAnInput = true;
@@ -144,10 +147,10 @@ bool DirEnv::canBeAForkInput(Dir & dir){
 	for(int n(0); n< 2; n++){
 		left--;
 		right++;
-		if((getPath(left)).getValue() != NO_DIR){
+		if((getPath(left)).getValue() != Dir::NO_DIR){
 			return false;
 		}
-		if((getPath(right)).getValue() != NO_DIR){
+		if((getPath(right)).getValue() != Dir::NO_DIR){
 			return false;
 		}
 	}
@@ -157,29 +160,29 @@ ostream & operator << (ostream & o, DirEnv & env){
 	int n ;
 	//first row
 	n= Dir::NW;
-	o << "[" << setw(2) << (env.getDir(n).getValue() != NO_DIR? env.getDir(n).getName():" ") << "]";
+	o << "[" << setw(2) << (env.getDir(n).getValue() != Dir::NO_DIR? env.getDir(n).getName():" ") << "]";
 	n= Dir::N;
-	o << "[" <<setw(2) <<  (env.getDir(n).getValue() != NO_DIR? env.getDir(n).getName():" ") << "]";
+	o << "[" << setw(2) << (env.getDir(n).getValue() != Dir::NO_DIR? env.getDir(n).getName():" ") << "]";
 	n= Dir::NE;
-	o << "[" << setw(2) << (env.getDir(n).getValue() != NO_DIR? env.getDir(n).getName():" ") << "]";
+	o << "[" << setw(2) << (env.getDir(n).getValue() != Dir::NO_DIR? env.getDir(n).getName():" ") << "]";
 	o << endl; 
 
 	// central row
 	n= Dir::W;
-	o << "[" << setw(2) << (env.getDir(n).getValue() != NO_DIR? env.getDir(n).getName():" ") << "]";
+	o << "[" << setw(2) << (env.getDir(n).getValue() != Dir::NO_DIR? env.getDir(n).getName():" ") << "]";
 	// central point
 	o << "[* ]";
 	n= Dir::E;
-	o << "[" << setw(2) << (env.getDir(n).getValue() != NO_DIR? env.getDir(n).getName():" ") << "]";
+	o << "[" << setw(2) << (env.getDir(n).getValue() != Dir::NO_DIR? env.getDir(n).getName():" ") << "]";
 	o << endl; 
 
 	// third row
 	n= Dir::SW;
-	o << "[" << setw(2) << (env.getDir(n).getValue() != NO_DIR? env.getDir(n).getName():" ") << "]";
+	o << "[" << setw(2) << (env.getDir(n).getValue() != Dir::NO_DIR? env.getDir(n).getName():" ") << "]";
 	n= Dir::S;
-	o << "[" << setw(2) << (env.getDir(n).getValue() != NO_DIR? env.getDir(n).getName():" ") << "]";
+	o << "[" << setw(2) << (env.getDir(n).getValue() != Dir::NO_DIR? env.getDir(n).getName():" ") << "]";
 	n= Dir::SE;
-	o << "[" << setw(2) << (env.getDir(n).getValue() != NO_DIR? env.getDir(n).getName():" ") << "]";
+	o << "[" << setw(2) << (env.getDir(n).getValue() != Dir::NO_DIR? env.getDir(n).getName():" ") << "]";
 	o << endl; 
 	return o;
 }

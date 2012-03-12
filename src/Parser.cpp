@@ -10,6 +10,7 @@
 #include <algorithm>
 #include "Sim.h" 
 #include "Locomotive.h" 
+#include "Train.h" 
 #include "Wagon.h" 
 #include "Filter.h" 
 #include "Message.h" 
@@ -33,7 +34,6 @@ enum {ROW, COL, SPEED, POWER, BRAKES, DIR, LINK, UNLINK, SENSOR, HOURS, MINUTES,
 
 struct ParserData{
 	Game * game;
-	Sim * sim;
 	Locomotive * locomotive;
 	Wagon * wagon;
 	EventProgram * eventProgram;
@@ -84,33 +84,31 @@ void cleanData(const char * a, const char* b){
 void moveBulldozer(int dist){
 	LOG_DEBUG(d.log," entrando en moveBulldozer");
 	for(int n=0; n<dist;n++){
-		//	d.sim->getRailPen()->move(1, d.sim);
-		RailPen* railPen = d.sim->getRailPen();
-		Point p = railPen->getPos();
-		RailMap *railMap = d.sim->getRailMap(); 
-		if(railPen->getMode() == RailPen::PAINTING){
-			Rail * newRail = railPen->makeNewRail(railMap->getRailAt(p.row, p.col));
-			railMap->setRail(p.row, p.col, newRail);
+		//	d.game->sim->getRailPen()->move(1, d.game->sim);
+		Point p = d.game->sim.railPen.getPos();
+		if(d.game->sim.railPen.getMode() == RailPen::PAINTING){
+			Rail * newRail = d.game->sim.railPen.makeNewRail(d.game->sim.railMap.getRailAt(p.row, p.col));
+			d.game->sim.railMap.setRail(p.row, p.col, newRail);
 
 			ForkRail *rf = dynamic_cast<ForkRail *>(newRail);
 			if(rf){
-				d.sim->addFork(rf);
+				d.game->sim.addFork(rf);
 			}
 
-			Point lastPoint = railPen->getPos();
-			Dir lastDir = railPen->getLastDir();
+			Point lastPoint = d.game->sim.railPen.getPos();
+			Dir lastDir = d.game->sim.railPen.getLastDir();
 			Dir backDir = -lastDir; 
 			lastPoint.move(backDir);
-			Rail * lastRail = railMap->getRailAt(lastPoint.row, lastPoint.col);
+			Rail * lastRail = d.game->sim.railMap.getRailAt(lastPoint.row, lastPoint.col);
 			if(lastRail){
 				newRail->linkRailAt(backDir, lastRail);
 			}
 		}
-		railPen->forward();
+		d.game->sim.railPen.forward();
 	}
 }
 void rotateBulldozer(int angle){
-	d.sim->getRailPen()->rotate(angle);
+	d.game->sim.railPen.rotate(angle);
 }
 struct SetBulldozerMode{
 	RailPen::RailPenMode mode;
@@ -118,7 +116,7 @@ struct SetBulldozerMode{
 		this->mode= mode;
 	}
 	void operator()(const char * a, const char* b)const{
-		d.sim->getRailPen()->setMode(mode);
+		d.game->sim.railPen.setMode(mode);
 	}
 };
 struct SetTargetForkDir{
@@ -176,73 +174,71 @@ void setEventLocomotive(const char * a, const char * b){
 	d.usingEventLocomotive = true;
 }
 void deleteLocomotive(int t){
-	d.sim->removeLocomotive(t);
+	d.game->sim.removeLocomotive(t);
 }
 void deleteWagon(int t){
-	d.sim->removeWagon(t);
+	d.game->sim.removeWagon(t);
 }
 
 void getLocomotive(int n){
-	d.locomotive = d.sim->getLocomotive(n);
+	d.locomotive = d.game->sim.getLocomotive(n);
 }
 void getWagon(int n){
-	d.wagon = d.sim->getWagon(n);
+	d.wagon = d.game->sim.getWagon(n);
 }
 void getSemaphore(int n){
-	d.semaphore= d.sim->getSemaphore(n);
+	d.semaphore= d.game->sim.getSemaphore(n);
 }
 void showLocomotives(const char * a, const char * b) {
-	Sim::CLocomotives::iterator i = d.sim->getLocomotives()->begin() ;
-	while(i != d.sim->getLocomotives()->end()){
-		Locomotive * l = (*i).second;
-		cout << (*l) << endl;
-		i++;
+	for(auto l:d.game->sim.getLocomotives()){
+		cout << l << endl;
 	}
 }
 void showLocomotive(int n){
-	Locomotive * l = d.sim->getLocomotive(n);
+	Locomotive * l = d.game->sim.getLocomotive(n);
 	cout << *(l) << endl;
 }
 void showWagon(int n){
-	Wagon * l = d.sim->getWagon(n);
+	Wagon * l = d.game->sim.getWagon(n);
 	cout << *(l) << endl;
 }
 void showWagons(const char * a, const char * b){
-	map <int , Wagon*>::iterator i = d.sim->getWagons()->begin() ;
-	while(i != d.sim->getWagons()->end()){
-		Wagon* l = (*i).second;
-		cout << *(l) << endl;
-		i++;
+	for(auto w:d.game->sim.getWagons()){
+		cout << w << endl;
 	}
 }
 void addLocomotive(int t){
-	Locomotive * l = new Locomotive(); 
-	d.sim->addLocomotive(l, t);
-	Point p = l->getPos();
-	Rail * r = d.sim->getRailMap()->getRailAt(p.row,p.col);
-	if(r) l->gotoRail(r);
-	d.locomotive = l;
+	Locomotive * locomotive = new Locomotive; 
+	Train * train = new Train;
+	train->addVehicle(0,locomotive);
+	d.game->sim.addLocomotive(locomotive);
+	d.game->sim.addTrain(train);
+	Point p = locomotive->getPos();
+	Rail * r = d.game->sim.railMap.getRailAt(p.row,p.col);
+	if(r) locomotive->gotoRail(r);
+	d.locomotive = locomotive;
 }
 void addWagon(int t){
 	Wagon * w = new Wagon();
-	d.sim->addWagon(w, t);
+	Train * train = new Train;
+	d.game->sim.addTrain(train);
 	d.wagon = w;
 }
 void addSemaphore(int t){
 	Semaphore* s = new Semaphore(t);
-	d.sim->addSemaphore(s, t);
+	d.game->sim.addSemaphore(s);
 	d.semaphore= s;
 	LOG_DEBUG(d.log," agregando semaforo" << t);
 }
 void addSensor(int t){
 	Sensor * s = new Sensor(t);
-	d.sim->addSensor(s, t);
+	d.game->sim.addSensor(s);
 	d.sensor= s;
 	LOG_DEBUG(d.log," agregando sensor " << t);
 }
 void addEventProgram(int t){
 	EventProgram * w = new EventProgram();
-	d.sim->addEventProgram(w, t);
+	d.game->sim.addEventProgram(w);
 	d.eventProgram = w;
 	LOG_DEBUG(d.log," agregando programa " << t);
 }
@@ -308,13 +304,13 @@ struct SetLocomotiveValue {
 		case ROW: 
 			d.locomotive->setRow(d.propertyValue);
 			p = d.locomotive->getPos();
-			r = d.sim->getRailMap()->getRailAt(p.row,p.col);
+			r = d.game->sim.railMap.getRailAt(p.row,p.col);
 			if(r) d.locomotive->gotoRail(r);
 			break;
 		case COL: 
 			d.locomotive->setCol(d.propertyValue);
 			p = d.locomotive->getPos();
-			r = d.sim->getRailMap()->getRailAt(p.row,p.col);
+			r = d.game->sim.railMap.getRailAt(p.row,p.col);
 			if(r) d.locomotive->gotoRail(r);
 			break;
 		case SPEED: 
@@ -325,12 +321,6 @@ struct SetLocomotiveValue {
 			break;
 		case DIR: 
 			d.locomotive->setDir(d.propertyValue);
-			break;
-		case LINK: 
-			d.locomotive->setLink(d.propertyValue);
-			break;
-		case UNLINK:
-			d.locomotive->setUnlink(d.propertyValue);
 			break;
 		case POWER: 
 			d.locomotive->setPower(d.propertyValue);
@@ -367,13 +357,13 @@ struct SetBulldozerValue {
 	void operator()(const char* a, const char*b) const {
 		switch(d.property){
 		case ROW: 
-			d.sim->getRailPen()->setRow(d.propertyValue);
+			d.game->sim.railPen.setRow(d.propertyValue);
 			break;
 		case COL: 
-			d.sim->getRailPen()->setCol(d.propertyValue);
+			d.game->sim.railPen.setCol(d.propertyValue);
 			break;
 		case DIR: 
-			d.sim->getRailPen()->setDir(d.propertyValue);
+			d.game->sim.railPen.setDir(d.propertyValue);
 			break;
 		}
 	};
@@ -386,13 +376,13 @@ struct SetWagonValue {
 		case ROW: 
 			d.wagon->setRow(d.propertyValue);
 			p = d.wagon->getPos();
-			r = d.sim->getRailMap()->getRailAt(p.row,p.col);
+			r = d.game->sim.railMap.getRailAt(p.row,p.col);
 			if(r) d.wagon->gotoRail(r);
 			break;
 		case COL: 
 			d.wagon->setCol(d.propertyValue);
 			p = d.wagon->getPos();
-			r = d.sim->getRailMap()->getRailAt(p.row,p.col);
+			r = d.game->sim.railMap.getRailAt(p.row,p.col);
 			if(r) d.wagon->gotoRail(r);
 			break;
 		case SPEED: 
@@ -403,12 +393,6 @@ struct SetWagonValue {
 			break;
 		case DIR: 
 			d.wagon->setDir(d.propertyValue);
-			break;
-		case LINK: 
-			d.wagon->setLink(d.propertyValue);
-			break;
-		case UNLINK:
-			d.wagon->setUnlink(d.propertyValue);
 			break;
 		}
 	};
@@ -450,7 +434,7 @@ struct SetSensorRail{
 	void operator()(const char* a, const char*b) const {
 		LOG_DEBUG(d.log," Poniendo rail al sensor " << d.sensor->getId());
 		Point p = d.sensor->getPos();
-		Rail * r = d.sim->getRailMap()->getRailAt(p.row,p.col);
+		Rail * r = d.game->sim.railMap.getRailAt(p.row,p.col);
 		if(r){
 		   d.sensor->setRail(r);
 		}	   
@@ -666,7 +650,7 @@ struct my_grammar : public grammar <my_grammar> {
 
 bool parse(string str, Game * game){
 	d.game = game;
-	d.sim =game->getSim();
+	d.game->sim =game->sim;
 	my_grammar g;
 	parse_info<> info = parse(str.c_str(), g, space_p);
 	if(info.full){

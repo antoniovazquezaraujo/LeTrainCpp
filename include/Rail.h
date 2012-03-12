@@ -6,6 +6,10 @@
 #include "RailEnv.h"
 class Rail{
 public:
+    bool    enterVehicle  (RailVehicle* v);
+    bool    exitVehicle   ();
+    void    reverseVehicle();
+//-------------------------------------------
 	Rail(DirEnv * env, Aspect * aspect);
 	~Rail();
 
@@ -19,17 +23,18 @@ public:
 	Rail *        getLinkedRailAt(Dir d);
 
 	void setRailVehicle(RailVehicle * vehicle);
+	void reverseVehicleImpulse();
 	void setPos(Point pos);
 	void linkRailAt(Dir d, Rail * rail);
 	void paint(Window * g);
 	void erase(Window * g);
-	void operator <(RailVehicle* v);
+	void enter(RailVehicle* v);
 protected:
 	Point         pos;
-	DirEnv        dirEnv;
-	RailEnv       railEnv;
 	Aspect *      aspect;	
 	RailVehicle * vehicle;
+	DirEnv        dirEnv;
+	RailEnv       railEnv;
 
 	friend ostream & operator << (ostream & o, Rail & rail);
 	static Logger log;

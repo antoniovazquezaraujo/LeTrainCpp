@@ -3,7 +3,7 @@
 MAKE_LOGGER(Vehicle);
 
 Vehicle::Vehicle(Aspect * aspect)
-	: aspect(aspect),pos(0,0), dir(NO_DIR){
+	: aspect(aspect),pos(0,0), dir(Dir::NO_DIR){
 }
 Vehicle::~Vehicle(){
 

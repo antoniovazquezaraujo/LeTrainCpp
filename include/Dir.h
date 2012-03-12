@@ -3,6 +3,13 @@
 #include "Basic.h"
 class Dir{
 public:
+	static const int NUM_DIRS = 8;
+	static const int NO_DIR = 999;
+	enum Angles {
+		MIDDLE_ANGLE   =NUM_DIRS/2, 
+		MIN_CURVE_ANGLE=MIDDLE_ANGLE-1, 
+		MAX_CURVE_ANGLE=MIDDLE_ANGLE+1 
+	};
 	enum Dirs {
 		NW =3, N =2, NE =1,
 		W  =4,       E  =0,
