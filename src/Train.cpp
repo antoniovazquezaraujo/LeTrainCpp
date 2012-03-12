@@ -2,20 +2,31 @@
 MAKE_LOGGER(Train);
 //////////////////////////////////////////////////////
 Train::Train()
-	:vehicleSelector(&vehicles),
-	locomotiveSelector(&locomotives){
-	totalImpulse=0;
-	totalMass = 0;
-	trainDir = Dir::Dir::NO_DIR;
-	moved = false;
-	reversed = false;
-	selected = false;
-	reversedSelector = false;
+	:
+	vehicleSelector   (&vehicles),
+	locomotiveSelector(&locomotives),
+	totalImpulse      (0),
+	numStoppedTurns   (0),
+	speed             (0),
+	totalMass         (0),
+	trainDir          (Dir::NO_DIR),
+	moved             (false),
+	reversed          (false),
+	selected          (false),
+	deleted           (false),
+	reversedSelector  (false){
+		
 }
 void Train::paint(Window * g){
 	for(auto vehicle:vehicles){
 		vehicle->paint(g);
 	}
+}
+bool Train::isMarkedAsDeleted(){
+	return deleted;
+}
+void Train::markAsDeleted(){
+	deleted = true;
 }
 //Manejo manual
 void Train::setSelected(bool selected){
@@ -56,11 +67,11 @@ void Train::decImpulseGenerated(){
 		locomotive->decImpulseGenerated();
 	}
 }
-void Train::setSpeed(int speed){
-
+void Train::setSpeed(float speed){
+	this->speed = speed;
 }
-int Train::getSpeed(){
-	return 10;
+float Train::getSpeed(){
+	return speed;
 }
 int Train::getTotalMass(){
 	int total = 0;
@@ -234,8 +245,8 @@ void Train::invert(){
 		(*i)->getRail()->reverseVehicle();
 	}
 }
-int Train::sumImpulse(){
-	int total=0;
+float Train::sumImpulse(){
+	float total=0;
 	for_each(vehicles.begin(), vehicles.end(),
 		[&total](RailVehicle* v){
 			v->generateImpulse();
@@ -279,9 +290,12 @@ void Train::move(){
 		nextRail = topRail->getLinkedRailAt(trainDir);
 		if(nextRail){
 			crashedVehicle = nextRail->getRailVehicle();
-			int consumed = 0;
+			float consumed = 0;
 			if(crashedVehicle){
 				consumed = crash(crashedVehicle, totalImpulse,trainDir );
+	//			LOG_DEBUG(log," consumo: " << consumed << " totalImpulse: " << totalImpulse << " totalMass: " << totalMass);
+				if(getSpeed() > 50) markAsDeleted();
+				if(crashedVehicle->getTrain()->getSpeed() > 50) crashedVehicle->getTrain()->markAsDeleted();
 			}else{
 				if(reversed){
 					shiftBackward();
@@ -299,6 +313,13 @@ void Train::move(){
 			// agregar aqui descarrilamientos!!!
 			assert(false);
 		}
+		if(numStoppedTurns > 0){
+			setSpeed(1.0/std::log(numStoppedTurns)*150);
+		}else{
+		}
+		numStoppedTurns=0;	
+	}else{
+		numStoppedTurns++;
 	}
 }
 ostream & operator << (ostream & o, Train t){
@@ -315,14 +336,15 @@ ostream & operator << (ostream & o, Train t){
 	for(auto l: t.locomotives){
 		o << *l;
 	}
-	o<< endl;
-	o << " Total impulse: "  << t.totalImpulse;
-	o << " Total mass:"      << t.totalMass;
-	o << " Dir: "            << t.trainDir;
-	o << " Moved: "          << t.moved;
-	o << " Reversed:"        << t.reversed;
-	o << " Selected:"        << t.selected;
-	o << " ReversedSelector:"<< t.reversedSelector;
-	o<< endl;
+	o<< endl
+	 << " Total impulse: "  << t.totalImpulse
+	 << " Speed: "          << t.speed
+	 << " Total mass:"      << t.totalMass
+	 << " Dir: "            << t.trainDir
+	 << " Moved: "          << t.moved
+	 << " Reversed:"        << t.reversed
+	 << " Selected:"        << t.selected
+	 << " ReversedSelector:"<< t.reversedSelector
+	<< endl;
 	return o;
 }

@@ -2,7 +2,6 @@
 #include "RailVehicle.h"
 #include "Rail.h"
 #include "Finder.h"
-#include "TrainIterator.h"
 MAKE_LOGGER(RailVehicle);
 
 ostream & operator << (ostream & o, RailVehicle & v){
@@ -90,7 +89,7 @@ void RailVehicle::setSpeed(int speed){
 int RailVehicle::getSpeed(){
 	return speed;
 }
-int RailVehicle::getImpulse(){
+float RailVehicle::getImpulse(){
 	return impulse;
 }
 void RailVehicle::setTrain(Train * t){
@@ -99,8 +98,8 @@ void RailVehicle::setTrain(Train * t){
 Train * RailVehicle::getTrain(){
 	return train;
 }
-int RailVehicle::receiveImpulse(int impulseReceived, Dir dir){
-	int consumed = 0;
+float RailVehicle::receiveImpulse(float impulseReceived, Dir dir){
+	float consumed = 0;
 	if(getRail()->getPath(-dir) == this->dir){
 		consumed = mass - this->impulse;
 		if(consumed < 0) consumed = 0;
@@ -118,10 +117,10 @@ int RailVehicle::receiveImpulse(int impulseReceived, Dir dir){
 void RailVehicle::reverseImpulse(){
 	impulse*= -1;
 }
-void RailVehicle::incImpulseGenerated(int n){
+void RailVehicle::incImpulseGenerated(float n){
 	impulseGenerated+=n;
 }
-void RailVehicle::decImpulseGenerated(int n){
+void RailVehicle::decImpulseGenerated(float n){
 	impulseGenerated-=n;
 }
 void RailVehicle::generateImpulse(){

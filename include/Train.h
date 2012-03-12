@@ -36,8 +36,8 @@ public:
 	void invert();
 	void setForwardDir();
 	void setBackwardDir();
-	void setSpeed(int speed);
-	int getSpeed();
+	void setSpeed(float speed);
+	float getSpeed();
 	int getTotalMass();
 	void move();
 	void setMoved(bool moved);
@@ -67,13 +67,15 @@ public:
 	//borrar el último y luego volver a unirlos.
 	void removeLastVehicle();
 	void clear();
+	bool isMarkedAsDeleted();
+	void markAsDeleted();
 private:
 	int crash(RailVehicle * crashed, int impulse, Dir d);
 	Dir getDirFromFirst();
 	Dir getDirFromLast();
 	void shiftForward();
 	void shiftBackward();
-	int sumImpulse();
+	float sumImpulse();
 
 //properties:
 	TVehicles vehicles;
@@ -82,13 +84,16 @@ private:
 	Selector<TVehicles> vehicleSelector;
 	Selector<TLocomotives> locomotiveSelector;
 
-	int totalImpulse;
+	int numStoppedTurns;
+	float totalImpulse;
+	float speed;
 	int totalMass;
 	Dir trainDir;
 	bool moved;
 	bool reversed;
 	bool selected;
 	bool reversedSelector;
+	bool deleted;
 	static Logger log;
 	friend ostream & operator << (ostream & o, Train t);
 }; 

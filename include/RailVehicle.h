@@ -21,12 +21,12 @@ public:
 	bool isSelected();
 	void setSelected(bool selected);
 	bool isMoved();
-	int getImpulse();
-	int receiveImpulse(int imp=1, Dir d=Dir::NO_DIR);
+	float getImpulse();
+	float receiveImpulse(float imp=0.1, Dir d=Dir::NO_DIR);
 	void consumeImpulse();
 	void generateImpulse();
-	void incImpulseGenerated(int n=1);
-	void decImpulseGenerated(int n=1);
+	void incImpulseGenerated(float n=0.1);
+	void decImpulseGenerated(float n=0.1);
 	void setSpeed(int speed);
 	int getSpeed();
 
@@ -45,8 +45,8 @@ public:
 	enum{MAX_TURNS=20};
 
 private:
-	int impulse;
-	int impulseGenerated;
+	float impulse;
+	float impulseGenerated;
 	int brakes;
 	int mass;
 	float speed;

@@ -32,6 +32,8 @@ public:
 	void addFork          (ForkRail*    );
 	void addSemaphore     (Semaphore*   );
 
+	void removeVehicle (RailVehicle *  );
+
 	Sim::TTrains::iterator getSelectedTrain();
 	void selectPrevTrain();
 	void selectNextTrain();

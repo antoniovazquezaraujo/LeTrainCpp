@@ -40,7 +40,6 @@ StraightAspect.h            \
 StraightRail.h              \
 TerminalWindow.h            \
 Train.h                     \
-TrainIterator.h             \
 Vehicle.h                   \
 WagonAspect.h               \
 Wagon.h                     \

@@ -95,9 +95,16 @@ vector<Sensor *>& Sim::getSensors(){
 }
 void Sim::addTrain(Train* train){
 	trains.push_back(train);
+	//agregar aqui las loco a locomotives y los wagons a wagons???
 }
 void Sim::addWagon(Wagon * wagon){
 	wagons.push_back(wagon);
+}
+void Sim::removeVehicle (RailVehicle * v){
+	if(!wagons.empty()) wagons.erase(find(wagons.begin(), wagons.end(), v));
+	if(!locomotives.empty()) locomotives.erase(find(locomotives.begin(), locomotives.end(), v));
+	v->getRail()->setRailVehicle(nullptr);
+	delete v;
 }
 void Sim::removeTrain(int n){
 	trains.erase(trains.begin()+n);
@@ -146,11 +153,25 @@ void Sim::moveTrains(){
 		t->setMoved(false);
 	};
 	for(auto t : trains){
-		t->move();
+		if(t->getVehicles().empty()){
+			t->markAsDeleted();
+		}
+	}
+	for(auto t : trains){
+		if(t->isMarkedAsDeleted()){
+			for(auto v:t->getVehicles()){
+				removeVehicle(v);
+			}
+			t->getVehicles().clear();
+		}
 	}
 	trains.erase(remove_if(trains.begin(), trains.end(),
-			[](Train * t){return t->getVehicles().empty();}),
+			[](Train * t){return t->isMarkedAsDeleted();}),
 			trains.end());
+
+	for(auto t : trains){
+		t->move();
+	}
 }
 Sim::TTrains::iterator Sim::getSelectedTrain(){
 	return trainSelector.getSelected(); 

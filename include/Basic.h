@@ -15,6 +15,7 @@
 #include <array>
 #include <list>
 #include <map>
+#include <chrono> 
 
 #include "Log.h"
 
@@ -36,7 +37,6 @@ class SimView;
 class CommanderView;
 class Link;
 class RailVehicle;
-class TrainIterator;
 class Finder;
 class Train;
 class Locomotive;
