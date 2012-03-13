@@ -4,7 +4,7 @@
 #include "Aspect.h"
 class CrossAspect : public Aspect{
 public:
-	char getAspectChar();
+	int getAspectChar();
 	int getBgColor();
 	int getFgColor();
 	static Logger log;

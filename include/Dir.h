@@ -37,7 +37,7 @@ public:
 	int shortWay(int angle);
 	bool isCurve(Dir d);
 	bool isStraight(Dir d);
-	char getAspectChar()const;
+	int getAspectChar()const;
 private:
 	short int value;
 	friend ostream& operator<<(ostream &o, Dir d);

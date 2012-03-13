@@ -2,8 +2,8 @@
 #include "CurveAspect.h"
 MAKE_LOGGER(CurveAspect);
 
-char CurveAspect::getAspectChar(){
-	return '.';
+int CurveAspect::getAspectChar(){
+	return ACS_BULLET;
 }
 int CurveAspect::getBgColor(){
 	return 0;

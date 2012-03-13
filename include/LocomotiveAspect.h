@@ -2,9 +2,11 @@
 #define LOCOMOTIVEASPECT_H
 #include "Basic.h"
 #include "Aspect.h"
+#include "Dir.h"
 
 class LocomotiveAspect : public Aspect{
-	char getAspectChar();
+	int getAspectChar(int dirValue);
+	int getAspectChar();
 	int getBgColor();
 	int getFgColor();
 	static Logger log;

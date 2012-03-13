@@ -8,7 +8,7 @@ StraightAspect::StraightAspect(DirEnv * env)
 	: env(env){
 	aspectChar = selectAspectChar(getDir(env));
 }
-char StraightAspect::getAspectChar(){
+int StraightAspect::getAspectChar(){
 	return aspectChar;
 }
 int StraightAspect::getBgColor(){

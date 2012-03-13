@@ -29,7 +29,7 @@ void CommanderView::paint(){
 	int row = 0;
 	Commander::ModesMap::iterator im = commander->modes.begin();
 	while (im != commander->modes.end()){
-		char c = (*im).first;
+		int c = (*im).first;
 		Commander::CommandMode m = (*im).second;
 		const char * name = commander->getModeName(m);
 		window->putC(row, 0, '\'');

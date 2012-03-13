@@ -5,7 +5,7 @@
 class StraightAspect : public Aspect{
 public:
 	StraightAspect(DirEnv * env);
-	char getAspectChar();
+	int getAspectChar();
 	int getBgColor();
 	int getFgColor();
 protected:

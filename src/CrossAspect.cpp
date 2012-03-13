@@ -2,7 +2,7 @@
 #include "CrossAspect.h"
 MAKE_LOGGER(CrossAspect);
 
-char CrossAspect::getAspectChar(){
+int CrossAspect::getAspectChar(){
 	return '+';
 }
 int CrossAspect::getBgColor(){

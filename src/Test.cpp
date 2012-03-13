@@ -167,7 +167,7 @@ BEGIN_TEST
 		env->addPath(d, d + Dir::MIDDLE_ANGLE);
 		TEST_ASSERT(env->getPath(d) == d + Dir::MIDDLE_ANGLE);
 		Rail * r = env->makeNewRail();
-		char c = r->getAspect()->getAspectChar();
+		int c = r->getAspect()->getAspectChar();
 		TEST_ASSERT(c == '+');
 		//delete r;
 	}
@@ -184,7 +184,7 @@ BEGIN_TEST
 		TEST_ASSERT(env->getPath(d) == d+Dir::MIN_CURVE_ANGLE);
 		Rail * r = env->makeNewRail();
 		Aspect * aspect = r->getAspect();
-		char c = aspect->getAspectChar();
+		int c = aspect->getAspectChar();
 		TEST_ASSERT(c == '.');
 		delete r;
 		delete env;
@@ -201,7 +201,7 @@ BEGIN_TEST
 		env->addPath(d, d+Dir::MAX_CURVE_ANGLE);
 		TEST_ASSERT(env->getPath(d) == d+Dir::MAX_CURVE_ANGLE);
 		Rail * r = env->makeNewRail();
-		char c = r->getAspect()->getAspectChar();
+		int c = r->getAspect()->getAspectChar();
 		TEST_ASSERT(c == '.');
 		delete env;
 	}

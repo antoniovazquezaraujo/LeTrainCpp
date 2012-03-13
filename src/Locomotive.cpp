@@ -40,8 +40,8 @@ void Locomotive::paint(Window * g){
 		g->setFg(getAspect()->getBgColor());
 		g->setBg(getAspect()->getFgColor());
 	}
-	//g->putC(pos.row, pos.col, getAspect()->getAspectChar());  
-	g->putC(pos.row, pos.col, dir.getAspectChar());  
+	g->putC(pos.row, pos.col, getAspect()->getAspectChar(dir.getValue()));  
+	//g->putC(pos.row, pos.col, dir.getAspectChar());  
 }
 void Locomotive::erase(Window * g){
 	g->setBg(getAspect()->getBgColor());
