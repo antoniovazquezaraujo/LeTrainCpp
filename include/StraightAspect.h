@@ -10,7 +10,7 @@ public:
 	int getFgColor();
 protected:
 	DirEnv * env;
-	char aspectChar;
+	int aspectChar;
 	enum {
 		HORIZONTAL_LINE='-',
 		VERTICAL_LINE='|',
@@ -19,7 +19,7 @@ protected:
 	};
 
 	Dir getDir(DirEnv * env);
-	char selectAspectChar(Dir dir);
+	int selectAspectChar(Dir dir);
 	static Logger log;
 };
 #endif

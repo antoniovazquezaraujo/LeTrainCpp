@@ -67,7 +67,9 @@ private:
 
 	void selectFrontLink();
 	void selectBackLink();
-	void toggleLink();
+	void link();
+	void unlink();
+	void linkTrain();
 
 	Action getAction(int mode, char key);
 	bool isValidAction(int mode, char key);

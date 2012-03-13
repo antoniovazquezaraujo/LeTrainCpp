@@ -142,7 +142,7 @@ void Train::addLocomotive(int p, Locomotive* l){
 	locomotives.push_back(l);
 	l->setTrain(this);
 }
-void Train::toggleLink(){
+void Train::link(){
 		RailVehicle * topVehicle = nullptr;
 		Rail        * topRail    = nullptr;
 		Rail        * nextRail   = nullptr;
@@ -192,6 +192,20 @@ void Train::toggleLink(){
 	}else{
 		//No hay rail en esa direccion!!
 	}
+}
+Train * Train::unlink(){
+	Train * t = nullptr;
+	if(vehicles.size()>1){
+		t = new Train();
+		if(reversed){
+			t->addVehicle(FRONT, vehicles.front());
+			vehicles.pop_front();
+		}else{
+			t->addVehicle(FRONT, vehicles.back());
+			vehicles.pop_back();
+		}
+	}
+	return t;
 }
 void Train::reverseSelector(){
 	reversedSelector = !reversedSelector;

@@ -8,7 +8,7 @@ public:
 	~RailVehicle ();
 	void selectFrontLink();
 	void selectBackLink();
-	void toggleLink();
+	void link();
 	virtual void addToTrain(int, Train *)=0;
 
 	void reverseImpulse();
