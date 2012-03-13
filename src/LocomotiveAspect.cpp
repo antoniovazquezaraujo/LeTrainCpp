@@ -9,16 +9,16 @@ int LocomotiveAspect::getAspectChar(int value){
 	int ret = 0; 
 	switch(value){
 	case Dir::N:
-		ret =  '^';
+		ret =  ACS_UARROW;
 		break;
 	case Dir::S:
-		ret =  'v';
+		ret =  ACS_DARROW;
 		break;
 	case Dir::E:
-		ret =  '>';
+		ret =  ACS_RARROW;
 		break;
 	case Dir::W:
-		ret =  '<';
+		ret =  ACS_LARROW;
 		break;
 	case Dir::NE:
 		ret =  ACS_URCORNER;
