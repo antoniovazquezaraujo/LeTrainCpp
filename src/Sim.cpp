@@ -205,11 +205,19 @@ void Sim::selectPrevVehicle(){
 	}
 }
 
-void Sim::toggleLink(){
+void Sim::link(){
 	if(trainSelector.isSelected()){
 		Train * t = *(trainSelector.getSelected());
-		t->toggleLink();
+		t->link();
 	}
+}
+Train * Sim::unlink(){
+	if(trainSelector.isSelected()){
+		Train * t = *(trainSelector.getSelected());
+		return t->unlink();
+	}
+}
+void Sim::linkTrain(){
 }
 void Sim::checkSensors(){
 	for(auto s : sensors){

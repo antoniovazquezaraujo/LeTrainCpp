@@ -8,7 +8,7 @@ StraightAspect::StraightAspect(DirEnv * env)
 	: env(env){
 	aspectChar = selectAspectChar(getDir(env));
 }
-char StraightAspect::getAspectChar(){
+int StraightAspect::getAspectChar(){
 	return aspectChar;
 }
 int StraightAspect::getBgColor(){
@@ -27,8 +27,8 @@ Dir StraightAspect::getDir(DirEnv * env){
 	}
 	return Dir::NO_DIR;
 }
-char StraightAspect::selectAspectChar(Dir dir){
-	char ret = HORIZONTAL_LINE;
+int StraightAspect::selectAspectChar(Dir dir){
+	int ret = HORIZONTAL_LINE;
 	switch(dir.getValue()){
 		case Dir::E : 
 			ret = HORIZONTAL_LINE;

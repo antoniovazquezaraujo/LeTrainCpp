@@ -19,7 +19,8 @@ void Wagon::paint(Window * g){
 		g->setFg(getAspect()->getBgColor());
 		g->setBg(getAspect()->getFgColor());
 	}
-	g->putC(pos.row, pos.col, dir.getAspectChar());  
+	//g->putC(pos.row, pos.col, dir.getAspectChar());  
+	g->putC(pos.row, pos.col, getAspect()->getAspectChar(dir.getValue()));  
 	/*
 	if(isSelected()){
 		g->putC(pos.row, pos.col, '*');  

@@ -21,7 +21,7 @@ public:
 	void setBg(int color);
 	void setReversed(bool);
 	void setUnderlined(bool);
-	void putC(int row, int col, char c);
+	void putC(int row, int col, int c);
 	void putStr(int row, int col, const char *str);
 	void setTitle(const char * str);
 	void repaint(void);

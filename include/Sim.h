@@ -41,7 +41,9 @@ public:
 	void selectPrevVehicle();
 	void selectFrontLink();
 	void selectBackLink();
-	void toggleLink();
+	void link();
+	Train * unlink();
+	void linkTrain();
 	Train        * getTrain(        int key);
 	Wagon        * getWagon(        int key);
 	Locomotive   * getLocomotive(   int key);

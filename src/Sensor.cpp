@@ -61,7 +61,8 @@ void Sensor::paint(Window * window){
 	window->setBg(0);
 	window->setFg(6);
 	Point p = rail->getPos();
-	window->putC(p.row, p.col, '%');
+	//window->putC(p.row, p.col, '%');
+	window->putC(p.row, p.col, ACS_NEQUAL);
 }
 void Sensor::erase(Window * window){
 	window->setBg(0);

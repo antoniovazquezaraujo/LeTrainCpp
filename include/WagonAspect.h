@@ -2,9 +2,11 @@
 #define WAGONASPECT_H
 #include "Basic.h"
 #include "Aspect.h"
+#include "Dir.h"
 
 class WagonAspect : public Aspect{
-	char getAspectChar();
+	int getAspectChar();
+	int getAspectChar(int dirValue);
 	int getBgColor();
 	int getFgColor();
 	static Logger log;

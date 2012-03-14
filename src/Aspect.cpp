@@ -1,7 +1,10 @@
 #include "Basic.h"
 #include "Aspect.h"
 #include "Dir.h"
-char Aspect::getAspectChar(){
+int Aspect::getAspectChar(){
+	return '?';
+}
+int Aspect::getAspectChar(int ){
 	return '?';
 }
 void Aspect::updateAspect(Dir d){

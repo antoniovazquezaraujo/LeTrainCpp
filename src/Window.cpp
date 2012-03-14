@@ -155,7 +155,7 @@ void Window::setTitle(const char * str){
 	mvwaddstr(border, 0, pos,str);
 	wattroff(border, COLOR_PAIR(bgColor*8 + fgColor));
 }
-void Window::putC(int row, int col, char c){
+void Window::putC(int row, int col, int c){
 	mvwaddch(window, row-vShift,col-hShift,c);
 }
 void Window::putStr(int row, int col, const char *str){

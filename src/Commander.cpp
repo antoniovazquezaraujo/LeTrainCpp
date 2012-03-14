@@ -62,9 +62,9 @@ Commander::Commander(Game * game)
 
 	registerAction("Next train",       &Commander::selectNextTrain,            LINK_MODE,   'n');
 	registerAction("Prev train",       &Commander::selectPrevTrain,            LINK_MODE,   'p');
-	registerAction("Next vehicle",     &Commander::selectNextVehicle,          LINK_MODE,   'k');
-	registerAction("Prev vehicle",     &Commander::selectPrevVehicle,          LINK_MODE,   'j');
-	registerAction("Link/Unlink",      &Commander::toggleLink,                 LINK_MODE,   ' ');
+	registerAction("Link train",       &Commander::linkTrain,                  LINK_MODE,   ' ');
+	registerAction("Link vehicles",    &Commander::link,                       LINK_MODE,   'k');
+	registerAction("Unlink vehicles",  &Commander::unlink,                     LINK_MODE,   'j');
 
 	setMode('P');
 	autoMove=true;
@@ -260,8 +260,17 @@ void Commander::moveTrains(){
 	game->sim.checkSensors();
 }
 /////////////////////////////////////////////////////////////////
-void Commander::toggleLink(){
-	game->sim.toggleLink();
+void Commander::link(){
+	game->sim.link();
+}
+void Commander::unlink(){
+	Train * t = game->sim.unlink();
+	if(t){
+		game->sim.addTrain(t);
+	}
+}
+void Commander::linkTrain(){
+	game->sim.linkTrain();
 }
 /////////////////////////////////////////////////////////////////
 void Commander::doAction(char key){

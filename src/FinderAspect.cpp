@@ -2,7 +2,7 @@
 #include "FinderAspect.h"
 MAKE_LOGGER(FinderAspect);
 
-char FinderAspect::getAspectChar(){
+int FinderAspect::getAspectChar(){
 	return '@';
 }
 int FinderAspect::getBgColor(){

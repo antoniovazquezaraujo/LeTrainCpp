@@ -21,7 +21,8 @@ public:
 	//Manejo manual
 	void selectFrontLink();
 	void selectBackLink();
-	void toggleLink();
+	void link();
+	Train * unlink();
 	void setSelected(bool selected);
 	bool isSelected();
 	void push();

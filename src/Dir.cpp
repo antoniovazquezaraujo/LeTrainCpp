@@ -2,7 +2,7 @@
 #include "Dir.h"
 MAKE_LOGGER(Dir);
 
-char Dir::getAspectChar()const{
+int Dir::getAspectChar()const{
 	char ret = 0; 
 	switch(value){
 	case N:
