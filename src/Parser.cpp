@@ -222,6 +222,7 @@ void addWagon(int t){
 	Wagon * w = new Wagon();
 	Train * train = new Train;
 	d.game->sim.addTrain(train);
+	d.game->sim.addWagon(w);
 	d.wagon = w;
 }
 void addSemaphore(int t){

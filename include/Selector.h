@@ -17,7 +17,7 @@ public:
 	}
 
 	void selectNext(){
-		if(!active){
+		if(!active && container->size() >0){
 			active = true;
 			selected = 0;
 		}else{
@@ -27,7 +27,7 @@ public:
 		}
 	}
 	void selectPrev(){
-		if(!active){
+		if(!active && container->size() >0){
 			active = true;
 			selected = 0;
 		}else{ 
@@ -37,13 +37,13 @@ public:
 		}
 	}
 	bool isSelected(){
-		return active;
+		return (active && container->size() > 0);
 	}
 	bool atFirst(){
-		return active && (selected == 0);
+		return active && container->size() > 0 && (selected == 0);
 	}
 	bool atLast(){
-		return active && (selected == container->size() -1);
+		return active && container->size > 0 && (selected == container->size() -1);
 	}
 	typename TContainer::iterator getSelected(){
 		return container->begin()+selected;

@@ -205,6 +205,7 @@ Train * Train::unlink(){
 			vehicles.pop_back();
 		}
 	}
+	totalMass = getTotalMass();
 	return t;
 }
 void Train::reverseSelector(){
@@ -351,14 +352,9 @@ ostream & operator << (ostream & o, Train t){
 		o << *l;
 	}
 	o<< endl
-	 << " Total impulse: "  << t.totalImpulse
-	 << " Speed: "          << t.speed
-	 << " Total mass:"      << t.totalMass
-	 << " Dir: "            << t.trainDir
-	 << " Moved: "          << t.moved
-	 << " Reversed:"        << t.reversed
-	 << " Selected:"        << t.selected
-	 << " ReversedSelector:"<< t.reversedSelector
+	 << " Speed: "     << left << setw(12) << t.speed
+	 << " Impulse: "   << left << setw(12) << t.totalImpulse
+	 << " Total mass:" << left << setw(12) << t.totalMass
 	<< endl;
 	return o;
 }
