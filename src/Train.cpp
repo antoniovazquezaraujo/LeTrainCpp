@@ -4,7 +4,6 @@ MAKE_LOGGER(Train);
 Train::Train()
 	:
 	vehicleSelector   (&vehicles),
-	locomotiveSelector(&locomotives),
 	totalImpulse      (0),
 	numStoppedTurns   (0),
 	speed             (0),
@@ -58,13 +57,13 @@ void Train::setMoved(bool moved){
 }
 //Motores
 void Train::incImpulseGenerated(){
-	for(auto locomotive: locomotives){
-		locomotive->incImpulseGenerated();
+	for(auto v : vehicles){
+		v->incImpulseGenerated();
 	}
 }
 void Train::decImpulseGenerated(){
-	for(auto locomotive: locomotives){
-		locomotive->decImpulseGenerated();
+	for(auto v: vehicles){
+		v->decImpulseGenerated();
 	}
 }
 void Train::setSpeed(float speed){
@@ -108,39 +107,20 @@ void Train::selectPrevVehicle(){
 	}
 }
 void Train::addVehicle(int p , RailVehicle* v){
-	v->addToTrain(p, this);
+	RailVehicle * linker=nullptr;
+	if(p == FRONT){
+		linker = vehicles.empty()?nullptr:*(vehicles.begin());
+		vehicles.push_front(v);
+	}else{
+		linker = vehicles.empty()?nullptr:*(vehicles.rbegin());
+		vehicles.push_back(v);
+	}
+	if(linker ){
+		Rail * linkedRail = v->getRail();
+		v->setDir(linkedRail->getPath(-(linker->getDir())));
+	}
+	v->setTrain(this);
 	totalMass = getTotalMass();
-}
-void Train::addWagon(int p, Wagon* w){
-	RailVehicle * linker=nullptr;
-	if(p == FRONT){
-		linker = vehicles.empty()?nullptr:*(vehicles.begin());
-		vehicles.push_front(w);
-	}else{
-		linker = vehicles.empty()?nullptr:*(vehicles.rbegin());
-		vehicles.push_back(w);
-	}
-	if(linker ){
-		Rail * linkedRail = w->getRail();
-		w->setDir(linkedRail->getPath(-(linker->getDir())));
-	}
-	w->setTrain(this);
-}
-void Train::addLocomotive(int p, Locomotive* l){
-	RailVehicle * linker=nullptr;
-	if(p == FRONT){
-		linker = vehicles.empty()?nullptr:*(vehicles.begin());
-		vehicles.push_front(l);
-	}else{
-		linker = vehicles.empty()?nullptr:*(vehicles.rbegin());
-		vehicles.push_back(l);
-	}
-	if(linker ){
-		Rail * linkedRail = l->getRail();
-		l->setDir(linkedRail->getPath(-(linker->getDir())));
-	}
-	locomotives.push_back(l);
-	l->setTrain(this);
 }
 void Train::link(){
 		RailVehicle * topVehicle = nullptr;
@@ -205,6 +185,11 @@ Train * Train::unlink(){
 			vehicles.pop_back();
 		}
 	}
+	/*
+			v->generateImpulse();
+			total += v->getImpulse(); 
+			v->consumeImpulse();
+	*/
 	totalMass = getTotalMass();
 	return t;
 }
@@ -220,6 +205,9 @@ void Train::advanceSelector(){
 }
 
 void Train::clear(){
+	for(auto v : vehicles){
+		v->getRail()->setRailVehicle(nullptr);		
+	}
 	vehicles.clear();
 }
 //Borra el último vehículo en la dirección del selector de vehículos
@@ -307,10 +295,12 @@ void Train::move(){
 			crashedVehicle = nextRail->getRailVehicle();
 			float consumed = 0;
 			if(crashedVehicle){
-				consumed = crash(crashedVehicle, totalImpulse,trainDir );
-	//			LOG_DEBUG(log," consumo: " << consumed << " totalImpulse: " << totalImpulse << " totalMass: " << totalMass);
-				if(getSpeed() > 50) markAsDeleted();
-				if(crashedVehicle->getTrain()->getSpeed() > 50) crashedVehicle->getTrain()->markAsDeleted();
+				consumed = crash(crashedVehicle, abs(totalImpulse),trainDir );
+				if(totalImpulse >=0){
+					totalImpulse -=abs(consumed);
+				}else{
+					totalImpulse +=abs(consumed);
+				}
 			}else{
 				if(reversed){
 					shiftBackward();
@@ -318,18 +308,24 @@ void Train::move(){
 					shiftForward();
 				}
 				consumed= totalMass;
-			}
-			if(totalImpulse > 0){
-				totalImpulse -=consumed;
-			}else{
-				totalImpulse +=consumed;
+				if(totalImpulse >=0){
+					totalImpulse -=consumed;
+				}else{
+					totalImpulse +=consumed;
+				}
 			}
 		}else{
 			// agregar aqui descarrilamientos!!!
 			assert(false);
 		}
 		if(numStoppedTurns > 0){
-			setSpeed(1.0/std::log(numStoppedTurns)*150);
+			if(numStoppedTurns == 1){
+				setSpeed(400);
+			}else{
+				setSpeed(1.0/std::log(numStoppedTurns)*150);
+			}
+			//assert(speed < 1000);
+			//assert(abs(totalImpulse)< 10000);
 		}else{
 		}
 		numStoppedTurns=0;	
@@ -345,11 +341,6 @@ ostream & operator << (ostream & o, Train t){
 	o<< endl;
 	if(t.vehicleSelector.isSelected()){
 		o << "Vehicle selected" << *(t.vehicleSelector.getSelected());
-	}
-	o<< endl;
-	o << "Locomotives:" ;
-	for(auto l: t.locomotives){
-		o << *l;
 	}
 	o<< endl
 	 << " Speed: "     << left << setw(12) << t.speed

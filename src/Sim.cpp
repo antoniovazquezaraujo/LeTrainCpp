@@ -47,12 +47,6 @@ Sim::~Sim(){
 	for(auto t : trains){
 		delete t;
 	}
-	for(auto t : wagons){
-		delete t;
-	}
-	for(auto t : locomotives){
-		delete t;
-	}
 	for(auto t : sensors){
 		delete t;
 	}
@@ -95,46 +89,15 @@ vector<Sensor *>& Sim::getSensors(){
 }
 void Sim::addTrain(Train* train){
 	trains.push_back(train);
-	//agregar aqui las loco a locomotives y los wagons a wagons???
-}
-void Sim::addWagon(Wagon * wagon){
-	wagons.push_back(wagon);
-}
-void Sim::removeVehicle (RailVehicle * v){
-	if(!wagons.empty()) wagons.erase(find(wagons.begin(), wagons.end(), v));
-	if(!locomotives.empty()) locomotives.erase(find(locomotives.begin(), locomotives.end(), v));
-	v->getRail()->setRailVehicle(nullptr);
-	delete v;
 }
 void Sim::removeTrain(int n){
 	trains.erase(trains.begin()+n);
 }
-void Sim::removeWagon(int n){
-	wagons.erase(wagons.begin()+n);
-}
-void Sim::removeLocomotive(int n){
-	locomotives.erase(locomotives.begin()+n);
-}
-void Sim::addLocomotive(Locomotive* locomotive){
-	locomotives.push_back(locomotive);
-}
-vector<Locomotive *> & Sim::getLocomotives(){
-	return locomotives;
-}
-Locomotive * Sim::getLocomotive(int n){
-	return locomotives.at(n); 
-}
 Train * Sim::getTrain(int id){
 	return trains.at(id);
 }
-Wagon * Sim::getWagon(int id){
-	return wagons.at(id);
-}
 Sim::TTrains & Sim::getTrains(){
 	return trains;
-}
-vector<Wagon *> & Sim::getWagons(){
-	return wagons;
 }
 void Sim::addFork(ForkRail * r){
 	forks.push_back(r);
@@ -159,10 +122,7 @@ void Sim::moveTrains(){
 	}
 	for(auto t : trains){
 		if(t->isMarkedAsDeleted()){
-			for(auto v:t->getVehicles()){
-				removeVehicle(v);
-			}
-			t->getVehicles().clear();
+			t->clear();
 		}
 	}
 	trains.erase(remove_if(trains.begin(), trains.end(),
@@ -194,16 +154,6 @@ void Sim::selectNextTrain(){
 		(*trainSelector.getSelected())->setSelected(true);
 	}
 }
-void Sim::selectNextVehicle(){
-	if(trainSelector.isSelected()){
-		(*trainSelector.getSelected())->selectNextVehicle();
-	}
-}
-void Sim::selectPrevVehicle(){
-	if(trainSelector.isSelected()){
-		(*trainSelector.getSelected())->selectPrevVehicle();
-	}
-}
 
 void Sim::link(){
 	if(trainSelector.isSelected()){
@@ -216,8 +166,6 @@ Train * Sim::unlink(){
 		Train * t = *(trainSelector.getSelected());
 		return t->unlink();
 	}
-}
-void Sim::linkTrain(){
 }
 void Sim::checkSensors(){
 	for(auto s : sensors){
@@ -260,8 +208,8 @@ void Sim::acceptAndRun(Event * event, EventProgram * eventProgram){
 			break;
 		case Message::TRAIN_SPEED:
 			LOG_DEBUG(log," Cambiando velocidad de:" << message->getTarget() << " a: " << message->getValue());
-			loco = getLocomotive(message->getTarget());
-			loco->setSpeed(message->getValue());
+			//loco = getLocomotive(message->getTarget());
+			//loco->setSpeed(message->getValue());
 			break;
 		case Message::TRAIN_AT_SENSOR_SPEED:
 			sensor = getSensor(message->getTarget());
@@ -271,14 +219,12 @@ void Sim::acceptAndRun(Event * event, EventProgram * eventProgram){
 				Locomotive * locomotive = dynamic_cast<Locomotive *>(vehicle);
 				if(locomotive){
 					//Ojo, debe hacerse a todo el tren, no solo a esa loco!!!
-					locomotive->setSpeed(message->getValue());
+					//locomotive->setSpeed(message->getValue());
 				}
 			}
 			break;
 		case Message::EVENT_TRAIN_SPEED:
-			loco = getLocomotive(event->getLocomotiveId());
-			//Ahora debería hacerse a todo el tren!!!!!!
-			//loco->setSpeed(message->getValue());
+			//loco = getLocomotive(event->getLocomotiveId());
 			break;
 		}
 	}

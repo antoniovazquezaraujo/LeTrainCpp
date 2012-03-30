@@ -174,44 +174,51 @@ void setEventLocomotive(const char * a, const char * b){
 	d.usingEventLocomotive = true;
 }
 void deleteLocomotive(int t){
-	d.game->sim.removeLocomotive(t);
+	//d.game->sim.removeLocomotive(t);
 }
 void deleteWagon(int t){
-	d.game->sim.removeWagon(t);
+	//d.game->sim.removeWagon(t);
 }
 
 void getLocomotive(int n){
-	d.locomotive = d.game->sim.getLocomotive(n);
+	//d.locomotive = d.game->sim.getLocomotive(n);
 }
 void getWagon(int n){
-	d.wagon = d.game->sim.getWagon(n);
+	//d.wagon = d.game->sim.getWagon(n);
 }
 void getSemaphore(int n){
 	d.semaphore= d.game->sim.getSemaphore(n);
 }
 void showLocomotives(const char * a, const char * b) {
+	/*
 	for(auto l:d.game->sim.getLocomotives()){
 		cout << l << endl;
 	}
+	*/
 }
 void showLocomotive(int n){
+	/*
 	Locomotive * l = d.game->sim.getLocomotive(n);
 	cout << *(l) << endl;
+	*/
 }
 void showWagon(int n){
+	/*
 	Wagon * l = d.game->sim.getWagon(n);
 	cout << *(l) << endl;
+	*/
 }
 void showWagons(const char * a, const char * b){
+	/*
 	for(auto w:d.game->sim.getWagons()){
 		cout << w << endl;
 	}
+	*/
 }
 void addLocomotive(int t){
 	Locomotive * locomotive = new Locomotive; 
 	Train * train = new Train;
 	train->addVehicle(0,locomotive);
-	d.game->sim.addLocomotive(locomotive);
 	d.game->sim.addTrain(train);
 	Point p = locomotive->getPos();
 	Rail * r = d.game->sim.railMap.getRailAt(p.row,p.col);
@@ -222,7 +229,7 @@ void addWagon(int t){
 	Wagon * w = new Wagon();
 	Train * train = new Train;
 	d.game->sim.addTrain(train);
-	d.game->sim.addWagon(w);
+	//d.game->sim.addWagon(w);
 	d.wagon = w;
 }
 void addSemaphore(int t){

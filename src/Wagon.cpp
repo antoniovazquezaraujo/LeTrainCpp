@@ -10,6 +10,10 @@ Wagon::Wagon()
 Wagon::~Wagon(){
 
 }
+void Wagon::incImpulseGenerated(float n){
+}
+void Wagon::decImpulseGenerated(float n){
+}
 void Wagon::paint(Window * g){
 	Train * t = getTrain();
 	if(t && t->isSelected()){
@@ -19,21 +23,10 @@ void Wagon::paint(Window * g){
 		g->setFg(getAspect()->getBgColor());
 		g->setBg(getAspect()->getFgColor());
 	}
-	//g->putC(pos.row, pos.col, dir.getAspectChar());  
 	g->putC(pos.row, pos.col, getAspect()->getAspectChar(dir.getValue()));  
-	/*
-	if(isSelected()){
-		g->putC(pos.row, pos.col, '*');  
-	}else{
-		g->putC(pos.row, pos.col, getAspect()->getAspectChar());  
-	}
-	*/
 }
 void Wagon::erase(Window * g){
 	g->setBg(getAspect()->getBgColor());
 	g->setFg(getAspect()->getFgColor());
 	g->putC(pos.row, pos.col, ' ');  
-}
-void Wagon::addToTrain(int p, Train * t){
-	t->addWagon(p, this);	
 }

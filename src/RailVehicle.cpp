@@ -25,6 +25,7 @@ RailVehicle::RailVehicle(Aspect * aspect)
 	mass(10),
 	speed(0),
 	friction(0),
+	kinetic(0),
 	rail(0),
 	moved(false),
 	selectedLink(0),
@@ -45,6 +46,35 @@ void RailVehicle::forward(){
 }
 void RailVehicle::backward(){
 	goBackToRail(rail->getLinkedRailAt(rail->getPath(dir)));
+}
+void RailVehicle::generateImpulse(){
+	//impulso si hay motor
+	impulse+= impulseGenerated;
+
+	//impulso de los choques
+	if(kinetic != 0 ){
+		float e = kinetic/(getMass()*10);
+		impulse+=e;
+		if(kinetic>0) kinetic-=e;
+		else kinetic -=e;
+	}
+}
+float RailVehicle::getImpulse(){
+	return impulse;
+}
+void RailVehicle::consumeImpulse(){
+	impulse =0;
+}
+float RailVehicle::receiveImpulse(float impulseReceived, Dir dir){
+	float consumed = 0;
+	//va en mi misma dirección
+	if(getRail()->getPath(-dir) == this->dir){
+		this->kinetic +=getMass();
+		return impulseReceived - getMass();
+	}else{
+		this->kinetic -=impulseReceived;
+		return -1 * (impulseReceived + getMass());
+	}
 }
 bool RailVehicle::goBackToRail(Rail * r){
 	if(r->getRailVehicle()!= 0){
@@ -89,45 +119,14 @@ void RailVehicle::setSpeed(int speed){
 int RailVehicle::getSpeed(){
 	return speed;
 }
-float RailVehicle::getImpulse(){
-	return impulse;
-}
 void RailVehicle::setTrain(Train * t){
 	this->train = t;
 }
 Train * RailVehicle::getTrain(){
 	return train;
 }
-float RailVehicle::receiveImpulse(float impulseReceived, Dir dir){
-	float consumed = 0;
-	if(getRail()->getPath(-dir) == this->dir){
-		consumed = mass - this->impulse;
-		if(consumed < 0) consumed = 0;
-	}else{
-		consumed = mass + this->impulse;
-	}
-	if(impulseReceived >= consumed){
-		this->impulse += consumed;
-		return impulseReceived - consumed;
-	}else{
-		this->impulse += impulseReceived;
-		return 0;
-	}
-}
 void RailVehicle::reverseImpulse(){
 	impulse*= -1;
-}
-void RailVehicle::incImpulseGenerated(float n){
-	impulseGenerated+=n;
-}
-void RailVehicle::decImpulseGenerated(float n){
-	impulseGenerated-=n;
-}
-void RailVehicle::generateImpulse(){
-	impulse+= impulseGenerated;
-}
-void RailVehicle::consumeImpulse(){
-	impulse =0;
 }
 int RailVehicle::getBrakes(){
 	return brakes;

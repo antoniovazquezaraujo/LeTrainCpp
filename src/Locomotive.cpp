@@ -31,6 +31,12 @@ int Locomotive::getPower(){
 void Locomotive::setPower(int power){
 	this->power = power;
 } 
+void Locomotive::incImpulseGenerated(float n){
+	impulseGenerated+=n;
+}
+void Locomotive::decImpulseGenerated(float n){
+	impulseGenerated-=n;
+}
 void Locomotive::paint(Window * g){
 	Train * t = getTrain();
 	if(t && t->isSelected()){
@@ -49,6 +55,3 @@ void Locomotive::erase(Window * g){
 	g->putC(pos.row, pos.col, ' ');  
 }
 
-void Locomotive::addToTrain(int p, Train * t){
-	t->addLocomotive(p, this);
-}

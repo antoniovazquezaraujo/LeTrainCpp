@@ -26,6 +26,25 @@ Finder::~Finder(){
 Rail * Finder::getRail(){
 	return rail;
 }
+void Finder::incImpulseGenerated(float n){
+
+}
+void Finder::decImpulseGenerated(float n){
+
+}
+void Finder::generateImpulse(){
+
+}
+void Finder::consumeImpulse(){
+
+}
+float Finder::getImpulse(){
+	return 0;
+}
+float Finder::receiveImpulse(float imp, Dir d){
+	return 0;
+
+}
 Dir Finder::getDir(){
 	return dir;
 }

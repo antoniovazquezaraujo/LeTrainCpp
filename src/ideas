@@ -9,3 +9,115 @@ Para que vamos a liarnos con los links?
 Solo es un aspecto figurativo, en el momento de enlazarlos, aparece un signo a cada
 lado del vehículo que representa el supuesto enlace, pero no existe eso como tal.
 Lo tenemos pero no lo estamos usando. Retirada.
+
+16 de Marzo de 2012
+Sobre la energía cinética.
+Las locos se mueven debido a que su motor genera una fuerza en cada turno, que se pasa a todo el tren y se consume por completo. Si se disminuye la potencia aplicada entonces generan menos fuerza en cada turno y quizá no sea suficiente para mover todo el tren en ese turno, por lo que se acumula para el siguiente turno. Pero la idea es que cada locomotora genera su fuerza en cada turno, la pasa a todo el tren y la consume por completo. Bien.
+Los vagones no generan fuerza. Pero pueden generarla si han acumulado energía cinética. Es decir, si los han empujado.
+La energía cinética es como un motor invisible que dispone de energía durante unos cuantos turnos. Cuando se termina ya no se genera más y el vagón se para. La pregunta es: cuánta energía de la que tiene acumulada gasta en cada turno. Cuanto más tenga acumulada, más rápido la genera, es decir, menos turnos sin moverse estará. Si tiene poca, entonces se moverá despacio, es decir, tardará muchos turnos en moverse una vez. Así que la cantidad de energía que genera será proporcional a la que tiene almacenada, y cuando no tenga más generará cero. Entonces, la fórmula para robarle energía a un vagón será:
+
+Energía cinética :    2000
+Masa total:             10
+Genera cada turno: 2000/10/100
+
+Cada turno genera Cinetica/Masa/100. Eso es lo que consume de su energía.
+Se acumula a su impulso. Cuando consigue moverse, lo gasta por completo.
+De esta forma, la cinética es como un motor, que va gastando su combustible.
+
+Más cosas sobre la energía cinética 26 de Marzo de 2012.
+Cuando algo te empuja puede hacerlo en tu dirección o en la contraria. En cada caso le restará o le sumará a tu impulso actual. Si va en dirección contraria le restará y al revés le sumará. Así que cada vehículo, en cada momento acaba teniendo un impulso positivo o negativo, es decir, contrario a su marcha o favorable. Cuando el tren vaya a moverse tendrá que sumar todos los impulsos de sus vehículos, lo que dará una cantidad positiva o negativa, que hará que el tren tenga que darse la vuelta en caso de ser negativa.
+Así que en un choque, te transmiten una cantidad SIEMPRE POSITIVA de impulso, pero en una dirección determinada. Tú decides si se suma o se resta de tu impulso propio según esa dirección sea la tuya o no.
+Ese impulso ha de modificar (en + o en -) a tu energía cinética. De esa energía obtendrás impulso en cada turno hasta que se termine. Cuanto? Podría ser en cada turno la misma cantidad que tu masa. Si tienes suficiente. Pero en ese caso se movería siempre a la misma velocidad. Y no es así. Si tienes mucha gastas mucha en cada turno, pero si te queda poca gastas poca, así que será una parte proporcional.
+
+La energía cinética que se consume en cada turno es proporcional a la que queda.
+Si es suficiente para moverse nos movemos, si no, se acumula para el siguiente turno. En esto, la energía cinética es como un segundo motor, con un depósito de combustible que hace que dure un tiempo, y con una potencia que hace que se descargue a una velocidad determinada. Pongamos que cuanto más "potente" sea, más rápido se gasta. Asi que la fórmula será:
+cargas = kinetic / mass serían las "cargas" que tengo para mover mi masa
+Si tengo mucha energía, me quedan muchas cargas. Cuando tenga poca me quedarán pocas.
+Pero quiero que cuando me quede poca gaste poca en cada turno.
+Moverse despacio sería estar 10 turnos sin moverse. Rápido estar 1 sin moverse. Estar 0 sería como velocidad infinita.
+Podemos usar esa cantidad.
+Para moverse todo el tiempo, tendría que sumarse su masa en cada turno, para moverse despacio, tendría que sumar un décimo de su masa en cada turno.
+rápido: cinetica alta y en turno masa /1, lento: cinetica baja y mása/10
+Si divido la masa por kinetic, me dará un número. Si ese número lo dejo en el divisor de la energía por turno...
+Qué lio.
+Voy a hacer ejemplos con la excel y vuelvo...
+
+Bien, parece que en cada turno se puede generar kinetic/(masa*maxTurnos) o algo así. De esta forma sabemos que con mucha kinetic tendremos más generación de energía por turno, y con mucha masa menos y con muchos turnos también menos. Vale.
+
+A cada vehículo, en cada turno se le roba TODO su impulso, y se le pone a cero, así que solo hay que pensar en este turno.
+Me pasan una energía y se suma a la mía o se resta, sin más.
+Cuál es entonces la energía que devuelvo y con qué signo?
+Será la misma que me pasaron menos la que consumí. Si viene en mi dirección entonces puede que solo consuma mi masa, incluso una fracción de ella, no lo sé.
+Si viene en dirección contraria, consumiré mi masa, más la energía que yo llevo en contra.
+
+
+29 de Marzo de 2012. Fuerzas, aceleración, energía cinética...
+No estamos haciendo bien las cosas, y peor aún, no sabemos cómo lo estamos haciendo. No se puede tratar los choques de forma tan inocente, se debe considerar la energía cinética y principios básicos de física. El problema es que los cuerpos se mueven por turnos, y en cada turno se mueven la misma cantidad de espacio. De esta forma, la velocidad pasa a depender de la cantidad de turnos sin moverse, aunque podríamos calcular la velocidad correctamente a partir de ese sistema:
+Velocidad = espacio / tiempo.
+Considerando el tiempo como cantidad de turnos que tardas en moverte y espacio = 1
+la velocidad es = 1 / turnos necesarios para moverte una vez. Es decir, lo que estamos usando ahora: turnos sin moverte.
+Bien, sin embargo, necesitamos saber cómo influye en esto la fuerza, tanto de los motores como la fuerza aplicada en los choques. Antes de nada, sea cual sea la fuerza, eso producirá una aceleración, que depende de la masa también. Así que necesitamos saber pasar de aceleración a velocidad instantanea. Es decir, saber cuándo te toca moverte dependiendo de la aceleración que llevas. También, saber que existe la energía cinética, que tambien depende de la masa y de la aceleración, exactamente en:
+Energía cinética = 1/2 de la masa por la velocidad al cuadrado.
+Así que si aplicamos una fuerza a una locomotora, conseguiremos acelerarla con una aceleración determinada. Eso hará que se mueva en una cantidad de turnos, que irá cambiando cada vez. Entonces, alcanzará una velocidad determinada. Cuando dejamos de aplicar la fuerza, la energía cinética seguirá moviendo el cuerpo. Se gastará debido al rozamiento, que puede ser un valor fijo.
+Así que podríamos considerar la energía cinética como otro motor, que se carga solo cuando adquirimos velocidad y que se puede descargar poco a poco hasta ir parando el vehículo. Si el motor continúa aplicando fuerza en cada turno, contrarestará el rozamiento y la cinética no disminuirá, así como la velocidad. Digamos que la cinética solo actua cuando dejamos de aplicar motor. Bien.
+Así que el motor, en cada turno aplica una mínima cantidad de fuerza. Creo que tenemos que volver a nuestro sistema, no es facil cambiarlo todo.
+Aún así, la idea de que la cinética depende de la velocidad me interesa.
+		
+					cinética = 1/2 * masa * v * v
+
+Cuando vamos muy rápido tendrémos mucha cinética. Bien, bien.
+Otra cosa, los choques: en un choque se mantiene la suma de cinética de los dos cuerpos si el choque es elástico. Podríamos considerar un choque catastrófico cuando la energía cinética sobrepase un límite o algo. El caso: qué es lo que le pasa un cuerpo a otro en un choque??? Supongo que su energía cinética.
+Pero la pregunta es: cuánta de ella consume y cuanta le devuelve???
+Cuando un vagon suelto choca con todo un tren que viene en sentido contrario despacio, puede que lleve gran velocidad y por ende energía cinética. Se la pasará toda al tren, que a la hora de moverse, la considerará, quizá reduciendo su velocidad, pero al final, se mueve el que puede más, y el otro rebotará en sentido contrario.
+
+El problema aqui, es que, aunque las cosas ocurren en el mismo momento, y ambos cuerpos compiten en una centésima por el mismo espacio, en el sistema de letrain, al ser de turnos, los intercambios de energía se hacen por separado. Un vehículo choca con otro y le pasa su energía. Como chocó, en ese turno no se moverá. Simplemente, pierde su energía. En el turno del tren, el tren calculará qué hace con toda su energía. Si ve que choca en el otro vehículo que aún seguirá ahí, entonces no se mueve en ese turno, pero le pasa su energía cinética. Entonces, al siguiente turno, el vagón saldrá disparado en sentido contrario. Pero cuánta energía gastó el tren para eso, y cuánta le queda????????
+
+30 de Marzo de 2012. Despues de revisar algunos conceptos de física básica.
+Intentemos empezar desde cero. Variables que manejamos:
+Masa:      la masa total del tren
+Fuerza:    lo que aplica el motor, positiva o negativa
+Velocidad: 1 / cantidad de turnos que está parado (logarítmica!)
+Kinetic:   1/2 masa * velocidad * velocidad
+
+Vale. Cómo pasamos de la fuerza a la velocidad???????????
+La fuerza se incrementa en cada turno, si es suficiente para mover la masa en ese turno, el vehículo se moverá, si no no. 
+Moverse en un turno significa avanzar el tamaño de una celda, que es el de un vehículo, que pueden ser 20 o 30 metros o lo que mida en la realidad. Pongamos que es moverse un espacio = 1. Siempre que se mueva tiene que contar la cantidad de turnos que llevaba sin moverse, eso será el inverso de la velocidad. Así que al principio, la velocidad es infinita, pero luego ya se cuentan los turnos entre movimientos.
+Solo se mueve si la fuerza que tiene es suficiente.
+Bien, tenemos la velocidad aunque logarítmica y aproximada y la fuerza.
+Si no hubiese rozamiento, el vehículo se movería en cada turno, cuando tuviese la fuerza necesaria para moverse, pero ocurre que hay un rozamiento, así que tendrá que ir frenándose solo. Entonces, para eso, el motor, vuelve a generar en cada turno la necesaria para contrarestar el rozamiento.
+
+Luego la energía cinética, que es la que se va acumulando es siempre dependiente de la masa del tren y de su velocidad, así que no hay ni que guardarla.
+Simplemente, analizando su velocidad y su masa tendremos la energía cinética.
+En los choques se pasa toda la energía cinética al elemento golpeado y eso ha de transformarse luego en aceleración, así que deberíamos poder pasar de una a otra.
+Fuerza = masa * aceleración.
+No entiendo.
+
+Volvamos a lo simple: la energía cinética se acumula y depende de la masa y de la aceleración, así que un elemento con más masa tendrá más aceleración acumulada. 
+La fuerza del motor provoca aceleración a una masa, lo que le da velocidad, y eso depende de los turnos que tarde en moverse. Hay que separar los conceptos.
+
+Conceptos:
+Masa : 		la masa de todo el tren
+Velocidad:  turnos que tardará en mover su masa. Se puede saber aunque no se 
+			esté moviendo en este turno, simplemente extrapolando.
+Impulso:  	negativo o positivo. Generado por el motor
+Kinitic:	1/2*mass*speed*speed 
+Rozamiento: Depende de la masa, del suelo, de la forma de las superficies.
+			Elimina energía cada vez que se nos movemos. Puede ser una constante
+			por vehículo. Hace que se termine parando, si no se aplica más fuerza
+			desde el motor en cada turno.
+
+Choque:  	Si en un turno me podría mover pero hay otro delante, entonces no me 
+			muevo, y toda mi energía se la transfiero a él. La energía cinética.
+
+Consumo:	La cantidad de energía que consume en cada turno, que suma la 
+			necesaria para moverse. Hay dos diferentes, la que en cada turno se va
+			acumulando para llegar a moverse y la que se gasta cuando por fin se 
+			mueve, que es la que había acumulado. La energía que se le agrega en 
+			cada turno, depende del motor, que es el que proporciona energía. Pero
+			cuando se para el motor, entonces el objeto se debería parar. Pero no
+			porque también tenemos la cinética. Esa se va gastando también según el
+			objeto se va moviendo.
+
+Todo es un lio, no creo que se pueda hacer de esta forma, partiendo de lo que tenemos. Ni siquiera que valga la pena intentarlo. Mejor continuar con un sistema pseudo-físico, pero que funciona.
+
+En resumen: más vale basura funcionando que genialidad en papel.

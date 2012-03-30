@@ -36,8 +36,6 @@ Commander::Commander(Game * game)
 
 	registerAction("Next train",       &Commander::selectNextTrain,            DRIVERS_MODE, 'n');
 	registerAction("Prev train",       &Commander::selectPrevTrain,            DRIVERS_MODE, 'p');
-	registerAction("Next vehicle",     &Commander::selectNextVehicle,          DRIVERS_MODE, 'l');
-	registerAction("Prev vehicle",     &Commander::selectPrevVehicle,          DRIVERS_MODE, 'h');
 	registerAction("Accelerate",       &Commander::accelerateTrain,            DRIVERS_MODE, 'k');
 	registerAction("Deccelerate",      &Commander::deccelerateTrain,           DRIVERS_MODE, 'j');
 
@@ -62,7 +60,6 @@ Commander::Commander(Game * game)
 
 	registerAction("Next train",       &Commander::selectNextTrain,            LINK_MODE,   'n');
 	registerAction("Prev train",       &Commander::selectPrevTrain,            LINK_MODE,   'p');
-	registerAction("Link train",       &Commander::linkTrain,                  LINK_MODE,   ' ');
 	registerAction("Link vehicles",    &Commander::link,                       LINK_MODE,   'k');
 	registerAction("Unlink vehicles",  &Commander::unlink,                     LINK_MODE,   'j');
 
@@ -97,12 +94,6 @@ void Commander::selectNextTrain(){
 }
 void Commander::selectPrevTrain(){
 	game->sim.selectPrevTrain();
-}
-void Commander::selectNextVehicle(){
-	game->sim.selectNextVehicle();
-}
-void Commander::selectPrevVehicle(){
-	game->sim.selectPrevVehicle();
 }
 void Commander::accelerateTrain(){
 	Sim::TTrains::iterator i = game->sim.getSelectedTrain();
@@ -268,9 +259,6 @@ void Commander::unlink(){
 	if(t){
 		game->sim.addTrain(t);
 	}
-}
-void Commander::linkTrain(){
-	game->sim.linkTrain();
 }
 /////////////////////////////////////////////////////////////////
 void Commander::doAction(char key){

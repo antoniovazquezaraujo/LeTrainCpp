@@ -81,12 +81,6 @@ void SimView::paint(){
 	for(auto train: sim->getTrains()){
 		train->paint(window);
 	}
-	for(auto loco: sim->getLocomotives()){
-		loco->paint(window);
-	}
-	for(auto wagon: sim->getWagons()){
-		wagon->paint(window);
-	}
 
 	sim->getFinder()->paint(window);
 	window->repaint();
