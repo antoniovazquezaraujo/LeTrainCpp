@@ -2,7 +2,7 @@
 #include "StraightAspect.h"
 #include "Dir.h"
 #include "DirEnv.h"
-MAKE_LOGGER(StraightAspect);
+
 
 StraightAspect::StraightAspect(DirEnv * env)
 	: env(env){

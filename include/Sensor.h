@@ -22,6 +22,6 @@ private:
 	bool armed;
 	Rail * rail;
 	Point pos;
-	static Logger log;
+	
 };
 #endif

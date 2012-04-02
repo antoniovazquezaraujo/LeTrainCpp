@@ -7,6 +7,6 @@ class StraightRail: public Rail{
 public:
 	StraightRail(DirEnv * env);
 	~StraightRail();
-	static Logger log;
+	
 };
 #endif

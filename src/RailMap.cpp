@@ -1,7 +1,7 @@
 #include "Basic.h"
 #include "RailMap.h"
 #include "Rail.h"
-MAKE_LOGGER(RailMap);
+
 
 RailMap::RailMap() {
 }

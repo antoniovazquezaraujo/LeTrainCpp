@@ -15,9 +15,8 @@
 #include <array>
 #include <list>
 #include <map>
-#include <chrono> 
+#include <algorithm>
 
-#include "Log.h"
 
 using namespace std;
 class Dir;
@@ -70,15 +69,5 @@ const int RAIL_MAP_COLS = 80;
 
 const int FRONT=0;
 const int BACK=1;
-
-//crea un logger para cada clase. Agregarlo al principio de cada fichero
-// con MAKE_LOGGER(NombreDeLaClase); (ojo, poner el ; )
-#define MAKE_LOGGER(className) Logger className::log = Logger::getInstance(# className)
-
-#define LOG_DEBUG LOG4CPLUS_DEBUG
-#define LOG_INFO  LOG4CPLUS_INFO
-#define LOG_WARN  LOG4CPLUS_WARN
-#define LOG_ERROR LOG4CPLUS_ERROR
-#define LOG_FATAL LOG4CPLUS_FATAL
 
 #endif

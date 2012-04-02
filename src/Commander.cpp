@@ -17,7 +17,7 @@
 #include "EventProgram.h"
 #include "ProgramEditor.h"
 
-MAKE_LOGGER(Commander);
+
 
 extern bool parse(string s, Game * game);
 
@@ -198,9 +198,9 @@ void Commander::finderAddWagon(){
 		f->getRail()->enter(wagon);
 		train->addVehicle(0, wagon);
 		game->sim.addTrain(train);
-		LOG_DEBUG(log," Agrego el tren en: " << f->getPos().row << "," << f->getPos().col);
+		
 	}else{
-		LOG_DEBUG(log," No puedo agregar vehiculo pues hay uno");
+		
 		delete wagon;
 	}
 }
@@ -213,9 +213,9 @@ void Commander::finderAddTrain(){
 		finder->getRail()->enter(locomotive);
 		train->addVehicle(0, locomotive);
 		game->sim.addTrain(train);
-		LOG_DEBUG(log," Agrego el tren en: " << finder->getPos().row << "," << finder->getPos().col);
+		
 	}else{
-		LOG_DEBUG(log," No puedo agregar vehiculo pues hay uno");
+		
 		delete train;
 		delete locomotive;
 	}
@@ -226,7 +226,7 @@ void Commander::finderAddSensor(){
 	if(r){
 		Sensor * s = new Sensor();
 		s->setRail(r);
-		LOG_DEBUG(log," Agregamos sensor con rail:" << s->getRail());
+		
 		game->sim.addSensor(s);
 	}
 }

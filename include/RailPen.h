@@ -22,7 +22,7 @@ private:
 	Dir lastDir;
 	friend ostream & operator << (ostream & o, const RailPen & pen);
 	RailPenMode mode;
-	static Logger log;
+	
 
 };
 #endif

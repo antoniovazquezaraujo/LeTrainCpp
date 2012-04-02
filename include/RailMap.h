@@ -12,6 +12,6 @@ public:
 	void erase(Window * g);
 private:
 	map<int, map<int, Rail*>> rails;
-	static Logger log;
+	
 };
 #endif

@@ -1,7 +1,7 @@
 #include "Basic.h"
 #include "Window.h"
 #include <signal.h>
-MAKE_LOGGER(Window);
+
 
 void do_resize(int dummy) {
 	Window::setup();

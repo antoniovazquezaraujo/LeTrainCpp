@@ -4,7 +4,7 @@
 #include "RailVehicle.h"
 #include "Window.h"
 #include "Aspect.h"
-MAKE_LOGGER(Rail);
+
 
 /*
     EnterVehicle

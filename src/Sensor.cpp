@@ -4,7 +4,7 @@
 #include "Locomotive.h"
 #include "Event.h"
 #include "Window.h"
-MAKE_LOGGER(Sensor);
+
 Sensor::Sensor(int id)
 	: id(id), armed(false){
 
@@ -24,7 +24,7 @@ Event * Sensor::check(){
 			ret = new Event(id, t->tm_hour,t->tm_min,
 					t->tm_sec,loco->getId(), loco->getSpeed(), 
 					loco->getDir().getValue());
-			LOG_DEBUG(log," Creado en Sensor evento: " << ret);
+			
 		}
 	}
 	return ret;

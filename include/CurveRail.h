@@ -6,6 +6,6 @@ class CurveRail: public Rail{
 public:
 	CurveRail(DirEnv * env);
 	~CurveRail();
-	static Logger log;
+	
 };
 #endif

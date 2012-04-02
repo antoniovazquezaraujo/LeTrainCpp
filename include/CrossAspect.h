@@ -7,6 +7,6 @@ public:
 	int getAspectChar();
 	int getBgColor();
 	int getFgColor();
-	static Logger log;
+	
 };
 #endif

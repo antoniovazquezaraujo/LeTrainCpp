@@ -6,7 +6,7 @@
 #include "Sim.h"
 #include "RailMap.h"
 #include "ForkRail.h"
-MAKE_LOGGER(RailPen);
+
 
 void RailPen::paint(Window * g){
 	g->setBg(0);
@@ -42,7 +42,6 @@ Rail * RailPen::makeNewRail(Rail * rail){
 	if(rail){
 		env = rail->getEnv();
 	}
-	LOG4CPLUS_DEBUG(log, " agregando dir y -dir:" << dir.getValue()<< ", " << (-lastDir).getValue()); 
 	env.addPath(-lastDir, dir);
 	Rail * newRail = env.makeNewRail();
 	if(rail){

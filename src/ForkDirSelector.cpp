@@ -1,7 +1,6 @@
 #include "Basic.h"
 #include "ForkDirSelector.h"
 #include "DirEnv.h"
-MAKE_LOGGER(ForkDirSelector);
 
 ForkDirSelector::ForkDirSelector(DirEnv * env)
 	: env(env){

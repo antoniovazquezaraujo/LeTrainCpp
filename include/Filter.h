@@ -32,6 +32,6 @@ private:
 	Range * locomotiveId;
 	Range * locomotiveSpeed;
 	Range * locomotiveDir;
-	static Logger log;
+	
 };
 #endif

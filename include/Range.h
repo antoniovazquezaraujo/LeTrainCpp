@@ -23,6 +23,6 @@ private:
 	vector<int>  numbers;
 	bool acceptingAll;
 	friend ostream & operator << (ostream & out, Range & r);
-	static Logger log;
+	
 };
 #endif

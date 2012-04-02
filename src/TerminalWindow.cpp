@@ -1,6 +1,6 @@
 #include "Basic.h"
 #include "TerminalWindow.h"
-MAKE_LOGGER(TerminalWindow);
+
 
 TerminalWindow::TerminalWindow(int row, int col, int width, int height, bool withBorder)
 	:Window(row, col, width, height, withBorder){
@@ -57,7 +57,7 @@ TerminalWindow & TerminalWindow::operator >> (int & i){
 	char buff[6];
 	wgetnstr(window, buff, 6);
 	i = atoi(buff);
-	LOG_DEBUG(log," Leyendo una cadena con enteros: " << i);
+	
 	return *this;
 }
 TerminalWindow & TerminalWindow::operator >> (char & c){

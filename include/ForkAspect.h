@@ -8,6 +8,6 @@ public:
 	void updateAspect(Dir dir);
 	int getBgColor();
 	int getFgColor();
-	static Logger log;
+	
 };
 #endif

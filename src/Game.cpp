@@ -9,7 +9,6 @@
 #include "TerminalWindow.h"
 #include "ProgramEditor.h"
 #include "Console.h"
-Logger Game::log = Logger::getInstance("Game");
 Game::Game()
 	:programEditor(this),
 	console(this),

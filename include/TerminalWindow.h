@@ -20,6 +20,6 @@ public:
 	TerminalWindow & operator >> (char & c);
 	TerminalWindow & operator << (char c);
 private:
-	static Logger log;
+	
 };
 #endif

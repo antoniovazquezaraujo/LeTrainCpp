@@ -220,7 +220,7 @@ BEGIN_TEST
 		TEST_ASSERT(env1->getPath(d+Dir::MAX_CURVE_ANGLE) == d);
 		TEST_ASSERT(env1->getPath(d+Dir::MIN_CURVE_ANGLE) == d);
 		ForkRail * r = (ForkRail*)env1->makeNewRail();
-		LOG_DEBUG(log,"ForkRail: " <<  *r) 
+		
 			r->selectDir(d+Dir::MIN_CURVE_ANGLE);
 		TEST_ASSERT(r->getSelectedDir() == d+Dir::MIN_CURVE_ANGLE);
 		r->selectDir(d+Dir::MAX_CURVE_ANGLE);
@@ -246,13 +246,13 @@ BEGIN_TEST
 		TEST_ASSERT(env1->getPath(d+Dir::MIN_CURVE_ANGLE) == d);
 		ForkRail * r = (ForkRail*)env1->makeNewRail();
 		r->selectDir(d+Dir::MIN_CURVE_ANGLE);
-		LOG_DEBUG(log,"d+Dir::MIN_CURVE_ANGLE:" << *r);
+		
 		TEST_ASSERT(r->getSelectedDir() == d+Dir::MIN_CURVE_ANGLE);
 		r->selectDir(d+Dir::MIDDLE_ANGLE);
-		LOG_DEBUG(log,"d+Dir::MIDDLE_ANGLE:   " << *r);
+		
 		TEST_ASSERT(r->getSelectedDir() == d+Dir::MIDDLE_ANGLE);
 		r->selectDir(d+Dir::MAX_CURVE_ANGLE);
-		LOG_DEBUG(log,"d+Dir::MAX_CURVE_ANGLE:" << *r);
+		
 		TEST_ASSERT(r->getSelectedDir() == d+Dir::MAX_CURVE_ANGLE);
 		delete r;
 		delete env1;
@@ -423,7 +423,7 @@ END_TEST
 	}
 };
 
-MAKE_LOGGER(TestSuite1);
+
 int main() {
 	PropertyConfigurator::doConfigure("log4cplus.properties");
 	try {

@@ -9,6 +9,6 @@ class WagonAspect : public Aspect{
 	int getAspectChar(int dirValue);
 	int getBgColor();
 	int getFgColor();
-	static Logger log;
+	
 };
 #endif

@@ -2,7 +2,7 @@
 #include "RailVehicle.h"
 #include "Rail.h"
 #include "Finder.h"
-MAKE_LOGGER(RailVehicle);
+
 
 ostream & operator << (ostream & o, RailVehicle & v){
 	o << "RailVehicle{" ;
@@ -55,26 +55,24 @@ void RailVehicle::generateImpulse(){
 	if(kinetic != 0 ){
 		float e = kinetic/(getMass()*10);
 		impulse+=e;
-		if(kinetic>0) kinetic-=e;
-		else kinetic -=e;
+		kinetic -=e;
 	}
 }
 float RailVehicle::getImpulse(){
 	return impulse;
 }
 void RailVehicle::consumeImpulse(){
-	impulse =0;
+	impulse = 0;
 }
 float RailVehicle::receiveImpulse(float impulseReceived, Dir dir){
 	float consumed = 0;
 	//va en mi misma dirección
 	if(getRail()->getPath(-dir) == this->dir){
-		this->kinetic +=getMass();
-		return impulseReceived - getMass();
+		this->kinetic +=impulseReceived;
 	}else{
 		this->kinetic -=impulseReceived;
-		return -1 * (impulseReceived + getMass());
 	}
+	return impulseReceived;
 }
 bool RailVehicle::goBackToRail(Rail * r){
 	if(r->getRailVehicle()!= 0){

@@ -23,7 +23,6 @@ ForkRail.h                  \
 Game.h                      \
 LocomotiveAspect.h          \
 Locomotive.h                \
-Log.h                       \
 Message.h                   \
 Point.h                     \
 ProgramEditor.h             \

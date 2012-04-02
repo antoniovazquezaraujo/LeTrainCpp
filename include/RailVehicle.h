@@ -9,7 +9,6 @@ public:
 	void selectFrontLink();
 	void selectBackLink();
 	void link();
-	virtual void addToTrain(int, Train *)=0;
 
 	void reverseImpulse();
 	bool gotoRail(Rail * r);
@@ -21,12 +20,14 @@ public:
 	bool isSelected();
 	void setSelected(bool selected);
 	bool isMoved();
-	float getImpulse();
-	float receiveImpulse(float imp=0.1, Dir d=Dir::NO_DIR);
-	void consumeImpulse();
-	void generateImpulse();
-	void incImpulseGenerated(float n=0.1);
-	void decImpulseGenerated(float n=0.1);
+
+	virtual void generateImpulse();
+	virtual float getImpulse();
+	virtual void consumeImpulse();
+	virtual float receiveImpulse(float imp=0.1, Dir d=Dir::NO_DIR);
+
+	virtual void incImpulseGenerated(float n=0.1)=0;
+	virtual void decImpulseGenerated(float n=0.1)=0;
 	void setSpeed(int speed);
 	int getSpeed();
 
@@ -44,15 +45,17 @@ public:
 	RailVehicle * getRailVehicleAt(int numLink);
 	enum{MAX_TURNS=20};
 
-private:
-	float impulse;
+protected:
 	float impulseGenerated;
-	int brakes;
+	float impulse;
 	int mass;
+	float kinetic;
+private:
+	int brakes;
 	float speed;
 	float friction;
 	Rail * rail;
-	static Logger log;
+	
 	bool moved;
 	bool selected;
 	Train * train;

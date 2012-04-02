@@ -1,6 +1,6 @@
 #include "Basic.h"
 #include "Vehicle.h"
-MAKE_LOGGER(Vehicle);
+
 
 Vehicle::Vehicle(Aspect * aspect)
 	: aspect(aspect),pos(0,0), dir(Dir::NO_DIR){

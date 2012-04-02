@@ -1,6 +1,6 @@
 #include "Basic.h"
 #include "CrossAspect.h"
-MAKE_LOGGER(CrossAspect);
+
 
 int CrossAspect::getAspectChar(){
 	return '+';

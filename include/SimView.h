@@ -18,6 +18,6 @@ private:
 	Point pos;
 	Window * window;
 	Vehicle * vehicleToFollow;
-	static Logger log;
+	
 };
 #endif

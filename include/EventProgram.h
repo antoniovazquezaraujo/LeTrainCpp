@@ -16,6 +16,6 @@ public:
 private:
 	Filter * filter;
 	CMessages messages;
-	static Logger log;
+	
 };
 #endif

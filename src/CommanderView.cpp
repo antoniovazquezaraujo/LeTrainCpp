@@ -2,7 +2,7 @@
 #include "CommanderView.h"
 #include "Window.h"
 #include "Commander.h"
-MAKE_LOGGER(CommanderView);
+
 
 CommanderView::CommanderView(Commander * commander )
 	:commander(commander){

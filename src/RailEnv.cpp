@@ -1,7 +1,6 @@
 #include "Basic.h"
 #include "RailEnv.h"
 #include "Dir.h"
-MAKE_LOGGER(RailEnv);
 
 RailEnv::RailEnv(){
 	for(int n(0);n<Dir::NUM_DIRS;n++){

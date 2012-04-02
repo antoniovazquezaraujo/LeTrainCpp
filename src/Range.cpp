@@ -3,59 +3,59 @@
 #include <sstream> 
 #include <algorithm> 
 using namespace std;
-MAKE_LOGGER(Range);
+
 Range::Range()
 	:acceptingAll(false){
 
 }
 Range::Range(const Range & r){
-	LOG_DEBUG(log," OJO, COPIANDO UN RANGO!!!!!!!!!!!!!!");
+	
 }
 bool Range::accept(int n){
-	LOG_DEBUG(log,"Entramos en Range::accept con " << n); 
+	
 	if(acceptingAll){
-		LOG_DEBUG(log," Rango acepta TODO ");
+		
 		return true;
 	}
 		
-	LOG_DEBUG(log," El rango tiene " << numbers.size() << " numeros " );
+	
 	vector<int>::iterator i;
 	for(i=numbers.begin(); i != numbers.end(); i++){
-		LOG_DEBUG(log," probando numero " << n << " contra " << (*i));
+		
 		if(n == (*i)){
-			LOG_DEBUG(log," Rango acepta numero " << n);
+			
 			return true;
 		}
 	}
 	for(i=gtConditions.begin(); i != gtConditions.end(); i++){
 		if(n > (*i)){
-			LOG_DEBUG(log," Rango acepta numero mayor que "<<  (*i) << ":" << n);
+			
 			return true;
 		}
 	}
 	for(i=ltConditions.begin(); i != ltConditions.end(); i++){
 		if(n < (*i)){
-			LOG_DEBUG(log," Rango acepta numero menor que "<<  (*i) << ":" << n);
+			
 			return true;
 		}
 	}
 	vector<pair<int, int> >::iterator ir;
 	for(ir=ranges.begin(); ir != ranges.end(); ir++){
 		if(n >= (*ir).first && n <= (*ir).second){
-			LOG_DEBUG(log," Rango acepta numero entre " << (*ir).first << " y "<<  (*ir).second << ":" <<  n);
+			
 			return true;
 		}
 	}
-	LOG_DEBUG(log," Rango NO ACEPTA el numero " << n);
+	
 	return false;
 }
 void Range::acceptAll(bool acceptAll){
 	this->acceptingAll = acceptAll;
 }
 void Range::addNumber(int n){
-	LOG_DEBUG(log," Rango agregando numero " << n);
+	
 	numbers.push_back(n);
-	LOG_DEBUG(log," Ahora el rango tiene " << numbers.size() << " numeros");
+	
 	acceptingAll=false;
 }
 

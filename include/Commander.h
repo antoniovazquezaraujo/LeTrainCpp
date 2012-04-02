@@ -48,8 +48,6 @@ private:
 
 	void selectNextTrain();
 	void selectPrevTrain();
-	void selectNextVehicle();
-	void selectPrevVehicle();
 	void accelerateTrain();
 	void deccelerateTrain();
 
@@ -86,7 +84,7 @@ private:
 	CommandMode mode;
 	Game * game;
 	CommanderView * view;
-	static Logger log;
+	
 	friend class CommanderView;
 		
 };

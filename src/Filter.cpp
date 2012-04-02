@@ -1,9 +1,9 @@
 #include "Filter.h"
 #include "Range.h"
 #include "Event.h"
-MAKE_LOGGER(Filter);
+
 bool Filter::accept(Event * event){
-	LOG_DEBUG(log," intentando aceptar evento: " << str());
+	
 
 	if(sensorId        && !sensorId       ->accept(event->getSensorId()))       return false;
 	if(hour            && !hour           ->accept(event->getHour()))           return false;

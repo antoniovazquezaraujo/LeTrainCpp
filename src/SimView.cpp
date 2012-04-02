@@ -11,7 +11,7 @@
 #include "RailPen.h"
 #include "Finder.h"
 #include "Sensor.h"
-MAKE_LOGGER(SimView);
+
 
 SimView::SimView(Sim * sim)
 	:sim(sim), vehicleToFollow(0){

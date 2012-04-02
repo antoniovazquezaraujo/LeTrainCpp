@@ -37,6 +37,6 @@ protected:
 	RailEnv       railEnv;
 
 	friend ostream & operator << (ostream & o, Rail & rail);
-	static Logger log;
+	
 };
 #endif

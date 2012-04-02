@@ -10,6 +10,6 @@ public:
 	Rail * getRail(Dir dir);
 	friend ostream & operator << (ostream & o, RailEnv & railEnv);
 	array<Rail *,Dir::NUM_DIRS> links;
-	static Logger log;
+	
 };
 #endif

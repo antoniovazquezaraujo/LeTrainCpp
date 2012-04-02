@@ -11,6 +11,6 @@ public:
 private:
 	Commander * commander;
 	Window * window ;
-	static Logger log;
+	
 };
 #endif

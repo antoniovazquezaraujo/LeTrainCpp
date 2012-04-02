@@ -17,6 +17,6 @@ private:
 	int selectedOut;
 	int numOuts;
 	friend ostream & operator << (ostream & o, ForkDirSelector & selector);
-	static Logger log;
+	
 };
 #endif

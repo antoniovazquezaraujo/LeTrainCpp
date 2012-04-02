@@ -6,7 +6,7 @@
 #include "Window.h"
 #include "Aspect.h"
 
-MAKE_LOGGER(Finder);
+
 
 Finder::Finder(RailVehicle * r)
 	:RailVehicle(new FinderAspect()){
@@ -88,22 +88,22 @@ void Finder::reverse(){
 }
 bool Finder::backwards(int distance){
 	bool ret = false;
-	LOG_DEBUG(log, " finder backwards");
+	
 	if(dir.getValue() == Dir::NO_DIR){
-		LOG_DEBUG(log, " finder sin dir");
+		
 		dir = rail->getPath(rail->getPath(-dir));
 	}
-	LOG_DEBUG(log, " finder busca next");
+	
 	Rail * next = rail->getLinkedRailAt(dir);
 	if( next ){
-		LOG_DEBUG(log, " finder goto next");
+		
 		gotoRail(next);
 		ret = true;
 	}else{
-		LOG_DEBUG(log, " finder no encuentra next");
+		
 		ret = false;
 	}
-	LOG_DEBUG(log, " fin de finder backwards");
+	
 	return ret;
 }
 void Finder::paint(Window * g){

@@ -24,6 +24,6 @@ protected:
 	Point pos;
 	Dir dir;
 	friend ostream & operator << (ostream & o, Vehicle & v);
-	static Logger log;
+	
 };
 #endif

@@ -1,7 +1,6 @@
 #include "Basic.h"
 #include "ForkAspect.h"
 #include "Dir.h"
-MAKE_LOGGER(ForkAspect);
 
 ForkAspect::ForkAspect(DirEnv * env)
 	:StraightAspect(env){

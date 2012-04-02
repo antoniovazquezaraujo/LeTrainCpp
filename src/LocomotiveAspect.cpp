@@ -1,6 +1,6 @@
 #include "Basic.h"
 #include "LocomotiveAspect.h"
-MAKE_LOGGER(LocomotiveAspect);
+
 
 int LocomotiveAspect::getAspectChar(){
 	return '?';

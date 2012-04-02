@@ -52,11 +52,9 @@ struct ParserData{
 	int targetLocomotiveId;
 	bool usingEventLocomotive;
 	bool usingSensorLocomotive;
-	static Logger log;
 
 };
 ParserData d;
-Logger ParserData::log= Logger::getInstance("ParserData");
 
 ////////////////////////////////////////////////
 
@@ -82,7 +80,7 @@ void cleanData(const char * a, const char* b){
 	d.usingSensorLocomotive = false;
 }
 void moveBulldozer(int dist){
-	LOG_DEBUG(d.log," entrando en moveBulldozer");
+	
 	for(int n=0; n<dist;n++){
 		//	d.game->sim->getRailPen()->move(1, d.game->sim);
 		Point p = d.game->sim.railPen.getPos();
@@ -122,12 +120,12 @@ struct SetBulldozerMode{
 struct SetTargetForkDir{
 	void operator()(const char * a, const char* b)const{
 		d.eventProgram->addMessage(new Message(Message::FORK_DIR, d.targetForkId, d.propertyValue));
-		LOG_DEBUG(d.log," agregando mensaje para poner fork objetivo " << d.targetForkId << " valor: " << d.propertyValue);
+		
 	}
 };
 struct SetTargetSemaphoreStatus{
 	void operator()(const char * a, const char* b)const{
-		LOG_DEBUG(d.log," agregando mensaje para poner semaforo objetivo " << d.targetSemaphoreId << " valor: " << d.propertyValue);
+		
 		d.eventProgram->addMessage(new Message(Message::SEMAPHORE, d.targetSemaphoreId, d.propertyValue));
 	}
 };
@@ -157,11 +155,11 @@ struct SetPropertyValue{
 	}
 };
 void setTargetFork(int id){
-	LOG_DEBUG(d.log," poniendo la id de fork objetivo " << id); 
+	
 	d.targetForkId = id;
 }
 void setTargetSemaphore(int id){
-	LOG_DEBUG(d.log," poniendo la id de semaforo objetivo " << id); 
+	
 	d.targetSemaphoreId= id;
 }
 void setTargetLocomotive(int id){
@@ -236,24 +234,24 @@ void addSemaphore(int t){
 	Semaphore* s = new Semaphore(t);
 	d.game->sim.addSemaphore(s);
 	d.semaphore= s;
-	LOG_DEBUG(d.log," agregando semaforo" << t);
+	
 }
 void addSensor(int t){
 	Sensor * s = new Sensor(t);
 	d.game->sim.addSensor(s);
 	d.sensor= s;
-	LOG_DEBUG(d.log," agregando sensor " << t);
+	
 }
 void addEventProgram(int t){
 	EventProgram * w = new EventProgram();
 	d.game->sim.addEventProgram(w);
 	d.eventProgram = w;
-	LOG_DEBUG(d.log," agregando programa " << t);
+	
 }
 void addProgramFilter(const char * a, const char * b){
 	d.filter = new Filter();
 	d.eventProgram->setFilter(d.filter);
-	LOG_DEBUG(d.log," agregando filtro " );
+	
 }
 struct CreateRange{
 	int rangeType;
@@ -285,7 +283,7 @@ struct SelectProperty{
 };
 
 void addRangeNumber(int value){
-	LOG_DEBUG(d.log," agregando numero al rango " << value);
+	
 	d.range->addNumber(value);
 } 
 void addRangePairL(int value){
@@ -417,9 +415,9 @@ struct SetSemaphoreValue {
 		case STATUS:
 			if(d.propertyValue == Semaphore::OPEN){
 				d.semaphore->open();
-				LOG_DEBUG(d.log," abriendo semaforo");
+				
 			}else{
-				LOG_DEBUG(d.log," cerrando semaforo");
+				
 				d.semaphore->close();
 			}
 			break;
@@ -440,7 +438,7 @@ struct SetSensorValue {
 };
 struct SetSensorRail{
 	void operator()(const char* a, const char*b) const {
-		LOG_DEBUG(d.log," Poniendo rail al sensor " << d.sensor->getId());
+		
 		Point p = d.sensor->getPos();
 		Rail * r = d.game->sim.railMap.getRailAt(p.row,p.col);
 		if(r){

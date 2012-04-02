@@ -1,5 +1,5 @@
 #include "Train.h"
-MAKE_LOGGER(Train);
+
 //////////////////////////////////////////////////////
 Train::Train()
 	:

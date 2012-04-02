@@ -3,7 +3,7 @@
 #include "Dir.h"
 #include "Sim.h"
 #include "Game.h"
-MAKE_LOGGER(Console);
+
 extern bool parse(string s, Game * game);
 Console::Console (Game * game)
 	:game(game){

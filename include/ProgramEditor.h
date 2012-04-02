@@ -16,6 +16,6 @@ public:
 private:
 	TerminalWindow * window ;
 	Game * game;
-	static Logger log;
+	
 };
 #endif

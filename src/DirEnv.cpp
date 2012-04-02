@@ -4,7 +4,7 @@
 #include "CurveRail.h"
 #include "StraightRail.h"
 #include "CrossRail.h"
-MAKE_LOGGER(DirEnv);
+
 DirEnv::~DirEnv(){
 }
 DirEnv::DirEnv(){
@@ -37,10 +37,10 @@ void DirEnv::addPath(Dir from, Dir to){
 }
 Dir DirEnv::getPath(Dir dir){
 	if(dir.getValue() != Dir::NO_DIR){
-		LOG_DEBUG(log, " el path de " << dir << " es " << dirs[dir.getValue()]);
+		
 		return dirs[dir.getValue()];
 	}else{
-		LOG_DEBUG(log, " Dir no encuentra ese camino");
+		
 		return Dir(Dir::NO_DIR);
 	}
 }
@@ -50,7 +50,7 @@ Dir DirEnv::getAnyPath(){
 			return dirs[n];
 		}
 	}
-	LOG_DEBUG(log, " dirEnv.getAnyPath devuelve Dir::NO_DIR");
+	
 	return Dir(Dir::NO_DIR);
 }
 Dir DirEnv::getDir(Dir dir){

@@ -1,7 +1,7 @@
 #include "Basic.h"
 #include "WagonAspect.h"
 
-MAKE_LOGGER(WagonAspect);
+
 
 int WagonAspect::getAspectChar(){
 	return '#';

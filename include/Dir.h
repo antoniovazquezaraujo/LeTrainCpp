@@ -41,6 +41,6 @@ public:
 private:
 	short int value;
 	friend ostream& operator<<(ostream &o, Dir d);
-	static Logger log;
+	
 };
 #endif

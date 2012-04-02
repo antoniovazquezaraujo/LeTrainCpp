@@ -2,6 +2,7 @@
 #define FINDER_H
 #include "Basic.h"
 #include "RailVehicle.h"
+#include "Dir.h"
 
 class Finder :public RailVehicle{
 public:
@@ -18,8 +19,14 @@ public:
 	void erase(Window * g);
 	void addToTrain(int, Train *);
 	bool isEmpty();
+	void incImpulseGenerated(float n=0.1);
+	void decImpulseGenerated(float n=0.1);
+	float getImpulse();
+	float receiveImpulse(float imp=0.1, Dir d=Dir::NO_DIR);
+	void generateImpulse();
+	void consumeImpulse();
 private:
 	Rail * rail;
-	static Logger log;
+	
 };
 #endif

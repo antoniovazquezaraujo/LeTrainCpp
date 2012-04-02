@@ -6,6 +6,6 @@ class CrossRail: public Rail{
 public:
 	CrossRail(DirEnv * env);
 	~CrossRail();
-	static Logger log;
+	
 };
 #endif

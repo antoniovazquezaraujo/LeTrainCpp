@@ -53,10 +53,9 @@ Wagon.cpp                   \
 Window.cpp                   
 
 letrain_SOURCES= $(ALL_SRCS) Letrain.cpp
-letrain_LDFLAGS = -lncurses -lpanel -llog4cplus 
+letrain_LDFLAGS = -lncurses -lpanel 
 test_SOURCES = $(ALL_SRCS) Test.cpp
-test_LDFLAGS = -lncurses -lpanel -lcpptest -llog4cplus
+test_LDFLAGS = -lncurses -lpanel -lcpptest 
 
-EXTRA_DIST = log4cplus.properties 
 AUTOMAKE_OPTIONS = foreign
 

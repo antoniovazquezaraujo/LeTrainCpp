@@ -20,6 +20,6 @@ protected:
 
 	Dir getDir(DirEnv * env);
 	int selectAspectChar(Dir dir);
-	static Logger log;
+	
 };
 #endif

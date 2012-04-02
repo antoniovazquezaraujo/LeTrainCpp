@@ -14,7 +14,6 @@ enum SelectorStatus{
 class Train{
 public:
 	typedef deque<RailVehicle *> TVehicles;
-	typedef deque<Locomotive  *> TLocomotives;
 	Train();
 	void paint(Window * g);
 
@@ -51,17 +50,13 @@ public:
 	void advanceSelector(); 
 
 	TVehicles               & getVehicles();
-	TLocomotives            & getLocomotives();
 
 	Selector<TVehicles>     getVehicleSelector();
-	Selector<TLocomotives>  getLocomotiveSelector();
 
 	//Gestión de elementos
 	//Si hay via libre agregamos al final del tren en la dirección en la que
 	//va el selector de vehículos
 	void addVehicle(int p, RailVehicle* v);
-	void addWagon(int p, Wagon* w);
-	void addLocomotive(int p, Locomotive* l);
 
 	//Borra el último vehículo en la dirección del selector de vehículos
 	//Si se quiere eliminar uno del medio, dividir primero el tren en dos,
@@ -80,10 +75,8 @@ private:
 
 //properties:
 	TVehicles vehicles;
-	Train::TLocomotives locomotives;
 
 	Selector<TVehicles> vehicleSelector;
-	Selector<TLocomotives> locomotiveSelector;
 
 	int numStoppedTurns;
 	float totalImpulse;
@@ -95,7 +88,7 @@ private:
 	bool selected;
 	bool reversedSelector;
 	bool deleted;
-	static Logger log;
+	
 	friend ostream & operator << (ostream & o, Train t);
 }; 
 #endif

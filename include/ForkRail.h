@@ -15,6 +15,6 @@ private:
 	ForkAspect * forkAspect;
 	ForkDirSelector * selector;
 	friend ostream & operator << (ostream & o, ForkRail & rail);
-	static Logger log;
+	
 };
 #endif

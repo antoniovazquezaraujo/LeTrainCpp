@@ -32,7 +32,6 @@
 void fin(int n);
 int main(){
 	signal(SIGINT, fin);
-	PropertyConfigurator::doConfigure("log4cplus.properties");
 	Window::setup();
 	Game g;
 	g.start();

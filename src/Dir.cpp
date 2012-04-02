@@ -1,6 +1,6 @@
 #include "Basic.h"
 #include "Dir.h"
-MAKE_LOGGER(Dir);
+
 
 int Dir::getAspectChar()const{
 	char ret = 0; 

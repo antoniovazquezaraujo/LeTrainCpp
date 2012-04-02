@@ -2,7 +2,7 @@
 #include "Wagon.h"
 #include "Train.h"
 #include "WagonAspect.h"
-MAKE_LOGGER(Wagon);
+
 
 Wagon::Wagon()
 	:RailVehicle(new WagonAspect()){

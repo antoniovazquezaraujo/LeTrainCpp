@@ -3,7 +3,7 @@
 #include "Dir.h"
 #include "Sim.h"
 #include "Game.h"
-MAKE_LOGGER(ProgramEditor);
+
 extern bool parse(string s, Game * game);
 ProgramEditor::ProgramEditor (Game * game)
 	:game(game){

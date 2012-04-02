@@ -17,6 +17,6 @@ public:
 	Commander     commander;
 private:
 	bool running;
-	static Logger log;
+	
 };
 #endif

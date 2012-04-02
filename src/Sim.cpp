@@ -16,7 +16,7 @@
 #include "RailVehicle.h"
 #include "Locomotive.h"
 
-MAKE_LOGGER(Sim);
+
 
 Sim::Sim ()
 	:
@@ -190,15 +190,15 @@ void Sim::acceptAndRun(Event * event, EventProgram * eventProgram){
 		Sensor      * sensor=0;
 		Rail        * rail=0;
 		RailVehicle * vehicle = 0;
-		LOG_DEBUG(log," evento de tipo:" << message->getCommand());
+		
 		switch(message->getCommand()){
 		case Message::FORK_DIR:
 			forkRail = getFork(message->getTarget()); 
 			forkRail->selectDir(Dir(message->getValue()));
-			LOG_DEBUG(log," Cambiando fork:" << message->getTarget() << " a: " << message->getValue());
+			
 			break;
 		case Message::SEMAPHORE:
-			LOG_DEBUG(log," Cambiando semaforo:" << message->getTarget() << " a: " << message->getValue());
+			
 			semaphore = getSemaphore(message->getTarget());
 			if(message->getValue() == Semaphore::OPEN){ 
 				semaphore->open();
@@ -207,7 +207,7 @@ void Sim::acceptAndRun(Event * event, EventProgram * eventProgram){
 			}
 			break;
 		case Message::TRAIN_SPEED:
-			LOG_DEBUG(log," Cambiando velocidad de:" << message->getTarget() << " a: " << message->getValue());
+			
 			//loco = getLocomotive(message->getTarget());
 			//loco->setSpeed(message->getValue());
 			break;

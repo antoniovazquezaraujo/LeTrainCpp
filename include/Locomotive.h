@@ -13,11 +13,15 @@ public:
 	void erase(Window * g);
 	int getId();
 	void setId(int id);
-	void addToTrain(int, Train *);
-	//void move();
+	void incImpulseGenerated(float n=0.1);
+	void decImpulseGenerated(float n=0.1);
+//	float getImpulse();
+//	float receiveImpulse(float imp=0.1, Dir d=Dir::NO_DIR);
+//	void generateImpulse();
+//	void consumeImpulse();
 private:
 	int id;
 	int power;
-	static Logger log;
+	
 };
 #endif

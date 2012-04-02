@@ -4,7 +4,7 @@
 #include "LocomotiveAspect.h"
 #include "Window.h"
 
-MAKE_LOGGER(Locomotive);
+
 
 Locomotive::Locomotive()
 	:RailVehicle(new LocomotiveAspect()){

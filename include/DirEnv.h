@@ -21,6 +21,6 @@ private:
 	bool isCurve();
 	bool isCross();
 	bool isFork();
-	static Logger log;
+	
 };
 #endif

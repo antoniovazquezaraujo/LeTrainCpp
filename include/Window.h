@@ -42,6 +42,6 @@ protected:
 	int fgColor, bgColor;
 	int reversed, bold, underlined;
 	int hShift, vShift;
-	static Logger log;
+	
 };
 #endif
