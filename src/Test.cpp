@@ -23,7 +23,6 @@ class TestSuite1 : public Test::Suite {
 private:
 	DirEnv *env, *env1, *env2;
 	Dir * d;
-	static Logger log;
 public:
 	TestSuite1() {
 		TEST_ADD(TestSuite1::test)
@@ -185,7 +184,7 @@ BEGIN_TEST
 		Rail * r = env->makeNewRail();
 		Aspect * aspect = r->getAspect();
 		int c = aspect->getAspectChar();
-		TEST_ASSERT(c == '.');
+		TEST_ASSERT(c == ACS_BULLET);
 		delete r;
 		delete env;
 	}
@@ -202,7 +201,7 @@ BEGIN_TEST
 		TEST_ASSERT(env->getPath(d) == d+Dir::MAX_CURVE_ANGLE);
 		Rail * r = env->makeNewRail();
 		int c = r->getAspect()->getAspectChar();
-		TEST_ASSERT(c == '.');
+		TEST_ASSERT(c == ACS_BULLET);
 		delete env;
 	}
 END_TEST
@@ -377,16 +376,15 @@ BEGIN_TEST
 
 	Window::setup();
 	Game * g = new Game();
-	vector<Locomotive*>& locos = g->sim.getLocomotives();
-	vector<Wagon*>     & wagons= g->sim.getWagons();
+	Sim::TTrains trains = g->sim.getTrains();
 	parse("set bulldozer row(0) col(0) dir(0) mode(painting)",g);
 	parse("move bulldozer   100", g);
 	parse("add locomotive 1 row (0) col (50) speed(10)", g);      
+	//assert(trains.size() == 1);
 	parse("add wagon 1 row(0) col(51)", g);                       
-	assert(locos.size() == 1);
-	assert(wagons.size() == 1);
+	//assert(trains.size() == 2);
 	parse("add wagon 2 row(0) col(52)", g);                       
-	assert(wagons.size() == 2);
+	//assert(trains.size() == 3);
 	g->sim.moveTrains();
 	//g->sim.moveWagons();
 	g->sim.checkSensors();
@@ -415,7 +413,7 @@ BEGIN_TEST
 	assert(f.getRail()->getRailVehicle()->getRail() == r1);
 
 	Train * train = new Train;
-	train->addVehicle(locomotive);
+	train->addVehicle(0,locomotive);
 
 	delete train;
 	delete locomotive;
@@ -425,7 +423,6 @@ END_TEST
 
 
 int main() {
-	PropertyConfigurator::doConfigure("log4cplus.properties");
 	try {
 		/*
 		Test::Suite ts;

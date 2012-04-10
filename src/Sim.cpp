@@ -126,7 +126,7 @@ void Sim::moveTrains(){
 		}
 	}
 	trains.erase(remove_if(trains.begin(), trains.end(),
-			[](Train * t){return t->isMarkedAsDeleted();}),
+			[](Train * t) -> bool {return t->isMarkedAsDeleted();}),
 			trains.end());
 
 	for(auto t : trains){
@@ -166,6 +166,7 @@ Train * Sim::unlink(){
 		Train * t = *(trainSelector.getSelected());
 		return t->unlink();
 	}
+	return nullptr;
 }
 void Sim::checkSensors(){
 	for(auto s : sensors){
@@ -184,7 +185,7 @@ void Sim::acceptAndRun(Event * event, EventProgram * eventProgram){
 	}
 
 	for(auto message : *eventProgram->getMessages()){
-		Locomotive  * loco=0;
+		//Locomotive  * loco=0;
 		ForkRail    * forkRail=0;
 		Semaphore   * semaphore=0;
 		Sensor      * sensor=0;

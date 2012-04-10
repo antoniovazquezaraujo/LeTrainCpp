@@ -21,14 +21,15 @@ RailVehicle::RailVehicle(Aspect * aspect)
 	:Vehicle(aspect),
 	impulse(0),
 	impulseGenerated (0),
-	brakes(0),
 	mass(10),
+	kinetic(0),
+	brakes(0),
 	speed(0),
 	friction(0),
-	kinetic(0),
 	rail(0),
 	moved(false),
 	selectedLink(0),
+	train(0),
 	turns(1){
 
 }
@@ -65,7 +66,7 @@ void RailVehicle::consumeImpulse(){
 	impulse = 0;
 }
 float RailVehicle::receiveImpulse(float impulseReceived, Dir dir){
-	float consumed = 0;
+	//float consumed = 0;
 	//va en mi misma dirección
 	if(getRail()->getPath(-dir) == this->dir){
 		this->kinetic +=impulseReceived;

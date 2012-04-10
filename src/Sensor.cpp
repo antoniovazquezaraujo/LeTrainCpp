@@ -15,7 +15,7 @@ Event * Sensor::check(){
 	if(!v && !armed){
 		armed=true;
 	}
-	if(armed & v!= 0){
+	if(armed & (v!= 0)){
 		Locomotive * loco = dynamic_cast<Locomotive*>(v);
 		if(loco){
 			armed = false;

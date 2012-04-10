@@ -4,16 +4,16 @@
 Train::Train()
 	:
 	vehicleSelector   (&vehicles),
-	totalImpulse      (0),
+	reversedSelector  (false),
 	numStoppedTurns   (0),
+	totalImpulse      (0),
 	speed             (0),
 	totalMass         (0),
 	trainDir          (Dir::NO_DIR),
 	moved             (false),
 	reversed          (false),
 	selected          (false),
-	deleted           (false),
-	reversedSelector  (false){
+	deleted           (false){
 		
 }
 void Train::paint(Window * g){
@@ -244,7 +244,7 @@ void Train::shiftBackward(){
 void Train::invert(){
 	Train::TVehicles::iterator i;
 	for(i=vehicles.begin();i!=vehicles.end();i++){
-		Dir d = (*i)->getDir();
+		//Dir d = (*i)->getDir();
 		(*i)->getRail()->reverseVehicle();
 	}
 }

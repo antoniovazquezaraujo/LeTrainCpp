@@ -1,4 +1,4 @@
-CXXFLAGS= -std=c++0x -ggdb3 -O0 -I. -I$(top_srcdir)/include 
+CXXFLAGS= -Wall -std=c++0x -ggdb3 -O0 -I. -I$(top_srcdir)/include 
 CFLAGS	= -ggdb3 -O0 -I. -I$(top_srcdir)/include 
 
 bin_PROGRAMS = letrain 

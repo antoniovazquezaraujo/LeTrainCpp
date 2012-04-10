@@ -1,13 +1,15 @@
-#include <boost/spirit/core.hpp>
-#include <boost/spirit/utility/confix.hpp>
-#include <iostream>
-#include <map>
-#include <string>
+#include <boost/spirit/include/classic.hpp>
+#include <boost/spirit/include/phoenix1.hpp>
 #include "boost/lambda/bind.hpp"
 #include "boost/lambda/lambda.hpp"
 #include "boost/any.hpp"
+
+#include <iostream>
+#include <map>
+#include <string>
 #include <functional>
 #include <algorithm>
+
 #include "Sim.h" 
 #include "Locomotive.h" 
 #include "Train.h" 
@@ -26,7 +28,7 @@
 #include "ProgramEditor.h" 
 ///////////////////////////////////////////////////////////////////////////////
 using namespace std;
-using namespace boost::spirit;
+using namespace boost::spirit::classic;
 using namespace boost::lambda;
 enum {ROW, COL, SPEED, POWER, BRAKES, DIR, LINK, UNLINK, SENSOR, HOURS, MINUTES,
 	SECONDS, LOCOMOTIVE, WAGON, MODE, STATUS
